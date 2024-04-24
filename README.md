@@ -1,1 +1,1 @@
-# 42_miniRT
+# 42_mini_rt
