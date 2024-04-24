@@ -1,6 +1,6 @@
 # Welcome to miniRT Project! 👋
 
-miniRT is a small Ray Tracer project implemented as part of the curriculum at 42 School of Perpignan.
+miniRT is a small Ray Tracer project implemented as part of the curriculum at 42 School of Perpignan. 
 
 ## About miniRT
 
