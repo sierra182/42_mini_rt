@@ -19,9 +19,59 @@ int	key_press(int keycode, void *param)
 	return (0);
 }
 
+void	put_pxl(int x, int y, unsigned int color)
+{	
+	char	*img_data;
+	int		size_line;
+	int		bpp;
+	int		pxl_pos;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{		
+		img_data_handle(NULL, &img_data, &size_line, &bpp);
+		pxl_pos = x * bpp / 8 + y * size_line;
+		*(int *)(img_data + pxl_pos) = color;
+	}
+}
+
+static void	add_background(int x, int y)
+{
+	char	*img_data;
+	int		pxl_pos;
+	int		bpp;
+	int		size_line;
+
+	img_data_handle(NULL, &img_data, &size_line, &bpp);
+	while (++x < WIDTH)
+	{
+		y = -1;
+		while (++y < HEIGHT)		
+			put_pxl(x, y, 0xFFEDCB);		
+	}
+}
+
+void	frame(t_point **pt_arr, int per, t_mlx *mlx)
+{
+	void	*img_ptr;
+	int		len;
+
+	img_ptr = mlx_new_image(mlx->connect, WIDTH, HEIGHT);
+	img_data_handle(img_ptr, NULL, NULL, NULL);
+	add_background(-1, -1);
+	mlx_put_image_to_window(mlx->connect, mlx->window, img_ptr, 0, 0);
+	mlx_destroy_image(mlx->connect, img_ptr);
+}
+
 int	loop(void *param)
 {
+	static int	refresh;
+
 	(void) param;
+	refresh = (refresh + 1) % 100;	
+	if (!event->flag && refresh)
+		return (0);
+	frame();
+	event->flag = 0;
 	return (0);
 }
 
