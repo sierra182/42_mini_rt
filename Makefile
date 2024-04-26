@@ -24,21 +24,22 @@ LIBFTPRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 FT_PRINTF_DIR = ft_printf
 SRC_DIR = sources
 HEADERS_DIR = include
-MLX = mlx_linux
+MLX_DIR = mlx_linux
 
 CC = cc
-CFLAGS = -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(FT_PRINTF_DIR) -I$(HEADERS_DIR) \
-	-I$(MLX) -O3 -Wall -Wextra -Werror
-LDFLAGS = -L$(MLX) -lmlx_Linux -lXext -lX11 -lm -lz
+CFLAGS = -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR) \
+	-I$(MLX_DIR) -O3 -Wall -Wextra -Werror
+LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 
 SOURCES = $(SRC_DIR)/main.c 
 OBJECTS = $(SOURCES:.c=.o)
 
 HEADERS = \
-	$(HEADERS_DIR)/main.h \
+	#$(HEADERS_DIR)/main.h \
 	#$(GNL_DIR)/get_next_line.h	
 
-.PHONY: all ft_printf clean fclean re intro l newline backline emoticon #bonus
+.PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
+#bonus
 
 $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
@@ -56,10 +57,13 @@ $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 # 	@echo "\033[0;32m compiling $(NAME) object bonus $<...\033[0m" 🚀
 # 	@$(CC) $(CFLAGS) $< -c -o $@
 
-all: intro ft_printf $(NAME) emoticon		
+all: intro mlx ft_printf $(NAME) emoticon		
 
-l: ft_printf $(NAME)
-	
+l: newline mlx ft_printf $(NAME)
+
+mlx:
+	@$(MAKE) -s -C $(MLX_DIR)
+
 ft_printf: emoticon
 #	@$(MAKE) -s -C $(LIBFT_DIR) bonus 
 	@$(MAKE) -s -C $(FT_PRINTF_DIR) 
@@ -115,6 +119,8 @@ clean:
 	@rm -f $(OBJECTS) $(OBJECTS_BONUS);
 	@$(MAKE) -C $(FT_PRINTF_DIR) clean -s
 	@echo ""
+	@$(MAKE) -C $(MLX_DIR) clean -s
+	@echo ""
 
 fclean: 
 	@echo "\n cleanning $(NAME) objects 🧻"
@@ -122,6 +128,8 @@ fclean:
 	@echo " cleanning $(NAME) 🚽" 
 	@rm -f $(NAME) $(NAME_BONUS)
 	@$(MAKE) -C $(FT_PRINTF_DIR) fclean -s
+	@echo ""
+	@$(MAKE) -C $(MLX_DIR) clean -s
 	@echo ""
 
 re: fclean backline l

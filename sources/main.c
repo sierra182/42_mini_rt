@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "ft_printf.h"
-// #include "libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 int	main(void)
 {
-	// ft_strlen("oui");
-	// ft_printf("nique toi\n");
+	ft_strlen("oui");
+	ft_printf("nique toi\n");
 	return (0);
 }

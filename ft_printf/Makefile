@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: svidot <svidot@student.42.fr>              +#+  +:+       +#+         #
+#    By: seblin <seblin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/29 08:16:28 by seblin            #+#    #+#              #
-#    Updated: 2023/12/21 16:43:24 by svidot           ###   ########.fr        #
+#    Updated: 2024/04/26 11:53:48 by seblin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,11 @@ libft :
 	@$(CC) $(CFLAGS) $< -c -o $@
 
 $(NAME) :: $(LIBFTPATH)
-	@echo "\n\033[0;32m copying $(LIBFTPATH) to $(NAME)...\033[0m 🚀\n"
+	@echo "\033[0;32m copying $(LIBFTPATH) to $(NAME)...\033[0m 🚀"
 	@cp $(LIBFTPATH) $(NAME)
 
 $(NAME) :: $(OBJECTS)
-	@echo "\n\033[0;32m adding $(OBJECTS) to $(NAME)...\033[0m 🚀\n"	
+	@echo "\033[0;32m adding $(OBJECTS) to $(NAME)...\033[0m 🚀\n"	
 	@ar rcs $@ $(OBJECTS)	
 	
 clean :

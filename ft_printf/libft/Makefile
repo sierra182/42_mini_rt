@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: seblin <seblin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 06:56:29 by svidot            #+#    #+#              #
-#    Updated: 2024/02/18 20:03:41 by marvin           ###   ########.fr        #
+#    Updated: 2024/04/26 11:57:23 by seblin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ BONUS_FLAG = 0
 all: $(NAME)
 
 %.o : %.c $(HEADER)
-	@echo "\033[0;32m compiling libft object $<...\033[0m" 🚀
+#	@echo "\033[0;32m compiling libft object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
 %_bonus.o : %_bonus.c 
@@ -40,7 +40,7 @@ all: $(NAME)
 	fi
 	
 $(NAME) :: $(OBJECTS)
-	@echo "\n\033[0;32m adding libft object $? to $@ ...\033[0m 🚀\n"
+	@echo "\033[0;32m compiling and adding libft objects to $(NAME) ...\033[0m 🚀\n"
 	@ar rcs $@ $?
 
 change_flag:
