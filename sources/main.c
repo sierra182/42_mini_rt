@@ -18,6 +18,12 @@
 #define WIDTH 600
 #define HEIGHT 500
 
+typedef struct s_mlx
+{
+	void	*connect;
+	void	*window;
+}	t_mlx;
+
 int	main(void)
 {	
 	ft_printf("nique toi\n");
