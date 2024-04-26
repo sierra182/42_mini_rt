@@ -31,8 +31,9 @@ CFLAGS = -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) -O3 -Wall -Wextra -Werror
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 
-SOURCES = $(SRC_DIR)/main.c 
 OBJECTS = $(SOURCES:.c=.o)
+
+SOURCES = $(SRC_DIR)/main.c
 
 HEADERS = \
 	#$(HEADERS_DIR)/main.h \
