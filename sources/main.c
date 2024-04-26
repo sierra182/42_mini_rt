@@ -24,7 +24,7 @@ typedef struct s_mlx
 	void	*window;
 }	t_mlx;
 
-int	key_press(int keycode, void *param[])
+int	key_press(int keycode, void *param)
 {
 	// t_event	*event;
 
@@ -48,22 +48,29 @@ int	key_press(int keycode, void *param[])
 	// 	init_event(event, (t_point **) param[0]);
 	// else 
 	if (keycode == 65307)
-		mlx_loop_end(param[2]);
+		mlx_loop_end(param);
+	return (0);
+}
+
+int	loop(void *param)
+{
+	(void) param;
 	return (0);
 }
 
 int	main(void)
 {	
-	ft_printf("nique toi\n");
 	t_mlx	mlx;
 
 	mlx.connect = mlx_init();
 	if (!mlx.connect)
 		return (1);
-	mlx.window = mlx_new_window(mlx.connect, WIDTH, HEIGHT, "fdf");
+	mlx.window = mlx_new_window(mlx.connect, WIDTH, HEIGHT, "miniRT");
 	if (!mlx.window)
 		return (mlx_destroy_display(mlx.connect), free(mlx.connect), 1);
-	mlx_hook(mlx.window, 2, 1L << 0, key_press, (void *)  mlx.connect);
+	mlx_hook(mlx.window, 2, 1L << 0, key_press, (void *) mlx.connect);
+	mlx_hook(mlx.window, 17, 0L, mlx_loop_end, mlx.connect);
+	mlx_loop_hook(mlx.connect, loop, NULL);
 	mlx_loop(mlx.connect);
 	mlx_destroy_window(mlx.connect, mlx.window);
 	mlx_destroy_display(mlx.connect);
