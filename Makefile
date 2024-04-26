@@ -57,7 +57,7 @@ $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 # 	@echo "\033[0;32m compiling $(NAME) object bonus $<...\033[0m" 🚀
 # 	@$(CC) $(CFLAGS) $< -c -o $@
 
-all: intro mlx ft_printf $(NAME) emoticon		
+#all: intro mlx ft_printf $(NAME) emoticon		
 
 l: newline mlx ft_printf $(NAME)
 
