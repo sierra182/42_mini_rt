@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_store.c                                       :+:      :+:    :+:   */
+/*   data_store.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/30 18:35:28 by seblin            #+#    #+#             */
-/*   Updated: 2024/04/26 17:04:51 by svidot           ###   ########.fr       */
+/*   Created: 2024/03/30 18:36:20 by seblin            #+#    #+#             */
+/*   Updated: 2024/04/26 16:55:40 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data_store.h"
+#ifndef DATA_STORE_H
+# define DATA_STORE_H
 
-void	store_and_free_mlx(t_exit *exit, void *mlx)
-{
-	if (exit && mlx)
-		exit->mlx = (t_mlx *) mlx;
-	else if (exit && exit->mlx)
-	{
-		mlx_destroy_window(exit->mlx->connect, exit->mlx->window);
-		mlx_destroy_display(exit->mlx->connect);
-		free(exit->mlx->connect);
-		exit->mlx = NULL;
-	}
-}
+# include <stdlib.h>
+# include "x_mini_struct.h"
+# include "mlx.h"
 
-t_mlx	*get_mlx(void)
-{
-	return (get_exit_struct()->mlx);
-}
+t_exit	*get_exit_struct(void);
+
+#endif

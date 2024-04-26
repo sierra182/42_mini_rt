@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 21:45:28 by seblin            #+#    #+#             */
-/*   Updated: 2024/04/10 12:04:08 by seblin           ###   ########.fr       */
+/*   Updated: 2024/04/26 17:04:36 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exit.h"
 
-static t_exit	*get_exit_struct(void)
+t_exit	*get_exit_struct(void)
 {
 	static t_exit	exit;
 
@@ -23,15 +23,14 @@ static t_getsaf	*get_store_and_free(void)
 {
 	static void	(*store_and_free[END])(t_exit *, void *);
 
-	if (!store_and_free[DAT])
+	if (!store_and_free[MLX])
 	{
-		store_and_free[PHI] = store_and_free_philos;
-		store_and_free[DAT] = store_and_free_data;
+		store_and_free[MLX] = store_and_free_mlx;
 	}
 	return (store_and_free);
 }
 
-void	add_exit_struct(void *ptr, t_exit_enum ex_en)
+void	add_exit_struct(void *ptr, t_enum_exit ex_en)
 {
 	void	(**store_and_free)(t_exit *, void *);
 	t_exit	*exit;
@@ -45,7 +44,7 @@ void	add_exit_struct(void *ptr, t_exit_enum ex_en)
 void	flush_exit_struct(void)
 {
 	void		(**store_and_free)(t_exit *, void *);
-	t_exit_enum	ex_en;
+	t_enum_exit	ex_en;
 	t_exit		*exit;
 
 	ex_en = STT;

@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_store.c                                       :+:      :+:    :+:   */
+/*   x_mini_struct.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/30 18:35:28 by seblin            #+#    #+#             */
-/*   Updated: 2024/04/26 17:04:51 by svidot           ###   ########.fr       */
+/*   Created: 2024/04/26 15:43:47 by svidot            #+#    #+#             */
+/*   Updated: 2024/04/26 17:03:17 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data_store.h"
+#ifndef X_MINI_STRUCT_H
+# define X_MINI_STRUCT_H
 
-void	store_and_free_mlx(t_exit *exit, void *mlx)
-{
-	if (exit && mlx)
-		exit->mlx = (t_mlx *) mlx;
-	else if (exit && exit->mlx)
-	{
-		mlx_destroy_window(exit->mlx->connect, exit->mlx->window);
-		mlx_destroy_display(exit->mlx->connect);
-		free(exit->mlx->connect);
-		exit->mlx = NULL;
-	}
-}
+# define WIDTH 600
+# define HEIGHT 500
 
-t_mlx	*get_mlx(void)
+typedef struct s_mlx
 {
-	return (get_exit_struct()->mlx);
-}
+	void	*connect;
+	void	*window;
+}	t_mlx;
+
+typedef struct s_exit
+{
+	t_mlx	*mlx;
+}	t_exit;
+
+typedef enum e_exit
+{
+	STT,
+	MLX,
+	END
+}	t_enum_exit;
+
+#endif

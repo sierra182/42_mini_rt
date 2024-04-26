@@ -18,6 +18,7 @@
 #SOURCES_BONUS = 
 #CFLAGS_BONUS =
 #GNL_DIR = gnl
+
 NAME = miniRT
 LIBFT_DIR = ft_printf/libft
 LIBFTPRINTF = $(FT_PRINTF_DIR)/libftprintf.a
@@ -27,17 +28,29 @@ HEADERS_DIR = include
 MLX_DIR = mlx_linux
 
 CC = cc
-CFLAGS = -I$(LIBFT_DIR) -I$(FT_PRINTF_DIR) \
-	-I$(MLX_DIR) -O3 -Wall -Wextra -Werror
+CFLAGS = \
+	-I$(HEADERS_DIR) \
+	-I$(HEADERS_DIR)/exit \
+	-I$(LIBFT_DIR) \
+	-I$(FT_PRINTF_DIR) \
+	-I$(MLX_DIR) \
+	-O3 -Wall -Wextra -Werror
+
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 
 OBJECTS = $(SOURCES:.c=.o)
 
-SOURCES = $(SRC_DIR)/main.c
+SOURCES = \
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/exit/exit.c \
+	$(SRC_DIR)/exit/data_store.c \
 
 HEADERS = \
-	#$(HEADERS_DIR)/main.h \
-	#$(GNL_DIR)/get_next_line.h	
+	$(HEADERS_DIR)/main.h \
+	$(HEADERS_DIR)/x_mini_struct.h \
+	$(HEADERS_DIR)/x_exit.h \
+	$(HEADERS_DIR)/exit/exit.h \
+	$(HEADERS_DIR)/exit/data_store.h \
 
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
 #bonus

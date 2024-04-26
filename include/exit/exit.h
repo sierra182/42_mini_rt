@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_store.c                                       :+:      :+:    :+:   */
+/*   exit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/30 18:35:28 by seblin            #+#    #+#             */
-/*   Updated: 2024/04/26 17:04:51 by svidot           ###   ########.fr       */
+/*   Created: 2024/03/29 12:35:46 by seblin            #+#    #+#             */
+/*   Updated: 2024/04/26 16:21:41 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data_store.h"
+#ifndef EXIT_H
+# define EXIT_H
 
-void	store_and_free_mlx(t_exit *exit, void *mlx)
-{
-	if (exit && mlx)
-		exit->mlx = (t_mlx *) mlx;
-	else if (exit && exit->mlx)
-	{
-		mlx_destroy_window(exit->mlx->connect, exit->mlx->window);
-		mlx_destroy_display(exit->mlx->connect);
-		free(exit->mlx->connect);
-		exit->mlx = NULL;
-	}
-}
+# include <stdlib.h>
+# include "x_mini_struct.h"
 
-t_mlx	*get_mlx(void)
-{
-	return (get_exit_struct()->mlx);
-}
+typedef void	(*t_getsaf)(t_exit *, void *);
+void			store_and_free_mlx(t_exit *exit, void *mlx);
+
+#endif
