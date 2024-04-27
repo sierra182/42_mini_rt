@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   x_mini_struct.h                                    :+:      :+:    :+:   */
+/*   ft_is_overflow.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 15:43:47 by svidot            #+#    #+#             */
-/*   Updated: 2024/04/27 17:35:53 by seblin           ###   ########.fr       */
+/*   Created: 2024/04/27 17:29:20 by seblin            #+#    #+#             */
+/*   Updated: 2024/04/27 17:30:30 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef X_MINI_STRUCT_H
-# define X_MINI_STRUCT_H
+#include "limits.h"
 
-# define WIDTH 600
-# define HEIGHT 500
-
-typedef struct s_mlx
+int	ft_isoverflow(char *str)
 {
-	void	*connect;
-	void	*window;
-}	t_mlx;
+	long	nbr;
+	int		isneg;
 
-// typedef struct s_cam
-// {
-	
-// }
-
-typedef struct s_exit
-{
-	t_mlx	*mlx;
-}	t_exit;
-
-typedef enum e_exit
-{
-	STT,
-	MLX,
-	END
-}	t_enum_exit;
-
-#endif
+	nbr = 0;
+	isneg = 0;
+	if (*str == '-' && ++isneg)
+		str++;
+	else if (*str == '+')
+		str++;
+	while (*str)
+	{
+		nbr = nbr * 10 + *str++ - 48;
+		if (nbr - isneg > INT_MAX)
+			return (1);
+	}
+	return (0);
+}

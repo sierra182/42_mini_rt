@@ -98,7 +98,7 @@ int	main(void)
 {
 	t_mlx	mlx;
 
-	ft_printf("hello world!\n");
+	ft_printf("hello world!\n");	
 	parse();
 	if (init_mlx(&mlx))
 		return (1);
