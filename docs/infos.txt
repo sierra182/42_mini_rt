@@ -3,3 +3,5 @@ J'ai configuré mon GIT pour pouvoir push directement sur ton repo, tout en ayan
 Je ne crois pas que cela ne change quoi que ce soit pour toi, tu n'as qu'à travailler directement avec ton repo. De mon côté, j'aurai une commande un peu différente pour push et pull (j'ai dû ajouter un remote)...
 
 Un petit test pour vérifier la connection des repos
+
+valgrind --leak-check=full --show-leak-kinds=all ./miniRT
