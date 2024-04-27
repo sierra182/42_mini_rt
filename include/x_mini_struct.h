@@ -6,7 +6,7 @@
 /*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:43:47 by svidot            #+#    #+#             */
-/*   Updated: 2024/04/27 17:35:53 by seblin           ###   ########.fr       */
+/*   Updated: 2024/04/27 21:36:16 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,27 @@ typedef struct s_mlx
 	void	*window;
 }	t_mlx;
 
-// typedef struct s_cam
-// {
-	
-// }
+typedef struct s_vector
+{
+	double	axis[3];
+}	t_vector;
+
+typedef struct s_ray
+{
+    t_vector	origin_vect;
+    t_vector	dir_vect;
+}	t_ray;
+
+typedef struct s_cam
+{
+	double		fov;
+	double		focal_len;
+	int			resol[2];	
+	t_vector	*origin_vect;
+	t_vector	*forward_vect;
+	t_vector	*up_vect;
+	t_vector	*right_vect;
+}	t_cam;
 
 typedef struct s_exit
 {
