@@ -99,6 +99,7 @@ int	main(void)
 	t_mlx	mlx;
 
 	ft_printf("hello world!\n");
+	parse();
 	if (init_mlx(&mlx))
 		return (1);
 	launch_mlx_loop(&mlx);

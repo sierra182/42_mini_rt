@@ -44,6 +44,7 @@ SOURCES = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
+	$(SRC_DIR)/parsing/parse.c \
 
 HEADERS = \
 	$(HEADERS_DIR)/main.h \
