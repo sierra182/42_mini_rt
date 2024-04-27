@@ -30,7 +30,7 @@ void	put_pxl(int x, int y, unsigned int color)
 	{		
 		img_data_handle(NULL, &img_data, &size_line, &bpp);
 		pxl_pos = x * bpp / 8 + y * size_line;
-		*(int *)(img_data + pxl_pos) = color;
+		*(unsigned int *)(img_data + pxl_pos) = color;
 	}
 }
 
