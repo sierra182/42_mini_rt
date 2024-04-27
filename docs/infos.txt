@@ -1,1 +1,3 @@
-Salut les amis! C'est moi!
+J'ai configuré mon GIT pour pouvoir push directement sur ton repo, tout en ayant fork le tien.
+
+Je ne crois pas que cela ne change quoi que ce soit pour toi, tu n'as qu'à travailler directement avec ton repo. De mon côté, j'aurai une commande un peu différente pour push et pull (j'ai dû ajouter un remote)...
