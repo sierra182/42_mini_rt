@@ -102,22 +102,31 @@ int	check_float(char *str)
 	{
 		if (*str == '.')
 			i++;
-		if (!ft_isdigit(*str) && *str != '.')
+		if ((!ft_isdigit(*str) && *str != '.') || *str == '-' || *str == '+')
             return (0);
-		if (*str == '-' || *str == '+')
-			return (0);
 		str++;
 	}
 	str--;
-	if (!ft_isdigit(*str))
-		return (0);
-	if (i > 1)
+	if (!ft_isdigit(*str) || i > 1)
 		return (0);
 	return (1);
 }
 
-int	check_byte(char *token)
+
+int	check_byte(char *str)
 {
+	int	i;
+
+	i = 0;
+	if (ft_strlen(str) > 3)
+		return (0);	
+	while (*str != '\0')
+	{
+		if (!ft_isdigit(*str))
+		return 0;
+		str++;
+	}
+	str--;
 	return (1);
 }
 
@@ -132,7 +141,7 @@ int	check_data(char *str, char *token, char *check)
 	i = 1;
 	while (token)
 	{
-		token = ft_strtok(NULL, ", \t");
+		token = ft_strtok(NULL, ", \t\n");
 		if (data_type[i] && !ft_strcmp(data_type[i], "float") && !check_float(token))
 			return (0);
 		if (data_type[i] && !ft_strcmp(data_type[i], "byte") && !check_byte(token))
