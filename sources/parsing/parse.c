@@ -115,9 +115,9 @@ int	check_float(char *str)
 
 int	check_byte(char *str)
 {
-	int	i;
+	int	num;
 
-	i = 0;
+	num = ft_atoi(str);
 	if (ft_strlen(str) > 3)
 		return (0);	
 	while (*str != '\0')
@@ -126,6 +126,8 @@ int	check_byte(char *str)
 		return 0;
 		str++;
 	}
+	if (num < 0 || num > 255)
+		return (0);
 	str--;
 	return (1);
 }
