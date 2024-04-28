@@ -6,6 +6,7 @@ int	file_exists(char *map_path);
 #include <unistd.h>
 #include "get_next_line.h"
 #include "ft_printf.h"
+#include <stdio.h>
 #define FILE_SIZE 1024
 
 ssize_t read(int fd, void *buf, size_t count);
@@ -43,7 +44,7 @@ int	element_is_present(char file_content[], char *el)
 	{
 		if (!ft_strncmp(&file_content[i], el, ft_strlen(el)) && (!file_content[i + ft_strlen(el)] || ft_isspace(file_content[i + ft_strlen(el)])) && (!file_content[i - 1] || ft_isspace(file_content[i - 1])))
 		{
-			// ft_printf("char: >%c<\n", file_content[i - 1]);
+			// printf("char: >%c<\n", file_content[i - 1]);
 			n++;
 		}
 		i++;
@@ -87,19 +88,97 @@ int	is_only_valid_chars(char file_content[])
 	return (1);
 }
 
+int	check_data_A(char *str, char *token)
+{
+	int		i;
+	double	j;
+
+	j = 0;
+	i = 0;
+	while (token != NULL)
+	{
+		token = ft_strtok(NULL, ", \t");
+		if (token)
+		{
+			if (i == 0)
+			{
+				j = atof(token);
+				if (j < 0.0 || j > 1.0)
+				{
+					printf("Token %i: %s, %f\n",i , token, j);
+					return (0);
+				}
+			}
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_data_C(char *str, char *token)
+{
+	return (1);
+}
+
+int	check_data_L(char *str, char *token)
+{
+	return (1);
+}
+
+int	check_data_sp(char *str, char *token)
+{
+	return (1);
+}
+
+int	check_data_pl(char *str, char *token)
+{
+	return (1);
+}
+
+int	is_empty_str(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isspace(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	check_data_cy(char *str, char *token)
+{
+	return (1);
+}
 int	data_str_is_valid(char *str)
 {
 	char	*token;
+	char	*data_str;
+	int		status;
 
-	ft_printf("Check str: >%s<", str);
+	status = 0;
+	data_str = NULL;
 	token = ft_strtok(str, ", \t");
-	if (!ft_strcmp(token, "A"))
-		ft_printf("HOLLY COW! >%s<\n", str);
-	while (token != NULL)
-	{
-		ft_printf("Token: %s\n", token);
-		token = ft_strtok(NULL, ", \t");
-	}
+	if (str[0] == '\n' || is_empty_str(str))
+		return (1);
+	if (!ft_strcmp(token, "A") && &str[1] && token)
+		status = check_data_A(&str[1], token);
+	if (!ft_strcmp(token, "C") && &str[1] && token)
+		status = check_data_C(&str[1], token);
+	if (!ft_strcmp(token, "L") && &str[1] && token)
+		status = check_data_L(&str[1], token);
+	if (!ft_strcmp(token, "sp") && &str[2] && token)
+		status = check_data_sp(&str[2], token);
+	if (!ft_strcmp(token, "pl") && &str[2] && token)
+		status = check_data_pl(&str[2], token);
+	if (!ft_strcmp(token, "cy") && &str[2] && token)
+		status = check_data_cy(&str[2], token);
+	ft_printf("status = %i\n", status);
+	// if (status == 0)
+	// 	return (0);
 	return (1);
 }
 
@@ -151,24 +230,6 @@ int	file_content_is_correct(char *map_path)
 }
 
 /**========================================================================
- *                           get_tokens
- *========================================================================**/
-void	get_tokens(void)
-{
-	char str[] = "	50.0,0.0,20.6		0.0,0.0,1.0			14.2		21.42		10,0,255";
-    char *token;
-
-    // Diviser la chaîne en tokens basés sur l'espace et la tabulation
-    token = ft_strtok(str, ", \t");
-    while (token != NULL) {
-        ft_printf("Token: %s\n", token);
-        token = ft_strtok(NULL, ", \t"); // NULL indique de continuer à partir de la dernière position
-    }
-    // return 0;
-}
-
-
-/**========================================================================
  *                           parse
  *========================================================================**/
 int	parse(char *map_path)
@@ -179,6 +240,5 @@ int	parse(char *map_path)
 		return (0);
 	if (!file_content_is_correct(map_path))
 		return (0);
-	// get_tokens();
 	return (1);
 }
