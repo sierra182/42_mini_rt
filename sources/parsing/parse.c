@@ -88,50 +88,61 @@ int	is_only_valid_chars(char file_content[])
 	return (1);
 }
 
-int	check_data_A(char *str, char *token)
+int	check_float(char *str)
 {
-	int		i;
-	double	j;
+	int	i;
 
-	j = 0;
 	i = 0;
-	while (token != NULL)
+	if (ft_strlen(str) > 10)
+		return (0);
+	if (*str == '\0' || (*str != '-' && *str != '+' && !ft_isdigit(*str)))
+		return 0;
+	str++;
+	while (*str != '\0' && *str != '\n')
+	{
+		if (*str == '.')
+			i++;
+		if (!ft_isdigit(*str) && *str != '.')
+            return (0);
+		if (*str == '-' || *str == '+')
+			return (0);
+		str++;
+	}
+	str--;
+	if (!ft_isdigit(*str))
+		return (0);
+	if (i > 1)
+		return (0);
+	return (1);
+}
+
+int	check_byte(char *token)
+{
+	return (1);
+}
+
+int	check_data(char *str, char *token, char *check)
+{
+	int		len_max;
+	char	**data_type;
+	int i;
+	
+	data_type = ft_split(check, ',');
+
+	i = 1;
+	while (token)
 	{
 		token = ft_strtok(NULL, ", \t");
-		if (token)
-		{
-			if (i == 0)
-			{
-				j = atof(token);
-				if (j < 0.0 || j > 1.0)
-				{
-					printf("Token %i: %s, %f\n",i , token, j);
-					return (0);
-				}
-			}
-		}
+		if (data_type[i] && !ft_strcmp(data_type[i], "float") && !check_float(token))
+			return (0);
+		if (data_type[i] && !ft_strcmp(data_type[i], "byte") && !check_byte(token))
+			return (0);
 		i++;
 	}
-	return (1);
-}
-
-int	check_data_C(char *str, char *token)
-{
-	return (1);
-}
-
-int	check_data_L(char *str, char *token)
-{
-	return (1);
-}
-
-int	check_data_sp(char *str, char *token)
-{
-	return (1);
-}
-
-int	check_data_pl(char *str, char *token)
-{
+	i = 0;
+	while (data_type[i])
+		free(data_type[i++]);
+	free(data_type);
 	return (1);
 }
 
@@ -149,7 +160,7 @@ int	is_empty_str(char *str)
 	return (1);
 }
 
-int	check_data_cy(char *str, char *token)
+int	check_data_cy(char *str, char *token, char *check)
 {
 	return (1);
 }
@@ -164,21 +175,21 @@ int	data_str_is_valid(char *str)
 	token = ft_strtok(str, ", \t");
 	if (str[0] == '\n' || is_empty_str(str))
 		return (1);
-	if (!ft_strcmp(token, "A") && &str[1] && token)
-		status = check_data_A(&str[1], token);
-	if (!ft_strcmp(token, "C") && &str[1] && token)
-		status = check_data_C(&str[1], token);
-	if (!ft_strcmp(token, "L") && &str[1] && token)
-		status = check_data_L(&str[1], token);
-	if (!ft_strcmp(token, "sp") && &str[2] && token)
-		status = check_data_sp(&str[2], token);
-	if (!ft_strcmp(token, "pl") && &str[2] && token)
-		status = check_data_pl(&str[2], token);
-	if (!ft_strcmp(token, "cy") && &str[2] && token)
-		status = check_data_cy(&str[2], token);
+	if (!ft_strcmp(token, "A") && &str[1])
+		status = check_data(&str[1], token, "4,float,byte,byte,byte");
+	if (!ft_strcmp(token, "C") && &str[1])
+		status = check_data(&str[1], token, "7,float,float,float,float,float,float,float");
+	if (!ft_strcmp(token, "L") && &str[1])
+		status = check_data(&str[1], token, "7,float,float,float,float,byte,byte,byte");
+	if (!ft_strcmp(token, "sp") && &str[2])
+		status = check_data(&str[2], token, "7,float,float,float,float,byte,byte,byte");
+	if (!ft_strcmp(token, "pl") && &str[2])
+		status = check_data(&str[2], token, "9,float,float,float,float,float,float,byte,byte,byte");
+	if (!ft_strcmp(token, "cy") && &str[2])
+		status = check_data(&str[2], token, "11,float,float,float,float,float,float,float,float,byte,byte,byte");
 	ft_printf("status = %i\n", status);
-	// if (status == 0)
-	// 	return (0);
+	if (status == 0)
+		return (0);
 	return (1);
 }
 
