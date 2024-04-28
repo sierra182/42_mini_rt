@@ -138,39 +138,6 @@ int	check_byte(char *str)
 }
 
 /**========================================================================
- *                           check_data
- *? added 	if (i > len_max + 2) return (0); to check arument nbr
- *? I don't understand why... 
- *========================================================================**/
-int	check_data(char *str, char *token, char *check)
-{
-	int		len_max;
-	char	**data_type;
-	int i;
-	
-	data_type = ft_split(check, ',');
-
-	len_max = ft_atoi(data_type[0]);
-	i = 1;
-	while (token)
-	{
-		token = ft_strtok(NULL, ", \t\n");
-		if (data_type[i] && !ft_strcmp(data_type[i], "float") && !check_float(token))
-			return (0);
-		if (data_type[i] && !ft_strcmp(data_type[i], "byte") && !check_byte(token))
-			return (0);
-		i++;
-	}
-	if (i > len_max + 2)
-		return (0);
-	i = 0;
-	while (data_type[i])
-		free(data_type[i++]);
-	free(data_type);
-	return (1);
-}
-
-/**========================================================================
  *                           is_empty_str
  *========================================================================**/
 int	is_empty_str(char *str)
@@ -178,6 +145,8 @@ int	is_empty_str(char *str)
 	int	i;
 
 	i = 0;
+	if(str[i] == '\n')
+		return (1);
 	while (str[i])
 	{
 		if (!ft_isspace(str[i]))
@@ -188,33 +157,63 @@ int	is_empty_str(char *str)
 }
 
 /**========================================================================
+ *                           check_data
+ *? added 	if (i > len_max + 2) return (0); to check arument nbr
+ *========================================================================**/
+int	check_data(char *token, char *check)
+{
+	int		len_max;
+	char	**data_type;
+	int i;
+	
+	data_type = ft_split(check, ',');
+	len_max = ft_atoi(data_type[0]);
+	i = 1;
+	while (token)
+	{
+		token = ft_strtok(NULL, ", \t\n");
+		if (!data_type[i - 1])
+			return (0);
+		if (data_type[i] && !ft_strcmp(data_type[i], "fl") && !check_float(token))
+			return (0);
+		if (data_type[i] && !ft_strcmp(data_type[i], "bt") && !check_byte(token))
+			return (0);
+		i++;
+	}
+	if (i > len_max + 2)
+		return (0);
+	i = 0;
+	while (data_type[i])
+		free(data_type[i++]);
+	free(data_type);
+	// ft_printf("status: 1\n");
+	return (1);
+}
+
+/**========================================================================
  *                           data_str_is_valid
  *========================================================================**/
 int	data_str_is_valid(char *str)
 {
 	char	*token;
-	char	*data_str;
 	int		status;
+	char	*data_str;
 
 	status = 0;
-	data_str = NULL;
 	token = ft_strtok(str, ", \t");
-	if (str[0] == '\n' || is_empty_str(str))
-		return (1);
-	if (!ft_strcmp(token, "A") && &str[1])
-		status = check_data(&str[1], token, "4,float,byte,byte,byte");
-	if (!ft_strcmp(token, "C") && &str[1])
-		status = check_data(&str[1], token, "7,float,float,float,float,float,float,float");
-	if (!ft_strcmp(token, "L") && &str[1])
-		status = check_data(&str[1], token, "7,float,float,float,float,byte,byte,byte");
-	if (!ft_strcmp(token, "sp") && &str[2])
-		status = check_data(&str[2], token, "7,float,float,float,float,byte,byte,byte");
-	if (!ft_strcmp(token, "pl") && &str[2])
-		status = check_data(&str[2], token, "9,float,float,float,float,float,float,byte,byte,byte");
-	if (!ft_strcmp(token, "cy") && &str[2])
-		status = check_data(&str[2], token, "11,float,float,float,float,float,float,float,float,byte,byte,byte");
-	ft_printf("status = %i\n", status);
-	if (status == 0)
+	if (!ft_strcmp(token, "A"))
+		data_str = "4,fl,bt,bt,bt";
+	if (!ft_strcmp(token, "C"))
+		data_str = "7,fl,fl,fl,fl,fl,fl,fl";
+	if (!ft_strcmp(token, "L"))
+		data_str = "7,fl,fl,fl,fl,bt,bt,bt";
+	if (!ft_strcmp(token, "sp"))
+		data_str = "7,fl,fl,fl,fl,bt,bt,bt";
+	if (!ft_strcmp(token, "pl"))
+		data_str = "9,fl,fl,fl,fl,fl,fl,bt,bt,bt";
+	if (!ft_strcmp(token, "cy"))
+		data_str = "11,fl,fl,fl,fl,fl,fl,fl,fl,bt,bt,bt";
+	if (check_data(token, data_str) == 0)
 		return (0);
 	return (1);
 }
@@ -234,6 +233,8 @@ int	elements_data_are_valid(char *map_path)
 		str = get_next_line(map_fd);
 		if (!str)
 			break;
+		if (is_empty_str(str))
+			continue ;
 		if (!data_str_is_valid(str))
 			return (free(str), 0);
 		free(str);
