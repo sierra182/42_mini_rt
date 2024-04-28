@@ -45,6 +45,8 @@ SOURCES = \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
 	$(SRC_DIR)/parsing/parse.c \
+	$(SRC_DIR)/rays/rays.c \
+	$(SRC_DIR)/rays/vector_op.c \
 
 HEADERS = \
 	$(HEADERS_DIR)/main.h \
@@ -92,7 +94,8 @@ $(NAME) : $(OBJECTS)
 # 	@echo " 💎 🧯 🔥 😵\n"
 
 # $(NAME_BONUS) : $(OBJECTS_BONUS)
-# 	@echo "\n\033[0;32m linking $(NAME) objects and objects bonus with $(LIBFTPRINTF) to $(NAME_BONUS) \033[0m 🚀\n"
+# 	@echo "\n\033[0;32m linking $(NAME) objects and objects bonus with
+#   $(LIBFTPRINTF) to $(NAME_BONUS) \033[0m 🚀\n"
 # 	@$(CC) $(OBJECTS_BONUS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 
 emoticon:

@@ -6,7 +6,7 @@
 /*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:43:47 by svidot            #+#    #+#             */
-/*   Updated: 2024/04/27 23:12:42 by seblin           ###   ########.fr       */
+/*   Updated: 2024/04/28 18:05:19 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define WIDTH 600
 # define HEIGHT 500
+# define AXIS 3
 
 typedef struct s_mlx
 {
@@ -24,13 +25,13 @@ typedef struct s_mlx
 
 typedef struct s_vector
 {
-	double	axis[3];
+	double	axis[AXIS];
 }	t_vector;
 
 typedef struct s_ray
 {
-    t_vector	origin_vect;
-    t_vector	dir_vect;
+    t_vector	*origin_vect;
+    t_vector	*dir_vect;
 }	t_ray;
 
 typedef struct s_cam

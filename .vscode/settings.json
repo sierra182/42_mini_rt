@@ -1,7 +1,10 @@
 {
     "files.associations": {
-        "mlx.h": "c",
-        "main.h": "c"
-    },
+		"mlx.h": "c",
+		"main.h": "c",
+		"x_exit.h": "c",
+		"x_mini_struct.h": "c",
+		"cmath": "c"
+	},
     "C_Cpp.errorSquiggles": "disabled"
 }

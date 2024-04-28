@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
+/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:50:54 by svidot            #+#    #+#             */
-/*   Updated: 2024/04/27 16:58:21 by dansylvain       ###   ########.fr       */
+/*   Updated: 2024/04/28 20:50:03 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@
 # include "mlx.h"
 
 void	parse(void);
+int		launch_rays(t_cam *cam);
 
 #endif
