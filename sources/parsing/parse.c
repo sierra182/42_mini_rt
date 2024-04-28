@@ -104,6 +104,23 @@ int	file_content_is_correct(char *map_path)
 	return (1);
 }
 
+#include <string.h>
+
+void	get_tokens(void)
+{
+	char str[] = "	50.0,0.0,20.6		0.0,0.0,1.0			14.2		21.42		10,0,255";
+    char *token;
+
+    // Diviser la chaîne en tokens basés sur l'espace et la tabulation
+    token = ft_strtok(str, ", \t");
+    while (token != NULL) {
+        ft_printf("Token: %s\n", token);
+        token = ft_strtok(NULL, ", \t"); // NULL indique de continuer à partir de la dernière position
+    }
+    // return 0;
+}
+
+
 /**========================================================================
  *                           parse
  *========================================================================**/
@@ -115,5 +132,6 @@ int	parse(char *map_path)
 		return (0);
 	if (!file_content_is_correct(map_path))
 		return (0);
+	get_tokens();
 	return (1);
 }
