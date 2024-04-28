@@ -21,6 +21,7 @@
 
 NAME = miniRT
 LIBFT_DIR = ft_printf/libft
+GNL_DIR = gnl
 LIBFTPRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 FT_PRINTF_DIR = ft_printf
 SRC_DIR = sources
@@ -31,7 +32,10 @@ CC = cc
 CFLAGS = \
 	-I$(HEADERS_DIR) \
 	-I$(HEADERS_DIR)/exit \
+	-I$(GNL_DIR) \
+	-I$(HEADERS_DIR)/parsing \
 	-I$(LIBFT_DIR) \
+	-I$(GNL_DIR) \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-g
@@ -48,6 +52,8 @@ SOURCES = \
 	$(SRC_DIR)/exit/data_store.c \
 	$(SRC_DIR)/parsing/parse.c \
 	$(SRC_DIR)/parsing/check_file.c \
+	$(GNL_DIR)/get_next_line.c \
+	$(GNL_DIR)/get_next_line_utils.c \
 
 HEADERS = \
 	$(HEADERS_DIR)/main.h \
@@ -55,6 +61,8 @@ HEADERS = \
 	$(HEADERS_DIR)/x_exit.h \
 	$(HEADERS_DIR)/exit/exit.h \
 	$(HEADERS_DIR)/exit/data_store.h \
+	$(HEADERS_DIR)/parsing/check_file.h \
+	$(GNL_DIR)/get_next_line.h \
 
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
 #bonus

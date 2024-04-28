@@ -1,6 +1,4 @@
-#include <unistd.h>
-#include "libft.h"
-#include <fcntl.h>
+#include "check_file.h"
 
 /**========================================================================
  *                           is_rt_file
