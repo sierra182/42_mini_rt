@@ -10,6 +10,9 @@ int	file_exists(char *map_path);
 
 ssize_t read(int fd, void *buf, size_t count);
 
+/**========================================================================
+ *                           is_valid_char
+ *========================================================================**/
 int	is_valid_char(char c)
 {
 	char	*valid_char;
@@ -26,6 +29,9 @@ int	is_valid_char(char c)
 	return (0);
 }
 
+/**========================================================================
+ *                           element_is_present
+ *========================================================================**/
 int	element_is_present(char file_content[], char *el)
 {
 	int	i;
@@ -44,6 +50,9 @@ int	element_is_present(char file_content[], char *el)
 	}
 	return (n);
 }
+/**========================================================================
+ *                           all_necessary_elements_are_present
+ *========================================================================**/
 int	all_necessary_elements_are_present(char file_content[])
 {
 	if (element_is_present(file_content, "A") != 1)
@@ -61,6 +70,9 @@ int	all_necessary_elements_are_present(char file_content[])
 	return (1);
 }
 
+/**========================================================================
+ *                           is_only_valid_chars
+ *========================================================================**/
 int	is_only_valid_chars(char file_content[])
 {
 	int	i;
@@ -75,37 +87,72 @@ int	is_only_valid_chars(char file_content[])
 	return (1);
 }
 
+int	data_str_is_valid(char *str)
+{
+	char	*token;
+
+	ft_printf("Check str: >%s<", str);
+	token = ft_strtok(str, ", \t");
+	if (!ft_strcmp(token, "A"))
+		ft_printf("HOLLY COW! >%s<\n", str);
+	while (token != NULL)
+	{
+		ft_printf("Token: %s\n", token);
+		token = ft_strtok(NULL, ", \t");
+	}
+	return (1);
+}
+
+/**========================================================================
+ *                           elements_data_are_valid
+ *========================================================================**/
+int	elements_data_are_valid(char *map_path)
+{
+	int		map_fd;
+	char	*str;
+
+	map_fd = open(map_path, O_RDONLY);
+
+	while (1)
+	{
+		str = get_next_line(map_fd);
+		if (!str)
+			break;
+		if (!data_str_is_valid(str))
+			return (free(str), 0);
+		free(str);
+	}
+	return (1);
+}
+
+/**========================================================================
+ *                           file_content_is_correct
+ *========================================================================**/
 int	file_content_is_correct(char *map_path)
 {
 	int		map_fd;
 	int		file_size;
 	char	*str;
 	char	file_content[1024];
-	int	i;
-
 
 	map_fd = open(map_path, O_RDONLY);
 	ft_bzero(file_content, FILE_SIZE);
 	file_size = read(map_fd, file_content, FILE_SIZE);
-
+	if (file_size > 1024)
+		return (0);
 	if (!is_only_valid_chars(file_content))
 		return (0);
 	if (!all_necessary_elements_are_present(file_content))
 		return (0);
-	while (1)
-	{
-		str = get_next_line(map_fd);
-		
-		if (str == NULL)
-			break ;
-		free (str);
-	}
 	close(map_fd);
+	if (!elements_data_are_valid(map_path))
+		return (0);
 	return (1);
 }
 
-#include <string.h>
-
+/**========================================================================
+ *                           get_tokens
+ *========================================================================**/
 void	get_tokens(void)
 {
 	char str[] = "	50.0,0.0,20.6		0.0,0.0,1.0			14.2		21.42		10,0,255";
@@ -132,6 +179,6 @@ int	parse(char *map_path)
 		return (0);
 	if (!file_content_is_correct(map_path))
 		return (0);
-	get_tokens();
+	// get_tokens();
 	return (1);
 }
