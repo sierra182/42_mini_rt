@@ -43,9 +43,11 @@ OBJECTS = $(SOURCES:.c=.o)
 
 SOURCES = \
 	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
 	$(SRC_DIR)/parsing/parse.c \
+	$(SRC_DIR)/parsing/check_file.c \
 
 HEADERS = \
 	$(HEADERS_DIR)/main.h \
