@@ -62,6 +62,36 @@ int	key_press(int keycode, void *param)
 // 	mlx_destroy_image(mlx->connect, img_ptr);
 // }
 
+// t_ray generate_ray(t_cam *cam, int pixel_x, int pixel_y)
+// {
+//     t_ray ray;
+//     ray.origin = *(cam->origin_vect);
+
+//     // Calcule la direction du rayon pour le pixel donné
+//     // Assumons que la caméra regarde vers le 'forward' et que le plan de l'image est à une distance 'focal_len' de la caméra.
+//     double aspect_ratio = (double)cam->resol[0] / cam->resol[1];
+//     double scale = tan((cam->fov * 0.5) * (M_PI / 180.0));
+
+//     double pixel_ndc_x = (pixel_x + 0.5) / cam->resol[0];
+//     double pixel_ndc_y = (pixel_y + 0.5) / cam->resol[1];
+
+//     double px = (2 * pixel_ndc_x - 1) * aspect_ratio * scale;
+//     double py = (1 - 2 * pixel_ndc_y) * scale;
+
+// 	// Calcul des composantes du vecteur direction
+// 	t_vector scaled_forward = vector_scale(*(cam->forward_vect), cam->focal_len);
+// 	t_vector scaled_right = vector_scale(*(cam->right_vect), px);
+// 	t_vector scaled_up = vector_scale(*(cam->up_vect), py);
+
+// 	// Addition des composantes pour obtenir le vecteur direction brut
+// 	t_vector raw_direction = vector_add(vector_add(scaled_forward, scaled_right), scaled_up);
+
+// 	// Normalisation du vecteur direction pour obtenir un vecteur unitaire
+// 	ray.direction = vector_normalize(raw_direction);
+
+//     return ray;
+// }
+
 int	loop(void)
 {
 	// static int	refresh;

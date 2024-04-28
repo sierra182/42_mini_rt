@@ -6,7 +6,7 @@
 /*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:43:47 by svidot            #+#    #+#             */
-/*   Updated: 2024/04/27 21:36:16 by seblin           ###   ########.fr       */
+/*   Updated: 2024/04/27 23:12:42 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_cam
 	double		focal_len;
 	int			resol[2];	
 	t_vector	*origin_vect;
-	t_vector	*forward_vect;
 	t_vector	*up_vect;
+	t_vector	*forward_vect;
 	t_vector	*right_vect;
 }	t_cam;
 
