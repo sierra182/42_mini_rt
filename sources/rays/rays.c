@@ -4,7 +4,7 @@
 
 t_vector	scale_and_add_vectors(t_cam *cam, double norm_scale_x,
 	double norm_scale_y);
-	
+
 static void	normalize_vector(t_vector *vector)
 {
 	int		i;
@@ -33,17 +33,17 @@ static void	new_ray(t_cam *cam, int x, int y, double aspect, double scale,
 	ray->origin_vect = cam->origin_vect;
 	norm_scale_x = normalize_pixel(cam->resol[0], x, 1) * scale * aspect;
 	norm_scale_y = normalize_pixel(cam->resol[1], y, 0) * scale;	
-	*ray->dir_vect = scale_and_add_vectors(cam, norm_scale_x, norm_scale_y);
+	ray->dir_vect = scale_and_add_vectors(cam, norm_scale_x, norm_scale_y);
 	normalize_vector(ray->dir_vect);
 }
 
 int	launch_rays(t_cam *cam)
 {
+	t_ray	ray;
 	double	aspect;
 	double	scale;
 	int		x;
 	int		y;
-	t_ray	ray;
 
 	scale = tan(cam->fov / 2);
 	aspect = cam->resol[0] / cam->resol[1];
