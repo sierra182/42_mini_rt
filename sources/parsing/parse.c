@@ -88,6 +88,9 @@ int	is_only_valid_chars(char file_content[])
 	return (1);
 }
 
+/**========================================================================
+ *                           check_float
+ *========================================================================**/
 int	check_float(char *str)
 {
 	int	i;
@@ -112,7 +115,9 @@ int	check_float(char *str)
 	return (1);
 }
 
-
+/**========================================================================
+ *                           check_byte
+ *========================================================================**/
 int	check_byte(char *str)
 {
 	int	num;
@@ -132,6 +137,11 @@ int	check_byte(char *str)
 	return (1);
 }
 
+/**========================================================================
+ *                           check_data
+ *? added 	if (i > len_max + 2) return (0); to check arument nbr
+ *? I don't understand why... 
+ *========================================================================**/
 int	check_data(char *str, char *token, char *check)
 {
 	int		len_max;
@@ -140,6 +150,7 @@ int	check_data(char *str, char *token, char *check)
 	
 	data_type = ft_split(check, ',');
 
+	len_max = ft_atoi(data_type[0]);
 	i = 1;
 	while (token)
 	{
@@ -150,6 +161,8 @@ int	check_data(char *str, char *token, char *check)
 			return (0);
 		i++;
 	}
+	if (i > len_max + 2)
+		return (0);
 	i = 0;
 	while (data_type[i])
 		free(data_type[i++]);
@@ -157,6 +170,9 @@ int	check_data(char *str, char *token, char *check)
 	return (1);
 }
 
+/**========================================================================
+ *                           is_empty_str
+ *========================================================================**/
 int	is_empty_str(char *str)
 {
 	int	i;
@@ -171,10 +187,9 @@ int	is_empty_str(char *str)
 	return (1);
 }
 
-int	check_data_cy(char *str, char *token, char *check)
-{
-	return (1);
-}
+/**========================================================================
+ *                           data_str_is_valid
+ *========================================================================**/
 int	data_str_is_valid(char *str)
 {
 	char	*token;
