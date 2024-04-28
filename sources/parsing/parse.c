@@ -37,6 +37,7 @@ int	file_exists(char *map_path)
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		return (0);
+	close(map_fd);
 	return (1);
 }
 
