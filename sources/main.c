@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 20:37:20 by marvin            #+#    #+#             */
-/*   Updated: 2024/04/25 20:37:20 by marvin           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "main.h"
 
 int	key_press(int keycode, void *param)
@@ -94,15 +82,18 @@ int	init_mlx(t_mlx *mlx)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
 	ft_printf("hello world!\n");
-	parse();
-	if (init_mlx(&mlx))
-		return (1);
-	launch_mlx_loop(&mlx);
-	flush_exit_struct();
+	if (argc != 2)
+		return (display_error(), 1);
+	if (parse(argv[1]) == 0)
+		return (display_error(), 2);
+	// if (init_mlx(&mlx))
+	// 	return (1);
+	// launch_mlx_loop(&mlx);
+	// flush_exit_struct();
 	return (0);
 }

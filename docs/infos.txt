@@ -5,3 +5,6 @@ Je ne crois pas que cela ne change quoi que ce soit pour toi, tu n'as qu'à trav
 Un petit test pour vérifier la connection des repos
 
 valgrind --leak-check=full --show-leak-kinds=all ./miniRT
+
+Ressources:
+https://github.com/ricardoreves/42-minirt?tab=readme-ov-file

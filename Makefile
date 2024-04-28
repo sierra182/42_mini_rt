@@ -34,7 +34,8 @@ CFLAGS = \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
-	-O3 -Wall -Wextra -Werror -g
+	-g
+	# -O3 -Wall -Wextra -Werror -g
 
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz 
 
