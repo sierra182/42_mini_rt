@@ -1,6 +1,6 @@
 #include "rays.h"
 
-static void	normalize_vector(t_vector *vector)
+void	normalize_vector(t_vector *vector)
 {
 	int		i;
 	double	magnitude;
