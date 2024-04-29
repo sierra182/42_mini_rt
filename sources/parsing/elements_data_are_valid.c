@@ -15,9 +15,16 @@ int	elements_data_are_valid(char *map_path)
 		if (!str)
 			break ;
 		if (is_empty_str(str))
+		{
+			free(str);
 			continue ;
+		}
 		if (!data_str_is_valid(str))
-			return (free(str), 0);
+		{
+			free(str);
+			get_next_line(42);
+			return (0);
+		}
 		free(str);
 	}
 	return (1);
@@ -91,17 +98,17 @@ int	check_data(char *token, char *check)
 	{
 		token = ft_strtok(NULL, ", \t\n");
 		if (data_type[i - 1] == NULL)
-			return (0);
+			return (free_tab(data_type), 0);
 		if (data_type[i] && !ft_strcmp(data_type[i], "fl")
 			&& !check_float(token))
-			return (0);
+			return (free_tab(data_type), 0);
 		if (data_type[i] && !ft_strcmp(data_type[i], "bt")
 			&& !check_byte(token))
-			return (0);
+			return (free_tab(data_type), 0);
 		i++;
 	}
 	if (i != len_max + 2)
-		return (0);
+		return (free_tab(data_type), 0);
 	free_tab(data_type);
 	return (1);
 }
