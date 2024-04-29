@@ -1,65 +1,86 @@
-#include <ctype.h>  // Pour isdigit
-#include <math.h>   // Pour pow
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/29 18:22:21 by dansylvain        #+#    #+#             */
+/*   Updated: 2024/04/29 18:22:33 by dansylvain       ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-double ft_atof(const char *str) {
-    double result = 0.0;
-    double fraction = 0.0;
-    int sign = 1;
-    int exponent = 0;
+#include "libft.h"
 
-    // Ignorer les espaces initiaux
-    while (*str == ' ')
-        str++;
+void	func_part_one(char **str, int *sign, double *result)
+{
+	while (**str == ' ')
+		(*str)++;
+	if (**str == '-')
+	{
+		*sign = -1;
+		(*str)++;
+	}
+	else if (**str == '+')
+		(*str)++;
+	while (ft_isdigit(**str))
+	{
+		*result = *result * 10.0 + (**str - '0');
+		(*str)++;
+	}
+}
 
-    // Gérer le signe
-    if (*str == '-') {
-        sign = -1;
-        str++;
-    } else if (*str == '+') {
-        str++;
-    }
+void	func_part_three(char **str, double *result)
+{
+	int	exponent;
+	int	exp_sign;
 
-    // Analyser la partie entière du nombre
-    while (isdigit(*str)) {
-        result = result * 10.0 + (*str - '0');
-        str++;
-    }
+	exponent = 0;
+	if (**str == 'e' || **str == 'E')
+	{
+		(*str)++;
+		exp_sign = 1;
+		if (**str == '-')
+		{
+			exp_sign = -1;
+			(*str)++;
+		}
+		else if (**str == '+')
+			(*str)++;
+		while (ft_isdigit(**str))
+		{
+			exponent = exponent * 10 + (**str - '0');
+			(*str)++;
+		}
+		exponent *= exp_sign;
+	}
+	if (exponent != 0)
+		*result *= pow(10, exponent);
+}
 
-    // Gérer la partie fractionnaire du nombre
-    if (*str == '.') {
-        str++;
-        double divisor = 10.0;
-        while (isdigit(*str)) {
-            fraction += (*str - '0') / divisor;
-            divisor *= 10.0;
-            str++;
-        }
-    }
+double	ft_atof(char *str)
+{
+	double	result;
+	double	fraction;
+	int		sign;
+	double	divisor;
 
-    // Combinez la partie entière et la partie fractionnaire
-    result += fraction;
-
-    // Gérer l'exposant éventuel
-    if (*str == 'e' || *str == 'E') {
-        str++;
-        int exp_sign = 1;
-        if (*str == '-') {
-            exp_sign = -1;
-            str++;
-        } else if (*str == '+') {
-            str++;
-        }
-        while (isdigit(*str)) {
-            exponent = exponent * 10 + (*str - '0');
-            str++;
-        }
-        exponent *= exp_sign;
-    }
-
-    // Appliquer l'exposant
-    if (exponent != 0) {
-        result *= pow(10, exponent);
-    }
-
-    return result * sign;
+	result = 0.0;
+	fraction = 0.0;
+	sign = 1;
+	func_part_one(&str, &sign, &result);
+	result += fraction;
+	if (*str == '.')
+	{
+		str++;
+		divisor = 10.0;
+		while (ft_isdigit(*str))
+		{
+			fraction += (*str - '0') / divisor;
+			divisor *= 10.0;
+			str++;
+		}
+	}
+	func_part_three(&str, &result);
+	return (result * sign);
 }

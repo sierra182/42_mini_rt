@@ -31,6 +31,7 @@ int	init_data(char *map_path, t_data *data)
 		}
 		free (str);
 	}
+	ft_printf("%s", str);
 	token = ft_strtok(str, ", \t\n");
 	i = 0;
 	while (token)

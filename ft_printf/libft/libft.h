@@ -6,13 +6,15 @@
 /*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:15:23 by svidot            #+#    #+#             */
-/*   Updated: 2024/04/29 17:32:08 by dansylvain       ###   ########.fr       */
+/*   Updated: 2024/04/29 18:24:36 by dansylvain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stddef.h>
+#include <math.h>
+#include <stdbool.h>
 
 typedef struct s_list
 {
@@ -20,7 +22,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-double	ft_atof(const char *str);
+double	ft_atof(char *str);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
