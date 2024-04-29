@@ -73,12 +73,12 @@ int	data_str_is_valid(char *str)
 	else if (!ft_strcmp(token, "cy"))
 		data_str = "11,fl,fl,fl,fl,fl,fl,fl,fl,bt,bt,bt";
 	else if (!ft_strncmp(token, "#", 1))
-		return (free (token), 1);
+		return (1);
 	else
-		return (free (token), 0);
-	// if (check_data(token, data_str) == 0)
-	// 	return (0);
-	return (free (token), 1);
+		return (0);
+	if (check_data(token, data_str) == 0)
+		return (0);
+	return (1);
 }
 
 /**========================================================================
@@ -98,17 +98,18 @@ int	check_data(char *token, char *check)
 	{
 		token = ft_strtok(NULL, ", \t\n");
 		if (data_type[i - 1] == NULL)
-			return (0);
+			return (free_tab(data_type), 0);
 		if (data_type[i] && !ft_strcmp(data_type[i], "fl")
 			&& !check_float(token))
-			return (0);
+			return (free_tab(data_type), 0);
 		if (data_type[i] && !ft_strcmp(data_type[i], "bt")
 			&& !check_byte(token))
-			return (0);
+			return (free_tab(data_type), 0);
+		// free(token);
 		i++;
 	}
 	if (i != len_max + 2)
-		return (0);
+		return (free_tab(data_type), 0);
 	free_tab(data_type);
 	return (1);
 }
