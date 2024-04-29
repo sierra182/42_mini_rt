@@ -54,5 +54,5 @@ dkms.conf
 # suppression file
 *.supp
 
-/miniRT
-/.gitignore
+miniRT
+.gitignore
