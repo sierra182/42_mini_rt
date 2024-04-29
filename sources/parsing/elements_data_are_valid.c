@@ -1,15 +1,4 @@
-#include "libft.h"
-#include <unistd.h>
-#include "get_next_line.h"
-#include <stdlib.h>
-#include <fcntl.h>
-
-int		data_str_is_valid(char *str);
-int		is_empty_str(char *str);
-int		check_float(char *str);
-int		check_byte(char *str);
-int		check_data(char *token, char *check);
-void	free_tab(char **data_type);
+#include "elements_data_are_valid.h"
 
 /**========================================================================
  *                           elements_data_are_valid

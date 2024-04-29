@@ -1,6 +1,4 @@
-#include <libft.h>
-
-int	element_is_present(char file_content[], char *el);
+#include "all_necessary_elements_are_present.h"
 
 /**========================================================================
  *                           all_necessary_elements_are_present

@@ -1,10 +1,4 @@
-#include "libft.h"
-#include <fcntl.h>
-#include <unistd.h>
-
-int	is_rt_file(char *map_path);
-int	file_exists(char *map_path);
-int	file_content_is_correct(char *map_path);
+#include "parse.h"
 
 /**========================================================================
  *                           parse

@@ -3,7 +3,8 @@
 		"mlx.h": "c",
 		"main.h": "c",
 		"ft_printf.h": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"elements_data_are_valid.h": "c"
 	},
     "C_Cpp.errorSquiggles": "disabled"
 }
