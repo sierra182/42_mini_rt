@@ -18,6 +18,13 @@ static void	scale_vector(t_vector *a, double scaler, t_vector *scaled_vect)
 		scaled_vect->axis[i] = a->axis[i] * scaler;
 }
 
+void	product_vector(t_vector *a, t_vector *b, t_vector *product_vect)
+{
+	product_vect->axis[0] = a->axis[1] * b->axis[2] - a->axis[2] * b->axis[1];
+	product_vect->axis[1] = a->axis[2] * b->axis[0] - a->axis[0] * b->axis[2];
+	product_vect->axis[2] = a->axis[0] * b->axis[1] - a->axis[1] * b->axis[0];
+}
+
 void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
 {
