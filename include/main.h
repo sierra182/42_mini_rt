@@ -8,8 +8,7 @@
 # include "mlx.h"
 
 
-
-void	display_error(void);
+void	display_error(char *error);
 
 int		parse(char *map_path);
 
