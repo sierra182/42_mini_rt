@@ -6,7 +6,7 @@
 /*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:15:23 by svidot            #+#    #+#             */
-/*   Updated: 2024/04/28 13:04:34 by dansylvain       ###   ########.fr       */
+/*   Updated: 2024/04/29 09:11:08 by dansylvain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ size_t	ft_wc(char *s);
 char	*ft_delchar(char *s);
 void	ft_free_ptr_arr(void **arr);
 char	*ft_strjoin_up(char *s1, char *s2, int s1_free, int s2_free);
+int		ft_isoverflow(char *str);
 
 #endif
