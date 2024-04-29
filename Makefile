@@ -51,9 +51,13 @@ SOURCES = \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
 	$(SRC_DIR)/parsing/parse.c \
-	$(SRC_DIR)/parsing/check_file.c \
+	$(SRC_DIR)/parsing/file_content_is_correct.c \
+	$(SRC_DIR)/parsing/all_necessary_elements_are_present.c \
+	$(SRC_DIR)/parsing/elements_data_are_valid.c \
+	$(SRC_DIR)/parsing/check_funcs.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
+
 
 HEADERS = \
 	$(HEADERS_DIR)/main.h \

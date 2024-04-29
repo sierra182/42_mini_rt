@@ -91,9 +91,9 @@ int	main(int argc, char **argv)
 		return (display_error(), 1);
 	if (parse(argv[1]) == 0)
 		return (display_error(), 2);
-	// if (init_mlx(&mlx))
-	// 	return (1);
-	// launch_mlx_loop(&mlx);
-	// flush_exit_struct();
+	if (init_mlx(&mlx))
+		return (1);
+	launch_mlx_loop(&mlx);
+	flush_exit_struct();
 	return (0);
 }
