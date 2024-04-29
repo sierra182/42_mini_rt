@@ -81,6 +81,8 @@ int	is_only_valid_chars(char file_content[])
 	i = 0;
 	while (file_content[i])
 	{
+		if (file_content[i] == '#')
+			return (1);
 		if (!is_valid_char(file_content[i]))
 			return (0);
 		i++;
@@ -216,6 +218,8 @@ int	data_str_is_valid(char *str)
 		data_str = "9,fl,fl,fl,fl,fl,fl,bt,bt,bt";
 	else if (!ft_strcmp(token, "cy"))
 		data_str = "11,fl,fl,fl,fl,fl,fl,fl,fl,bt,bt,bt";
+	else if (!ft_strncmp(token, "#", 1))
+		return (1);
 	else
 		return (0);
 	if (check_data(token, data_str) == 0)
