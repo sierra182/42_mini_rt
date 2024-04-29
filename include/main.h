@@ -1,3 +1,4 @@
+
 #ifndef MAIN_H
 # define MAIN_H
 
@@ -11,5 +12,6 @@
 void	display_error(char *error);
 
 int		parse(char *map_path);
+void	launch_rays(t_cam *cam);
 
 #endif

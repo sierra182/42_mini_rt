@@ -17,7 +17,6 @@
 #HEADERS_BONUS = 
 #SOURCES_BONUS = 
 #CFLAGS_BONUS =
-#GNL_DIR = gnl
 
 NAME = miniRT
 LIBFT_DIR = ft_printf/libft
@@ -32,14 +31,13 @@ CC = cc
 CFLAGS = \
 	-I$(HEADERS_DIR) \
 	-I$(HEADERS_DIR)/exit \
-	-I$(GNL_DIR) \
 	-I$(HEADERS_DIR)/parsing \
-	-I$(LIBFT_DIR) \
 	-I$(GNL_DIR) \
+	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
-	-g
-	# -O3 -Wall -Wextra -Werror -g
+	-g -O3 \
+# -Wall -Wextra -Werror
 
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz 
 
@@ -57,7 +55,8 @@ SOURCES = \
 	$(SRC_DIR)/parsing/check_funcs.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
-
+	$(SRC_DIR)/rays/rays.c \
+	$(SRC_DIR)/rays/vector_op.c \
 
 HEADERS = \
 	$(HEADERS_DIR)/main.h \
@@ -75,9 +74,9 @@ $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
-# $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(HEADERS)
-# 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
-# 	@$(CC) $(CFLAGS) $< -c -o $@
+$(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
+	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
+	@$(CC) $(CFLAGS) $< -c -o $@
 
 # $(BONUS_DIR)/%_bonus.o : $(BONUS_DIR)/%.c $(LIBFTPRINTF) $(HEADERS) 
 # 	@echo "\033[0;32m compiling $(NAME) object bonus $<...\033[0m" 🚀
@@ -107,7 +106,8 @@ $(NAME) : $(OBJECTS)
 # 	@echo " 💎 🧯 🔥 😵\n"
 
 # $(NAME_BONUS) : $(OBJECTS_BONUS)
-# 	@echo "\n\033[0;32m linking $(NAME) objects and objects bonus with $(LIBFTPRINTF) to $(NAME_BONUS) \033[0m 🚀\n"
+# 	@echo "\n\033[0;32m linking $(NAME) objects and objects bonus with
+#   $(LIBFTPRINTF) to $(NAME_BONUS) \033[0m 🚀\n"
 # 	@$(CC) $(OBJECTS_BONUS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 
 emoticon:
