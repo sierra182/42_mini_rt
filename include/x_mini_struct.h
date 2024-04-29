@@ -35,6 +35,24 @@ typedef struct s_cam
 	t_vector	right_vect;
 }	t_cam;
 
+typedef struct	s_color
+{
+	int	rgb[3];
+}	t_color;
+
+typedef struct s_sphere
+{
+	t_vector	origin_vect;
+	double		diameter;
+	t_color		color;
+}	t_sphere;
+
+typedef struct	s_data
+{
+	t_cam		cam;
+	t_sphere	sphere;
+}	t_data;
+
 typedef struct s_exit
 {
 	t_mlx	*mlx;
@@ -46,5 +64,6 @@ typedef enum e_exit
 	MLX,
 	END
 }	t_enum_exit;
+
 
 #endif

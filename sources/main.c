@@ -1,5 +1,8 @@
 #include "main.h"
 
+int	init_data(char *map_path, t_data *data);
+
+
 int	key_press(int keycode, void *param)
 {
 	if (keycode == 65307)
@@ -103,6 +106,7 @@ int	init_mlx(t_mlx *mlx)
 
 int	main(int argc, char **argv)
 {
+	t_data	data;
 	t_mlx	mlx;
 
 	ft_printf("hello world!\n");
@@ -110,6 +114,8 @@ int	main(int argc, char **argv)
 		return (display_error("arg number\n"), 1);
 	if (parse(argv[1]) == 0)
 		return (display_error("parse error\n"), 2);
+	if (init_data(argv[1], &data) == 0)
+		return (display_error("init error\n"), 3);
 	// if (init_mlx(&mlx))
 	// 	return (1);
 	// launch_mlx_loop(&mlx);

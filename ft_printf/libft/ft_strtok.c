@@ -15,11 +15,10 @@ void	end_func(char **end, char **next_token)
 
 char *ft_strtok(char *str, const char *delim)
 {
-    static char *next_token;
+    static char *next_token = NULL;
     char *start;
     char *end;
 
-	next_token = NULL;
     if (str != NULL)
         next_token = str;
 	else if (next_token == NULL)
