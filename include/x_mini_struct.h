@@ -49,8 +49,8 @@ typedef struct s_sphere
 
 typedef struct	s_data
 {
-	t_cam		cam;
-	t_sphere	sphere;
+	t_cam		cam[7];
+	t_sphere	*sphere;
 }	t_data;
 
 typedef struct s_exit
