@@ -19,8 +19,12 @@ int	elements_data_are_valid(char *map_path)
 			free(str);	
 			continue ;
 		}
-		// if (!data_str_is_valid(str))
-		// 	return (free(str), 0);
+		if (!data_str_is_valid(str))
+		{
+			free(str);
+			get_next_line(42);
+			return (0);
+		}
 		free(str);
 	}
 	return (1);
@@ -69,12 +73,12 @@ int	data_str_is_valid(char *str)
 	else if (!ft_strcmp(token, "cy"))
 		data_str = "11,fl,fl,fl,fl,fl,fl,fl,fl,bt,bt,bt";
 	else if (!ft_strncmp(token, "#", 1))
-		return (1);
+		return (free (token), 1);
 	else
-		return (0);
-	if (check_data(token, data_str) == 0)
-		return (0);
-	return (1);
+		return (free (token), 0);
+	// if (check_data(token, data_str) == 0)
+	// 	return (0);
+	return (free (token), 1);
 }
 
 /**========================================================================
