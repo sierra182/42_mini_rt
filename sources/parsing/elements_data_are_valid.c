@@ -15,9 +15,12 @@ int	elements_data_are_valid(char *map_path)
 		if (!str)
 			break ;
 		if (is_empty_str(str))
+		{
+			free(str);	
 			continue ;
-		if (!data_str_is_valid(str))
-			return (free(str), 0);
+		}
+		// if (!data_str_is_valid(str))
+		// 	return (free(str), 0);
 		free(str);
 	}
 	return (1);
