@@ -16,7 +16,7 @@ int	elements_data_are_valid(char *map_path)
 			break ;
 		if (is_empty_str(str))
 		{
-			free(str);	
+			free(str);
 			continue ;
 		}
 		if (!data_str_is_valid(str))
@@ -105,7 +105,6 @@ int	check_data(char *token, char *check)
 		if (data_type[i] && !ft_strcmp(data_type[i], "bt")
 			&& !check_byte(token))
 			return (free_tab(data_type), 0);
-		// free(token);
 		i++;
 	}
 	if (i != len_max + 2)
