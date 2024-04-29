@@ -96,6 +96,8 @@ int	check_float(char *str)
 	int	i;
 
 	i = 0;
+	if (str == NULL)
+		return (1);
 	if (ft_strlen(str) > 10)
 		return (0);
 	if (*str == '\0' || (*str != '-' && *str != '+' && !ft_isdigit(*str)))
@@ -122,6 +124,8 @@ int	check_byte(char *str)
 {
 	int	num;
 
+	if (str == NULL)
+		return (1);
 	num = ft_atoi(str);
 	if (ft_strlen(str) > 3)
 		return (0);	
@@ -172,7 +176,7 @@ int	check_data(char *token, char *check)
 	while (token)
 	{
 		token = ft_strtok(NULL, ", \t\n");
-		if (!data_type[i - 1])
+		if (data_type[i - 1] == NULL)
 			return (0);
 		if (data_type[i] && !ft_strcmp(data_type[i], "fl") && !check_float(token))
 			return (0);
@@ -180,13 +184,12 @@ int	check_data(char *token, char *check)
 			return (0);
 		i++;
 	}
-	if (i > len_max + 2)
+	if (i != len_max + 2)
 		return (0);
 	i = 0;
 	while (data_type[i])
 		free(data_type[i++]);
 	free(data_type);
-	// ft_printf("status: 1\n");
 	return (1);
 }
 
@@ -203,16 +206,18 @@ int	data_str_is_valid(char *str)
 	token = ft_strtok(str, ", \t");
 	if (!ft_strcmp(token, "A"))
 		data_str = "4,fl,bt,bt,bt";
-	if (!ft_strcmp(token, "C"))
+	else if (!ft_strcmp(token, "C"))
 		data_str = "7,fl,fl,fl,fl,fl,fl,fl";
-	if (!ft_strcmp(token, "L"))
+	else if (!ft_strcmp(token, "L"))
 		data_str = "7,fl,fl,fl,fl,bt,bt,bt";
-	if (!ft_strcmp(token, "sp"))
+	else if (!ft_strcmp(token, "sp"))
 		data_str = "7,fl,fl,fl,fl,bt,bt,bt";
-	if (!ft_strcmp(token, "pl"))
+	else if (!ft_strcmp(token, "pl"))
 		data_str = "9,fl,fl,fl,fl,fl,fl,bt,bt,bt";
-	if (!ft_strcmp(token, "cy"))
+	else if (!ft_strcmp(token, "cy"))
 		data_str = "11,fl,fl,fl,fl,fl,fl,fl,fl,bt,bt,bt";
+	else
+		return (0);
 	if (check_data(token, data_str) == 0)
 		return (0);
 	return (1);
