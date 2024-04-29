@@ -1,4 +1,3 @@
-
 #ifndef X_MINI_STRUCT_H
 # define X_MINI_STRUCT_H
 
@@ -19,14 +18,16 @@ typedef struct s_vector
 
 typedef struct s_ray
 {
-    t_vector	origin_vect;
-    t_vector	dir_vect;
+	t_vector	origin_vect;
+	t_vector	dir_vect;
 }	t_ray;
 
 typedef struct s_cam
 {
 	double		fov;
 	double		focal_len;
+	double		scale;
+	double		aspect;
 	int			resol[2];	
 	t_vector	origin_vect;
 	t_vector	up_vect;

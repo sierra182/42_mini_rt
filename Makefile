@@ -32,6 +32,7 @@ CFLAGS = \
 	-I$(HEADERS_DIR) \
 	-I$(HEADERS_DIR)/exit \
 	-I$(HEADERS_DIR)/parsing \
+	-I$(HEADERS_DIR)/rays \
 	-I$(GNL_DIR) \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
@@ -64,6 +65,8 @@ HEADERS = \
 	$(HEADERS_DIR)/x_exit.h \
 	$(HEADERS_DIR)/exit/exit.h \
 	$(HEADERS_DIR)/exit/data_store.h \
+	$(HEADERS_DIR)/rays/rays.h \
+	$(HEADERS_DIR)/rays/vector_op.h \
 	$(HEADERS_DIR)/parsing/check_file.h \
 	$(GNL_DIR)/get_next_line.h \
 

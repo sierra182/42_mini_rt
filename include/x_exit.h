@@ -1,4 +1,3 @@
-
 #ifndef X_EXIT_H
 # define X_EXIT_H
 
