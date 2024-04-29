@@ -2,7 +2,7 @@
 #include <math.h>
 #include "x_mini_struct.h"
 
-t_vector	scale_and_add_vectors(t_cam *cam, double norm_scale_x,
+void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y);
 
 static void	normalize_vector(t_vector *vector)
@@ -29,12 +29,12 @@ static void	new_ray(t_cam *cam, int x, int y, double aspect, double scale,
 {
 	double		norm_scale_x;
 	double		norm_scale_y;
-	
+
 	ray->origin_vect = cam->origin_vect;
 	norm_scale_x = normalize_pixel(cam->resol[0], x, 1) * scale * aspect;
 	norm_scale_y = normalize_pixel(cam->resol[1], y, 0) * scale;	
-	ray->dir_vect = scale_and_add_vectors(cam, norm_scale_x, norm_scale_y);
-	normalize_vector(ray->dir_vect);
+	scale_and_add_vectors(cam, ray, norm_scale_x, norm_scale_y);
+	normalize_vector(&ray->dir_vect);
 }
 
 int	launch_rays(t_cam *cam)
