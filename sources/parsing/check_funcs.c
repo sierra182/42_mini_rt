@@ -11,19 +11,19 @@ int	typ_check_fl(char *str, num_type num)
 	// printf("string: %s, float: %f\n", str, tmp);
 	if (num == LTR)
 	{
-		printf("LTR: %f ", tmp);
+		// printf("LTR: %f ", tmp);
 		if (tmp < 0.0 || tmp > 1.0)
 		{
-			printf("NONO!\n");
+			// printf("NONO!\n");
 			return (0);
 		}
 	}
 	else if (num == VECR)
 	{
-		printf("VECR: %f ", tmp);
+		// printf("VECR: %f ", tmp);
 		if (tmp < -1.0 || tmp > 1.0)
 		{
-			printf("NONO!\n");
+			// printf("NONO!\n");
 			return (0);
 		}
 	}
@@ -38,19 +38,19 @@ int	typ_check_bt(char *str, num_type num)
 	// printf("string: %s, float: %f\n", str, tmp);
 	if (num == BYT)
 	{
-		printf("BYT: %i ", tmp);
+		// printf("BYT: %i ", tmp);
 		if (tmp < 0 || tmp > 255)
 		{
-			printf("NONO!\n");
+			// printf("NONO!\n");
 			return (0);
 		}
 	}
 	else if (num == FOV)
 	{
-		printf("FOV: %i ", tmp);
+		// printf("FOV: %i ", tmp);
 		if (tmp < 0 || tmp > 180)
 		{
-			printf("NONO!\n");
+			// printf("NONO!\n");
 			return (0);
 		}
 	}
@@ -94,21 +94,20 @@ int	chck_fl(char *str, num_type num)
  *========================================================================**/
 int	chck_bt(char *str, num_type num)
 {
-	int	tmp;
+	int	i;
 
+	i = 0;
 	if (str == NULL)
 		return (1);
-	tmp = ft_atoi(str);
 	if (ft_strlen(str) > 3)
 		return (0);
-	while (*str != '\0')
+	while (str[i] != '\0')
 	{
-		if (!ft_isdigit(*str))
+		if (!ft_isdigit(str[i]))
 			return (0);
-		str++;
+		i++;
 	}
 	if(typ_check_bt(str, num) == 0)
 		return (0);
-	str--;
 	return (1);
 }

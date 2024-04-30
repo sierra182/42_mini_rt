@@ -110,7 +110,7 @@ int	check_data(char *token, char *check)
 	num = ft_split(check, ',');
 	len_max = ft_atoi(num[0]);
 	i = 1;
-	// ft_printf("content: ");
+	ft_printf("content: ");
 	while (token)
 	{
 		token = ft_strtok(NULL, ", \t\n");
