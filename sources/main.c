@@ -1,26 +1,21 @@
 #include "main.h"
 
+void	fill_cam(t_cam *cam);
 int	key_press(int keycode, void *param)
 {
-	if (keycode == 65307)
-		mlx_loop_end(param);
+	t_mlx	*mlx;
+	t_data	*data;
+
+	mlx = (t_mlx *) ((void **) param)[0];
+	data = (t_data *) ((void **) param)[1];
+	ft_printf("keycode: %d\n", keycode);
+	if (keycode == ESC)
+		mlx_loop_end(mlx->connect);
+	if (keycode == 97 && data->cam.fov++)	
+		fill_cam(&data->cam);			
+	// if (keycode == )
 	return (0);
 }
-
-// void	put_pxl(int x, int y, unsigned int color)
-// {	
-// 	char	*img_data;
-// 	int		size_line;
-// 	int		bpp;
-// 	int		pxl_pos;
-
-// 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-// 	{		
-// 		img_data_handle(NULL, &img_data, &size_line, &bpp);
-// 		pxl_pos = x * bpp / 8 + y * size_line;
-// 		*(unsigned int *)(img_data + pxl_pos) = color;
-// 	}
-// }
 
 // static void	add_background(int x, int y)
 // {
@@ -38,20 +33,15 @@ int	key_press(int keycode, void *param)
 // 	}
 // }
 
-// void	frame(t_point **pt_arr, int per, t_mlx *mlx)
-// {
-// 	void	*img_ptr;
-// 	int		len;
-
-// 	img_ptr = mlx_new_image(mlx->connect, WIDTH, HEIGHT);
-// 	img_data_handle(img_ptr, NULL, NULL, NULL);
-// 	add_background(-1, -1);
-// 	mlx_put_image_to_window(mlx->connect, mlx->window, img_ptr, 0, 0);
-// 	mlx_destroy_image(mlx->connect, img_ptr);
-// }
-
-int	loop(void)
+#include <unistd.h>
+int	frame(void *param)
 {
+	t_mlx	*mlx;
+	t_data	*data;
+
+	mlx = (t_mlx *) ((void **) param)[0];
+	data = (t_data *) ((void **) param)[1];
+	//sleep(5);
 	// static int	refresh;
 	//(void) param;
 	// refresh = (refresh + 1) % 100;	
@@ -59,33 +49,21 @@ int	loop(void)
 	// 	return (0);
 	// frame();
 	// event->flag = 0;
-	t_cam	cam;
 
-	cam.focal_len = 1;
-	cam.fov = 20;
-	cam.resol[0] = WIDTH;
-	cam.resol[1] = HEIGHT;
-	cam.origin_vect.axis[0] = 0;
-	cam.origin_vect.axis[1] = 0;
-	cam.origin_vect.axis[2] = 0;
-	cam.forward_vect.axis[0] = 1;
-	cam.forward_vect.axis[1] = 1;
-	cam.forward_vect.axis[2] = 1;
-	cam.up_vect.axis[0] = 0;
-	cam.up_vect.axis[1] = 1;
-	cam.up_vect.axis[2] = 0;
-	cam.right_vect.axis[0] = 1;
-	cam.right_vect.axis[1] = 0;
-	cam.right_vect.axis[2] = 0;
-	launch_rays(&cam);
+	mlx->img.img_ptr = mlx_new_image(mlx->connect, WIDTH, HEIGHT);
+	mlx->img.img_data = mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
+		&mlx->img.line_len,	&(int){0});
+	launch_rays(mlx, data);
+	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
+	mlx_destroy_image(mlx->connect, mlx->img.img_ptr);
 	return (0);
 }
 
-void	launch_mlx_loop(t_mlx *mlx)
+void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 {		
-	mlx_hook(mlx->window, 2, 1L << 0, key_press, mlx->connect);
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);
-	mlx_loop_hook(mlx->connect, loop, NULL);
+	mlx_hook(mlx->window, 2, 1L << 0, key_press, (void *[]){mlx, data});
+	mlx_loop_hook(mlx->connect, frame, (void *[]){mlx, data});
 	mlx_loop(mlx->connect);
 }
 
@@ -104,15 +82,28 @@ int	init_mlx(t_mlx *mlx)
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
+	t_data 	data;
 
 	ft_printf("hello world!\n");
-	if (argc != 2)
-		return (display_error("arg number\n"), 1);
-	if (parse(argv[1]) == 0)
-		return (display_error("parse error\n"), 2);
-	// if (init_mlx(&mlx))
-	// 	return (1);
-	// launch_mlx_loop(&mlx);
-	// flush_exit_struct();
+
+	data.cam.fov = 90;
+	data.cam.resol[0] = WIDTH;
+	data.cam.resol[1] = HEIGHT;
+	data.cam.forward_vect.axis[0] = 0;
+	data.cam.forward_vect.axis[1] = 0;
+	data.cam.forward_vect.axis[2] = 1;
+	data.sphere.diameter = 12.6;
+	data.sphere.origin_vect.axis[0] = 0;
+	data.sphere.origin_vect.axis[1] = 0;
+	data.sphere.origin_vect.axis[2] = 20;
+	fill_cam(&data.cam);
+	// if (argc != 2)
+	// 	return (display_error("arg number\n"), 1);
+	// if (parse(argv[1]) == 0)
+	// 	return (display_error("parse error\n"), 2);
+	if (init_mlx(&mlx))
+		return (1);
+	launch_mlx_loop(&mlx, &data);
+	flush_exit_struct();
 	return (0);
 }

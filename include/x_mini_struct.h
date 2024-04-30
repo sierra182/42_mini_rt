@@ -5,10 +5,19 @@
 # define HEIGHT 500
 # define AXIS 3
 
+typedef	struct s_img
+{
+	void	*img_ptr;
+	char	*img_data;
+	int		line_len;
+	int		bpp;
+}	t_img;
+
 typedef struct s_mlx
 {
 	void	*connect;
 	void	*window;
+	t_img	img;
 }	t_mlx;
 
 typedef struct s_vector
@@ -35,10 +44,27 @@ typedef struct s_cam
 	t_vector	right_vect;
 }	t_cam;
 
+typedef struct s_sphere
+{
+	double		diameter;
+	t_vector	origin_vect;
+}	t_sphere;
+
+typedef struct s_data
+{
+	t_cam		cam;
+	t_sphere	sphere;	
+}	t_data;
+
 typedef struct s_exit
 {
 	t_mlx	*mlx;
 }	t_exit;
+
+typedef enum e_event
+{
+	ESC = 65307
+}	t_enum_event;
 
 typedef enum e_exit
 {

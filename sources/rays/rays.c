@@ -22,7 +22,7 @@ static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 	return ((1 - 2 * (pixel + 0.5) / screen_size));
 }
 
-static void	new_ray(t_cam *cam, int x, int y, t_ray *ray)
+static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 {
 	double		norm_scale_x;
 	double		norm_scale_y;
@@ -35,43 +35,33 @@ static void	new_ray(t_cam *cam, int x, int y, t_ray *ray)
 	normalize_vector(&ray->dir_vect);
 }
 
-static void	calculate_missing_vectors(t_cam *cam)
-{
-	normalize_vector(&cam->forward_vect);
-	cam->up_vect.axis[0] = 0;
-	cam->up_vect.axis[1] = 1;
-	cam->up_vect.axis[2] = 0;
-	product_vector(&cam->up_vect, &cam->forward_vect, &cam->right_vect);
-	if (are_collinear_vectors(&cam->right_vect, 1e-3))
-	{
-		cam->up_vect.axis[0] = -1;
-		cam->up_vect.axis[1] = 0;
-		cam->up_vect.axis[2] = 0;
-		product_vector(&cam->up_vect, &cam->forward_vect, &cam->right_vect);
+void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
+{	
+	int		pxl_pos;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{	
+		pxl_pos = x *  mlx->img.bpp / 8 + y * mlx->img.line_len;
+		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
 	}
-	normalize_vector(&cam->right_vect);
-	product_vector(&cam->forward_vect, &cam->right_vect, &cam->up_vect);
-	normalize_vector(&cam->up_vect);
 }
 
-void	launch_rays(t_cam *cam)
+void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	t_ray	ray;
-	double	aspect;
-	double	scale;
 	int		x;
 	int		y;
 
-	calculate_missing_vectors(cam);
-	cam->fov = cam->fov * PI / 180.0;
-	cam->scale = tan(cam->fov / 2);
-	cam->aspect = cam->resol[0] / cam->resol[1];
-	cam->focal_len = cam->resol[0] / (2.0 * cam->scale);
 	y = -1;
-	while (++y < cam->resol[1])
+	while (++y < data->cam.resol[1])
 	{
 		x = -1;
-		while (++x < cam->resol[0])
-			new_ray(cam, x, y, &ray);
+		while (++x < data->cam.resol[0])
+		{
+			new_ray(&data->cam, &ray, x, y);
+			if (1)//is_intersect_sphere(&ray, &data->sphere))
+				put_pxl(mlx, x, y, *(int *)(unsigned char[])
+					{225, 125, 125, 0});		
+		}		
 	}
 }
