@@ -7,6 +7,15 @@
 # include "libft.h"
 # include <fcntl.h>
 
+typedef enum
+{
+	LTR,
+	VECR,
+	BYT,
+	FOV,
+	FL
+}	num_type;
+
 # define FILE_SIZE 1024
 
 #endif

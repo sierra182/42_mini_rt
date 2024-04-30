@@ -1,9 +1,11 @@
 #include "check_file.h"
 
+#include "ft_printf.h"
+
 /**========================================================================
- *                           check_float
+ *                           chck_fl
  *========================================================================**/
-int	check_float(char *str)
+int	chck_fl(char *str, num_type)
 {
 	int	i;
 

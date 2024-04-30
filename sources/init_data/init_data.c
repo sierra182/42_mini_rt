@@ -36,7 +36,7 @@ int	get_element_data(char *map_path, double	tab[], char *el)
 	if (map_fd == -1)
 		return (0);
 	get_data_str(&str, el, map_fd);
-	ft_printf("%s", str);
+	// ft_printf("%s", str);
 	token = ft_strtok(str, ", \t\n");
 	i = 0;
 	while (token)
@@ -44,7 +44,7 @@ int	get_element_data(char *map_path, double	tab[], char *el)
 		token = ft_strtok(NULL, ", \t\n");
 		if (token)
 			tab[i] = atof(token);
-		printf("tab[i]: %f\n", tab[i]);
+		// printf("tab[i]: %f\n", tab[i]);
 		i++;
 	}
 	free(str);

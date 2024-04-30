@@ -1,5 +1,8 @@
 #include "elements_data_are_valid.h"
 
+
+#include "ft_printf.h" 
+
 /**========================================================================
  *                           elements_data_are_valid
  *========================================================================**/
@@ -51,6 +54,11 @@ int	is_empty_str(char *str)
 
 /**========================================================================
  *                           data_str_is_valid
+ * ltr[0.0,1.0]
+ * vecr[-1.0,1.0]
+ * bt: [0,255]
+ * fov: [0,180]
+ * fl: float (limit: strlen=10)
  *========================================================================**/
 int	data_str_is_valid(char *str)
 {
@@ -61,17 +69,17 @@ int	data_str_is_valid(char *str)
 	status = 0;
 	token = ft_strtok(str, ", \t");
 	if (!ft_strcmp(token, "A"))
-		data_str = "4,fl,bt,bt,bt";
+		data_str = "4,ltr,byt,byt,byt";
 	else if (!ft_strcmp(token, "C"))
-		data_str = "7,fl,fl,fl,fl,fl,fl,fl";
+		data_str = "7,fl,fl,fl,vecr,vecr,vecr,fov";
 	else if (!ft_strcmp(token, "L"))
-		data_str = "7,fl,fl,fl,fl,bt,bt,bt";
+		data_str = "7,fl,fl,fl,ltr,byt,byt,byt";
 	else if (!ft_strcmp(token, "sp"))
-		data_str = "7,fl,fl,fl,fl,bt,bt,bt";
+		data_str = "7,fl,fl,fl,fl,byt,byt,byt";
 	else if (!ft_strcmp(token, "pl"))
-		data_str = "9,fl,fl,fl,fl,fl,fl,bt,bt,bt";
+		data_str = "9,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt";
 	else if (!ft_strcmp(token, "cy"))
-		data_str = "11,fl,fl,fl,fl,fl,fl,fl,fl,bt,bt,bt";
+		data_str = "11,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt";
 	else if (!ft_strncmp(token, "#", 1))
 		return (1);
 	else
@@ -84,41 +92,60 @@ int	data_str_is_valid(char *str)
 /**========================================================================
  *                           check_data
  *? added 	if (i > len_max + 2) return (0); to check arument nbr
+ * 
+ * fl: float (limit: strlen=10)
+ * ltr[0.0,1.0]
+ * vecr[-1.0,1.0]
+ * bt: [0,255]
+ * fov: [0,180]
+ * chck_fl(char *str)
+ * check_byte(char *str)
  *========================================================================**/
 int	check_data(char *token, char *check)
 {
 	int		len_max;
-	char	**data_type;
+	char	**num;
 	int		i;
 
-	data_type = ft_split(check, ',');
-	len_max = ft_atoi(data_type[0]);
+	num = ft_split(check, ',');
+	len_max = ft_atoi(num[0]);
 	i = 1;
+	ft_printf("content: ");
 	while (token)
 	{
 		token = ft_strtok(NULL, ", \t\n");
-		if (data_type[i - 1] == NULL)
-			return (free_tab(data_type), 0);
-		if (data_type[i] && !ft_strcmp(data_type[i], "fl")
-			&& !check_float(token))
-			return (free_tab(data_type), 0);
-		if (data_type[i] && !ft_strcmp(data_type[i], "bt")
-			&& !check_byte(token))
-			return (free_tab(data_type), 0);
+		if (num[i - 1] == NULL)
+			return (free_tab(num), 0);
+		if (num[i] && !ft_strcmp(num[i], "ltr") && chck_fl(token, LTR))
+			ft_printf("ltr-");
+			// return (free_tab(num), 0);
+		if (num[i] && !ft_strcmp(num[i], "vecr") && chck_fl(token, VECR))
+			ft_printf("vecr-");
+		if (num[i] && !ft_strcmp(num[i], "byt") && chck_fl(token, BYT))
+			ft_printf("byt-");
+		if (num[i] && !ft_strcmp(num[i], "fov") && chck_fl(token, FOV))
+			ft_printf("fov-");
+		if (num[i] && !ft_strcmp(num[i], "fl") && chck_fl(token, FL))
+			ft_printf("fl-");
+			// return (free_tab(num), 0);
 		i++;
 	}
+	ft_printf("\n");
 	if (i != len_max + 2)
-		return (free_tab(data_type), 0);
-	free_tab(data_type);
+		return (free_tab(num), 0);
+	free_tab(num);
 	return (1);
 }
 
-void	free_tab(char **data_type)
+/**========================================================================
+ *                           free_tab
+ *========================================================================**/
+void	free_tab(char **num)
 {
 	int	i;
 
 	i = 0;
-	while (data_type[i])
-		free(data_type[i++]);
-	free(data_type);
+	while (num[i])
+		free(num[i++]);
+	free(num);
 }
