@@ -1,14 +1,13 @@
 #include "x_mini_struct.h"
 #include "get_next_line.h"
 #include "libft.h"
-# include <fcntl.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
 
 void	initialize_tab(double tab[]);
-
 
 /**========================================================================
  *                             COMMENT BLOCK
@@ -49,7 +48,7 @@ double	*get_element_data(char *map_path, double tab[], char *el)
 		str = get_next_line(map_fd);
 		if (str == NULL)
 			break ;
-		if(ft_strnstr(str, el, ft_strlen(el)))
+		if (ft_strnstr(str, el, ft_strlen(el)))
 		{
 			tab = fill_tab(str, tab);
 			free (str);
@@ -77,8 +76,8 @@ void	print_tab(double tab[], char *str)
 
 	printf("%s", str);
 	i = 0;
-		while (tab[i] != -2)
-			printf("%f\n", tab[i++]);
+	while (tab[i] != -2)
+		printf("%f\n", tab[i++]);
 }
 
 int	init_data(char *map_path, t_data *data)
@@ -86,17 +85,17 @@ int	init_data(char *map_path, t_data *data)
 	double	tab[20];
 	int		i;
 
-	while(get_element_data(map_path, tab, "A") != NULL)
+	while (get_element_data(map_path, tab, "A") != NULL)
 		print_tab(tab, "A:\n");
-	while(get_element_data(map_path, tab, "C") != NULL)
+	while (get_element_data(map_path, tab, "C") != NULL)
 		print_tab(tab, "C:\n");
-	while(get_element_data(map_path, tab, "L") != NULL)
+	while (get_element_data(map_path, tab, "L") != NULL)
 		print_tab(tab, "L:\n");
-	while(get_element_data(map_path, tab, "cy") != NULL)
+	while (get_element_data(map_path, tab, "cy") != NULL)
 		print_tab(tab, "cy :\n");
-	while(get_element_data(map_path, tab, "sp") != NULL)
+	while (get_element_data(map_path, tab, "sp") != NULL)
 		print_tab(tab, "sp :\n");
-	while(get_element_data(map_path, tab, "pl") != NULL)
+	while (get_element_data(map_path, tab, "pl") != NULL)
 		print_tab(tab, "pl :\n");
 	return (1);
 }
