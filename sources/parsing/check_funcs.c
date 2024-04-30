@@ -1,4 +1,4 @@
-#include "check_file.h"
+#include "check_funcs.h"
 
 #include "ft_printf.h"
 #include <stdio.h>
@@ -12,24 +12,15 @@ int	typ_check_fl(char *str, num_type num)
 	float tmp;
 
 	tmp = ft_atof(str);
-	// printf("string: %s, float: %f\n", str, tmp);
 	if (num == LTR)
 	{
 		if (tmp < 0.0 || tmp > 1.0)
-		{
-			printf("LTR: %f \n", tmp);
-			// printf("NONO!\n");
 			return (0);
-		}
 	}
 	else if (num == VECR)
 	{
 		if (tmp < -1.0 || tmp > 1.0)
-		{
-			printf("VECR: %f \n", tmp);
-			// printf("NONO!\n");
 			return (0);
-		}
 	}
 	return (1);
 }
@@ -42,24 +33,15 @@ int	typ_check_bt(char *str, num_type num)
 	int tmp;
 
 	tmp = ft_atoi(str);
-	// printf("string: %s, float: %f\n", str, tmp);
 	if (num == BYT)
 	{
 		if (tmp < 0 || tmp > 255)
-		{
-			// printf("BYT: %i \n", tmp);
-			// printf("NONO!\n");
 			return (0);
-		}
 	}
 	else if (num == FOV)
 	{
 		if (tmp < 0 || tmp > 180)
-		{
-			// printf("FOV: %i \n", tmp);
-			// printf("NONO!\n");
 			return (0);
-		}
 	}
 	return (1);
 }
