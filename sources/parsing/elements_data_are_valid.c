@@ -84,7 +84,7 @@ int	data_str_is_valid(char *str)
 /**========================================================================
  *                           check_data
  *? added 	if (i > len_max + 2) return (0); to check arument nbr
- * 
+ *! FUNC TO BE SHORTENED - NOT NORMINETTE-PROOF 
  *========================================================================**/
 int	check_data(char *token, char *check)
 {
