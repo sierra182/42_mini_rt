@@ -18,8 +18,8 @@ typedef enum
 
 int		data_str_is_valid(char *str);
 int		is_empty_str(char *str);
-int		chck_fl(char *str, num_type);
-int		check_byte(char *str);
+int		chck_fl(char *str, num_type num);
+int		chck_bt(char *str, num_type num);
 int		check_data(char *token, char *check);
 void	free_tab(char **num);
 

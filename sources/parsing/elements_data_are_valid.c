@@ -99,7 +99,7 @@ int	data_str_is_valid(char *str)
  * bt: [0,255]
  * fov: [0,180]
  * chck_fl(char *str)
- * check_byte(char *str)
+ * chck_bt(char *str)
  *========================================================================**/
 int	check_data(char *token, char *check)
 {
@@ -110,7 +110,7 @@ int	check_data(char *token, char *check)
 	num = ft_split(check, ',');
 	len_max = ft_atoi(num[0]);
 	i = 1;
-	ft_printf("content: ");
+	// ft_printf("content: ");
 	while (token)
 	{
 		token = ft_strtok(NULL, ", \t\n");
@@ -121,9 +121,9 @@ int	check_data(char *token, char *check)
 			// return (free_tab(num), 0);
 		if (num[i] && !ft_strcmp(num[i], "vecr") && chck_fl(token, VECR))
 			ft_printf("vecr-");
-		if (num[i] && !ft_strcmp(num[i], "byt") && chck_fl(token, BYT))
+		if (num[i] && !ft_strcmp(num[i], "byt") && chck_bt(token, BYT))
 			ft_printf("byt-");
-		if (num[i] && !ft_strcmp(num[i], "fov") && chck_fl(token, FOV))
+		if (num[i] && !ft_strcmp(num[i], "fov") && chck_bt(token, FOV))
 			ft_printf("fov-");
 		if (num[i] && !ft_strcmp(num[i], "fl") && chck_fl(token, FL))
 			ft_printf("fl-");

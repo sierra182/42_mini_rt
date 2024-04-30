@@ -1,40 +1,71 @@
 #include "check_file.h"
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-/**========================================================================
- *                           chck_fl
- *========================================================================**/
-int	chck_fl(char *str, num_type)
+int	typ_check(char *str, num_type num)
 {
-	int	i;
+	float tmp;
 
-	i = 0;
-	if (str == NULL)
-		return (1);
-	if (ft_strlen(str) > 10)
-		return (0);
-	if (*str == '\0' || (*str != '-' && *str != '+' && !ft_isdigit(*str)))
-		return (0);
-	str++;
-	while (*str != '\0' && *str != '\n')
+	tmp = atof(str);
+	// printf("string: %s, float: %f\n", str, tmp);
+	if (num == LTR)
 	{
-		if (*str == '.')
-			i++;
-		if ((!ft_isdigit(*str) && *str != '.') || *str == '-' || *str == '+')
+		printf("LTR: %f ", tmp);
+		if (tmp < 0.0 || tmp > 1.0)
+		{
+			printf("NONO!\n");
 			return (0);
-		str++;
+		}
 	}
-	str--;
-	if (!ft_isdigit(*str) || i > 1)
-		return (0);
+	else if (num == VECR)
+	{
+		printf("VECR: %f ", tmp);
+		if (tmp < -1.0 || tmp > 1.0)
+		{
+			printf("NONO!\n");
+			return (0);
+		}
+	}
 	return (1);
 }
 
 /**========================================================================
- *                           check_byte
+ *                           chck_fl
  *========================================================================**/
-int	check_byte(char *str)
+int	chck_fl(char *str, num_type num)
+{
+	int	i;
+	int	n;
+
+	if (str == NULL)
+		return (1);
+	if (ft_strlen(str) > 10)
+		return (0);
+	if (!str[0] || (str[0] != '-' && str[0] != '+' && !ft_isdigit(str[0])))
+		return (0);
+	i = 1;
+	n = 0;
+	while (str[i] != '\0' && str[i] != '\n')
+	{
+		if (str[i] == '.')
+			n++;
+		if ((!ft_isdigit(str[i]) && str[i] != '.') || str[i] == '-' || str[i] == '+')
+			return (0);
+		i++;
+	}
+	i--;
+	if (!ft_isdigit(str[i]) || n > 1)
+		return (0);
+	if (typ_check(str, num) == 0)
+		return (0);	
+	return (1);
+}
+
+/**========================================================================
+ *                           chck_bt
+ *========================================================================**/
+int	chck_bt(char *str)
 {
 	int	num;
 
