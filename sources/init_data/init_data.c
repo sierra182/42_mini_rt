@@ -43,7 +43,7 @@ int	get_element_data(char *map_path, double	tab[], char *el)
 	{
 		token = ft_strtok(NULL, ", \t\n");
 		if (token)
-			tab[i] = atof(token);
+			tab[i] = ft_atof(token);
 		// printf("tab[i]: %f\n", tab[i]);
 		i++;
 	}

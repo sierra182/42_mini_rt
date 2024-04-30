@@ -6,83 +6,106 @@
 /*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:22:21 by dansylvain        #+#    #+#             */
-/*   Updated: 2024/04/30 10:17:28 by dansylvain       ###   ########.fr       */
+/*   Updated: 2024/04/30 11:09:03 by dansylvain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#include <stdio.h>
-#include <stdlib.h>
+void	func_part_1(char **str, int *sign, double *result)
+{
+	while (**str == ' ')
+		(*str)++;
+	if (**str == '-')
+	{
+		*sign = -1;
+		(*str)++;
+	}
+	else if (**str == '+')
+		str++;
+	while (**str >= '0' && **str <= '9')
+	{
+		*result = *result * 10.0 + (**str - '0');
+		(*str)++;
+	}
+}
 
-double ft_atof(char *str) {
-    double result = 0.0;
-    double fraction = 0.0;
-    int sign = 1;
-    int exponent = 0;
-    int exp_sign = 1;
-    int divisor = 10;
+void	func_part_2(char **str, double *fraction, int *divisor)
+{
+	if (**str == '.')
+	{
+		(*str)++;
+		while (**str >= '0' && **str <= '9')
+		{
+			*fraction = *fraction + (**str - '0') / (double)(*divisor);
+			*divisor *= 10;
+			(*str)++;
+		}
+	}
+}
 
-    // Skip leading whitespaces
-    while (*str == ' ')
-        str++;
+void	func_part_3(char **str, int *exponent)
+{
+	int	exp_sign;
 
-    // Handle sign
-    if (*str == '-') {
-        sign = -1;
-        str++;
-    } else if (*str == '+') {
-        str++;
-    }
+	exp_sign = 1;
+	if (**str == 'e' || **str == 'E')
+	{
+		(*str)++;
+		if (**str == '-')
+		{
+			exp_sign = -1;
+			(*str)++;
+		}
+		else if (**str == '+')
+			(*str)++;
+		while (**str >= '0' && **str <= '9')
+		{
+			*exponent = *exponent * 10 + (**str - '0');
+			(*str)++;
+		}
+		*exponent *= exp_sign;
+	}
+}
 
-    // Parse integer part
-    while (*str >= '0' && *str <= '9') {
-        result = result * 10.0 + (*str - '0');
-        str++;
-    }
+void	func_part_4(double *result, int sign, double fraction, int *exponent)
+{
+	double	power;
 
-    // Parse fraction part
-    if (*str == '.') {
-        str++;
-        while (*str >= '0' && *str <= '9') {
-            fraction = fraction + (*str - '0') / (double)divisor;
-            divisor *= 10;
-            str++;
-        }
-    }
+	*result = sign * (*result + fraction);
+	if (*exponent != 0)
+	{
+		power = 10.0;
+		while (*exponent > 1)
+		{
+			power *= 10.0;
+			(*exponent)--;
+		}
+		while (*exponent < -1)
+		{
+			power /= 10.0;
+			(*exponent)++;
+		}
+		*result *= power;
+	}
+}
 
-    // Parse exponent part
-    if (*str == 'e' || *str == 'E') {
-        str++;
-        if (*str == '-') {
-            exp_sign = -1;
-            str++;
-        } else if (*str == '+') {
-            str++;
-        }
-        while (*str >= '0' && *str <= '9') {
-            exponent = exponent * 10 + (*str - '0');
-            str++;
-        }
-        exponent *= exp_sign;
-    }
+double	ft_atof(char *str)
+{
+	double	result;
+	double	fraction;
+	int		sign;
+	int		exponent;
+	int		divisor;
 
-    // Combine integer and fraction parts
-    result = sign * (result + fraction);
-
-    // Adjust result based on exponent
-    if (exponent != 0) {
-        double power = 10.0;
-        while (exponent > 1) {
-            power *= 10.0;
-            exponent--;
-        }
-        while (exponent < -1) {
-            power /= 10.0;
-            exponent++;
-        }
-        result *= power;
-    }
-
-    return result;
+	result = 0.0;
+	fraction = 0.0;
+	sign = 1;
+	exponent = 0;
+	divisor = 10;
+	func_part_1(&str, &sign, &result);
+	func_part_2(&str, &fraction, &divisor);
+	func_part_3(&str, &exponent);
+	func_part_4(&result, sign, fraction, &exponent);
+	return (result);
 }
