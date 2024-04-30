@@ -16,34 +16,26 @@
  *  this way many elements can be extracted in one pass...
  *========================================================================**/
 
-char	*get_data_str(char **str, char *el, int	map_fd)
-{
-	while (1)
-	{
-		*str = get_next_line(map_fd);
-		if(ft_strnstr(*str, el, ft_strlen(el)))
-		{
-			get_next_line(42);
-			break ;
-		}
-		free (*str);
-	}
-	return (*str);
-}
+// char	*get_data_str(char **str, char *el, int	map_fd)
+// {
+// 	while (1)
+// 	{
+// 		*str = get_next_line(map_fd);
+// 		if(ft_strnstr(*str, el, ft_strlen(el)))
+// 		{
+// 			get_next_line(42);
+// 			break ;
+// 		}
+// 		free (*str);
+// 	}
+// 	return (*str);
+// }
 
-double	*get_element_data(char *map_path, double	tab[], char *el)
+double	*get_element_data_2(char *str, double tab[])
 {
-	int	map_fd;
 	int	i;
-	char *str;
 	char *token;
-	bool found_camera = false;
 
-	map_fd = open(map_path, O_RDONLY);
-	if (map_fd == -1)
-		return (0);
-	get_data_str(&str, el, map_fd);
-	// ft_printf("%s", str);
 	token = ft_strtok(str, ", \t\n");
 	i = 0;
 	while (token)
@@ -52,38 +44,58 @@ double	*get_element_data(char *map_path, double	tab[], char *el)
 		if (token)
 		{
 			tab[i] = ft_atof(token);
-			// printf("tab[i]: %f\n", tab[i]);
 		}
 		i++;
 	}
-	free(str);
+	return (tab);
+}
+
+double	*get_element_data(char *map_path, double tab[], char *el)
+{
+	int	map_fd;
+	char *str;
+
+	map_fd = open(map_path, O_RDONLY);
+	while (1)
+	{
+		str = get_next_line(map_fd);
+		if(ft_strnstr(str, el, ft_strlen(el)))
+		{
+			tab = get_element_data_2(str, tab);
+			// ft_printf("%s", str);
+			break ;
+		}
+		free (str);
+	}
 	close(map_fd);
 	return (tab);
 }
+
 
 int	init_data(char *map_path, t_data *data)
 {
 	double	tab[20];
 	int		i;
 
+	//initialize tab
 	i = 0;
 	while (i < 20)
 		tab[i++] = -2;
 
+
+
+
+	get_element_data(map_path, tab, "L");
+	i = 0;
+	while (tab[i] != -2)
+		printf("%f\n", tab[i++]);
 	get_element_data(map_path, tab, "A");
 	i = 0;
-
-	while (i < 20)
+	while (tab[i] != -2)
 		printf("%f\n", tab[i++]);
 	get_element_data(map_path, tab, "C");
 	i = 0;
-
-	while (i < 20)
-		printf("%f\n", tab[i++]);
-	get_element_data(map_path, tab, "L");
-	i = 0;
-
-	while (i < 20)
+	while (tab[i] != -2)
 		printf("%f\n", tab[i++]);
 	return (1);
 }
