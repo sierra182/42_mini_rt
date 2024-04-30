@@ -52,23 +52,26 @@ double	*get_element_data_2(char *str, double tab[])
 
 double	*get_element_data(char *map_path, double tab[], char *el)
 {
-	int	map_fd;
+	static int	map_fd = -1;
 	char *str;
 
-	map_fd = open(map_path, O_RDONLY);
+	if (map_fd == -1)
+		map_fd = open(map_path, O_RDONLY);
 	while (1)
 	{
 		str = get_next_line(map_fd);
+		if (str == NULL)
+			break ;
 		if(ft_strnstr(str, el, ft_strlen(el)))
 		{
 			tab = get_element_data_2(str, tab);
-			// ft_printf("%s", str);
-			break ;
+			free (str);
+			return (tab);
 		}
-		free (str);
 	}
 	close(map_fd);
-	return (tab);
+	map_fd = -1;
+	return (NULL);
 }
 
 
@@ -85,17 +88,68 @@ int	init_data(char *map_path, t_data *data)
 
 
 
-	get_element_data(map_path, tab, "L");
-	i = 0;
-	while (tab[i] != -2)
-		printf("%f\n", tab[i++]);
 	get_element_data(map_path, tab, "A");
+	printf("A:\n");
 	i = 0;
-	while (tab[i] != -2)
-		printf("%f\n", tab[i++]);
+		while (tab[i] != -2)
+			printf("%f\n", tab[i++]);
+	
+	i = 0;
+	while (i < 20)
+		tab[i++] = -2;
+	
 	get_element_data(map_path, tab, "C");
+	printf("C:\n");
 	i = 0;
-	while (tab[i] != -2)
-		printf("%f\n", tab[i++]);
+		while (tab[i] != -2)
+			printf("%f\n", tab[i++]);
+	
+	i = 0;
+	while (i < 20)
+		tab[i++] = -2;
+	
+	get_element_data(map_path, tab, "L");
+	printf("L:\n");
+	i = 0;
+		while (tab[i] != -2)
+			printf("%f\n", tab[i++]);
+	
+	i = 0;
+	while (i < 20)
+		tab[i++] = -2;
+
+	while(get_element_data(map_path, tab, "cy") != NULL)
+	{
+		i = 0;
+		printf("cy %i :\n", i);
+		while (tab[i] != -2)
+			printf("%f\n", tab[i++]);
+	}
+
+	i = 0;
+	while (i < 20)
+		tab[i++] = -2;
+
+	while(get_element_data(map_path, tab, "sp") != NULL)
+	{
+		i = 0;
+		printf("sp %i :\n", i);
+		while (tab[i] != -2)
+			printf("%f\n", tab[i++]);
+	}
+
+	i = 0;
+	while (i < 20)
+		tab[i++] = -2;
+
+	while(get_element_data(map_path, tab, "pl") != NULL)
+	{
+		i = 0;
+		printf("pl %i :\n", i);
+		while (tab[i] != -2)
+			printf("%f\n", tab[i++]);
+	}
+
+
 	return (1);
 }
