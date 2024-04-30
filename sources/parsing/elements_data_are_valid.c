@@ -110,27 +110,23 @@ int	check_data(char *token, char *check)
 	num = ft_split(check, ',');
 	len_max = ft_atoi(num[0]);
 	i = 1;
-	ft_printf("content: ");
 	while (token)
 	{
 		token = ft_strtok(NULL, ", \t\n");
 		if (num[i - 1] == NULL)
 			return (free_tab(num), 0);
-		if (num[i] && !ft_strcmp(num[i], "ltr") && chck_fl(token, LTR))
-			ft_printf("ltr-");
-			// return (free_tab(num), 0);
-		if (num[i] && !ft_strcmp(num[i], "vecr") && chck_fl(token, VECR))
-			ft_printf("vecr-");
-		if (num[i] && !ft_strcmp(num[i], "byt") && chck_bt(token, BYT))
-			ft_printf("byt-");
-		if (num[i] && !ft_strcmp(num[i], "fov") && chck_bt(token, FOV))
-			ft_printf("fov-");
-		if (num[i] && !ft_strcmp(num[i], "fl") && chck_fl(token, FL))
-			ft_printf("fl-");
-			// return (free_tab(num), 0);
+		if (num[i] && !ft_strcmp(num[i], "ltr") && !chck_fl(token, LTR))
+			return (free_tab(num), 0);
+		if (num[i] && !ft_strcmp(num[i], "vecr") && !chck_fl(token, VECR))
+			return (free_tab(num), 0);
+		if (num[i] && !ft_strcmp(num[i], "byt") && !chck_bt(token, BYT))
+			return (free_tab(num), 0);
+		if (num[i] && !ft_strcmp(num[i], "fov") && !chck_bt(token, FOV))
+			return (free_tab(num), 0);
+		if (num[i] && !ft_strcmp(num[i], "fl") && !chck_fl(token, FL))
+			return (free_tab(num), 0);
 		i++;
 	}
-	ft_printf("\n");
 	if (i != len_max + 2)
 		return (free_tab(num), 0);
 	free_tab(num);
