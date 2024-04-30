@@ -74,82 +74,47 @@ double	*get_element_data(char *map_path, double tab[], char *el)
 	return (NULL);
 }
 
+void	initialize_tab(double tab[])
+{
+	int	i;
+
+	i = 0;
+	while (i < 20)
+		tab[i++] = -2;
+}
+
+void	print_tab(double tab[], char *str)
+{
+	int	i;
+
+	printf("%s", str);
+	i = 0;
+		while (tab[i] != -2)
+			printf("%f\n", tab[i++]);
+}
 
 int	init_data(char *map_path, t_data *data)
 {
 	double	tab[20];
 	int		i;
 
-	//initialize tab
-	i = 0;
-	while (i < 20)
-		tab[i++] = -2;
-
-
-
-
+	initialize_tab(tab);
 	get_element_data(map_path, tab, "A");
-	printf("A:\n");
-	i = 0;
-		while (tab[i] != -2)
-			printf("%f\n", tab[i++]);
-	
-	i = 0;
-	while (i < 20)
-		tab[i++] = -2;
-	
+	print_tab(tab, "A:\n");
+	initialize_tab(tab);
 	get_element_data(map_path, tab, "C");
-	printf("C:\n");
-	i = 0;
-		while (tab[i] != -2)
-			printf("%f\n", tab[i++]);
-	
-	i = 0;
-	while (i < 20)
-		tab[i++] = -2;
-	
+	print_tab(tab, "C:\n");
+	initialize_tab(tab);	
 	get_element_data(map_path, tab, "L");
-	printf("L:\n");
-	i = 0;
-		while (tab[i] != -2)
-			printf("%f\n", tab[i++]);
-	
-	i = 0;
-	while (i < 20)
-		tab[i++] = -2;
-
+	print_tab(tab, "L:\n");
+	initialize_tab(tab);
 	while(get_element_data(map_path, tab, "cy") != NULL)
-	{
-		i = 0;
-		printf("cy %i :\n", i);
-		while (tab[i] != -2)
-			printf("%f\n", tab[i++]);
-	}
-
-	i = 0;
-	while (i < 20)
-		tab[i++] = -2;
-
+		print_tab(tab, "cy :\n");
+	initialize_tab(tab);
 	while(get_element_data(map_path, tab, "sp") != NULL)
-	{
-		i = 0;
-		printf("sp %i :\n", i);
-		while (tab[i] != -2)
-			printf("%f\n", tab[i++]);
-	}
-
-	i = 0;
-	while (i < 20)
-		tab[i++] = -2;
-
+		print_tab(tab, "sp :\n");
+	initialize_tab(tab);
 	while(get_element_data(map_path, tab, "pl") != NULL)
-	{
-		i = 0;
-		printf("pl %i :\n", i);
-		while (tab[i] != -2)
-			printf("%f\n", tab[i++]);
-	}
-
-
+		print_tab(tab, "pl :\n");
 	return (1);
 }
