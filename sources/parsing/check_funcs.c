@@ -11,7 +11,7 @@ int	typ_check_fl(char *str, num_type num)
 {
 	float tmp;
 
-	tmp = atof(str);
+	tmp = ft_atof(str);
 	// printf("string: %s, float: %f\n", str, tmp);
 	if (num == LTR)
 	{
