@@ -1,5 +1,5 @@
 #include "rays.h"
-# include <math.h>
+
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
 {
@@ -63,8 +63,10 @@ void	launch_rays(t_cam *cam)
 	int		y;
 
 	calculate_missing_vectors(cam);
+	cam->fov = cam->fov * PI / 180.0;
 	cam->scale = tan(cam->fov / 2);
 	cam->aspect = cam->resol[0] / cam->resol[1];
+	cam->focal_len = cam->resol[0] / (2.0 * cam->scale);
 	y = -1;
 	while (++y < cam->resol[1])
 	{
