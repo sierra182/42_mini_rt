@@ -3,7 +3,7 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	typ_check(char *str, num_type num)
+int	typ_check_fl(char *str, num_type num)
 {
 	float tmp;
 
@@ -22,6 +22,33 @@ int	typ_check(char *str, num_type num)
 	{
 		printf("VECR: %f ", tmp);
 		if (tmp < -1.0 || tmp > 1.0)
+		{
+			printf("NONO!\n");
+			return (0);
+		}
+	}
+	return (1);
+}
+
+int	typ_check_bt(char *str, num_type num)
+{
+	int tmp;
+
+	tmp = ft_atoi(str);
+	// printf("string: %s, float: %f\n", str, tmp);
+	if (num == BYT)
+	{
+		printf("BYT: %i ", tmp);
+		if (tmp < 0 || tmp > 255)
+		{
+			printf("NONO!\n");
+			return (0);
+		}
+	}
+	else if (num == FOV)
+	{
+		printf("FOV: %i ", tmp);
+		if (tmp < 0 || tmp > 180)
 		{
 			printf("NONO!\n");
 			return (0);
@@ -57,7 +84,7 @@ int	chck_fl(char *str, num_type num)
 	i--;
 	if (!ft_isdigit(str[i]) || n > 1)
 		return (0);
-	if (typ_check(str, num) == 0)
+	if (typ_check_fl(str, num) == 0)
 		return (0);	
 	return (1);
 }
@@ -65,13 +92,13 @@ int	chck_fl(char *str, num_type num)
 /**========================================================================
  *                           chck_bt
  *========================================================================**/
-int	chck_bt(char *str)
+int	chck_bt(char *str, num_type num)
 {
-	int	num;
+	int	tmp;
 
 	if (str == NULL)
 		return (1);
-	num = ft_atoi(str);
+	tmp = ft_atoi(str);
 	if (ft_strlen(str) > 3)
 		return (0);
 	while (*str != '\0')
@@ -80,7 +107,7 @@ int	chck_bt(char *str)
 			return (0);
 		str++;
 	}
-	if (num < 0 || num > 255)
+	if(typ_check_bt(str, num) == 0)
 		return (0);
 	str--;
 	return (1);
