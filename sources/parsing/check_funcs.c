@@ -9,7 +9,7 @@
  *========================================================================**/
 int	typ_check_fl(char *str, num_type num)
 {
-	float tmp;
+	float	tmp;
 
 	tmp = ft_atof(str);
 	if (num == LTR)
@@ -30,7 +30,7 @@ int	typ_check_fl(char *str, num_type num)
  *========================================================================**/
 int	typ_check_bt(char *str, num_type num)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = ft_atoi(str);
 	if (num == BYT)
@@ -68,15 +68,14 @@ int	chck_fl(char *str, num_type num)
 	{
 		if (str[i] == '.')
 			n++;
-		if ((!ft_isdigit(str[i]) && str[i] != '.') || str[i] == '-' || str[i] == '+')
+		if ((!ft_isdigit(str[i]) && str[i] != '.')
+			|| str[i] == '-' || str[i] == '+')
 			return (0);
 		i++;
 	}
 	i--;
-	if (!ft_isdigit(str[i]) || n > 1)
+	if (!ft_isdigit(str[i]) || n > 1 || typ_check_fl(str, num) == 0)
 		return (0);
-	if (typ_check_fl(str, num) == 0)
-		return (0);	
 	return (1);
 }
 
@@ -98,7 +97,7 @@ int	chck_bt(char *str, num_type num)
 			return (0);
 		i++;
 	}
-	if(typ_check_bt(str, num) == 0)
+	if (typ_check_bt(str, num) == 0)
 		return (0);
 	return (1);
 }

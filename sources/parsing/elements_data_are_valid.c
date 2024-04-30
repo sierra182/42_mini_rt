@@ -1,8 +1,5 @@
 #include "elements_data_are_valid.h"
 
-
-#include "ft_printf.h" 
-
 /**========================================================================
  *                           elements_data_are_valid
  *========================================================================**/
@@ -54,11 +51,6 @@ int	is_empty_str(char *str)
 
 /**========================================================================
  *                           data_str_is_valid
- * ltr[0.0,1.0]
- * vecr[-1.0,1.0]
- * bt: [0,255]
- * fov: [0,180]
- * fl: float (limit: strlen=10)
  *========================================================================**/
 int	data_str_is_valid(char *str)
 {
@@ -93,13 +85,6 @@ int	data_str_is_valid(char *str)
  *                           check_data
  *? added 	if (i > len_max + 2) return (0); to check arument nbr
  * 
- * fl: float (limit: strlen=10)
- * ltr[0.0,1.0]
- * vecr[-1.0,1.0]
- * bt: [0,255]
- * fov: [0,180]
- * chck_fl(char *str)
- * chck_bt(char *str)
  *========================================================================**/
 int	check_data(char *token, char *check)
 {
