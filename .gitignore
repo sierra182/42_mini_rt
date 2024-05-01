@@ -1,4 +1,4 @@
-miniRT
+/miniRT
 
 # Prerequisites
 *.d
@@ -55,5 +55,3 @@ dkms.conf
 
 # suppression file
 *.supp
-
-.gitignore

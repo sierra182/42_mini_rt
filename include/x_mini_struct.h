@@ -58,6 +58,9 @@ typedef struct s_sphere
 
 typedef struct s_data
 {
+	int			sp_nbr;
+	int			pl_nbr;
+	int			cy_nbr;
 	t_cam		cam;
 	t_sphere	*spheres;	
 }	t_data;
