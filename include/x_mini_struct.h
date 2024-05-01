@@ -56,13 +56,25 @@ typedef struct s_sphere
 	t_color		color;
 }	t_sphere;
 
+typedef struct s_cylinder
+{
+	t_color		color;
+}	t_cylinder;
+
+typedef struct s_plane
+{
+	t_color		color;
+}	t_plane;
+
 typedef struct s_data
 {
 	int			sp_nbr;
 	int			pl_nbr;
 	int			cy_nbr;
 	t_cam		cam;
-	t_sphere	*spheres;	
+	t_sphere	*spheres;
+	t_cylinder	*cylinders;
+	t_plane		*planes;
 }	t_data;
 
 typedef struct s_exit

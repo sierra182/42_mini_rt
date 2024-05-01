@@ -62,27 +62,27 @@ int	create_and_fill_struct_sp(t_data *data, char *map_path, double tab[])
 	int	nbr;
 	i = 0;
 
-	
 
-	printf("sp:\n");
-	while (tab[i] != 1024)
-	{
-		if (i == 0)
-			printf("%i: %f\n", i, tab[i]);
-		if (i == 1)
-			printf("%i: %f\n", i, tab[i]);
-		if (i == 2)
-			printf("%i: %f\n", i, tab[i]);
-		if (i == 3)
-			printf("%i: %f\n", i, tab[i]);
-		if (i == 4)
-			printf("%i: %f\n", i, tab[i]);
-		if (i == 5)
-			printf("%i: %f\n", i, tab[i]);
-		if (i == 6)
-			printf("%i: %f\n", i, tab[i]);
-		i++;
-	}
+
+	// printf("sp:\n");
+	// while (tab[i] != 1024)
+	// {
+	// 	if (i == 0)
+	// 		printf("%i: %f\n", i, tab[i]);
+	// 	if (i == 1)
+	// 		printf("%i: %f\n", i, tab[i]);
+	// 	if (i == 2)
+	// 		printf("%i: %f\n", i, tab[i]);
+	// 	if (i == 3)
+	// 		printf("%i: %f\n", i, tab[i]);
+	// 	if (i == 4)
+	// 		printf("%i: %f\n", i, tab[i]);
+	// 	if (i == 5)
+	// 		printf("%i: %f\n", i, tab[i]);
+	// 	if (i == 6)
+	// 		printf("%i: %f\n", i, tab[i]);
+	// 	i++;
+	// }
 	return (1);
 }
 
