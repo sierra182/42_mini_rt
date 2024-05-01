@@ -81,7 +81,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		while (++x < data->cam.resol[0])
 		{
 			new_ray(&data->cam, &ray, x, y);
-			if (is_intersect_sphere(&ray, &data->spheres[0]))
+			if (data->spheres && (&ray, &data->spheres[0]))
 				put_pxl(mlx, x, y, *(int *)(unsigned char[])
 					{225, 125, 125, 0});		
 		}		
