@@ -1,7 +1,4 @@
-#include "x_mini_struct.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include "x_exit.h"
+#include "create_data_structs.h"
 
 int	create_data_structs(t_data *data, char *map_path)
 {

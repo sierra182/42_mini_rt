@@ -1,9 +1,4 @@
-#include "x_mini_struct.h"
-#include <stdio.h>
-#include "get_next_line.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include "libft.h"
+#include "fill_struct_funcs.h"
 
 void	fill_struct_a(t_data *data, double tab[])
 {

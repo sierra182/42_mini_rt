@@ -1,34 +1,13 @@
-#include "x_mini_struct.h"
-#include "get_next_line.h"
-#include "libft.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stddef.h>
-#include <stdlib.h>
-
-void	fill_struct_a(t_data *data, double tab[]);
-void	fill_struct_c(t_data *data, double tab[]);
-void	fill_struct_l(t_data *data, double tab[]);
-void	fill_struct_cy(t_data *data, double tab[]);
-void	fill_struct_pl(t_data *data, double tab[]);
-void	fill_struct_sp(t_data *data, double tab[]);
-int		create_data_structs(t_data *data, char *map_path);
-void	initialize_tab(double tab[]);
-double	*fill_tab(char *str, double tab[]);
-double	*get_element_data(char *map_path, double tab[], char *el);
-void	initialize_tab(double tab[]);
+#include "init_data.h"
 
 /**========================================================================
  *                             COMMENT BLOCK
  * tab cells are initialized at 1024.
- * values of floats for coordinates should not be greater than 500 
- *  
- *  
+ * => values of floats for coordinates should not be greater than 1024 
  *========================================================================**/
 
 /**========================================================================
- *                           SECTION
+ *                           init_data
  *========================================================================**/
 int	init_data(char *map_path, t_data *data)
 {

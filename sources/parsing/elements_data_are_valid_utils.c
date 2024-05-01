@@ -1,5 +1,4 @@
-#include "libft.h"
-#include <stdlib.h>
+#include "elements_data_are_valid_utils.h"
 
 /**========================================================================
  *                           is_empty_str

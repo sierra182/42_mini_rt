@@ -1,7 +1,4 @@
 #include "all_necessary_elements_are_present.h"
-#include "x_mini_struct.h"
-
-#define FILE_SIZE 1024
 
 /**========================================================================
  *                           all_necessary_elements_are_present

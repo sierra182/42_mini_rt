@@ -23,10 +23,12 @@ int	elements_data_are_valid(char *map_path)
 		{
 			free(str);
 			get_next_line(42);
+			close(map_fd);
 			return (0);
 		}
 		free(str);
 	}
+	close(map_fd);
 	return (1);
 }
 
@@ -65,6 +67,7 @@ int	data_str_is_valid(char *str)
 /**========================================================================
  *                           check_data
  *? added 	if (i > len_max + 2) return (0); to check arument nbr
+ *? len_max => number of nbrs(double, int) in the string
  *========================================================================**/
 int	check_data(char *token, char *check)
 {

@@ -30,6 +30,7 @@ MLX_DIR = mlx_linux
 CC = cc
 CFLAGS = \
 	-I$(HEADERS_DIR) \
+	-I$(HEADERS_DIR)/init_data \
 	-I$(HEADERS_DIR)/exit \
 	-I$(HEADERS_DIR)/parsing \
 	-I$(HEADERS_DIR)/rays \
@@ -75,8 +76,12 @@ HEADERS = \
 	$(HEADERS_DIR)/parsing/all_necessary_elements_are_present.h \
 	$(HEADERS_DIR)/parsing/check_funcs.h \
 	$(HEADERS_DIR)/parsing/elements_data_are_valid.h \
+	$(HEADERS_DIR)/parsing/elements_data_are_valid_utils.h \
 	$(HEADERS_DIR)/parsing/file_content_is_correct.h \
 	$(HEADERS_DIR)/parsing/parse.h \
+	$(HEADERS_DIR)/init_data/create_data_structs.h \
+	$(HEADERS_DIR)/init_data/fill_struct_funcs.h \
+	$(HEADERS_DIR)/init_data/init_data.h \
 	$(GNL_DIR)/get_next_line.h \
 
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
