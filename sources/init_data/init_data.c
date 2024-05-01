@@ -8,12 +8,12 @@
 #include <stdlib.h>
 
 
-void	fill_struct_A(t_data data, double tab[]);
-void	fill_struct_C(t_data data, double tab[]);
-void	fill_struct_L(t_data data, double tab[]);
-int		create_and_fill_struct_cy(t_data data, double tab[]);
-int		create_and_fill_struct_pl(t_data data, double tab[]);
-int		create_and_fill_struct_sp(t_data data, double tab[]);
+void	fill_struct_A(t_data *data, double tab[]);
+void	fill_struct_C(t_data *data, double tab[]);
+void	fill_struct_L(t_data *data, double tab[]);
+int		create_and_fill_struct_cy(t_data *data, double tab[]);
+int		create_and_fill_struct_pl(t_data *data, double tab[]);
+int		create_and_fill_struct_sp(t_data *data, double tab[]);
 
 void	initialize_tab(double tab[]);
 double	*fill_tab(char *str, double tab[]);
@@ -31,7 +31,7 @@ void	initialize_tab(double tab[]);
 /**========================================================================
  *                           SECTION
  *========================================================================**/
-int	init_data(char *map_path, t_data data)
+int	init_data(char *map_path, t_data *data)
 {
 	double	tab[20];
 	int		i;

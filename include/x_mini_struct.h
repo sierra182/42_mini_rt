@@ -37,7 +37,7 @@ typedef struct s_cam
 	double		focal_len;
 	double		scale;
 	double		aspect;
-	int			resol[2];	
+	double		resol[2];	
 	t_vector	origin_vect;
 	t_vector	up_vect;
 	t_vector	forward_vect;

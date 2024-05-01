@@ -24,11 +24,15 @@ static void	calculate_missing_vectors(t_cam *cam)
 	normalize_vector(&cam->up_vect);
 }
 
-void	fill_cam(t_cam *cam)
+void	update_cam(t_cam *cam)
 {	
 	calculate_missing_vectors(cam);
+	cam->resol[0] = WIDTH;
+	cam->resol[1] = HEIGHT;
 	cam->fov = cam->fov * PI / 180.0;
-	cam->scale = tan(cam->fov / 2);
-	cam->aspect = cam->resol[0] / cam->resol[1];
-	cam->focal_len = cam->resol[0] / (2.0 * cam->scale);
+	cam->scale = tan(cam->fov / 2.0);
+	if (cam->resol[1])
+		cam->aspect = cam->resol[0] / cam->resol[1];
+	if (cam->scale)
+		cam->focal_len = cam->resol[0] / (2.0 * cam->scale);
 }
