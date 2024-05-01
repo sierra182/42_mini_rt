@@ -63,7 +63,7 @@ int	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 	discrim = b*b - 4*a*c;
 	if (discrim < 0)
 	    return (0);
-			printf("IN INTERSECT");
+			// printf("IN INTERSECT");
 	// t1 = (-b + sqrt(discriminant)) / (2*a)
 	// t2 = (-b - sqrt(discriminant)) / (2*a)  
 	return (1);
@@ -74,7 +74,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	t_ray	ray;
 	double		x;
 	double		y;
-printf("IN Launch :%f, %f", data->cam.resol[1], data->cam.resol[0]);
+// printf("IN Launch :%f, %f", data->cam.resol[1], data->cam.resol[0]);
 	y = -1;
 	while (++y < data->cam.resol[1])
 	{
