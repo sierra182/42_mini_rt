@@ -119,11 +119,11 @@ int	main(int argc, char **argv)
 		return (display_error("arg number\n"), 1);
 	if (parse(argv[1]) == 0)
 		return (display_error("parse error\n"), 2);
-	if (init_data(argv[1], &data) == 0)
-		return (display_error("init error\n"), 3);
+	// if (init_data(argv[1], &data) == 0)
+	// 	return (display_error("init error\n"), 3);
 	// printf("before: \n");
 	// print_cam_content(data);
-	update_cam(&data.cam);
+	// update_cam(&data.cam);
 	// printf("after: \n");
 	// print_cam_content(data);
 	// if (init_mlx(&mlx))

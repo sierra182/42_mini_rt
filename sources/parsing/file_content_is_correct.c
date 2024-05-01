@@ -8,18 +8,18 @@ int	file_content_is_correct(char *map_path)
 	int		map_fd;
 	int		file_size;
 	char	*str;
-	char	file_content[1024];
+	char	file_content[FILE_SIZE];
 
 	map_fd = open(map_path, O_RDONLY);
 	ft_bzero(file_content, FILE_SIZE);
 	file_size = read(map_fd, file_content, FILE_SIZE);
-	if (file_size > 1024)
+	close(map_fd);
+	if (file_size > FILE_SIZE)
 		return (0);
 	if (!is_only_valid_chars(file_content))
 		return (0);
 	if (!all_necessary_elements_are_present(file_content))
 		return (0);
-	close(map_fd);
 	if (!elements_data_are_valid(map_path))
 		return (0);
 	return (1);
@@ -52,8 +52,8 @@ int	is_valid_char(char c)
 	char	*valid_char;
 	int		i;
 
-	i = 0;
 	valid_char = " A	CLsplcy0123456789.,-+\n";
+	i = 0;
 	while (valid_char[i])
 	{
 		if (c == valid_char[i])

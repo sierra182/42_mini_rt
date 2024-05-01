@@ -1,5 +1,8 @@
 #include "all_necessary_elements_are_present.h"
 
+# define FILE_SIZE 1024
+
+
 /**========================================================================
  *                           all_necessary_elements_are_present
  *========================================================================**/
@@ -20,6 +23,7 @@ int	all_necessary_elements_are_present(char file_content[])
 	return (1);
 }
 
+#include <stdio.h>
 /**========================================================================
  *                           element_is_present
  *========================================================================**/
@@ -30,12 +34,15 @@ int	element_is_present(char file_content[], char *el)
 
 	n = 0;
 	i = 0;
-	while (file_content[i])
+
+	
+
+	while (i < FILE_SIZE)
 	{
 		if (!ft_strncmp(&file_content[i], el, ft_strlen(el))
 			&& (!file_content[i + ft_strlen(el)] || ft_isspace(file_content
-					[i + ft_strlen(el)])) && (!file_content[i - 1]
-				|| ft_isspace(file_content[i - 1])))
+					[i + ft_strlen(el)])) && (i > 0 && (!file_content[i - 1]
+				|| ft_isspace(file_content[i - 1]))))
 			n++;
 		i++;
 	}

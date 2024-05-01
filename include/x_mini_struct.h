@@ -79,7 +79,10 @@ typedef struct s_data
 
 typedef struct s_exit
 {
-	t_mlx	*mlx;
+	t_sphere	*spheres;
+	t_cylinder	*cylinders;
+	t_plane		*planes;
+	t_mlx		*mlx;
 }	t_exit;
 
 typedef enum e_event
@@ -91,6 +94,9 @@ typedef enum e_exit
 {
 	STT,
 	MLX,
+	SP,
+	CY,
+	PL,
 	END
 }	t_enum_exit;
 

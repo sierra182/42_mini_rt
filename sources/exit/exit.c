@@ -14,6 +14,9 @@ static t_getsaf	*get_store_and_free(void)
 	if (!store_and_free[MLX])
 	{
 		store_and_free[MLX] = store_and_free_mlx;
+		store_and_free[SP] = store_and_free_spheres;
+		store_and_free[CY] = store_and_free_cylinders;
+		store_and_free[PL] = store_and_free_planes;
 	}
 	return (store_and_free);
 }
