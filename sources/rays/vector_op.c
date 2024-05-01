@@ -7,6 +7,8 @@ void	normalize_vector(t_vector *vector)
 
 	magnitude = sqrt(pow(vector->axis[0], 2) + pow(vector->axis[1], 2)
 			+ pow(vector->axis[2], 2));
+	if (!magnitude)
+		return ;
 	i = -1;
 	while (++i < AXIS)
 		vector->axis[i] /= magnitude;

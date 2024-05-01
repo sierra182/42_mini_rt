@@ -17,6 +17,8 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 
 static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 {
+	if (!screen_size)
+		return (0.0);
 	if (x_flag)
 		return (((pixel + 0.5) / screen_size) * 2 - 1);
 	return ((1 - 2 * (pixel + 0.5) / screen_size));
