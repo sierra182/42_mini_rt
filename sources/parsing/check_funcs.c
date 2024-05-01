@@ -6,7 +6,7 @@
 /**========================================================================
  *                           typ_check_fl
  *========================================================================**/
-int	typ_check_fl(char *str, num_type num)
+int	typ_check_fl(char *str, t_num_type num)
 {
 	float	tmp;
 
@@ -27,7 +27,7 @@ int	typ_check_fl(char *str, num_type num)
 /**========================================================================
  *                           typ_check_bt
  *========================================================================**/
-int	typ_check_bt(char *str, num_type num)
+int	typ_check_bt(char *str, t_num_type num)
 {
 	int	tmp;
 
@@ -50,7 +50,7 @@ int	typ_check_bt(char *str, num_type num)
  * validity of floats check based on strlen: must be < 10
  *? Should I use overflow? 
  *========================================================================**/
-int	chck_fl(char *str, num_type num)
+int	chck_fl(char *str, t_num_type num)
 {
 	int	i;
 	int	n;
@@ -81,7 +81,7 @@ int	chck_fl(char *str, num_type num)
 /**========================================================================
  *                           chck_bt
  *========================================================================**/
-int	chck_bt(char *str, num_type num)
+int	chck_bt(char *str, t_num_type num)
 {
 	int	i;
 

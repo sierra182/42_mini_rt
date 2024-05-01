@@ -7,19 +7,19 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-typedef enum
+typedef enum t_num_type
 {
 	LTR,
 	VECR,
 	BYT,
 	FOV,
 	FL
-}	num_type;
+}	t_num_type;
 
 int		data_str_is_valid(char *str);
 int		is_empty_str(char *str);
-int		chck_fl(char *str, num_type num);
-int		chck_bt(char *str, num_type num);
+int		chck_fl(char *str, t_num_type num);
+int		chck_bt(char *str, t_num_type num);
 int		check_data(char *token, char *check);
 void	free_tab(char **num);
 

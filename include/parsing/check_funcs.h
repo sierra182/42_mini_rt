@@ -1,21 +1,20 @@
-#ifndef CHECK_FILE_H
-# define CHECK_FILE_H
+#ifndef CHECK_FUNCS_H
+# define CHECK_FUNCS_H
 
+# define FILE_SIZE 1024
 # include <stdlib.h>
 # include "get_next_line.h"
 # include <unistd.h>
 # include "libft.h"
 # include <fcntl.h>
 
-typedef enum
+typedef enum t_num_type
 {
 	LTR,
 	VECR,
 	BYT,
 	FOV,
 	FL
-}	num_type;
-
-# define FILE_SIZE 1024
+}	t_num_type;
 
 #endif

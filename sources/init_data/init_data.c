@@ -7,17 +7,13 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-
 void	fill_struct_A(t_data *data, double tab[]);
 void	fill_struct_C(t_data *data, double tab[]);
 void	fill_struct_L(t_data *data, double tab[]);
 int		create_and_fill_struct_cy(t_data *data, double tab[]);
 int		create_and_fill_struct_pl(t_data *data, double tab[]);
 int		create_and_fill_struct_sp(t_data *data, char *map_path, double tab[]);
-
-int	create_data_structs(t_data *data, char *map_path);
-
-
+int		create_data_structs(t_data *data, char *map_path);
 void	initialize_tab(double tab[]);
 double	*fill_tab(char *str, double tab[]);
 double	*get_element_data(char *map_path, double tab[], char *el);

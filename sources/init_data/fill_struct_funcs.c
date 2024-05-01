@@ -5,25 +5,9 @@
 #include <unistd.h>
 #include "libft.h"
 
-/* 
-typedef struct s_cam
-{
-	double		fov;
-	double		focal_len;
-	double		scale;
-	double		aspect;
-	int			resol[2];	
-	t_vector	origin_vect;
-	t_vector	up_vect;
-	t_vector	forward_vect;
-	t_vector	right_vect;
-}	t_cam;
- */
-
 void	update_cam(t_cam *cam);
 
 void	print_tab(double tab[], char *str);
-
 
 void	fill_struct_A(t_data *data, double tab[])
 {
