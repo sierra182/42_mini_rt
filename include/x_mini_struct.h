@@ -59,7 +59,10 @@ typedef struct s_sphere
 typedef struct s_data
 {
 	t_cam		cam;
-	t_sphere	sphere;	
+	t_sphere	*spheres;	
+	int			sp_nbr;
+	int			cy_nbr;
+	int			pl_nbr;
 }	t_data;
 
 typedef struct s_exit
