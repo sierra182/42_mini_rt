@@ -7,12 +7,12 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-void	fill_struct_A(t_data *data, double tab[]);
-void	fill_struct_C(t_data *data, double tab[]);
-void	fill_struct_L(t_data *data, double tab[]);
-int		create_and_fill_struct_cy(t_data *data, double tab[]);
-int		create_and_fill_struct_pl(t_data *data, double tab[]);
-int		create_and_fill_struct_sp(t_data *data, char *map_path, double tab[]);
+void	fill_struct_a(t_data *data, double tab[]);
+void	fill_struct_c(t_data *data, double tab[]);
+void	fill_struct_l(t_data *data, double tab[]);
+void	fill_struct_cy(t_data *data, double tab[]);
+void	fill_struct_pl(t_data *data, double tab[]);
+void	fill_struct_sp(t_data *data, double tab[]);
 int		create_data_structs(t_data *data, char *map_path);
 void	initialize_tab(double tab[]);
 double	*fill_tab(char *str, double tab[]);
@@ -38,20 +38,17 @@ int	init_data(char *map_path, t_data *data)
 	if (create_data_structs(data, map_path) == 0)
 		return (0);
 	while (get_element_data(map_path, tab, "A") != NULL)
-		fill_struct_A(data, tab);
+		fill_struct_a(data, tab);
 	while (get_element_data(map_path, tab, "C") != NULL)
-		fill_struct_C(data, tab);
+		fill_struct_c(data, tab);
 	while (get_element_data(map_path, tab, "L") != NULL)
-		fill_struct_L(data, tab);
-	while (get_element_data(map_path, tab, "cy") != NULL)
-		if (create_and_fill_struct_cy(data, tab) == 0)
-			return (0);
-	while (get_element_data(map_path, tab, "pl") != NULL)
-		if (create_and_fill_struct_pl(data, tab) == 0)
-			return (0);
+		fill_struct_l(data, tab);
 	while (get_element_data(map_path, tab, "sp") != NULL)
-		if (create_and_fill_struct_sp(data, map_path, tab) == 0)
-			return (0);
+		fill_struct_sp(data, tab);
+	while (get_element_data(map_path, tab, "cy") != NULL)
+		fill_struct_cy(data, tab);
+	while (get_element_data(map_path, tab, "pl") != NULL)
+		fill_struct_pl(data, tab);
 	return (1);
 }
 

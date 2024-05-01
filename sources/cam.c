@@ -1,6 +1,7 @@
-# define PI 3.14159265358979323846
-# include <math.h>
-# include "x_mini_struct.h"
+#define PI 3.14159265358979323846
+#include <math.h>
+#include "x_mini_struct.h"
+
 void	normalize_vector(t_vector *vector);
 void	product_vector(t_vector *a, t_vector *b, t_vector *product_vect);
 int		are_collinear_vectors(t_vector *pdct_vect, double precision);
@@ -25,7 +26,7 @@ static void	calculate_missing_vectors(t_cam *cam)
 }
 
 void	update_cam(t_cam *cam)
-{	
+{
 	calculate_missing_vectors(cam);
 	cam->resol[0] = WIDTH;
 	cam->resol[1] = HEIGHT;

@@ -93,21 +93,18 @@ void	print_cam_content(t_data data)
 	printf("data.cam.forward_vect.axis[1]: %f\n",data.cam.forward_vect.axis[1]);
 	printf("data.cam.forward_vect.axis[2]: %f\n",data.cam.forward_vect.axis[2]);
 	printf("data.cam.forward_vect.axis[2]: %f\n",data.cam.forward_vect.axis[2]);	
-
 	printf("data.cam.up_vect.axis[0]: %f\n",data.cam.up_vect.axis[0]);
 	printf("data.cam.up_vect.axis[1]: %f\n",data.cam.up_vect.axis[1]);
 	printf("data.cam.up_vect.axis[2]: %f\n",data.cam.up_vect.axis[2]);
 	printf("data.cam.right_vect.axis[0]: %f\n",data.cam.right_vect.axis[0]);
 	printf("data.cam.right_vect.axis[1]: %f\n",data.cam.right_vect.axis[1]);
 	printf("data.cam.right_vect.axis[2]: %f\n",data.cam.right_vect.axis[2]);
-	
 	printf("resol0: %f\n",data.cam.resol[0]);
 	printf("resol1: %f\n",data.cam.resol[1]);
 	printf("fov: %f\n",data.cam.fov);
 	printf("scale: %f\n",data.cam.scale);
 	printf("aspect: %f\n",data.cam.aspect);
 	printf("focal_len: %f\n",data.cam.focal_len);
-
 }
 
 void	print_sphere(t_sphere sphere)
@@ -127,24 +124,16 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 	t_data 	data;
 
-	ft_printf("hello world!\n");
 	if (argc != 2)
-		return (display_error("arg number\n"), 1);
+		return (display_error("arg number not valid\n"), 1);
 	if (parse(&data, argv[1]) == 0)
-		return (display_error("parse error\n"), 2);
+		return (display_error(".rt file not valid\n"), 2);
 	if (init_data(argv[1], &data) == 0)
-		return (display_error("init error\n"), 3);
-	int	i = 0;
-	while (i < data.sp_nbr)
-		print_sphere(data.spheres[i++]);
-		
-	// printf("before: \n");
-	// print_cam_content(data);
+		return (display_error("data init. error\n"), 3);
+	ft_printf("Hello World!\n");	
 	update_cam(&data.cam);
-	// printf("after: \n");
-	// print_cam_content(data);
 	if (init_mlx(&mlx))
-		return (1);
+		return (4);
 	launch_mlx_loop(&mlx, &data);
 	flush_exit_struct();
 	return (0);
