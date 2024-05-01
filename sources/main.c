@@ -84,14 +84,14 @@ int	init_mlx(t_mlx *mlx)
 #include <stdio.h>
 
 void	print_cam_content(t_data data)
-{
-	
+{	
 	printf("data.cam.origin_vect.axis[0]: %f\n",data.cam.origin_vect.axis[0]);
 	printf("data.cam.origin_vect.axis[1]: %f\n",data.cam.origin_vect.axis[1]);
 	printf("data.cam.origin_vect.axis[2]: %f\n",data.cam.origin_vect.axis[2]);
 	printf("data.cam.forward_vect.axis[0]: %f\n",data.cam.forward_vect.axis[0]);
 	printf("data.cam.forward_vect.axis[1]: %f\n",data.cam.forward_vect.axis[1]);
 	printf("data.cam.forward_vect.axis[2]: %f\n",data.cam.forward_vect.axis[2]);
+	printf("data.cam.forward_vect.axis[2]: %f\n",data.cam.forward_vect.axis[2]);	
 
 	printf("data.cam.up_vect.axis[0]: %f\n",data.cam.up_vect.axis[0]);
 	printf("data.cam.up_vect.axis[1]: %f\n",data.cam.up_vect.axis[1]);
@@ -106,8 +106,6 @@ void	print_cam_content(t_data data)
 	printf("scale: %f\n",data.cam.scale);
 	printf("aspect: %f\n",data.cam.aspect);
 	printf("focal_len: %f\n",data.cam.focal_len);
-	
-
 
 }
 
@@ -130,18 +128,7 @@ int	main(int argc, char **argv)
 	// print_cam_content(data);
 	// if (init_mlx(&mlx))
 	// 	return (1);
-	// launch_mlx_loop(&mlx);
+	// launch_mlx_loop(&mlx, &data);
 	// flush_exit_struct();
-
-	// data.cam.fov = 90;
-	// data.cam.resol[0] = WIDTH;
-	// data.cam.resol[1] = HEIGHT;
-	// data.cam.forward_vect.axis[0] = 0;
-	// data.cam.forward_vect.axis[1] = 0;
-	// data.cam.forward_vect.axis[2] = 1;
-	// data.sphere.diameter = 12.6;
-	// data.sphere.origin_vect.axis[0] = 0;
-	// data.sphere.origin_vect.axis[1] = 0;
-	// data.sphere.origin_vect.axis[2] = 20;
 	return (0);
 }

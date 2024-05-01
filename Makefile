@@ -37,7 +37,7 @@ CFLAGS = \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
-	-g -O3 \
+	-g -O3	
 # -Wall -Wextra -Werror
 
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz 
@@ -71,7 +71,11 @@ HEADERS = \
 	$(HEADERS_DIR)/exit/data_store.h \
 	$(HEADERS_DIR)/rays/rays.h \
 	$(HEADERS_DIR)/rays/vector_op.h \
-	$(HEADERS_DIR)/parsing/check_file.h \
+	$(HEADERS_DIR)/parsing/all_necessary_elements_are_present.h \
+	$(HEADERS_DIR)/parsing/check_funcs.h \
+	$(HEADERS_DIR)/parsing/elements_data_are_valid.h \
+	$(HEADERS_DIR)/parsing/file_content_is_correct.h \
+	$(HEADERS_DIR)/parsing/parse.h \
 	$(GNL_DIR)/get_next_line.h \
 
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
