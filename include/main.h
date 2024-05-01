@@ -8,7 +8,7 @@
 # include "mlx.h"
 
 void	display_error(char *error);
-int		parse(char *map_path);
+int		parse(t_data *data, char *map_path);
 void	launch_rays(t_mlx *mlx, t_data *data);
 
 #endif

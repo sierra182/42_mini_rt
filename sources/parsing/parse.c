@@ -3,13 +3,13 @@
 /**========================================================================
  *                           parse
  *========================================================================**/
-int	parse(char *map_path)
+int	parse(t_data *data, char *map_path)
 {
 	if (!is_rt_file(map_path))
 		return (0);
 	if (!file_exists(map_path))
 		return (0);
-	if (!file_content_is_correct(map_path))
+	if (!file_content_is_correct(data, map_path))
 		return (0);
 	return (1);
 }

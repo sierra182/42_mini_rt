@@ -117,10 +117,10 @@ int	main(int argc, char **argv)
 	ft_printf("hello world!\n");
 	if (argc != 2)
 		return (display_error("arg number\n"), 1);
-	if (parse(argv[1]) == 0)
+	if (parse(&data, argv[1]) == 0)
 		return (display_error("parse error\n"), 2);
-	// if (init_data(argv[1], &data) == 0)
-	// 	return (display_error("init error\n"), 3);
+	if (init_data(argv[1], &data) == 0)
+		return (display_error("init error\n"), 3);
 	// printf("before: \n");
 	// print_cam_content(data);
 	// update_cam(&data.cam);
@@ -129,6 +129,6 @@ int	main(int argc, char **argv)
 	// if (init_mlx(&mlx))
 	// 	return (1);
 	// launch_mlx_loop(&mlx, &data);
-	// flush_exit_struct();
+	flush_exit_struct();
 	return (0);
 }

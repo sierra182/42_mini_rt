@@ -3,7 +3,7 @@
 /**========================================================================
  *                           file_content_is_correct
  *========================================================================**/
-int	file_content_is_correct(char *map_path)
+int	file_content_is_correct(t_data *data, char *map_path)
 {
 	int		map_fd;
 	int		file_size;
@@ -18,7 +18,7 @@ int	file_content_is_correct(char *map_path)
 		return (0);
 	if (!is_only_valid_chars(file_content))
 		return (0);
-	if (!all_necessary_elements_are_present(file_content))
+	if (!all_necessary_elements_are_present(data, file_content))
 		return (0);
 	if (!elements_data_are_valid(map_path))
 		return (0);
