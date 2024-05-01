@@ -47,7 +47,7 @@ void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
 		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
 	}
 }
-
+#include <stdio.h>
 int	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 {
 	t_vector	SR;
@@ -63,6 +63,7 @@ int	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 	discrim = b*b - 4*a*c;
 	if (discrim < 0)
 	    return (0);
+			printf("IN INTERSECT");
 	// t1 = (-b + sqrt(discriminant)) / (2*a)
 	// t2 = (-b - sqrt(discriminant)) / (2*a)  
 	return (1);
@@ -71,17 +72,17 @@ int	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	t_ray	ray;
-	int		x;
-	int		y;
-
+	double		x;
+	double		y;
+printf("IN Launch :%f, %f", data->cam.resol[1], data->cam.resol[0]);
 	y = -1;
 	while (++y < data->cam.resol[1])
 	{
 		x = -1;
 		while (++x < data->cam.resol[0])
-		{
+		{///	printf("IN LOOP");
 			new_ray(&data->cam, &ray, x, y);
-			if (data->spheres && (&ray, &data->spheres[0]))
+			if (data->spheres && is_intersect_sphere(&ray, &data->spheres[0]))
 				put_pxl(mlx, x, y, *(int *)(unsigned char[])
 					{225, 125, 125, 0});		
 		}		

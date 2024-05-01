@@ -36,6 +36,7 @@ int	key_press(int keycode, void *param)
 // }
 
 #include <unistd.h>
+#include <sys/time.h>
 int	frame(void *param)
 {
 	t_mlx	*mlx;
@@ -43,7 +44,7 @@ int	frame(void *param)
 
 	mlx = (t_mlx *) ((void **) param)[0];
 	data = (t_data *) ((void **) param)[1];
-	//sleep(5);
+	usleep(500);
 	// static int	refresh;
 	//(void) param;
 	// refresh = (refresh + 1) % 100;	
@@ -139,7 +140,7 @@ int	main(int argc, char **argv)
 		
 	// printf("before: \n");
 	// print_cam_content(data);
-	// update_cam(&data.cam);
+	update_cam(&data.cam);
 	// printf("after: \n");
 	// print_cam_content(data);
 	if (init_mlx(&mlx))
