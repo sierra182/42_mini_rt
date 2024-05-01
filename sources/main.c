@@ -132,9 +132,9 @@ int	main(int argc, char **argv)
 		return (display_error("data init. error\n"), 3);
 	ft_printf("Hello World!\n");	
 	update_cam(&data.cam);
-	if (init_mlx(&mlx))
-		return (4);
-	launch_mlx_loop(&mlx, &data);
+	// if (init_mlx(&mlx))
+	// 	return (4);
+	// launch_mlx_loop(&mlx, &data);
 	flush_exit_struct();
 	return (0);
 }

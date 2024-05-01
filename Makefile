@@ -54,6 +54,7 @@ SOURCES = \
 	$(SRC_DIR)/parsing/file_content_is_correct.c \
 	$(SRC_DIR)/parsing/all_necessary_elements_are_present.c \
 	$(SRC_DIR)/parsing/elements_data_are_valid.c \
+	$(SRC_DIR)/parsing/elements_data_are_valid_utils.c \
 	$(SRC_DIR)/init_data/init_data.c \
 	$(SRC_DIR)/init_data/fill_struct_funcs.c \
 	$(SRC_DIR)/init_data/create_data_structs.c \

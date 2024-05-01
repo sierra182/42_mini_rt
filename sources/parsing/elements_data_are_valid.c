@@ -31,25 +31,6 @@ int	elements_data_are_valid(char *map_path)
 }
 
 /**========================================================================
- *                           is_empty_str
- *========================================================================**/
-int	is_empty_str(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '\n')
-		return (1);
-	while (str[i])
-	{
-		if (!ft_isspace(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-/**========================================================================
  *                           data_str_is_valid
  *========================================================================**/
 int	data_str_is_valid(char *str)
@@ -84,7 +65,6 @@ int	data_str_is_valid(char *str)
 /**========================================================================
  *                           check_data
  *? added 	if (i > len_max + 2) return (0); to check arument nbr
- *! FUNC TO BE SHORTENED - NOT NORMINETTE-PROOF 
  *========================================================================**/
 int	check_data(char *token, char *check)
 {
@@ -95,23 +75,8 @@ int	check_data(char *token, char *check)
 	num = ft_split(check, ',');
 	len_max = ft_atoi(num[0]);
 	i = 1;
-	while (token)
-	{
-		token = ft_strtok(NULL, ", \t\n");
-		if (num[i - 1] == NULL)
-			return (free_tab(num), 0);
-		if (num[i] && !ft_strcmp(num[i], "ltr") && !chck_fl(token, LTR))
-			return (free_tab(num), 0);
-		if (num[i] && !ft_strcmp(num[i], "vecr") && !chck_fl(token, VECR))
-			return (free_tab(num), 0);
-		if (num[i] && !ft_strcmp(num[i], "byt") && !chck_bt(token, BYT))
-			return (free_tab(num), 0);
-		if (num[i] && !ft_strcmp(num[i], "fov") && !chck_bt(token, FOV))
-			return (free_tab(num), 0);
-		if (num[i] && !ft_strcmp(num[i], "fl") && !chck_fl(token, FL))
-			return (free_tab(num), 0);
-		i++;
-	}
+	if (check_data_nbrs(token, num, &i) == 0)
+		return (free_tab(num), 0);
 	if (i != len_max + 2)
 		return (free_tab(num), 0);
 	free_tab(num);
@@ -119,14 +84,26 @@ int	check_data(char *token, char *check)
 }
 
 /**========================================================================
- *                           free_tab
+ *                           check_data_nbrs
  *========================================================================**/
-void	free_tab(char **num)
+int	check_data_nbrs(char *token, char	**num, int *i)
 {
-	int	i;
-
-	i = 0;
-	while (num[i])
-		free(num[i++]);
-	free(num);
+	while (token)
+	{
+		token = ft_strtok(NULL, ", \t\n");
+		if (num[*i - 1] == NULL)
+			return (free_tab(num), 0);
+		if (num[*i] && !ft_strcmp(num[*i], "ltr") && !chck_fl(token, LTR))
+			return (free_tab(num), 0);
+		if (num[*i] && !ft_strcmp(num[*i], "vecr") && !chck_fl(token, VECR))
+			return (free_tab(num), 0);
+		if (num[*i] && !ft_strcmp(num[*i], "byt") && !chck_bt(token, BYT))
+			return (free_tab(num), 0);
+		if (num[*i] && !ft_strcmp(num[*i], "fov") && !chck_bt(token, FOV))
+			return (free_tab(num), 0);
+		if (num[*i] && !ft_strcmp(num[*i], "fl") && !chck_fl(token, FL))
+			return (free_tab(num), 0);
+		(*i)++;
+	}
+	return (1);
 }

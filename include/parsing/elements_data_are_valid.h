@@ -22,5 +22,8 @@ int		chck_fl(char *str, t_num_type num);
 int		chck_bt(char *str, t_num_type num);
 int		check_data(char *token, char *check);
 void	free_tab(char **num);
+void	free_tab(char **num);
+int		is_empty_str(char *str);
+int		check_data_nbrs(char *token, char	**num, int *i);
 
 #endif
