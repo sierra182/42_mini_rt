@@ -48,6 +48,26 @@ void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
 	}
 }
 
+int	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
+{
+	t_vector	SR;
+	double		a;
+	double		b;
+	double		c;	
+	double		discrim;
+
+	subtract_vector(&ray->origin_vect, &sphere->origin_vect, &SR);
+	a = product_scalar(&ray->dir_vect, &ray->dir_vect);
+	b = 2* product_scalar(&SR, &ray->dir_vect);
+	c = product_scalar(&SR, &SR) - sphere->square_radius;
+	discrim = b*b - 4*a*c;
+	if (discrim < 0)
+	    return (0);
+	// t1 = (-b + sqrt(discriminant)) / (2*a)
+	// t2 = (-b - sqrt(discriminant)) / (2*a)  
+	return (1);
+}
+
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	t_ray	ray;
@@ -61,7 +81,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		while (++x < data->cam.resol[0])
 		{
 			new_ray(&data->cam, &ray, x, y);
-			if (1)//is_intersect_sphere(&ray, &data->sphere))
+			if (data->spheres && (&ray, &data->spheres[0]))
 				put_pxl(mlx, x, y, *(int *)(unsigned char[])
 					{225, 125, 125, 0});		
 		}		

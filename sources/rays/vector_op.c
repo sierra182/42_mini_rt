@@ -23,6 +23,15 @@ void	add_vector(t_vector *a, t_vector *b, t_vector *sum_vect)
 		sum_vect->axis[i] = a->axis[i] + b->axis[i];
 }
 
+void	subtract_vector(t_vector *a, t_vector *b, t_vector *subt_vect)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		subt_vect->axis[i] = a->axis[i] - b->axis[i];
+}
+
 void	scale_vector(t_vector *vect, double scaler, t_vector *scaled_vect)
 {
 	int	i;
@@ -30,6 +39,18 @@ void	scale_vector(t_vector *vect, double scaler, t_vector *scaled_vect)
 	i = -1;
 	while (++i < AXIS)
 		scaled_vect->axis[i] = vect->axis[i] * scaler;
+}
+
+double	product_scalar(t_vector *a, t_vector *b)
+{
+	double scalar;	
+	int	i;
+
+	scalar = 0.0;
+	i = -1;
+	while (++i < AXIS)
+		scalar += a->axis[i] * b->axis[i];
+	return (scalar);
 }
 
 void	product_vector(t_vector *a, t_vector *b, t_vector *product_vect)
