@@ -53,6 +53,7 @@ typedef struct s_sphere
 {
 	t_vector	origin_vect;
 	double		diameter;
+	double 		square_radius;
 	t_color		color;
 }	t_sphere;
 

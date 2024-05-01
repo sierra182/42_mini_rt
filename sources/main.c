@@ -126,9 +126,9 @@ int	main(int argc, char **argv)
 	update_cam(&data.cam);
 	// printf("after: \n");
 	// print_cam_content(data);
-	// if (init_mlx(&mlx))
-	// 	return (1);
-	// launch_mlx_loop(&mlx, &data);
-	// flush_exit_struct();
+	if (init_mlx(&mlx))
+		return (1);
+	launch_mlx_loop(&mlx, &data);
+	flush_exit_struct();
 	return (0);
 }
