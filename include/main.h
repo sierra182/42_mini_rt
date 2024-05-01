@@ -7,10 +7,8 @@
 # include "libft.h"
 # include "mlx.h"
 
-
 void	display_error(char *error);
-
 int		parse(char *map_path);
-void	launch_rays(t_cam *cam);
+void	launch_rays(t_mlx *mlx, t_data *data);
 
 #endif

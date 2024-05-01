@@ -1,6 +1,18 @@
 #include "vector_op.h"
 
-static void	add_vector(t_vector *a, t_vector *b, t_vector *sum_vect)
+void	normalize_vector(t_vector *vector)
+{
+	int		i;
+	double	magnitude;
+
+	magnitude = sqrt(pow(vector->axis[0], 2) + pow(vector->axis[1], 2)
+			+ pow(vector->axis[2], 2));
+	i = -1;
+	while (++i < AXIS)
+		vector->axis[i] /= magnitude;
+}
+
+void	add_vector(t_vector *a, t_vector *b, t_vector *sum_vect)
 {
 	int	i;
 
@@ -9,26 +21,25 @@ static void	add_vector(t_vector *a, t_vector *b, t_vector *sum_vect)
 		sum_vect->axis[i] = a->axis[i] + b->axis[i];
 }
 
-static void	scale_vector(t_vector *a, double scaler, t_vector *scaled_vect)
+void	scale_vector(t_vector *vect, double scaler, t_vector *scaled_vect)
 {
 	int	i;
 
 	i = -1;
 	while (++i < AXIS)
-		scaled_vect->axis[i] = a->axis[i] * scaler;
+		scaled_vect->axis[i] = vect->axis[i] * scaler;
 }
 
-void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
-	double norm_scale_y)
+void	product_vector(t_vector *a, t_vector *b, t_vector *product_vect)
 {
-	t_vector	scaled_up;
-	t_vector	scaled_right;
-	t_vector	scaled_forward;
-	t_vector	tmp_sum_vect;
+	product_vect->axis[0] = a->axis[1] * b->axis[2] - a->axis[2] * b->axis[1];
+	product_vect->axis[1] = a->axis[2] * b->axis[0] - a->axis[0] * b->axis[2];
+	product_vect->axis[2] = a->axis[0] * b->axis[1] - a->axis[1] * b->axis[0];
+}
 
-	scale_vector(&cam->up_vect, norm_scale_y, &scaled_up);
-	scale_vector(&cam->right_vect, norm_scale_x, &scaled_right);
-	scale_vector(&cam->forward_vect, cam->focal_len, &scaled_forward);
-	add_vector(&scaled_up, &scaled_right, &tmp_sum_vect);
-	add_vector(&scaled_forward, &tmp_sum_vect, &ray->dir_vect);
+int	are_collinear_vectors(t_vector *pdct_vect, double precision)
+{
+	return (pdct_vect->axis[0] >= -precision && pdct_vect->axis[0] <= precision
+		&& pdct_vect->axis[1] >= -precision && pdct_vect->axis[1] <= precision
+		&& pdct_vect->axis[2] >= -precision && pdct_vect->axis[2] <= precision);
 }

@@ -1,15 +1,18 @@
 #include "rays.h"
 
-static void	normalize_vector(t_vector *vector)
+static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
+	double norm_scale_y)
 {
-	int		i;
-	double	magnitude;
+	t_vector	scaled_up;
+	t_vector	scaled_right;
+	t_vector	scaled_forward;
+	t_vector	tmp_sum_vect;
 
-	magnitude = sqrt(pow(vector->axis[0], 2) + pow(vector->axis[1], 2)
-			+ pow(vector->axis[2], 2));
-	i = -1;
-	while (++i < AXIS)
-		vector->axis[i] /= magnitude;
+	scale_vector(&cam->up_vect, norm_scale_y, &scaled_up);
+	scale_vector(&cam->right_vect, norm_scale_x, &scaled_right);
+	scale_vector(&cam->forward_vect, cam->focal_len, &scaled_forward);
+	add_vector(&scaled_up, &scaled_right, &tmp_sum_vect);
+	add_vector(&scaled_forward, &tmp_sum_vect, &ray->dir_vect);
 }
 
 static double	normalize_pixel(int screen_size, int pixel, int x_flag)
@@ -19,7 +22,7 @@ static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 	return ((1 - 2 * (pixel + 0.5) / screen_size));
 }
 
-static void	new_ray(t_cam *cam, int x, int y, t_ray *ray)
+static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 {
 	double		norm_scale_x;
 	double		norm_scale_y;
@@ -32,21 +35,33 @@ static void	new_ray(t_cam *cam, int x, int y, t_ray *ray)
 	normalize_vector(&ray->dir_vect);
 }
 
-void	launch_rays(t_cam *cam)
+void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
+{	
+	int		pxl_pos;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{	
+		pxl_pos = x *  mlx->img.bpp / 8 + y * mlx->img.line_len;
+		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
+	}
+}
+
+void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	t_ray	ray;
-	double	aspect;
-	double	scale;
 	int		x;
 	int		y;
 
-	cam->scale = tan(cam->fov / 2);
-	cam->aspect = cam->resol[0] / cam->resol[1];
 	y = -1;
-	while (++y < cam->resol[1])
+	while (++y < data->cam.resol[1])
 	{
 		x = -1;
-		while (++x < cam->resol[0])
-			new_ray(cam, x, y, &ray);
+		while (++x < data->cam.resol[0])
+		{
+			new_ray(&data->cam, &ray, x, y);
+			if (1)//is_intersect_sphere(&ray, &data->sphere))
+				put_pxl(mlx, x, y, *(int *)(unsigned char[])
+					{225, 125, 125, 0});		
+		}		
 	}
 }
