@@ -7,35 +7,56 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+
+void	fill_struct_A(t_data data, double tab[]);
+void	fill_struct_C(t_data data, double tab[]);
+void	fill_struct_L(t_data data, double tab[]);
+int		create_and_fill_struct_cy(t_data data, double tab[]);
+int		create_and_fill_struct_pl(t_data data, double tab[]);
+int		create_and_fill_struct_sp(t_data data, double tab[]);
+
+void	initialize_tab(double tab[]);
+double	*fill_tab(char *str, double tab[]);
+double	*get_element_data(char *map_path, double tab[], char *el);
 void	initialize_tab(double tab[]);
 
 /**========================================================================
  *                             COMMENT BLOCK
- *! Tab cells initialize at -2 arbitrarily  
- *! I should probably choose another value...  
+ * tab cells are initialized at 1024.
+ * values of floats for coordinates should not be greater than 500 
  *  
  *  
  *========================================================================**/
-double	*fill_tab(char *str, double tab[])
-{
-	int		i;
-	char	*token;
 
-	initialize_tab(tab);
-	token = ft_strtok(str, ", \t\n");
-	i = 0;
-	while (token)
-	{
-		token = ft_strtok(NULL, ", \t\n");
-		if (token)
-		{
-			tab[i] = ft_atof(token);
-		}
-		i++;
-	}
-	return (tab);
+/**========================================================================
+ *                           SECTION
+ *========================================================================**/
+int	init_data(char *map_path, t_data data)
+{
+	double	tab[20];
+	int		i;
+
+	while (get_element_data(map_path, tab, "A") != NULL)
+		fill_struct_A(data, tab);
+	while (get_element_data(map_path, tab, "C") != NULL)
+		fill_struct_C(data, tab);
+	while (get_element_data(map_path, tab, "L") != NULL)
+		fill_struct_L(data, tab);
+	while (get_element_data(map_path, tab, "cy") != NULL)
+		if (create_and_fill_struct_cy(data, tab) == 0)
+			return (0);
+	while (get_element_data(map_path, tab, "pl") != NULL)
+		if (create_and_fill_struct_pl(data, tab) == 0)
+			return (0);
+	while (get_element_data(map_path, tab, "sp") != NULL)
+		if (create_and_fill_struct_sp(data, tab) == 0)
+			return (0);
+	return (1);
 }
 
+/**========================================================================
+ *                           get_element_data
+ *========================================================================**/
 double	*get_element_data(char *map_path, double tab[], char *el)
 {
 	static int	map_fd = -1;
@@ -61,41 +82,37 @@ double	*get_element_data(char *map_path, double tab[], char *el)
 	return (NULL);
 }
 
+/**========================================================================
+ *                           fill_tab
+ *========================================================================**/
+double	*fill_tab(char *str, double tab[])
+{
+	int		i;
+	char	*token;
+
+	initialize_tab(tab);
+	token = ft_strtok(str, ", \t\n");
+	i = 0;
+	while (token)
+	{
+		token = ft_strtok(NULL, ", \t\n");
+		if (token)
+		{
+			tab[i] = ft_atof(token);
+		}
+		i++;
+	}
+	return (tab);
+}
+
+/**========================================================================
+ *                           initialize_tab
+ *========================================================================**/
 void	initialize_tab(double tab[])
 {
 	int	i;
 
 	i = 0;
 	while (i < 20)
-		tab[i++] = -2;
-}
-
-void	print_tab(double tab[], char *str)
-{
-	int	i;
-
-	printf("%s", str);
-	i = 0;
-	while (tab[i] != -2)
-		printf("%f\n", tab[i++]);
-}
-
-int	init_data(char *map_path, t_data *data)
-{
-	double	tab[20];
-	int		i;
-
-	while (get_element_data(map_path, tab, "A") != NULL)
-		print_tab(tab, "A:\n");
-	while (get_element_data(map_path, tab, "C") != NULL)
-		print_tab(tab, "C:\n");
-	while (get_element_data(map_path, tab, "L") != NULL)
-		print_tab(tab, "L:\n");
-	while (get_element_data(map_path, tab, "cy") != NULL)
-		print_tab(tab, "cy :\n");
-	while (get_element_data(map_path, tab, "sp") != NULL)
-		print_tab(tab, "sp :\n");
-	while (get_element_data(map_path, tab, "pl") != NULL)
-		print_tab(tab, "pl :\n");
-	return (1);
+		tab[i++] = 1024;
 }

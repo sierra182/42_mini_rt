@@ -3,13 +3,13 @@
 # comment lines must start with a "#"
 # comments must be on their own line (comment after code not supported)
 
+cy	50.0,0.0,20.6		0.0,0.0,1.0			14.2		21.42		10,0,255
+sp	0.0,0.0,20.6							12.6					10,0,1
 A	0.2	  															255,255,255
 
 # comments can be anywhere
    
 pl	0.0,0.0,-10.0		0.0,1.0,0.0									0,0,225
-cy	50.0,0.0,20.6		0.0,0.0,1.0			14.2		21.42		10,0,255
-sp	0.0,0.0,20.6							12.6					10,0,1
 sp	0.0,0.0,20.6							12.6					10,0,2
 sp	0.0,0.0,20.6							12.6					10,0,3
 sp	0.0,0.0,20.6							12.6					10,0,4
