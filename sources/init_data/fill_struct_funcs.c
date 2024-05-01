@@ -42,31 +42,17 @@ void	fill_struct_C(t_data *data, double tab[])
 
 int	create_and_fill_struct_sp(t_data *data, char *map_path, double tab[])
 {
-	int i;
-	int	nbr;
-	i = 0;
+	static	int i = 0;
 
-
-
-	// printf("sp:\n");
-	// while (tab[i] != 1024)
-	// {
-	// 	if (i == 0)
-	// 		printf("%i: %f\n", i, tab[i]);
-	// 	if (i == 1)
-	// 		printf("%i: %f\n", i, tab[i]);
-	// 	if (i == 2)
-	// 		printf("%i: %f\n", i, tab[i]);
-	// 	if (i == 3)
-	// 		printf("%i: %f\n", i, tab[i]);
-	// 	if (i == 4)
-	// 		printf("%i: %f\n", i, tab[i]);
-	// 	if (i == 5)
-	// 		printf("%i: %f\n", i, tab[i]);
-	// 	if (i == 6)
-	// 		printf("%i: %f\n", i, tab[i]);
-	// 	i++;
-	// }
+	data->spheres[i].origin_vect.axis[0] = tab[0];
+	data->spheres[i].origin_vect.axis[1] = tab[1];
+	data->spheres[i].origin_vect.axis[2] = tab[2];
+	data->spheres[i].diameter = tab[3];
+	data->spheres[i].square_radius = tab[3] / 2 * tab[3] / 2;
+	data->spheres[i].color.rgb[0] = tab[4];
+	data->spheres[i].color.rgb[1] = tab[5];
+	data->spheres[i].color.rgb[2] = tab[6];
+	i++;
 	return (1);
 }
 

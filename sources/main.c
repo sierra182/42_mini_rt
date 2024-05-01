@@ -109,6 +109,18 @@ void	print_cam_content(t_data data)
 
 }
 
+void	print_sphere(t_sphere sphere)
+{
+	printf("sphere.origin_vect.axis[0]: %f\n", sphere.origin_vect.axis[0]);
+	printf("sphere.origin_vect.axis[1]: %f\n", sphere.origin_vect.axis[1]);
+	printf("sphere.origin_vect.axis[2]: %f\n", sphere.origin_vect.axis[2]);
+	printf("sphere.diameter: %f\n", sphere.diameter);
+	printf("spheres.square_radius: %f\n", sphere.square_radius);
+	printf("spheres.color.rgb[0]: %i\n", sphere.color.rgb[0]);
+	printf("spheres.color.rgb[1]: %i\n", sphere.color.rgb[1]);
+	printf("spheres.color.rgb[2]: %i\n", sphere.color.rgb[2]);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
@@ -121,6 +133,10 @@ int	main(int argc, char **argv)
 		return (display_error("parse error\n"), 2);
 	if (init_data(argv[1], &data) == 0)
 		return (display_error("init error\n"), 3);
+	int	i = 0;
+	while (i < data.sp_nbr)
+		print_sphere(data.spheres[i++]);
+		
 	// printf("before: \n");
 	// print_cam_content(data);
 	// update_cam(&data.cam);
