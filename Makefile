@@ -51,6 +51,7 @@ SOURCES = \
 	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
+	$(SRC_DIR)/matrix/matrix.c \
 	$(SRC_DIR)/parsing/parse.c \
 	$(SRC_DIR)/parsing/file_content_is_correct.c \
 	$(SRC_DIR)/parsing/all_necessary_elements_are_present.c \

@@ -4,6 +4,8 @@
 # define WIDTH 600
 # define HEIGHT 500
 # define AXIS 3
+# define MTX 4 
+# include <stdio.h>
 
 typedef	struct s_img
 {
@@ -25,6 +27,11 @@ typedef struct s_vector
 	double	axis[AXIS];
 }	t_vector;
 
+typedef struct s_vector
+{
+	double	axis[MTX];
+}	t_matrix_vector;
+
 typedef struct s_ray
 {
 	t_vector	origin_vect;
@@ -33,17 +40,18 @@ typedef struct s_ray
 
 typedef struct s_cam
 {
-	double		fov_deg;
-	double		fov_rad;
-	double		focal_len;
-	double		scale;
-	double		aspect;
-	double		resol[2];
-	t_vector	
-	t_vector	origin_vect;
-	t_vector	up_vect;
-	t_vector	forward_vect;
-	t_vector	right_vect;
+	double			fov_deg;
+	double			fov_rad;
+	double			focal_len;
+	double			scale;
+	double			aspect;
+	double			resol[2];
+	t_matrix_vector	trsf_matrix[MTX];
+	t_matrix_vector	cam_matrix[MTX];
+	t_vector		origin_vect;
+	t_vector		up_vect;
+	t_vector		forward_vect;
+	t_vector		right_vect;
 }	t_cam;
 
 typedef struct	s_color

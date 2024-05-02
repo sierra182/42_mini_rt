@@ -3,8 +3,8 @@
 int	init_data(char *map_path, t_data *data);
 void	update_cam(t_cam *cam);
 
-#define PI 3.14159265358979323846
-
+// #define PI 3.14159265358979323846
+void	matrix(t_cam *cam);
 int	key_press(int keycode, void *param)
 {
 	t_mlx	*mlx;
@@ -17,23 +17,14 @@ int	key_press(int keycode, void *param)
 		mlx_loop_end(mlx->connect);
 	if (keycode == 97)
 	{
-		data->cam.fov_deg += 1; //reduis
-		update_cam(&data->cam);
-		//data->cam.focal_len += 1; //zoom
-		//data->cam.scale += 0.1; //reduis
-		//  data->cam.resol[0] /= 2;
-		//  data->cam.resol[1] /= 2;
-		//  data->cam.fov_rad = data->cam.fov_deg * PI / 180.0;
-		//  data->cam.scale = tan(data->cam.fov_rad / 2.0);
-		// if (data->cam.resol[1])
-		// 	data->cam.aspect = data->cam.resol[0] / data->cam.resol[1];
-		// if (data->cam.scale)
-		// 	data->cam.focal_len = data->cam.resol[0] / (2.0 * data->cam.scale);
+		matrix(&data->cam);
+		// data->cam.fov_deg += 1;
+		update_cam(&data->cam);	
 	}		
 	if (keycode == 115)
 	{
-		data->cam.fov_deg -= 1;
-		update_cam(&data->cam);
+		// data->cam.fov_deg -= 1;
+		// update_cam(&data->cam);
 	} 
 	return (0);
 }

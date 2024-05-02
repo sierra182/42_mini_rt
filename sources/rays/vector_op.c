@@ -48,7 +48,7 @@ double	product_scalar(t_vector *a, t_vector *b)
 
 	scalar = 0.0;
 	i = -1;
-	while (++i < AXIS)
+	while (++i < AXIS - 1)
 		scalar += a->axis[i] * b->axis[i];
 	return (scalar);
 }
