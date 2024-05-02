@@ -8,3 +8,4 @@ valgrind --leak-check=full --show-leak-kinds=all ./miniRT
 
 Ressources:
 https://github.com/ricardoreves/42-minirt?tab=readme-ov-file
+
