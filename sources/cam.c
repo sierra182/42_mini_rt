@@ -25,7 +25,7 @@ static void	calculate_missing_vectors(t_cam *cam)
 	normalize_vector(&cam->up_vect);
 }
 
-void	pre_init_cam(t_cam *cam)
+void	post_init_cam(t_cam *cam)
 {
 	calculate_missing_vectors(cam);
 	cam->right_vect.axis[3] = 0;

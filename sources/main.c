@@ -135,9 +135,9 @@ int	main(int argc, char **argv)
 		return (display_error("arg number not valid\n"), 1);
 	if (parse(&data, argv[1]) == 0)
 		return (display_error(".rt file not valid\n"), 2);
-	pre_init_cam(&data.cam);
 	if (init_data(argv[1], &data) == 0)
 		return (display_error("data init. error\n"), 3);
+	post_init_cam(&data.cam);
 	update_cam(&data.cam);
 	if (init_mlx(&mlx))
 		return (4);
