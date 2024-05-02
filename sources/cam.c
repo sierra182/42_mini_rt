@@ -2,9 +2,9 @@
 #include <math.h>
 #include "x_mini_struct.h"
 
-void	normalize_vector(t_vector *vector);
-void	product_vector(t_vector *a, t_vector *b, t_vector *product_vect);
-int		are_collinear_vectors(t_vector *pdct_vect, double precision);
+void	normalize_vector(t_matrix_vector *vector);
+void	product_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *product_vect);
+int		are_collinear_vectors(t_matrix_vector *pdct_vect, double precision);
 
 static void	calculate_missing_vectors(t_cam *cam)
 {
@@ -25,9 +25,21 @@ static void	calculate_missing_vectors(t_cam *cam)
 	normalize_vector(&cam->up_vect);
 }
 
-void	update_cam(t_cam *cam)
+void	pre_init_cam(t_cam *cam)
 {
 	calculate_missing_vectors(cam);
+	cam->right_vect.axis[3] = 0;
+	cam->up_vect.axis[3] = 0;
+	cam->forward_vect.axis[3] = 0;
+	cam->origin_vect.axis[3] = 1;
+	cam->cam_matrix[0] = &cam->right_vect;
+	cam->cam_matrix[1] = &cam->up_vect;
+	cam->cam_matrix[2] = &cam->forward_vect;
+	cam->cam_matrix[3] = &cam->origin_vect;
+}
+
+void	update_cam(t_cam *cam)
+{	
 	cam->resol[0] = WIDTH;
 	cam->resol[1] = HEIGHT;
 	cam->fov_rad = cam->fov_deg * PI / 180.0;

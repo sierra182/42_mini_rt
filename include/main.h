@@ -10,5 +10,6 @@
 void	display_error(char *error);
 int		parse(t_data *data, char *map_path);
 void	launch_rays(t_mlx *mlx, t_data *data);
+void	pre_init_cam(t_cam *cam);
 
 #endif

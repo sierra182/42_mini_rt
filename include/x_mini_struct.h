@@ -22,20 +22,20 @@ typedef struct s_mlx
 	t_img	img;
 }	t_mlx;
 
-typedef struct s_vector
+typedef struct s_ray_vector
 {
 	double	axis[AXIS];
-}	t_vector;
+}	t_ray_vector;
 
-typedef struct s_vector
+typedef struct s_matrix_vector
 {
 	double	axis[MTX];
 }	t_matrix_vector;
 
 typedef struct s_ray
 {
-	t_vector	origin_vect;
-	t_vector	dir_vect;
+	t_ray_vector	origin_vect;
+	t_ray_vector	dir_vect;
 }	t_ray;
 
 typedef struct s_cam
@@ -47,11 +47,11 @@ typedef struct s_cam
 	double			aspect;
 	double			resol[2];
 	t_matrix_vector	trsf_matrix[MTX];
-	t_matrix_vector	cam_matrix[MTX];
-	t_vector		origin_vect;
-	t_vector		up_vect;
-	t_vector		forward_vect;
-	t_vector		right_vect;
+	t_matrix_vector	*cam_matrix[MTX];
+	t_matrix_vector	right_vect;
+	t_matrix_vector	up_vect;
+	t_matrix_vector	forward_vect;
+	t_matrix_vector	origin_vect;
 }	t_cam;
 
 typedef struct	s_color
@@ -61,10 +61,10 @@ typedef struct	s_color
 
 typedef struct s_sphere
 {
-	t_vector	origin_vect;
-	double		diameter;
-	double		square_radius;
-	t_color		color;
+	t_matrix_vector	origin_vect;
+	double			diameter;
+	double			square_radius;
+	t_color			color;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -88,6 +88,11 @@ typedef struct s_data
 	t_plane		*planes;
 }	t_data;
 
+typedef enum e_event
+{
+	ESC = 65307
+}	t_enum_event;
+
 typedef struct s_exit
 {
 	t_sphere	*spheres;
@@ -95,11 +100,6 @@ typedef struct s_exit
 	t_plane		*planes;
 	t_mlx		*mlx;
 }	t_exit;
-
-typedef enum e_event
-{
-	ESC = 65307
-}	t_enum_event;
 
 typedef enum e_exit
 {

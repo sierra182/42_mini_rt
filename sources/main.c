@@ -1,10 +1,9 @@
 #include "main.h"
 
-int	init_data(char *map_path, t_data *data);
+int		init_data(char *map_path, t_data *data);
 void	update_cam(t_cam *cam);
-
-// #define PI 3.14159265358979323846
 void	matrix(t_cam *cam);
+
 int	key_press(int keycode, void *param)
 {
 	t_mlx	*mlx;
@@ -46,7 +45,6 @@ int	key_press(int keycode, void *param)
 // }
 
 #include <unistd.h>
-#include <sys/time.h>
 int	frame(void *param)
 {
 	t_mlx	*mlx;
@@ -91,8 +89,6 @@ int	init_mlx(t_mlx *mlx)
 	add_exit_struct((void *) mlx, MLX);
 	return (0);
 }
-
-#include <stdio.h>
 
 void	print_cam_content(t_data data)
 {	
@@ -139,9 +135,9 @@ int	main(int argc, char **argv)
 		return (display_error("arg number not valid\n"), 1);
 	if (parse(&data, argv[1]) == 0)
 		return (display_error(".rt file not valid\n"), 2);
+	pre_init_cam(&data.cam);
 	if (init_data(argv[1], &data) == 0)
 		return (display_error("data init. error\n"), 3);
-	ft_printf("Hello World!\n");	
 	update_cam(&data.cam);
 	if (init_mlx(&mlx))
 		return (4);
