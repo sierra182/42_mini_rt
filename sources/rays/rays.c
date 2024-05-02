@@ -58,9 +58,9 @@ int	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 
 	subtract_vector(&ray->origin_vect, &sphere->origin_vect, &SR);
 	a = product_scalar(&ray->dir_vect, &ray->dir_vect);
-	b = 2* product_scalar(&SR, &ray->dir_vect);
+	b = 2 * product_scalar(&SR, &ray->dir_vect);
 	c = product_scalar(&SR, &SR) - sphere->square_radius;
-	discrim = b*b - 4*a*c;
+	discrim = b * b - 4 * a * c;
 	if (discrim < 0)
 	    return (0);
 			// printf("IN INTERSECT");
