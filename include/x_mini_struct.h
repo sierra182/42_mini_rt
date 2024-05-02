@@ -33,7 +33,8 @@ typedef struct s_ray
 
 typedef struct s_cam
 {
-	double		fov;
+	double		fov_deg;
+	double		fov_rad;
 	double		focal_len;
 	double		scale;
 	double		aspect;

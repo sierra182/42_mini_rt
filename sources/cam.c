@@ -30,8 +30,8 @@ void	update_cam(t_cam *cam)
 	calculate_missing_vectors(cam);
 	cam->resol[0] = WIDTH;
 	cam->resol[1] = HEIGHT;
-	cam->fov = cam->fov * PI / 180.0;
-	cam->scale = tan(cam->fov / 2.0);
+	cam->fov_rad = cam->fov_deg * PI / 180.0;
+	cam->scale = tan(cam->fov_rad / 2.0);
 	if (cam->resol[1])
 		cam->aspect = cam->resol[0] / cam->resol[1];
 	if (cam->scale)

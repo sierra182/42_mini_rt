@@ -12,7 +12,7 @@ void	fill_struct_c(t_data *data, double tab[])
 	data->cam.forward_vect.axis[0] = tab[3];
 	data->cam.forward_vect.axis[1] = tab[4];
 	data->cam.forward_vect.axis[2] = tab[5];
-	data->cam.fov = tab[6];
+	data->cam.fov_deg = tab[6];
 }
 
 void	fill_struct_l(t_data *data, double tab[])
