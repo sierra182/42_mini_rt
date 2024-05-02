@@ -95,17 +95,17 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 	{
 		token = ft_strtok(NULL, ", \t\n");
 		if (num[*i - 1] == NULL)
-			return (free_tab(num), 0);
+			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "ltr") && !chck_fl(token, LTR))
-			return (free_tab(num), 0);
+			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "vecr") && !chck_fl(token, VECR))
-			return (free_tab(num), 0);
+			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "byt") && !chck_bt(token, BYT))
-			return (free_tab(num), 0);
+			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "fov") && !chck_bt(token, FOV))
-			return (free_tab(num), 0);
+			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "fl") && !chck_fl(token, FL))
-			return (free_tab(num), 0);
+			return (0);
 		(*i)++;
 	}
 	return (1);
