@@ -1,4 +1,7 @@
 #include "rays.h"
+#include <math.h>
+
+void	subtract_vector(t_ray_vector *a, t_matrix_vector *b, t_ray_vector *subt_vect);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
@@ -48,13 +51,14 @@ void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
 	}
 }
 
-int	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
+double	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 {
 	t_ray_vector	SR;
 	double			a;
 	double			b;
 	double			c;	
 	double			discrim;
+	double			t1;
 
 	subtract_vector(&ray->origin_vect, &sphere->origin_vect, &SR);
 	a = product_scalar(&ray->dir_vect, &ray->dir_vect);
@@ -62,11 +66,10 @@ int	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 	c = product_scalar(&SR, &SR) - sphere->square_radius;
 	discrim = b * b - 4 * a * c;
 	if (discrim < 0)
-	    return (0);
-			// printf("IN INTERSECT");
-	// t1 = (-b + sqrt(discriminant)) / (2*a)
-	// t2 = (-b - sqrt(discriminant)) / (2*a)  
-	return (1);
+	    return (0.0);
+	t1 = (-b + sqrt(discrim)) / (2*a);
+	// t2 = (-b - sqrt(discrim)) / (2*a)  
+	return (t1);
 }
 
 int	get_color(unsigned char r, unsigned char g, unsigned char b)
@@ -79,8 +82,8 @@ int	get_background_color(t_ray *ray)
 {
 	double a;
 
-	a = 0.5 * (ray->dir_vect.axis[1] + 1.0);
-    return (1.0 - a) * get_color(255, 255, 255) + a * get_color(125, 200, 130);
+	a = 0.5 * (ray->dir_vect.axis[1] + 10.0);
+    return (1.0 - a) * get_color(255, 255, 255) + a * get_color(0.5 * 255, 0.7 * 255, 1.0 * 255);
 }
 
 void	launch_rays(t_mlx *mlx, t_data *data)
@@ -88,6 +91,9 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	t_ray		ray;
 	double		x;
 	double		y;
+	double		t1;
+	t_ray_vector *subt_vect;
+
 
 	y = -1;
 	while (++y < data->cam.resol[1])
@@ -96,9 +102,17 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		while (++x < data->cam.resol[0])
 		{
 			new_ray(&data->cam, &ray, x, y);
-			if (is_intersect_sphere(&ray, &data->spheres[0]))
+			t1 = is_intersect_sphere(&ray, &data->spheres[0]);
+			if (t1)
+			{
+				add
+				subtract_vector(ray.origin_vect, data->spheres->origin_vect, subt_vect);
+				
 				put_pxl(mlx, x, y, *(int *)(unsigned char[])
 					{225, 125, 125, 0});
+
+
+			}
 			else
 				put_pxl(mlx, x, y, get_background_color(&ray));	
 		}		
