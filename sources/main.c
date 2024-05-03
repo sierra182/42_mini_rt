@@ -2,7 +2,8 @@
 
 int		init_data(char *map_path, t_data *data);
 void	update_cam(t_cam *cam);
-void	matrix(t_cam *cam);
+void	cam_trsl_left(t_cam *cam);
+void	cam_trsl_right(t_cam *cam);
 
 int	key_press(int keycode, void *param)
 {
@@ -16,12 +17,13 @@ int	key_press(int keycode, void *param)
 		mlx_loop_end(mlx->connect);
 	if (keycode == 97)
 	{
-		matrix(&data->cam);
+		cam_trsl_left(&data->cam);
 		// data->cam.fov_deg += 1;
-		update_cam(&data->cam);	
+		//update_cam(&data->cam);	
 	}		
 	if (keycode == 115)
 	{
+		cam_trsl_right(&data->cam);
 		// data->cam.fov_deg -= 1;
 		// update_cam(&data->cam);
 	} 

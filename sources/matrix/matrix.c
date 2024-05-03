@@ -22,7 +22,7 @@ void	set_matrix_translate(t_matrix_vector matrix[], double trans[])
 
 	i = -1;
 	while (++i < AXIS)
-		matrix[i].axis[AXIS - 1] = trans[i];
+		matrix[i].axis[AXIS] = trans[i];
 }
 
 // void	set_matrix_scale(double matrix[][AXIS], double scale[])
@@ -92,7 +92,8 @@ void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector, t_matrix_ve
 	
 	i = -1;
 	while (++i < MTX)
-	{		
+	{	
+		rslt_vect->axis[i] = 0.0;
 		j = -1;
 		while (++j < MTX)
 			rslt_vect->axis[i] += (matrix[i].axis[j]
@@ -126,12 +127,22 @@ void	print_matrix(t_matrix_vector matrix[])
 	printf("\n");
 }
 
-void	matrix(t_cam *cam)
+void	cam_trsl_left(t_cam *cam)
 {
-	static t_matrix_vector tmp = {.axis[0] = 0, .axis[1] = 0, .axis[2] = 0, .axis[3] = 0};
-
+	t_matrix_vector tmp;
+	
 	init_matrix(cam->trsf_matrix);
-	set_matrix_translate(cam->trsf_matrix, (double []){.001, 0, 0});
+	set_matrix_translate(cam->trsf_matrix, (double []){1, 0, 0});
+	apply_matrix(cam->trsf_matrix, &cam->origin_vect, &tmp);
+	cam->origin_vect = tmp;
+}
+
+void	cam_trsl_right(t_cam *cam)
+{
+	t_matrix_vector tmp;
+	
+	init_matrix(cam->trsf_matrix);
+	set_matrix_translate(cam->trsf_matrix, (double []){-1, 0, 0});
 	apply_matrix(cam->trsf_matrix, &cam->origin_vect, &tmp);
 	cam->origin_vect = tmp;
 }
