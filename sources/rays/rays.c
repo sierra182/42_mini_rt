@@ -69,6 +69,20 @@ int	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 	return (1);
 }
 
+int	get_color(unsigned char r, unsigned char g, unsigned char b)
+{
+	return (*(int *)(unsigned char[])
+		{r, g, b, 0});
+}
+
+int	get_background_color(t_ray *ray)
+{
+	double a;
+
+	a = 0.5 * (ray->dir_vect.axis[1] + 1.0);
+    return (1.0 - a) * get_color(255, 255, 255) + a * get_color(125, 200, 130);
+}
+
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	t_ray		ray;
@@ -84,7 +98,9 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			new_ray(&data->cam, &ray, x, y);
 			if (is_intersect_sphere(&ray, &data->spheres[0]))
 				put_pxl(mlx, x, y, *(int *)(unsigned char[])
-					{225, 125, 125, 0});		
+					{225, 125, 125, 0});
+			else
+				put_pxl(mlx, x, y, get_background_color(&ray));	
 		}		
 	}
 }
