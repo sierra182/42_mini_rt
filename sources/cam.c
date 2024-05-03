@@ -44,8 +44,7 @@ void	post_init_cam(t_cam *cam)
 }
 
 void	update_cam(t_cam *cam)
-{
-	cam->fov_deg = 120;	
+{	
 	cam->resol[0] = WIDTH;
 	cam->resol[1] = HEIGHT;
 	cam->fov_rad = cam->fov_deg * PI / 180.0;
