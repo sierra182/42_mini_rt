@@ -3,6 +3,7 @@
 int	init_data(char *map_path, t_data *data);
 int	update_cam(t_cam *cam);
 int	key_event(int keycode, void *param);
+int scroll_event(int button, int x, int y, void *param);
 // static void	add_background(int x, int y)
 // {
 // 	char	*img_data;
@@ -44,7 +45,7 @@ int	frame(void *param)
 	mlx_destroy_image(mlx->connect, mlx->img.img_ptr);
 	return (0);
 }
-void    scroll_event(int button, int x, int y, void *param);
+
 void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 {		
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);

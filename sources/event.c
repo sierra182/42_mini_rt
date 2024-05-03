@@ -8,7 +8,7 @@ static void cam_event_rotate(int keycode, t_cam *cam)
 {
     double  r;
 
-    r = 1;
+    r = .05;
     if (keycode == R_LFT)	
 		rotate_cam(cam, r, (int []){1, 0, 0});
     else if (keycode == R_RGHT)	
@@ -27,7 +27,7 @@ static void	cam_event_translate(int keycode, t_cam *cam)
 {
     double t;
 
-    t = 0.1;
+    t = 0.05;
 	if (keycode == UP)
 		trsl_cam(cam, (double []){0.0, -t, 0.0});		
 	else if (keycode == DWN)	
