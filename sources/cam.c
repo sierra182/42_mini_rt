@@ -5,6 +5,9 @@
 void	normalize_vector(t_matrix_vector *vector);
 void	product_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *product_vect);
 int		are_collinear_vectors(t_matrix_vector *pdct_vect, double precision);
+void	init_matrix(t_matrix_vector matrix[]);
+void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector, t_matrix_vector *rslt_vect);
+void	set_matrix_translate(t_matrix_vector matrix[], double trans[]);
 
 static void	calculate_missing_vectors(t_cam *cam)
 {
@@ -49,4 +52,14 @@ void	update_cam(t_cam *cam)
 		cam->aspect = cam->resol[0] / cam->resol[1];
 	if (cam->scale)
 		cam->focal_len = cam->resol[0] / (2.0 * cam->scale);
+}
+
+void	trsl_cam(t_cam *cam, double values[])
+{
+	t_matrix_vector tmp;
+	
+	init_matrix(cam->trsf_matrix);
+	set_matrix_translate(cam->trsf_matrix, values);
+	apply_matrix(cam->trsf_matrix, &cam->origin_vect, &tmp);
+	cam->origin_vect = tmp;
 }

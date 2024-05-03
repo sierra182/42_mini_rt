@@ -127,22 +127,3 @@ void	print_matrix(t_matrix_vector matrix[])
 	printf("\n");
 }
 
-void	cam_trsl_left(t_cam *cam)
-{
-	t_matrix_vector tmp;
-	
-	init_matrix(cam->trsf_matrix);
-	set_matrix_translate(cam->trsf_matrix, (double []){1, 0, 0});
-	apply_matrix(cam->trsf_matrix, &cam->origin_vect, &tmp);
-	cam->origin_vect = tmp;
-}
-
-void	cam_trsl_right(t_cam *cam)
-{
-	t_matrix_vector tmp;
-	
-	init_matrix(cam->trsf_matrix);
-	set_matrix_translate(cam->trsf_matrix, (double []){-1, 0, 0});
-	apply_matrix(cam->trsf_matrix, &cam->origin_vect, &tmp);
-	cam->origin_vect = tmp;
-}

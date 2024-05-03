@@ -2,34 +2,7 @@
 
 int		init_data(char *map_path, t_data *data);
 void	update_cam(t_cam *cam);
-void	cam_trsl_left(t_cam *cam);
-void	cam_trsl_right(t_cam *cam);
-
-int	key_press(int keycode, void *param)
-{
-	t_mlx	*mlx;
-	t_data	*data;
-
-	mlx = (t_mlx *) ((void **) param)[0];
-	data = (t_data *) ((void **) param)[1];
-	ft_printf("keycode: %d\n", keycode);
-	if (keycode == ESC)
-		mlx_loop_end(mlx->connect);
-	if (keycode == 97)
-	{
-		cam_trsl_left(&data->cam);
-		// data->cam.fov_deg += 1;
-		//update_cam(&data->cam);	
-	}		
-	if (keycode == 115)
-	{
-		cam_trsl_right(&data->cam);
-		// data->cam.fov_deg -= 1;
-		// update_cam(&data->cam);
-	} 
-	return (0);
-}
-
+int		key_event(int keycode, void *param);
 // static void	add_background(int x, int y)
 // {
 // 	char	*img_data;
@@ -75,7 +48,7 @@ int	frame(void *param)
 void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 {		
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);
-	mlx_hook(mlx->window, 2, 1L << 0, key_press, (void *[]){mlx, data});
+	mlx_hook(mlx->window, 2, 1L << 0, key_event, (void *[]){mlx, data});
 	mlx_loop_hook(mlx->connect, frame, (void *[]){mlx, data});
 	mlx_loop(mlx->connect);
 }

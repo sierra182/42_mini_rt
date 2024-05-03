@@ -48,6 +48,7 @@ OBJECTS = $(SOURCES:.c=.o)
 SOURCES = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/cam.c \
+	$(SRC_DIR)/event.c \
 	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \

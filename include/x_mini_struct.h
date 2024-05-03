@@ -90,7 +90,13 @@ typedef struct s_data
 
 typedef enum e_event
 {
-	ESC = 65307
+	ESC = 65307,
+	UP = 65362,
+	DWN = 65364,
+	LFT = 65361,
+	RGHT = 65363,
+	FWRD = 65436,
+	BACK = 65438
 }	t_enum_event;
 
 typedef struct s_exit
