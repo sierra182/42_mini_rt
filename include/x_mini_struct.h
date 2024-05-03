@@ -56,7 +56,7 @@ typedef struct s_cam
 
 typedef struct	s_color
 {
-	int	rgb[3];
+	double	rgb[3];
 }	t_color;
 
 typedef struct s_sphere

@@ -1,4 +1,3 @@
-#define PI 3.14159265358979323846
 #include <math.h>
 #include "x_mini_struct.h"
 
@@ -47,7 +46,7 @@ void	update_cam(t_cam *cam)
 {	
 	cam->resol[0] = WIDTH;
 	cam->resol[1] = HEIGHT;
-	cam->fov_rad = cam->fov_deg * PI / 180.0;
+	cam->fov_rad = cam->fov_deg * M_PI / 180.0;
 	cam->scale = tan(cam->fov_rad / 2.0);
 	if (cam->resol[1])
 		cam->aspect = cam->resol[0] / cam->resol[1];

@@ -14,6 +14,20 @@ void	normalize_vector(t_ray_vector *vector)
 		vector->axis[i] /= magnitude;
 }
 
+void	normalize_color_vector(t_color *vector)
+{
+	int		i;
+	double	magnitude;
+
+	magnitude = sqrt(pow(vector->rgb[0], 2) + pow(vector->rgb[1], 2)
+			+ pow(vector->rgb[2], 2));
+	if (!magnitude)
+		return ;
+	i = -1;
+	while (++i < AXIS)
+		vector->rgb[i] = (vector->rgb[i] / magnitude) + 1;	
+}
+
 void	add_matrix_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *sum_vect)
 {
 	int	i;
@@ -23,7 +37,16 @@ void	add_matrix_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *
 		sum_vect->axis[i] = a->axis[i] + b->axis[i];
 }
 
-void	add_matrix_ray_vector(t_matrix_vector *a, t_matrix_vector *b, t_ray_vector *sum_vect)
+void	add_matrix_to_ray_vector(t_matrix_vector *a, t_matrix_vector *b, t_ray_vector *sum_vect)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		sum_vect->axis[i] = a->axis[i] + b->axis[i];
+}
+
+void	add_ray_vector(t_ray_vector *a, t_ray_vector *b, t_ray_vector *sum_vect)
 {
 	int	i;
 
@@ -41,7 +64,25 @@ void	subtract_vector(t_ray_vector *a, t_matrix_vector *b, t_ray_vector *subt_vec
 		subt_vect->axis[i] = a->axis[i] - b->axis[i];
 }
 
-void	scale_vector(t_matrix_vector *vect, double scaler, t_matrix_vector *scaled_vect)
+void	subtract_color_vector(t_ray_vector *a, t_matrix_vector *b, t_color *subt_vect)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		subt_vect->rgb[i] = a->axis[i] - b->axis[i];
+}
+
+void	scale_matrix_vector(t_matrix_vector *vect, double scaler, t_matrix_vector *scaled_vect)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		scaled_vect->axis[i] = vect->axis[i] * scaler;
+}
+
+void	scale_ray_vector(t_ray_vector *vect, double scaler, t_ray_vector *scaled_vect)
 {
 	int	i;
 

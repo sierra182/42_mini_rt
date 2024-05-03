@@ -1,7 +1,4 @@
 #include "rays.h"
-#include <math.h>
-
-void	subtract_vector(t_ray_vector *a, t_matrix_vector *b, t_ray_vector *subt_vect);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
@@ -11,11 +8,11 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	t_matrix_vector	scaled_forward;
 	t_matrix_vector	tmp_sum_vect;
 
-	scale_vector(&cam->up_vect, norm_scale_y, &scaled_up);
-	scale_vector(&cam->right_vect, norm_scale_x, &scaled_right);
-	scale_vector(&cam->forward_vect, cam->focal_len, &scaled_forward);
+	scale_matrix_vector(&cam->up_vect, norm_scale_y, &scaled_up);
+	scale_matrix_vector(&cam->right_vect, norm_scale_x, &scaled_right);
+	scale_matrix_vector(&cam->forward_vect, cam->focal_len, &scaled_forward);
 	add_matrix_vector(&scaled_up, &scaled_right, &tmp_sum_vect);
-	add_matrix_ray_vector(&scaled_forward, &tmp_sum_vect, &ray->dir_vect);
+	add_matrix_to_ray_vector(&scaled_forward, &tmp_sum_vect, &ray->dir_vect);
 }
 
 static double	normalize_pixel(int screen_size, int pixel, int x_flag)
@@ -86,14 +83,36 @@ int	get_background_color(t_ray *ray)
     return (1.0 - a) * get_color(255, 255, 255) + a * get_color(0.5 * 255, 0.7 * 255, 1.0 * 255);
 }
 
+void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
+{
+	t_ray_vector scaled_vect;	
+
+	scale_ray_vector(&ray->dir_vect, t, &scaled_vect);
+	add_ray_vector(&ray->origin_vect, &scaled_vect, inter_pt);	
+}
+
+t_color *get_normal_vector(t_ray *ray, double t, t_sphere *sphere, t_color *normal)
+{
+	t_ray_vector inter_pt;
+	printf("color:t:, %f,  %f, %f, %f\n", t, inter_pt.axis[0], inter_pt.axis[1], inter_pt.axis[2]);
+	printf("sphere  %f, %f, %f\n", sphere->origin_vect.axis[0], sphere->origin_vect.axis[1], sphere->origin_vect.axis[2]);
+	if (t <= 0.0)
+		return (NULL);
+	get_intersect_point(ray, t, &inter_pt);
+	subtract_color_vector(&inter_pt, &sphere->origin_vect, normal);
+	printf("color:t:, %f,  %d, %d, %d\n", t, normal->rgb[0], normal->rgb[1], normal->rgb[2]);
+	normalize_color_vector(normal);
+	return (normal);
+}
+
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
-	t_ray		ray;
-	double		x;
-	double		y;
-	double		t1;
-	t_ray_vector *subt_vect;
-
+	t_ray			ray;
+	double			x;
+	double			y;
+	double			t1;
+	t_ray_vector	*subt_vect;
+	t_color 		color;
 
 	y = -1;
 	while (++y < data->cam.resol[1])
@@ -105,13 +124,8 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			t1 = is_intersect_sphere(&ray, &data->spheres[0]);
 			if (t1)
 			{
-				add
-				subtract_vector(ray.origin_vect, data->spheres->origin_vect, subt_vect);
-				
-				put_pxl(mlx, x, y, *(int *)(unsigned char[])
-					{225, 125, 125, 0});
-
-
+				get_normal_vector(&ray, t1, &data->spheres[0], &color);
+				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 			}
 			else
 				put_pxl(mlx, x, y, get_background_color(&ray));	
