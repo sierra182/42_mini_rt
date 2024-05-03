@@ -8,6 +8,8 @@ int		are_collinear_vectors(t_matrix_vector *pdct_vect, double precision);
 void	init_matrix(t_matrix_vector matrix[]);
 void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector, t_matrix_vector *rslt_vect);
 void	set_matrix_translate(t_matrix_vector matrix[], double trans[]);
+void	set_matrix_rotation(t_matrix_vector matrix[], double angle, int axe[]);
+void	multiply_matrix(t_matrix_vector a[], t_matrix_vector b[], t_matrix_vector mult_mat[]);
 
 static void	calculate_missing_vectors(t_cam *cam)
 {
@@ -62,4 +64,21 @@ void	trsl_cam(t_cam *cam, double values[])
 	set_matrix_translate(cam->trsf_matrix, values);
 	apply_matrix(cam->trsf_matrix, &cam->origin_vect, &tmp);
 	cam->origin_vect = tmp;
+}
+void	cast_matrix_cam(t_cam *cam, t_matrix_vector tmp[MTX])
+{
+	int	i;
+
+	i = -1;
+	while (++i < MTX)	
+		*cam->cam_matrix[i] = tmp[i];
+}
+void	rotate_cam(t_cam *cam, double angle, int axe[])
+{
+	t_matrix_vector tmp[MTX];
+	
+	init_matrix(cam->trsf_matrix);
+	set_matrix_rotation(cam->trsf_matrix, angle, axe);
+	multiply_matrix(cam->trsf_matrix, *cam->cam_matrix, tmp);
+	cast_matrix_cam(cam, tmp);
 }

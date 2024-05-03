@@ -1,6 +1,7 @@
 # include "x_mini_struct.h"
 # include "mlx.h"
 void	trsl_cam(t_cam *cam, double values[]);
+void	rotate_cam(t_cam *cam, double angle, int axe[]);
 
 static void	cam_event(int keycode, t_cam *cam)
 {
@@ -16,6 +17,19 @@ static void	cam_event(int keycode, t_cam *cam)
 		trsl_cam(cam, (double []){0, 0, 1});
 	if (keycode == BACK)	
 		trsl_cam(cam, (double []){0, 0, -1});
+
+    if (keycode == R_LFT)	
+		rotate_cam(cam, 0.1, (int []){1, 0, 0});
+    if (keycode == R_RGHT)	
+		rotate_cam(cam, -0.1, (int []){1, 0, 0});
+    if (keycode == R_UP)	
+		rotate_cam(cam, 0.1, (int []){0, 1, 0});
+    if (keycode == R_DWN)	
+		rotate_cam(cam, -0.1, (int []){0, 1, 0});
+     if (keycode == S_LFT)	
+		rotate_cam(cam, 0.1, (int []){0, 0, 1});
+    if (keycode == S_RGHT)	
+		rotate_cam(cam, -0.1, (int []){0, 0, 1});
 } 	
 
 int	key_event(int keycode, void *param)

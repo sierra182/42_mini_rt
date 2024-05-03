@@ -96,7 +96,13 @@ typedef enum e_event
 	LFT = 65361,
 	RGHT = 65363,
 	FWRD = 65436,
-	BACK = 65438
+	BACK = 65438,
+	R_UP = 65431,
+	R_DWN = 65434,
+	R_LFT = 65437,
+	R_RGHT = 65432,
+	S_LFT = 65433,
+	S_RGHT = 65435
 }	t_enum_event;
 
 typedef struct s_exit
