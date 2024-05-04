@@ -25,7 +25,7 @@ void	normalize_color_vector(t_color *vector)
 		return ;
 	i = -1;
 	while (++i < AXIS)
-		vector->rgb[i] = (vector->rgb[i] / magnitude) + 1;	
+		vector->rgb[i] = (vector->rgb[i] / magnitude);	
 }
 
 void	add_matrix_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *sum_vect)
@@ -124,4 +124,13 @@ void	cast_vector(t_matrix_vector *matrix_vect, t_ray_vector *ray_vect)
 	i = -1;
 	while (++i < AXIS)
 		ray_vect->axis[i] = matrix_vect->axis[i];	
+}
+
+void	cast_vector_to_color(t_ray_vector *ray_vect, t_color *color)
+{
+	int i;
+	
+	i = -1;
+	while (++i < AXIS)	
+		color->rgb[i] = (ray_vect->axis[i] * 0.5 + 1) * 255;
 }
