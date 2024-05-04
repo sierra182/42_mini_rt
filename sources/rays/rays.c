@@ -105,8 +105,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			t1 = is_intersect_sphere(&ray, &data->spheres[0]);
 			if (t1)
 			{
-				add
-				subtract_vector(ray.origin_vect, data->spheres->origin_vect, subt_vect);
+				// subtract_vector(ray.origin_vect, data->spheres->origin_vect, subt_vect);
 				
 				put_pxl(mlx, x, y, *(int *)(unsigned char[])
 					{225, 125, 125, 0});
