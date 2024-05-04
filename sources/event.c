@@ -37,9 +37,9 @@ static void	cam_event_translate(int keycode, t_cam *cam)
 	else if (keycode == RGHT)	
 		trsl_cam(cam, (double []){-t, 0.0, 0.0});
 	else if (keycode == FWRD)	
-		trsl_cam(cam, (double []){0.0, 0.0, t});
+		trsl_cam(cam, (double []){0.0, 0.0, 20 * t});
 	else if (keycode == BACK)	
-		trsl_cam(cam, (double []){0.0, 0.0, -t});
+		trsl_cam(cam, (double []){0.0, 0.0, -20 * t});
 } 	
 
 int	key_event(int keycode, void *param)

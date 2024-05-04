@@ -100,9 +100,26 @@ t_ray_vector *get_normal_vector(t_ray *ray, double t, t_sphere *sphere, t_ray_ve
 		return (NULL);
 	get_intersect_point(ray, t, &inter_pt);
 	subtract_vector(&inter_pt, &sphere->origin_vect, normal);
-	// printf("COLOR:t:, %f,  %f, %f,  %f\n", t, normal->axis[0], normal->axis[1], normal->axis[2]);
+	//printf("COLOR:t:, %f,  %f, %f,  %f\n", t, normal->axis[0], normal->axis[1], normal->axis[2]);
 	normalize_vector(normal);
-	// printf("COLOR2:t:, %f,  %f, %f,  %f\n", t, normal->axis[0], normal->axis[1], normal->axis[2]);
+	//printf("COLOR2:t:, %f,  %f, %f,  %f\n", t, normal->axis[0], normal->axis[1], normal->axis[2]);
+	int i = -1;
+	while (++i < AXIS)
+	{
+		// if (normal->axis[i] < 0)
+		// 	normal->axis[i] = -normal->axis[i];
+		normal->axis[i] += 1;
+		normal->axis[i] *= 0.5;
+	}
+	i = -1;
+		while (++i < AXIS)
+	{
+		// if (normal->axis[i] < 0)
+		// 	normal->axis[i] = -normal->axis[i];
+		normal->axis[i] *= 255;
+	
+	}
+	//printf("COLOR2:t:, %f,  %f, %f,  %f\n", t, normal->axis[0], normal->axis[1], normal->axis[2]);
 	return (normal);
 }
 
@@ -126,7 +143,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			if (t1)
 			{				
 				get_normal_vector(&ray, t1, &data->spheres[0], &color);
-				put_pxl(mlx, x, y, 0.5 *get_color(color.axis[0] * 2, color.axis[1] * 2, color.axis[2] * 2));
+				put_pxl(mlx, x, y, get_color(color.axis[0], color.axis[1], color.axis[2]));
 			}
 			else
 				put_pxl(mlx, x, y, get_background_color(&ray));	
