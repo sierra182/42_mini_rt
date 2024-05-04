@@ -91,17 +91,18 @@ void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 	add_ray_vector(&ray->origin_vect, &scaled_vect, inter_pt);	
 }
 
-t_color *get_normal_vector(t_ray *ray, double t, t_sphere *sphere, t_color *normal)
+t_ray_vector *get_normal_vector(t_ray *ray, double t, t_sphere *sphere, t_ray_vector *normal)
 {
 	t_ray_vector inter_pt;
-	printf("color:t:, %f,  %f, %f, %f\n", t, inter_pt.axis[0], inter_pt.axis[1], inter_pt.axis[2]);
-	printf("sphere  %f, %f, %f\n", sphere->origin_vect.axis[0], sphere->origin_vect.axis[1], sphere->origin_vect.axis[2]);
+	// printf("color:t:, %f,  %f, %f, %f\n", t, inter_pt.axis[0], inter_pt.axis[1], inter_pt.axis[2]);
+	// printf("sphere  %f, %f, %f\n", sphere->origin_vect.axis[0], sphere->origin_vect.axis[1], sphere->origin_vect.axis[2]);
 	if (t <= 0.0)
 		return (NULL);
 	get_intersect_point(ray, t, &inter_pt);
-	subtract_color_vector(&inter_pt, &sphere->origin_vect, normal);
-	printf("color:t:, %f,  %d, %d, %d\n", t, normal->rgb[0], normal->rgb[1], normal->rgb[2]);
-	normalize_color_vector(normal);
+	subtract_vector(&inter_pt, &sphere->origin_vect, normal);
+	// printf("COLOR:t:, %f,  %f, %f,  %f\n", t, normal->axis[0], normal->axis[1], normal->axis[2]);
+	normalize_vector(normal);
+	// printf("COLOR2:t:, %f,  %f, %f,  %f\n", t, normal->axis[0], normal->axis[1], normal->axis[2]);
 	return (normal);
 }
 
@@ -112,7 +113,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	double			y;
 	double			t1;
 	t_ray_vector	*subt_vect;
-	t_color 		color;
+	t_ray_vector 		color;
 
 	y = -1;
 	while (++y < data->cam.resol[1])
@@ -123,9 +124,9 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			new_ray(&data->cam, &ray, x, y);
 			t1 = is_intersect_sphere(&ray, &data->spheres[0]);
 			if (t1)
-			{
+			{				
 				get_normal_vector(&ray, t1, &data->spheres[0], &color);
-				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
+				put_pxl(mlx, x, y, 0.5 *get_color(color.axis[0] * 2, color.axis[1] * 2, color.axis[2] * 2));
 			}
 			else
 				put_pxl(mlx, x, y, get_background_color(&ray));	
