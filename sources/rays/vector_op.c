@@ -125,6 +125,14 @@ void	cast_vector(t_matrix_vector *matrix_vect, t_ray_vector *ray_vect)
 	while (++i < AXIS)
 		ray_vect->axis[i] = matrix_vect->axis[i];	
 }
+void	cast_vector_ray_to_color(t_ray_vector *ray_vect, t_color *color)
+{
+	int i;
+	
+	i = -1;
+	while (++i < AXIS)	
+		color->rgb[i] = (ray_vect->axis[i]);
+}
 
 void	cast_vector_to_color(t_ray_vector *ray_vect, t_color *color)
 {

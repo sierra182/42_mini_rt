@@ -15,6 +15,7 @@ void	subtract_vector(t_ray_vector *a, t_matrix_vector *b, t_ray_vector *subt_vec
 void	subtract_color_vector(t_ray_vector *a, t_matrix_vector *b, t_color *subt_vect);
 double	product_scalar(t_ray_vector *a, t_ray_vector *b);
 void	normalize_vector(t_ray_vector *vector);
+void	cast_vector_ray_to_color(t_ray_vector *ray_vect, t_color *color);
 void	cast_vector_to_color(t_ray_vector *ray_vect, t_color *color);
 void	scale_color(t_color *vect, double scaler, t_ray_vector *scaled_vect);
 double	normalize_scalar_product(double scalar_product);

@@ -118,11 +118,10 @@ void	get_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t_spotli
 	normalize_vector(&normal);
 	subtract_vector(&inter_pt, &spotlight->origin_vect, &light_ray);
 	normalize_vector(&light_ray);
-	light_coef = product_scalar(&normal, &light_ray);
-	//light_coef = normalise_scalar_product(light_coef);
+	light_coef = product_scalar(&light_ray,&normal);
+	light_coef = normalize_scalar_product(light_coef);
 	scale_color(&sphere->color, light_coef, &scaled_vect);
-	normalize_vector(&scaled_vect);
-	cast_vector_to_color(&scaled_vect, color);
+	cast_vector_ray_to_color(&scaled_vect, color);
 }
 
 void	launch_rays(t_mlx *mlx, t_data *data)
@@ -143,7 +142,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			new_ray(&data->cam, &ray, x, y);
 			t = is_intersect_sphere(&ray, &data->spheres[0]);			
 			if (t && !is_behind_cam(t))
-			{				
+			{
 				get_normal_spotlight_color(&ray, t, &data->spheres[0], &data->spotlight, &color);
 				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 			}
