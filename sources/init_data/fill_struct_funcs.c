@@ -61,9 +61,6 @@ void	fill_struct_pl(t_data *data, double tab[])
 {
 	static int	i = 0;
 	
-	// printf("before:\n");
-	// print_plane(&data->planes[i], i);
-
 	data->planes[i].origin_vect.axis[0] = tab[0];
 	data->planes[i].origin_vect.axis[1] = tab[1];
 	data->planes[i].origin_vect.axis[2] = tab[2];
@@ -73,9 +70,6 @@ void	fill_struct_pl(t_data *data, double tab[])
 	data->planes[i].color.rgb[0] = tab[6];
 	data->planes[i].color.rgb[1] = tab[7];
 	data->planes[i].color.rgb[2] = tab[8];
-
-	printf("after:\n");
-	print_plane(&data->planes[i], i);
 
 	i++;
 }
