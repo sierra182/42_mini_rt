@@ -42,18 +42,40 @@ void	fill_struct_cy(t_data *data, double tab[])
 	i++;
 }
 
+void	print_plane(t_plane *plane, int i)
+{
+	printf("plane %i: \n", i);
+	printf("data->plane.origin_vect.axis[0]: %f\n", plane->origin_vect.axis[0]);
+	printf("data->plane.origin_vect.axis[1]: %f\n", plane->origin_vect.axis[1]);
+	printf("data->plane.origin_vect.axis[2]: %f\n", plane->origin_vect.axis[2]);
+	printf("data->plane.origin_vect.axis[0]: %f\n", plane->norm_vect.axis[0]);
+	printf("data->plane.origin_vect.axis[1]: %f\n", plane->norm_vect.axis[1]);
+	printf("data->plane.origin_vect.axis[2]: %f\n", plane->norm_vect.axis[2]);
+	printf("data->plane.color.rgb[0]: %i\n", plane->color.rgb[0]);
+	printf("data->plane.color.rgb[1]: %i\n", plane->color.rgb[1]);
+	printf("data->plane.color.rgb[2]: %i\n", plane->color.rgb[2]);
+}
+
+
 void	fill_struct_pl(t_data *data, double tab[])
 {
 	static int	i = 0;
+	
+	// printf("before:\n");
+	// print_plane(&data->planes[i], i);
 
 	data->planes[i].origin_vect.axis[0] = tab[0];
 	data->planes[i].origin_vect.axis[1] = tab[1];
 	data->planes[i].origin_vect.axis[2] = tab[2];
-	data->planes[i].origin_vect.axis[0] = tab[3];
-	data->planes[i].origin_vect.axis[1] = tab[4];
-	data->planes[i].origin_vect.axis[2] = tab[5];
+	data->planes[i].norm_vect.axis[0] = tab[3];
+	data->planes[i].norm_vect.axis[1] = tab[4];
+	data->planes[i].norm_vect.axis[2] = tab[5];
 	data->planes[i].color.rgb[0] = tab[6];
 	data->planes[i].color.rgb[1] = tab[7];
 	data->planes[i].color.rgb[2] = tab[8];
+
+	printf("after:\n");
+	print_plane(&data->planes[i], i);
+
 	i++;
 }
