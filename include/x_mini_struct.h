@@ -59,6 +59,12 @@ typedef struct	s_color
 	int	rgb[3];
 }	t_color;
 
+typedef struct	s_spotlight
+{
+	double			intensity;
+	t_matrix_vector	origin_vect;
+}	t_spotlight;
+
 typedef struct s_sphere
 {
 	t_matrix_vector	origin_vect;
@@ -86,6 +92,7 @@ typedef struct s_data
 	t_sphere	*spheres;
 	t_cylinder	*cylinders;
 	t_plane		*planes;
+	t_spotlight	spotlight;
 }	t_data;
 
 typedef enum e_event

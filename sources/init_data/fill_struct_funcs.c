@@ -17,6 +17,11 @@ void	fill_struct_c(t_data *data, double tab[])
 
 void	fill_struct_l(t_data *data, double tab[])
 {
+	data->spotlight.origin_vect.axis[0] = tab[0];
+	data->spotlight.origin_vect.axis[1] = tab[1];
+	data->spotlight.origin_vect.axis[2] = tab[2];
+	data->spotlight.origin_vect.axis[3] = 1;
+	data->spotlight.intensity = tab[3];
 }
 
 void	fill_struct_sp(t_data *data, double tab[])
