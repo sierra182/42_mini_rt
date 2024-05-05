@@ -32,6 +32,7 @@ void    vecop_vect_mat_minus_ray(t_matrix_vector *m, t_ray_vector *r, t_ray_vect
 //         // printf("res : %f\n", *res);
 //     }
 // }
+
 void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t2)
 {
     t_ray_vector a;
@@ -41,6 +42,9 @@ void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t2)
     vecop_vect_mat_minus_ray(&plane->origin_vect, &ray->origin_vect, &a);
     num = product_scalar_matrix(&a, &plane->norm_vect);
     den = product_scalar_matrix(&ray->dir_vect, &plane->norm_vect);
-    *t2 = num / den;
+    if (den)
+        *t2 = num / den;
+    else
+        den = 0;
     // printf("truc: %f\n", *t2);
 }
