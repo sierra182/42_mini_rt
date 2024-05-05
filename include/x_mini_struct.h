@@ -62,11 +62,13 @@ typedef struct	s_color
 typedef struct	s_spotlight
 {
 	double			intensity;
+	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector	origin_vect;
 }	t_spotlight;
 
 typedef struct s_sphere
 {
+	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector	origin_vect;
 	double			diameter;
 	double			square_radius;
@@ -110,9 +112,16 @@ typedef enum e_event
 	R_RGHT = 65432,
 	S_LFT = 65433,
 	S_RGHT = 65435,
-	CAM,
-	SPH	
+	MESH = 111
 }	t_enum_event;
+
+typedef enum e_event_mesh
+{		
+	CAM,
+	SPH,
+	SPOTL,
+	MESH_END
+}	t_enum_event_mesh;
 
 typedef struct s_exit
 {
