@@ -17,6 +17,7 @@ void	fill_struct_c(t_data *data, double tab[])
 
 void	fill_struct_l(t_data *data, double tab[])
 {
+
 }
 
 void	fill_struct_sp(t_data *data, double tab[])
@@ -45,5 +46,14 @@ void	fill_struct_pl(t_data *data, double tab[])
 {
 	static int	i = 0;
 
+	data->planes[i].origin_vect.axis[0] = tab[0];
+	data->planes[i].origin_vect.axis[1] = tab[1];
+	data->planes[i].origin_vect.axis[2] = tab[2];
+	data->planes[i].origin_vect.axis[0] = tab[3];
+	data->planes[i].origin_vect.axis[1] = tab[4];
+	data->planes[i].origin_vect.axis[2] = tab[5];
+	data->planes[i].color.rgb[0] = tab[6];
+	data->planes[i].color.rgb[1] = tab[7];
+	data->planes[i].color.rgb[2] = tab[8];
 	i++;
 }

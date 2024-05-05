@@ -74,6 +74,8 @@ typedef struct s_cylinder
 
 typedef struct s_plane
 {
+	t_matrix_vector	origin_vect;
+	t_matrix_vector	norm_vect;
 	t_color		color;
 }	t_plane;
 
