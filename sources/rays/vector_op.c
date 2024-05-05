@@ -50,6 +50,19 @@ void	subtract_vector(t_ray_vector *a, t_matrix_vector *b, t_ray_vector *subt_vec
 		subt_vect->axis[i] = a->axis[i] - b->axis[i];
 }
 
+/**========================================================================
+ *                           subtract_torvec
+ *!func name to be changed! 
+ *========================================================================**/
+void	subtract_torvec(t_matrix_vector *b, t_ray_vector *a, t_ray_vector *subt_vect)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		subt_vect->axis[i] = b->axis[i] - a->axis[i];
+}
+
 void	subtract_color_vector(t_ray_vector *a, t_matrix_vector *b, t_color *subt_vect)
 {
 	int	i;
@@ -86,6 +99,22 @@ double	product_scalar(t_ray_vector *a, t_ray_vector *b)
 	i = -1;
 	while (++i < AXIS)
 		scalar += a->axis[i] * b->axis[i];
+	return (scalar);
+}
+
+/**========================================================================
+ *                           product_scalar_matrix
+ *! function name to be changed! 
+ *========================================================================**/
+double	product_scalar_matrix(t_ray_vector *d, t_matrix_vector *n)
+{
+	double scalar;	
+	int	i;
+
+	scalar = 0.0;
+	i = -1;
+	while (++i < AXIS)
+		scalar += d->axis[i] * n->axis[i];
 	return (scalar);
 }
 

@@ -1,5 +1,7 @@
 #include "rays.h"
 
+void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t);
+
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
 {
@@ -113,7 +115,10 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	double			t;
 	t_ray_vector	*subt_vect;
 	t_color 		color;
+	t_ray_vector	p;
+	double			t2;
 
+	t2 = 0;
 	y = -1;
 	while (++y < data->cam.resol[1])
 	{
@@ -121,11 +126,18 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		while (++x < data->cam.resol[0])
 		{
 			new_ray(&data->cam, &ray, x, y);
-			t = is_intersect_sphere(&ray, &data->spheres[0]);			
+			t = is_intersect_sphere(&ray, &data->spheres[0]);	
+			is_intersect_plane(&ray, &data->planes[0], &t2);
+			// printf("t2: %f\n", t2);
+
 			if (t && !is_behind_cam(t))
 			{				
 				get_normal_color(&ray, t, &data->spheres[0], &color);
 				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
+			}
+			else if (t2 && !is_behind_cam(t2))
+			{
+				put_pxl(mlx, x, y, get_color(170,150,30));
 			}
 			else
 				put_pxl(mlx, x, y, get_background_color(&ray));	

@@ -17,7 +17,6 @@ void	fill_struct_c(t_data *data, double tab[])
 
 void	fill_struct_l(t_data *data, double tab[])
 {
-
 }
 
 void	fill_struct_sp(t_data *data, double tab[])
