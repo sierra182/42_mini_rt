@@ -1,4 +1,5 @@
 #include "init_data.h"
+void	print_cylinder(t_cylinder *cylinder);
 
 /**========================================================================
  *                             COMMENT BLOCK
@@ -12,7 +13,6 @@
 int	init_data(char *map_path, t_data *data)
 {
 	double	tab[20];
-	int		i;
 
 	if (create_data_structs(data, map_path) == 0)
 		return (0);
