@@ -34,5 +34,5 @@ void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t2)
 void    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder, double *t2)
 {
 
-    printf("is_intersect_cylinder\n");
+    // printf("is_intersect_cylinder\n");
 }
