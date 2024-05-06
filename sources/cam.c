@@ -63,6 +63,7 @@ void	trsl_vector(t_matrix_vector *vect, double values[])
 	set_matrix_translate(trsf_matrix, values);
 	apply_matrix(trsf_matrix, vect, &applied_vect);
 	*vect = applied_vect;
+	printf("x: %f, y: %f, z:%f\n", vect->axis[0], vect->axis[1], vect->axis[2]);
 }
 void	cast_matrix_cam(t_cam *cam, t_matrix_vector mult_matrix[MTX])
 {

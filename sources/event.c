@@ -52,10 +52,11 @@ int	key_event(int keycode, void *param)
 
 	mlx = (t_mlx *) ((void **) param)[0];
 	data = (t_data *) ((void **) param)[1];
-	printf("keycode: %d\n", keycode);
+	//printf("keycode: %d\n", keycode);
 	if (keycode == MESH)
 	{
-		mesh_enum = (mesh_enum + 1) % MESH_END;	
+		mesh_enum = (mesh_enum + 1) % MESH_END;
+		printf("%d\n", mesh_enum);
 	}	
 	if (mesh_enum == CAM)	
 		vector = &data->cam.origin_vect;	
