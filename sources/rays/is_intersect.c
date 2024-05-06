@@ -15,24 +15,6 @@ void    vecop_vect_mat_minus_ray(t_matrix_vector *m, t_ray_vector *r, t_ray_vect
         res->axis[i] = m->axis[i] - r->axis[i];
 }
 
-// void	vecop_scal_ray_div_ray(t_ray_vector *r1, t_ray_vector *r2, double *res)
-// {
-//     double scalar;	
-//     int	i;
-
-//     scalar = 0.0;
-//     i = -1;
-//     while (++i < AXIS)
-//     {
-//         // printf("r1->axis[%i], r2->axis[%i]: %f, %f\n", i, i, r1->axis[i], r2->axis[i]);
-//         if (r2->axis[i])
-//             *res += r1->axis[i] / r2->axis[i];
-//         else
-//             *res = 0;
-//         // printf("res : %f\n", *res);
-//     }
-// }
-
 void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t2)
 {
     t_ray_vector a;
@@ -47,4 +29,10 @@ void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t2)
     else
         den = 0;
     // printf("truc: %f\n", *t2);
+}
+
+void    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder, double *t2)
+{
+
+    printf("is_intersect_cylinder\n");
 }
