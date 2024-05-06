@@ -34,10 +34,40 @@ void	fill_struct_sp(t_data *data, double tab[])
 	i++;
 }
 
+void	print_cylinder(t_cylinder *cylinder)
+{
+	printf("data->cylinders.origin_vect.axis[0]: %f\n", cylinder->origin_vect.axis[0]);
+	printf("data->cylinders.origin_vect.axis[1]: %f\n", cylinder->origin_vect.axis[1]);
+	printf("data->cylinders.origin_vect.axis[2]: %f\n", cylinder->origin_vect.axis[2]);
+	printf("data->cylinders.axis_vect.axis[0]: %f\n", cylinder->axis_vect.axis[0]);
+	printf("data->cylinders.axis_vect.axis[1]: %f\n", cylinder->axis_vect.axis[1]);
+	printf("data->cylinders.axis_vect.axis[2]: %f\n", cylinder->axis_vect.axis[2]);
+	printf("data->cylinders.diameter: %f\n", cylinder->diameter);
+	printf("data->cylinders.height: %f\n", cylinder->height);
+	printf("data->cylinders.color.rgb[0]: %i\n", cylinder->color.rgb[0]);
+	printf("data->cylinders.color.rgb[1]: %i\n", cylinder->color.rgb[1]);
+	printf("data->cylinders.color.rgb[2]: %i\n", cylinder->color.rgb[2]);
+
+
+}
+
+
+
 void	fill_struct_cy(t_data *data, double tab[])
 {
 	static int	i = 0;
 
+	data->cylinders[i].origin_vect.axis[0] = tab[0];
+	data->cylinders[i].origin_vect.axis[1] = tab[1];
+	data->cylinders[i].origin_vect.axis[2] = tab[2];
+	data->cylinders[i].axis_vect.axis[0] = tab[3];
+	data->cylinders[i].axis_vect.axis[1] = tab[4];
+	data->cylinders[i].axis_vect.axis[2] = tab[5];
+	data->cylinders[i].diameter = tab[6];
+	data->cylinders[i].height = tab[7];
+	data->cylinders[i].color.rgb[0] = tab[8];
+	data->cylinders[i].color.rgb[1] = tab[9];
+	data->cylinders[i].color.rgb[2] = tab[10];
 	i++;
 }
 
