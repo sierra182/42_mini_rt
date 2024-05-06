@@ -5,7 +5,7 @@ void	normalize_vector(t_matrix_vector *vector);
 void	product_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *product_vect);
 int		are_collinear_vectors(t_matrix_vector *pdct_vect, double precision);
 void	init_matrix(t_matrix_vector matrix[]);
-void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector, t_matrix_vector *applied_vect);
+void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector, t_matrix_vector *rslt_vect);
 void	set_matrix_translate(t_matrix_vector matrix[], double trans[]);
 void	set_matrix_rotation(t_matrix_vector matrix[], double angle, int axe[]);
 void	multiply_matrix(t_matrix_vector a[], t_matrix_vector b[], t_matrix_vector mult_mat[]);
@@ -54,31 +54,36 @@ void	update_cam(t_cam *cam)
 		cam->focal_len = cam->resol[0] / (2.0 * cam->scale);
 }
 
-void	trsl_vector(t_matrix_vector *vect, double values[])
+void	trsl_mesh(void *mesh, double values[], t_enum_event_mesh type)
 {
 	t_matrix_vector applied_vect;
-	t_matrix_vector	trsf_matrix[MTX];
 
-	init_matrix(trsf_matrix);
-	set_matrix_translate(trsf_matrix, values);
-	apply_matrix(trsf_matrix, vect, &applied_vect);
-	*vect = applied_vect;
+	mesh = (t_cam *) mesh;
+	if (type == CAM)
+		t_cam * mesh = (t_cam *) mesh;
+	else if (type == SPH)
+		mesh = (t_sphere *) mesh;
+	else (type == SPOTL)
+		mesh = (t_spotlight *) mesh;
+	init_matrix(mesh->trsf_matrix);
+	set_matrix_translate(mesh->trsf_matrix, values);
+	apply_matrix(mesh->trsf_matrix, &mesh->origin_vect, &applied_vect);
+	mesh->origin_vect = applied_vect;
 }
-void	cast_matrix_cam(t_cam *cam, t_matrix_vector mult_matrix[MTX])
+void	cast_matrix_cam(t_cam *cam, t_matrix_vector tmp[MTX])
 {
 	int	i;
 
 	i = -1;
 	while (++i < MTX)	
-		*cam->cam_matrix[i] = mult_matrix[i];
+		*cam->cam_matrix[i] = tmp[i];
 }
 void	rotate_cam(t_cam *cam, double angle, int axe[])
 {
-	t_matrix_vector mult_matrix[MTX];
-	t_matrix_vector	trsf_matrix[MTX];
-
-	init_matrix(trsf_matrix);
-	set_matrix_rotation(trsf_matrix, angle, axe);
-	multiply_matrix(trsf_matrix, *cam->cam_matrix, mult_matrix);
-	cast_matrix_cam(cam, mult_matrix);
+	t_matrix_vector mult_vect[MTX];
+	
+	init_matrix(cam->trsf_matrix);
+	set_matrix_rotation(cam->trsf_matrix, angle, axe);
+	multiply_matrix(cam->trsf_matrix, *cam->cam_matrix, mult_vect);
+	cast_matrix_cam(cam, mult_vect);
 }

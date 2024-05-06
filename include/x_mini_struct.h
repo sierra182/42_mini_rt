@@ -46,7 +46,6 @@ typedef struct s_cam
 	double			scale;
 	double			aspect;
 	double			resol[2];
-	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector	*cam_matrix[MTX];
 	t_matrix_vector	right_vect;
 	t_matrix_vector	up_vect;
@@ -62,13 +61,11 @@ typedef struct	s_color
 typedef struct	s_spotlight
 {
 	double			intensity;
-	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector	origin_vect;
 }	t_spotlight;
 
 typedef struct s_sphere
 {
-	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector	origin_vect;
 	double			diameter;
 	double			square_radius;

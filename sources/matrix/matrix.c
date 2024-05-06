@@ -73,7 +73,7 @@ static double	multiply_rowbycol(t_matrix_vector *a_row, t_matrix_vector b[], int
 	return (rslt);
 }
 
-void	multiply_matrix(t_matrix_vector a[], t_matrix_vector b[], t_matrix_vector mult_mat[])
+void	multiply_matrix(t_matrix_vector a[], t_matrix_vector b[], t_matrix_vector mult_matrix[])
 {
 	int	i;
 	int	j;
@@ -83,11 +83,11 @@ void	multiply_matrix(t_matrix_vector a[], t_matrix_vector b[], t_matrix_vector m
 	{
 		j = -1;
 		while (++j < MTX)
-			mult_mat[i].axis[j] = multiply_rowbycol(&a[i], b, j);
+			mult_matrix[i].axis[j] = multiply_rowbycol(&a[i], b, j);
 	}
 }
 
-void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector, t_matrix_vector *rslt_vect)
+void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector, t_matrix_vector *applied_vect)
 {
 	int	i;
 	int	j;
@@ -95,10 +95,10 @@ void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector, t_matrix_ve
 	i = -1;
 	while (++i < MTX)
 	{	
-		rslt_vect->axis[i] = 0.0;
+		applied_vect->axis[i] = 0.0;
 		j = -1;
 		while (++j < MTX)
-			rslt_vect->axis[i] += (matrix[i].axis[j]
+			applied_vect->axis[i] += (matrix[i].axis[j]
 					* vector->axis[j]);
 	}	
 }
