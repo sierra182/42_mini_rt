@@ -69,14 +69,18 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
-	t_color		color;
+	t_matrix_vector	origin_vect;
+	t_matrix_vector	axis_vect;
+	float			diameter;
+	float			height;
+	t_color			color;
 }	t_cylinder;
 
 typedef struct s_plane
 {
 	t_matrix_vector	origin_vect;
 	t_matrix_vector	norm_vect;
-	t_color		color;
+	t_color			color;
 }	t_plane;
 
 typedef struct s_data
