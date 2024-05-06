@@ -46,7 +46,6 @@ typedef struct s_cam
 	double			scale;
 	double			aspect;
 	double			resol[2];
-	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector	*cam_matrix[MTX];
 	t_matrix_vector	right_vect;
 	t_matrix_vector	up_vect;
@@ -58,6 +57,12 @@ typedef struct	s_color
 {
 	int	rgb[3];
 }	t_color;
+
+typedef struct	s_spotlight
+{
+	double			intensity;
+	t_matrix_vector	origin_vect;
+}	t_spotlight;
 
 typedef struct s_sphere
 {
@@ -92,6 +97,7 @@ typedef struct s_data
 	t_sphere	*spheres;
 	t_cylinder	*cylinders;
 	t_plane		*planes;
+	t_spotlight	spotlight;
 }	t_data;
 
 typedef enum e_event
@@ -108,8 +114,17 @@ typedef enum e_event
 	R_LFT = 65437,
 	R_RGHT = 65432,
 	S_LFT = 65433,
-	S_RGHT = 65435
+	S_RGHT = 65435,
+	MESH = 111
 }	t_enum_event;
+
+typedef enum e_event_mesh
+{		
+	CAM,
+	SPH,
+	SPOTL,
+	MESH_END
+}	t_enum_event_mesh;
 
 typedef struct s_exit
 {

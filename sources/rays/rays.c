@@ -108,6 +108,25 @@ void	get_normal_color(t_ray *ray, double t, t_sphere *sphere, t_color *color)
 	cast_vector_to_color(&normal, color);
 }
 
+void	get_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color)
+{
+	t_ray_vector	inter_pt;
+	t_ray_vector	normal;
+	t_ray_vector	light_ray;
+	t_ray_vector	scaled_vect;
+	double 			light_coef;
+
+	get_intersect_point(ray, t, &inter_pt);
+	subtract_vector(&inter_pt, &sphere->origin_vect, &normal);
+	normalize_vector(&normal);
+	subtract_vector(&inter_pt, &spotlight->origin_vect, &light_ray);
+	normalize_vector(&light_ray);
+	light_coef = product_scalar(&light_ray,&normal);
+	light_coef = normalize_scalar_product(light_coef);
+	scale_color(&sphere->color, light_coef, &scaled_vect);
+	cast_vector_ray_to_color(&scaled_vect, color);
+}
+
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	t_ray			ray;
@@ -135,8 +154,8 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			// printf("t2: %f\n", t2);
 
 			if (t && !is_behind_cam(t))
-			{				
-				get_normal_color(&ray, t, &data->spheres[0], &color);
+			{
+				get_normal_spotlight_color(&ray, t, &data->spheres[0], &data->spotlight, &color);
 				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 			}
 			else if (t2 && !is_behind_cam(t2))
