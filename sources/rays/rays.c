@@ -139,8 +139,6 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			{
 				put_pxl(mlx, x, y, get_color(170,150,30));
 			}
-			else if (t2 == 0)
-				printf("t2 == 0\n");
 			else
 				put_pxl(mlx, x, y, get_background_color(&ray));	
 		}		
