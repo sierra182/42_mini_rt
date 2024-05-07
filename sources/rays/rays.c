@@ -68,7 +68,7 @@ double	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 	discrim = b * b - 4 * a * c;
 	if (discrim < 0)
 	    return (0.0);
-	t1 = (-b + sqrt(discrim)) / (2*a); // t2 = (-b - sqrt(discrim)) / (2*a) 	 
+	t1 = (-b - sqrt(discrim)) / (2*a); // t2 = (-b - sqrt(discrim)) / (2*a) 	 
 	return (t1);
 }
 
