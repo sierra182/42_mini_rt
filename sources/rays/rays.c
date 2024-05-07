@@ -129,21 +129,25 @@ void	get_sphere_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t
 	cast_vector_ray_to_color(&scaled_vect, color);
 }
 
-void	get_plane_normal_spotlight_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color)
-{
-	t_ray_vector	inter_pt;
+void	get_plane_normal_spotlight_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere)
+{	
 	t_ray_vector	normal;
-	t_ray_vector	light_ray;
+	t_ray			light_ray;
 	t_ray_vector	scaled_vect;
 	double 			light_coef;
 
 	cast_vector(&plane->norm_vect, &normal);
-	get_intersect_point(ray, t, &inter_pt);
+	get_intersect_point(ray, t, &light_ray.origin_vect);
 		// subtract_vector(&inter_pt, &plane->origin_vect, &normal);
 	//normalize_vector(&normal);
-	subtract_torvec(&spotlight->origin_vect, &inter_pt, &light_ray);
-	normalize_vector(&light_ray);
-	light_coef = product_scalar(&normal, &light_ray);
+	subtract_torvec(&spotlight->origin_vect, &light_ray.origin_vect, &light_ray.dir_vect);
+	normalize_vector(&light_ray.dir_vect);
+	if (is_intersect_sphere(&light_ray, sphere))
+	{		
+		color = &plane->color;
+		return ;
+	}
+	light_coef = product_scalar(&normal, &light_ray.dir_vect);
 	light_coef = normalize_scalar_product(light_coef);
 	scale_color(&plane->color, light_coef, &scaled_vect);
 	cast_vector_ray_to_color(&scaled_vect, color);
@@ -182,7 +186,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			}
 			else if (t2 && !is_behind_cam(t2))
 			{
-				get_plane_normal_spotlight_color(&ray, t2, &data->planes[0], &data->spotlight, &color);
+				get_plane_normal_spotlight_color(&ray, t2, &data->planes[0], &data->spotlight, &color, &data->spheres[0]);
 				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 			}
 			else if (t3 && !is_behind_cam(t3))
