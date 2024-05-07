@@ -1,4 +1,4 @@
-#import "x_mini_struct.h"
+#include "x_mini_struct.h"
 #include <math.h>
 
 double calculate_elevation(t_ray ray)
