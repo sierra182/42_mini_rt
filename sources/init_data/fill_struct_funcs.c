@@ -22,6 +22,13 @@ void	fill_struct_l(t_data *data, double tab[])
 	data->spotlight.origin_vect.axis[2] = tab[2];
 	data->spotlight.origin_vect.axis[3] = 1;
 	data->spotlight.intensity = tab[3];
+	data->spotlight.bulb.color.rgb[0] = 255;
+	data->spotlight.bulb.color.rgb[1] = 255;
+	data->spotlight.bulb.color.rgb[2] = 255;
+	data->spotlight.bulb.diameter = 1;
+	data->spotlight.bulb.square_radius = (data->spotlight.bulb.diameter / 2)
+		* (data->spotlight.bulb.diameter / 2);
+	data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
 }
 
 void	fill_struct_sp(t_data *data, double tab[])
@@ -36,7 +43,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].square_radius = tab[3] / 2 * tab[3] / 2;
 	data->spheres[i].color.rgb[0] = tab[4];
 	data->spheres[i].color.rgb[1] = tab[5];
-	data->spheres[i].color.rgb[2] = tab[6];
+	data->spheres[i].color.rgb[2] = tab[6];	
 	i++;
 }
 

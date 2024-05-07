@@ -58,11 +58,6 @@ typedef struct	s_color
 	int	rgb[3];
 }	t_color;
 
-typedef struct	s_spotlight
-{
-	double			intensity;
-	t_matrix_vector	origin_vect;
-}	t_spotlight;
 
 typedef struct s_sphere
 {
@@ -71,6 +66,13 @@ typedef struct s_sphere
 	double			square_radius;
 	t_color			color;
 }	t_sphere;
+
+typedef struct	s_spotlight
+{
+	double			intensity;
+	t_matrix_vector	origin_vect;
+	t_sphere		bulb;
+}	t_spotlight;
 
 typedef struct s_cylinder
 {
