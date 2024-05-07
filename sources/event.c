@@ -65,6 +65,8 @@ int	key_event(int keycode, void *param)
 	else if (mesh_enum == SPOTL)
 		vector = &data->spotlight.origin_vect;
 	event_translate(keycode, vector);
+	if (mesh_enum == SPOTL)	
+		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;	
     cam_event_rotate(keycode, &data->cam);	
 	if (keycode == ESC)
 		mlx_loop_end(mlx->connect);
