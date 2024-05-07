@@ -41,6 +41,15 @@ void	add_ray_vector(t_ray_vector *a, t_ray_vector *b, t_ray_vector *sum_vect)
 		sum_vect->axis[i] = a->axis[i] + b->axis[i];
 }
 
+void	add_color(t_color *a, t_color *b, t_color *sum_color)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		sum_color->rgb[i] = a->rgb[i] + b->rgb[i];
+}
+
 void	subtract_vector(t_ray_vector *a, t_matrix_vector *b, t_ray_vector *subt_vect)
 {
 	int	i;
@@ -70,6 +79,15 @@ void	subtract_color_vector(t_ray_vector *a, t_matrix_vector *b, t_color *subt_ve
 	i = -1;
 	while (++i < AXIS)
 		subt_vect->rgb[i] = a->axis[i] - b->axis[i];
+}
+
+void	subtract_color_color(t_color *a, t_color *b, t_color *subt_color)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		subt_color->rgb[i] = a->rgb[i] - b->rgb[i];
 }
 
 void	scale_matrix_vector(t_matrix_vector *vect, double scaler, t_matrix_vector *scaled_vect)
