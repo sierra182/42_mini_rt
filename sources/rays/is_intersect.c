@@ -21,6 +21,11 @@ void    vecop_vect_mat_minus_ray(t_matrix_vector *m, t_ray_vector *r, t_ray_vect
         res->axis[i] = m->axis[i] - r->axis[i];
 }
 
+void	print_vector(t_matrix_vector vec)
+{
+	printf("%f, %f, %f\n", vec.axis[0], vec.axis[1], vec.axis[2]);
+}
+
 double    is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i_point)
 {
 	double t;
@@ -53,30 +58,45 @@ double distance_between_points(t_ray_vector *point1, t_matrix_vector *point2) {
     return sqrt(dx * dx + dy * dy + dz * dz);
 }
 
+
+
 int	intersect_disc_plans(t_ray *ray, t_cylinder *cylinder, t_ray_vector	*i_point)
 {
 	t_plane plane_1;
 	t_plane plane_2;
 	t_matrix_vector scaled_v;
 
+	plane_2.origin_vect.axis[0] = 0;
+	plane_2.origin_vect.axis[1] = 0;
+	plane_2.origin_vect.axis[2] = 0;
+	plane_1.origin_vect.axis[0] = 0;
+	plane_1.origin_vect.axis[1] = 0;
+	plane_1.origin_vect.axis[2] = 0;
+	
+	
+	
 	plane_1.norm_vect = cylinder->axis_vect;
     plane_2.norm_vect = cylinder->axis_vect;
+
+
 	scale_matrix_vector(&cylinder->axis_vect, cylinder->height / 2, &scaled_v);
 	add_matrix_vector(&scaled_v, &cylinder->origin_vect, &plane_1.origin_vect);
+
+
 	scale_matrix_vector(&cylinder->axis_vect, - cylinder->height / 2, &scaled_v);
 	add_matrix_vector(&scaled_v, &cylinder->origin_vect, &plane_2.origin_vect);
 
+
+	// print_vector(plane_1.norm_vect);
+
 	if (is_intersect_plane(ray, &plane_1, i_point) || is_intersect_plane(ray, &plane_2, i_point))
 	{
-			// printf("olé! %f, %f, %f\n", i_point->axis[0], i_point->axis[1], i_point->axis[2]);
 
 		if (distance_between_points(i_point, &plane_1.origin_vect) > cylinder->radius && distance_between_points(i_point, &plane_2.origin_vect) > cylinder->radius)
 		{
 
-
 			return (0);
 		}
-			printf("%f < %f, %f > %f\n", distance_between_points(i_point, &plane_1.origin_vect), cylinder->radius,  distance_between_points(i_point, &plane_2.origin_vect),  cylinder->radius);
 		return (1);
 	}
 	return (0);
@@ -133,7 +153,7 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 
 	if (intersect_disc_plans(ray, cylinder, &i_point))
 	{
-		printf("intersect\n");
+		// printf("intersect\n");
 		return (get_t_from_point(ray, &i_point));
 	}
 
