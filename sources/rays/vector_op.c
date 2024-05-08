@@ -59,6 +59,14 @@ void	subtract_vector(t_ray_vector *a, t_matrix_vector *b, t_ray_vector *subt_vec
 		subt_vect->axis[i] = a->axis[i] - b->axis[i];
 }
 
+void	subtract_vecvec(t_ray_vector *a, t_ray_vector *b, t_ray_vector *subt_vect)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		subt_vect->axis[i] = a->axis[i] - b->axis[i];
+}
 /**========================================================================
  *                           subtract_torvec
  *!func name to be changed! 
@@ -107,6 +115,7 @@ void	scale_ray_vector(t_ray_vector *vect, double scaler, t_ray_vector *scaled_ve
 	while (++i < AXIS)
 		scaled_vect->axis[i] = vect->axis[i] * scaler;
 }
+
 
 void	scale_color(t_color *vect, double scaler, t_ray_vector *scaled_vect)
 {
