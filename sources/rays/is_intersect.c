@@ -11,6 +11,10 @@ void	add_matrix_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *
 void	scale_ray_vector(t_ray_vector *vect, double scaler, t_ray_vector *scaled_vect);
 void	add_ray_vector(t_ray_vector *a, t_ray_vector *b, t_ray_vector *sum_vect);
 void	subtract_vecvec(t_ray_vector *a, t_ray_vector *b, t_ray_vector *subt_vect);
+void	scale_matrix_torvec(t_matrix_vector *vect, double scaler, t_ray_vector *scaled_vect);
+void	subtract_torvec(t_matrix_vector *b, t_ray_vector *a, t_ray_vector *subt_vect);
+
+#define EPSILON 1e-6
 
 void    vecop_vect_mat_minus_ray(t_matrix_vector *m, t_ray_vector *r, t_ray_vector *res)
 {
@@ -26,6 +30,11 @@ void	print_vector(t_matrix_vector vec)
 	printf("%f, %f, %f\n", vec.axis[0], vec.axis[1], vec.axis[2]);
 }
 
+void	print_torvec(t_ray_vector vec)
+{
+	printf("%f, %f, %f\n", vec.axis[0], vec.axis[1], vec.axis[2]);
+}
+
 double    is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i_point)
 {
 	double t;
@@ -36,16 +45,15 @@ double    is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i_point)
     vecop_vect_mat_minus_ray(&plane->origin_vect, &ray->origin_vect, &a);
     num = product_scalar_matrix(&a, &plane->norm_vect);
     den = product_scalar_matrix(&ray->dir_vect, &plane->norm_vect);
-    if (den)
-	{
+ 	if (fabs(den) > EPSILON)
+ 	{
 		t = num / den;
 		if (t >= 0.0)
 		{
-            // Calculate intersection point coordinates
-            scale_ray_vector(&ray->dir_vect, t, i_point);
-            add_ray_vector(&ray->origin_vect, i_point, i_point);
-			// printf("interesct! %f, %f, %f\n", i_point->axis[0], i_point->axis[1], i_point->axis[2]);
-            return 1; // Intersection with the plane
+			i_point->axis[0] = ray->origin_vect.axis[0] + t * ray->dir_vect.axis[0];
+            i_point->axis[1] = ray->origin_vect.axis[1] + t * ray->dir_vect.axis[1];
+            i_point->axis[2] = ray->origin_vect.axis[2] + t * ray->dir_vect.axis[2];
+            return 1;
         }
 	}
 	return (0);
@@ -66,13 +74,15 @@ int	intersect_disc_plans(t_ray *ray, t_cylinder *cylinder, t_ray_vector	*i_point
 	t_plane plane_2;
 	t_matrix_vector scaled_v;
 
-	plane_2.origin_vect.axis[0] = 0;
-	plane_2.origin_vect.axis[1] = 0;
-	plane_2.origin_vect.axis[2] = 0;
-	plane_1.origin_vect.axis[0] = 0;
-	plane_1.origin_vect.axis[1] = 0;
-	plane_1.origin_vect.axis[2] = 0;
-	
+	// plane_2.origin_vect.axis[0] = 0;
+	// plane_2.origin_vect.axis[1] = 0;
+	// plane_2.origin_vect.axis[2] = 0;
+	// plane_1.origin_vect.axis[0] = 0;
+	// plane_1.origin_vect.axis[1] = 0;
+	// plane_1.origin_vect.axis[2] = 0;
+	scaled_v.axis[0] = 0;
+	scaled_v.axis[1] = 0;
+	scaled_v.axis[2] = 0;
 	
 	
 	plane_1.norm_vect = cylinder->axis_vect;
@@ -82,21 +92,22 @@ int	intersect_disc_plans(t_ray *ray, t_cylinder *cylinder, t_ray_vector	*i_point
 	scale_matrix_vector(&cylinder->axis_vect, cylinder->height / 2, &scaled_v);
 	add_matrix_vector(&scaled_v, &cylinder->origin_vect, &plane_1.origin_vect);
 
+	// print_vector(cylinder->origin_vect);
 
 	scale_matrix_vector(&cylinder->axis_vect, - cylinder->height / 2, &scaled_v);
 	add_matrix_vector(&scaled_v, &cylinder->origin_vect, &plane_2.origin_vect);
 
-
-	// print_vector(plane_1.norm_vect);
+	// printf("%f\n", cylinder->height /2);
+	// print_vector(plane_2.origin_vect);
 
 	if (is_intersect_plane(ray, &plane_1, i_point) || is_intersect_plane(ray, &plane_2, i_point))
 	{
-
+		// printf("2:%f, %f, %f\n", i_point->axis[0], i_point->axis[1], i_point->axis[2]);
 		if (distance_between_points(i_point, &plane_1.origin_vect) > cylinder->radius && distance_between_points(i_point, &plane_2.origin_vect) > cylinder->radius)
 		{
-
 			return (0);
 		}
+
 		return (1);
 	}
 	return (0);
@@ -132,7 +143,20 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 	double			t1;
 	t_ray_vector	i_point;
 
-	subtract_vector(&ray->origin_vect, &cylinder->origin_vect, &SR);
+	a = 0;
+	b = 0;
+	c = 0;
+	discrim = 0;
+	t1 = 0;
+	SR.axis[0] = 0;
+	SR.axis[1] = 0;
+	SR.axis[2] = 0;
+	i_point.axis[0] = 0;
+	i_point.axis[1] = 0;
+	i_point.axis[2] = 0;
+
+	subtract_torvec(&cylinder->origin_vect, &ray->origin_vect, &SR);
+	// print_torvec(SR);
 
 	a = product_scalar(&ray->dir_vect, &ray->dir_vect) - pow(product_scalar_matrix(&ray->dir_vect, &cylinder->axis_vect), 2);
 
@@ -144,10 +168,12 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 
 	t1 = (-b - sqrt(discrim)) / (2*a); // t2 = (-b + sqrt(discrim)) / (2*a) 	 
 	
+	// printf("t1: %f\n", t1);
+	printf("discrim: %f\n", discrim);
 	// get intersection point coordinates
 	get_intersect_point(ray, t1, &i_point);
-	// project IP on cylinder axis
 	double proj = product_scalar_matrix(&i_point, &cylinder->axis_vect);
+	// project IP on cylinder axis
 	
 	// check if projection is within cylinder height
 
@@ -157,11 +183,11 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 		return (get_t_from_point(ray, &i_point));
 	}
 
-	if (proj < 0 || proj > cylinder->height / 2)
+	if (proj < 0 || proj > cylinder->height)
 		return (0.0);
-
-
 	if (discrim < 0)
 	    return (0.0);
 	return (t1);
+
+
 }

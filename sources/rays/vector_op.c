@@ -107,6 +107,15 @@ void	scale_matrix_vector(t_matrix_vector *vect, double scaler, t_matrix_vector *
 		scaled_vect->axis[i] = vect->axis[i] * scaler;
 }
 
+void	scale_matrix_torvec(t_matrix_vector *vect, double scaler, t_ray_vector *scaled_vect)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		scaled_vect->axis[i] = vect->axis[i] * scaler;
+}
+
 void	scale_ray_vector(t_ray_vector *vect, double scaler, t_ray_vector *scaled_vect)
 {
 	int	i;
