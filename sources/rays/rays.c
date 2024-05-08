@@ -1,6 +1,6 @@
 #include "rays.h"
 
-void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t);
+double    is_intersect_plane(t_ray *ray, t_plane *plane);
 double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
 void	subtract_torvec(t_matrix_vector *b, t_ray_vector *a, t_ray_vector *subt_vect);
 void	subtract_color_color(t_color *a, t_color *b, t_color *subt_color);
@@ -210,7 +210,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			new_ray(&data->cam, &ray, x, y);
 			t = is_intersect_sphere(&ray, &data->spheres[0]);
 			inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb);
-			is_intersect_plane(&ray, &data->planes[0], &t2);
+			t2 = is_intersect_plane(&ray, &data->planes[0]);
 			t3 = is_intersect_cylinder(&ray, &data->cylinders[0]);
 			// printf("t2: %f\n", t2);
 

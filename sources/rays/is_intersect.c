@@ -18,7 +18,7 @@ void    vecop_vect_mat_minus_ray(t_matrix_vector *m, t_ray_vector *r, t_ray_vect
         res->axis[i] = m->axis[i] - r->axis[i];
 }
 
-void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t2)
+double    is_intersect_plane(t_ray *ray, t_plane *plane)
 {
     t_ray_vector a;
     double num;
@@ -28,10 +28,9 @@ void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t2)
     num = product_scalar_matrix(&a, &plane->norm_vect);
     den = product_scalar_matrix(&ray->dir_vect, &plane->norm_vect);
     if (den)
-        *t2 = num / den;
+        return (num / den);
     else
-        den = 0;
-    // printf("truc: %f\n", *t2);
+        return (0);
 }
 
 double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
