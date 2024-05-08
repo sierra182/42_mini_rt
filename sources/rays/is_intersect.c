@@ -70,7 +70,7 @@ int	intersect_disc_plans(t_ray *ray, t_cylinder *cylinder, t_ray_vector	*i_point
 	{
 			// printf("olé! %f, %f, %f\n", i_point->axis[0], i_point->axis[1], i_point->axis[2]);
 
-		if (distance_between_points(i_point, &plane_1.origin_vect) > cylinder->radius * 2 && distance_between_points(i_point, &plane_2.origin_vect) > cylinder->radius * 2)
+		if (distance_between_points(i_point, &plane_1.origin_vect) > cylinder->radius && distance_between_points(i_point, &plane_2.origin_vect) > cylinder->radius)
 		{
 
 
@@ -130,8 +130,6 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 	double proj = product_scalar_matrix(&i_point, &cylinder->axis_vect);
 	
 	// check if projection is within cylinder height
-	if (proj < 0 || proj > cylinder->height / 2)
-		return (0.0);
 
 	if (intersect_disc_plans(ray, cylinder, &i_point))
 	{
@@ -139,6 +137,8 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 		return (get_t_from_point(ray, &i_point));
 	}
 
+	if (proj < 0 || proj > cylinder->height / 2)
+		return (0.0);
 
 
 	if (discrim < 0)
