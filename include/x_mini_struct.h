@@ -80,6 +80,7 @@ typedef struct s_cylinder
 	t_matrix_vector	axis_vect;
 	float			diameter;
 	float			square_radius;
+	float			radius;
 	float			height;
 	t_color			color;
 }	t_cylinder;

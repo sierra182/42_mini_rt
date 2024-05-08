@@ -77,6 +77,8 @@ void	fill_struct_cy(t_data *data, double tab[])
 	data->cylinders[i].axis_vect.axis[1] = tab[4];
 	data->cylinders[i].axis_vect.axis[2] = tab[5];
 	data->cylinders[i].diameter = tab[6];
+	data->cylinders[i].radius = tab[6] / 2;
+	data->cylinders[i].square_radius = (tab[6] / 2) * (tab[6] / 2);
 	data->cylinders[i].height = tab[7];
 	data->cylinders[i].color.rgb[0] = tab[8];
 	data->cylinders[i].color.rgb[1] = tab[9];
