@@ -132,7 +132,22 @@ void	get_normal_color(t_ray *ray, double t, t_sphere *sphere, t_color *color)
 // 	cast_vector_ray_to_color(&scaled_vect, color);
 // }
 
-void	get_sphere_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color)
+void	color_with_ambiant_light(t_color *mesh_color, t_ambiant_light *ambiant_light, t_color *new_color)
+{
+	t_color			subt_color;
+	t_color			ambiant_scaled_color;
+
+	subtract_color_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, mesh_color, &subt_color);
+	scale_color_color(&ambiant_light->color, ambiant_light->intensity, &ambiant_scaled_color);
+	double tmp = ambiant_scaled_color.rgb[0] / 255.0;
+	new_color->rgb[0] = tmp * subt_color.rgb[0] + mesh_color->rgb[0];	
+	double tmp2 = ambiant_scaled_color.rgb[1] / 255.0;
+	new_color->rgb[1] = tmp2 * subt_color.rgb[1] + mesh_color->rgb[1];
+	double tmp3 = ambiant_scaled_color.rgb[2] / 255.0;
+	new_color->rgb[2] = tmp3 * subt_color.rgb[2] + mesh_color->rgb[2];
+}
+
+void	get_sphere_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light)
 {
 	t_ray_vector	inter_pt;
 	t_ray_vector	normal;
@@ -140,6 +155,7 @@ void	get_sphere_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t
 	t_ray_vector	scaled_vect;
 	double 			light_coef;
 	t_color			subt_color;
+	t_color			ambiant_color;
 
 	get_intersect_point(ray, t, &inter_pt);
 	subtract_vector(&inter_pt, &sphere->origin_vect, &normal);
@@ -149,47 +165,14 @@ void	get_sphere_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t
 	normalize_vector(&light_ray);
 	light_coef = product_scalar(&light_ray,&normal);
 	light_coef = normalize_scalar_product(light_coef);
-	subtract_color_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, &sphere->color, &subt_color);
+	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
+	subtract_color_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, &ambiant_color, &subt_color);
 	
 	scale_color(&subt_color, light_coef * spotlight->intensity, &scaled_vect);
 	cast_vector_ray_to_color(&scaled_vect, color);
-	add_color(color, &sphere->color, color);
+	add_color(color, &ambiant_color, color);
 	// scale_color(&sphere->color, light_coef, &scaled_vect);
 	// cast_vector_ray_to_color(&scaled_vect, color);
-}
-
-void	color_with_ambiant_light(t_color *mesh_color, t_ambiant_light *ambiant_light, t_color *new_color)
-{
-	t_color			subt_color;
-	t_color			ambiant_scaled_color;
-
-	subtract_color_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, mesh_color, &subt_color);
-
-	scale_color_color(&ambiant_light->color, ambiant_light->intensity, &ambiant_scaled_color);
-	//scale_color_color(&ambiant_scaled_color, ambiant_light->intensity, &ambiant_scaled_color);
-
-	// printf("ambiant color :%i, %i, %i\n", subt_color.rgb[0], subt_color.rgb[1], subt_color.rgb[2]);
-	double tmp = ambiant_scaled_color.rgb[0] / 255.0;
-	new_color->rgb[0] = tmp * subt_color.rgb[0] + mesh_color->rgb[0];
-		// printf("ambiant 0 color :%i\n", new_color->rgb[0]);
-	// if (new_color->rgb[0] > 255)
-	// {
-	// 	new_color->rgb[0] = 255;
-	// }
-	double tmp2 = ambiant_scaled_color.rgb[1] / 255.0;
-	new_color->rgb[1] = tmp2 * subt_color.rgb[1] + mesh_color->rgb[1];
-		// printf("ambiant 1 color :%i\n", new_color->rgb[1]);
-	// if (new_color->rgb[1] > 255)
-	// {
-	// 	new_color->rgb[1] = 255;
-	// }
-	double tmp3 = ambiant_scaled_color.rgb[2] / 255.0;
-	new_color->rgb[2] = tmp3 * subt_color.rgb[2] + mesh_color->rgb[2];
-		// printf("ambiant 2 color :%i\n", new_color->rgb[2]);
-	// if (new_color->rgb[2] > 255)
-	// {
-	// 	new_color->rgb[2] = 255;
-	// }
 }
 
 void	get_plane_normal_spotlight_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light)
@@ -255,7 +238,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 
 			if (t && !is_behind_cam(t))
 			{
-				get_sphere_normal_spotlight_color(&ray, t, &data->spheres[0], &data->spotlight, &color);
+				get_sphere_normal_spotlight_color(&ray, t, &data->spheres[0], &data->spotlight, &color,  &data->ambiant_light);
 				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 			}
 			else if (inter_bulb && !is_behind_cam(inter_bulb))
