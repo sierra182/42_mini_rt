@@ -108,13 +108,22 @@ void	scale_ray_vector(t_ray_vector *vect, double scaler, t_ray_vector *scaled_ve
 		scaled_vect->axis[i] = vect->axis[i] * scaler;
 }
 
-void	scale_color(t_color *vect, double scaler, t_ray_vector *scaled_vect)
+void	scale_color(t_color *color, double scaler, t_ray_vector *scaled_vect)
 {
 	int	i;
 
 	i = -1;
 	while (++i < AXIS)
-		scaled_vect->axis[i] = vect->rgb[i] * scaler;
+		scaled_vect->axis[i] = color->rgb[i] * scaler;
+}
+
+void	scale_color_color(t_color *color, double scaler, t_color *scaled_color)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		scaled_color->rgb[i] = color->rgb[i] * scaler;
 }
 
 double	product_scalar(t_ray_vector *a, t_ray_vector *b)

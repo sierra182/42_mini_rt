@@ -2,6 +2,10 @@
 
 void	fill_struct_a(t_data *data, double tab[])
 {
+	data->ambiant_light.intensity = tab[0];
+	data->ambiant_light.color.rgb[0] = tab[1];
+	data->ambiant_light.color.rgb[1] = tab[2];
+	data->ambiant_light.color.rgb[2] = tab[3];
 }
 
 void	fill_struct_c(t_data *data, double tab[])
