@@ -31,8 +31,22 @@ void    is_intersect_plane(t_ray *ray, t_plane *plane, double *t2)
     // printf("truc: %f\n", *t2);
 }
 
-void    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder, double *t2)
+double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 {
+	t_ray_vector	SR;
+	double			a;
+	double			b;
+	double			c;	
+	double			discrim;
+	double			t1;
 
-    // printf("is_intersect_cylinder\n");
+	subtract_vector(&ray->origin_vect, &cylinder->origin_vect, &SR);
+	a = product_scalar(&ray->dir_vect, &ray->dir_vect);
+	b = 2 * product_scalar(&SR, &ray->dir_vect);
+	c = product_scalar(&SR, &SR) - cylinder->square_radius;
+	discrim = b * b - 4 * a * c;
+	if (discrim < 0)
+	    return (0.0);
+	t1 = (-b - sqrt(discrim)) / (2*a); // t2 = (-b + sqrt(discrim)) / (2*a) 	 
+	return (t1);
 }
