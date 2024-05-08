@@ -4,6 +4,9 @@ void	subtract_vector(t_ray_vector *a, t_matrix_vector *b, t_ray_vector *subt_vec
 void	subtract_torvec(t_matrix_vector *b, t_ray_vector *a, t_ray_vector *subt_vect);
 double	product_scalar_matrix(t_ray_vector *d, t_matrix_vector *n);
 double	product_scalar(t_ray_vector *a, t_ray_vector *b);
+void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
+void	scale_matrix_vector(t_matrix_vector *vect, double scaler, t_matrix_vector *scaled_vect);
+void	add_matrix_to_ray_vector(t_matrix_vector *a, t_matrix_vector *b, t_ray_vector *sum_vect);
 
 
 void    vecop_vect_mat_minus_ray(t_matrix_vector *m, t_ray_vector *r, t_ray_vector *res)
@@ -54,5 +57,16 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 
 	t1 = (-b - sqrt(discrim)) / (2*a); // t2 = (-b + sqrt(discrim)) / (2*a) 	 
 	
+	t_ray_vector	i_point;
+	// get intersection point coordinates
+	get_intersect_point(ray, t1, &i_point);
+	// project IP on cylinder axis
+	double proj = product_scalar_matrix(&i_point, &cylinder->axis_vect);
+	
+	// check if projection is within cylinder height
+	if (proj < 0 || proj > cylinder->height / 2)
+		return (0.0);
+
+
 	return (t1);
 }
