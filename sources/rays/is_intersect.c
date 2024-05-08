@@ -41,12 +41,18 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 	double			t1;
 
 	subtract_vector(&ray->origin_vect, &cylinder->origin_vect, &SR);
-	a = product_scalar(&ray->dir_vect, &ray->dir_vect);
-	b = 2 * product_scalar(&SR, &ray->dir_vect);
-	c = product_scalar(&SR, &SR) - cylinder->square_radius;
+
+	a = product_scalar(&ray->dir_vect, &ray->dir_vect) - pow(product_scalar_matrix(&ray->dir_vect, &cylinder->axis_vect), 2);
+
+    b = 2 * (product_scalar(&ray->dir_vect, &SR) - product_scalar_matrix(&ray->dir_vect, &cylinder->axis_vect) * product_scalar_matrix(&SR, &cylinder->axis_vect));
+    c = product_scalar(&SR, &SR) - pow(product_scalar_matrix(&SR, &cylinder->axis_vect), 2) - cylinder->square_radius;
+
 	discrim = b * b - 4 * a * c;
+	
 	if (discrim < 0)
 	    return (0.0);
+
 	t1 = (-b - sqrt(discrim)) / (2*a); // t2 = (-b + sqrt(discrim)) / (2*a) 	 
+	
 	return (t1);
 }
