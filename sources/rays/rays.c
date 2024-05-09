@@ -78,7 +78,7 @@ double	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 int	get_color(unsigned char r, unsigned char g, unsigned char b)
 {
 	return (*(int *)(unsigned char[])
-		{r, g, b, 0});
+		{r, g, b});
 }
 
 int	get_background_color(t_ray *ray)
@@ -132,19 +132,34 @@ void	get_normal_color(t_ray *ray, double t, t_sphere *sphere, t_color *color)
 // 	cast_vector_ray_to_color(&scaled_vect, color);
 // }
 
+// void	color_with_ambiant_light(t_color *mesh_color, t_ambiant_light *ambiant_light, t_color *new_color)
+// {
+// 	t_color			subt_color;
+// 	t_color			ambiant_scaled_color;
+
+// 	subtract_color_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, mesh_color, &subt_color);
+// 	scale_color_color(&ambiant_light->color, ambiant_light->intensity, &ambiant_scaled_color);
+// 	double tmp = ambiant_scaled_color.rgb[0] / 255.0;
+// 	new_color->rgb[0] = tmp * subt_color.rgb[0] + mesh_color->rgb[0];	
+// 	double tmp2 = ambiant_scaled_color.rgb[1] / 255.0;
+// 	new_color->rgb[1] = tmp2 * subt_color.rgb[1] + mesh_color->rgb[1];
+// 	double tmp3 = ambiant_scaled_color.rgb[2] / 255.0;
+// 	new_color->rgb[2] = tmp3 * subt_color.rgb[2] + mesh_color->rgb[2];
+// }
+
 void	color_with_ambiant_light(t_color *mesh_color, t_ambiant_light *ambiant_light, t_color *new_color)
 {
-	t_color			subt_color;
-	t_color			ambiant_scaled_color;
+	t_color	subt_color;
+	t_color	ambiant_scaled_color;
+	double	tmp_color;
 
-	subtract_color_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, mesh_color, &subt_color);
 	scale_color_color(&ambiant_light->color, ambiant_light->intensity, &ambiant_scaled_color);
-	double tmp = ambiant_scaled_color.rgb[0] / 255.0;
-	new_color->rgb[0] = tmp * subt_color.rgb[0] + mesh_color->rgb[0];	
-	double tmp2 = ambiant_scaled_color.rgb[1] / 255.0;
-	new_color->rgb[1] = tmp2 * subt_color.rgb[1] + mesh_color->rgb[1];
-	double tmp3 = ambiant_scaled_color.rgb[2] / 255.0;
-	new_color->rgb[2] = tmp3 * subt_color.rgb[2] + mesh_color->rgb[2];
+	tmp_color = ambiant_scaled_color.rgb[0] / 255.0;
+	new_color->rgb[0] = tmp_color * mesh_color->rgb[0];	
+	tmp_color = ambiant_scaled_color.rgb[1] / 255.0;
+	new_color->rgb[1] = tmp_color * mesh_color->rgb[1];
+	tmp_color = ambiant_scaled_color.rgb[2] / 255.0;
+	new_color->rgb[2] = tmp_color * mesh_color->rgb[2];
 }
 
 void	get_sphere_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light)
