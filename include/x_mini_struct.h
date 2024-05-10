@@ -55,7 +55,7 @@ typedef struct s_cam
 
 typedef struct	s_color
 {
-	int	rgb[3];
+	int	rgb[AXIS];
 }	t_color;
 
 
@@ -73,6 +73,12 @@ typedef struct	s_spotlight
 	t_matrix_vector	origin_vect;
 	t_sphere		bulb;
 }	t_spotlight;
+
+typedef struct	s_ambiant_light
+{
+	double			intensity;
+	t_color			color;
+}	t_ambiant_light;
 
 typedef struct s_cylinder
 {
@@ -94,14 +100,15 @@ typedef struct s_plane
 
 typedef struct s_data
 {
-	int			sp_nbr;
-	int			pl_nbr;
-	int			cy_nbr;
-	t_cam		cam;
-	t_sphere	*spheres;
-	t_cylinder	*cylinders;
-	t_plane		*planes;
-	t_spotlight	spotlight;
+	int				sp_nbr;
+	int				pl_nbr;
+	int				cy_nbr;
+	t_cam			cam;
+	t_sphere		*spheres;
+	t_cylinder		*cylinders;
+	t_plane			*planes;
+	t_spotlight		spotlight;
+	t_ambiant_light	ambiant_light;
 }	t_data;
 
 typedef enum e_event
