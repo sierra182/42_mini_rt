@@ -13,7 +13,7 @@ void	add_ray_vector(t_ray_vector *a, t_ray_vector *b, t_ray_vector *sum_vect);
 void	subtract_vecvec(t_ray_vector *a, t_ray_vector *b, t_ray_vector *subt_vect);
 void	scale_matrix_torvec(t_matrix_vector *vect, double scaler, t_ray_vector *scaled_vect);
 void	subtract_torvec(t_matrix_vector *b, t_ray_vector *a, t_ray_vector *subt_vect);
-
+double	product_scalar_trixma(t_matrix_vector *d, t_matrix_vector *n);
 #define EPSILON 1e-6
 
 void    vecop_vect_mat_minus_ray(t_matrix_vector *m, t_ray_vector *r, t_ray_vector *res)
@@ -155,7 +155,7 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 	i_point.axis[1] = 0;
 	i_point.axis[2] = 0;
 
-	subtract_torvec(&cylinder->origin_vect, &ray->origin_vect, &SR);
+	subtract_vector(&ray->origin_vect, &cylinder->origin_vect, &SR);
 	// print_torvec(SR);
 
 	a = product_scalar(&ray->dir_vect, &ray->dir_vect) - pow(product_scalar_matrix(&ray->dir_vect, &cylinder->axis_vect), 2);
@@ -169,12 +169,13 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 	t1 = (-b - sqrt(discrim)) / (2*a); // t2 = (-b + sqrt(discrim)) / (2*a) 	 
 	
 	// printf("t1: %f\n", t1);
-	printf("discrim: %f\n", discrim);
+	// printf("discrim: %f\n", discrim);
 	// get intersection point coordinates
 	get_intersect_point(ray, t1, &i_point);
 	double proj = product_scalar_matrix(&i_point, &cylinder->axis_vect);
 	// project IP on cylinder axis
-	
+	double origin_proj = product_scalar_trixma(&cylinder->origin_vect, &cylinder->axis_vect);
+
 	// check if projection is within cylinder height
 
 	if (intersect_disc_plans(ray, cylinder, &i_point))
@@ -183,7 +184,7 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 		return (get_t_from_point(ray, &i_point));
 	}
 
-	if (proj < 0 || proj > cylinder->height)
+if (proj < origin_proj - cylinder->height / 2|| proj > origin_proj + cylinder->height / 2)
 		return (0.0);
 	if (discrim < 0)
 	    return (0.0);

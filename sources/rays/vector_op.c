@@ -163,6 +163,18 @@ double	product_scalar_matrix(t_ray_vector *d, t_matrix_vector *n)
 	return (scalar);
 }
 
+double	product_scalar_trixma(t_matrix_vector *d, t_matrix_vector *n)
+{
+	double scalar;	
+	int	i;
+
+	scalar = 0.0;
+	i = -1;
+	while (++i < AXIS)
+		scalar += d->axis[i] * n->axis[i];
+	return (scalar);
+}
+
 double	normalize_scalar_product(double scalar_product)
 {
 	return ((scalar_product + 1) * 0.5);
