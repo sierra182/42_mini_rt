@@ -53,3 +53,15 @@ void	scale_color(t_color *color, double scaler, t_color *scaled_color)
 	while (++i < AXIS)
 		scaled_color->rgb[i] = color->rgb[i] * scaler;
 }
+
+double	scalar_product(double a[], double b[])
+{
+	double scalar;	
+	int	i;
+
+	scalar = 0.0;
+	i = -1;
+	while (++i < AXIS)
+		scalar += a[i] * b[i];
+	return (scalar);
+}

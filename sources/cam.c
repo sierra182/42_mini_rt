@@ -2,7 +2,7 @@
 #include "x_mini_struct.h"
 
 void	normalize_vector(t_matrix_vector *vector);
-void	product_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *product_vect);
+void	cross_product(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *product_vect);
 int		are_collinear_vectors(t_matrix_vector *pdct_vect, double precision);
 void	init_matrix(t_matrix_vector matrix[]);
 void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector, t_matrix_vector *applied_vect);
@@ -16,16 +16,16 @@ static void	calculate_missing_vectors(t_cam *cam)
 	cam->up_vect.axis[0] = 0;
 	cam->up_vect.axis[1] = 1;
 	cam->up_vect.axis[2] = 0;
-	product_vector(&cam->up_vect, &cam->forward_vect, &cam->right_vect);
+	cross_product(&cam->up_vect, &cam->forward_vect, &cam->right_vect);
 	if (are_collinear_vectors(&cam->right_vect, 1e-3))
 	{
 		cam->up_vect.axis[0] = -1;
 		cam->up_vect.axis[1] = 0;
 		cam->up_vect.axis[2] = 0;
-		product_vector(&cam->up_vect, &cam->forward_vect, &cam->right_vect);
+		cross_product(&cam->up_vect, &cam->forward_vect, &cam->right_vect);
 	}
 	normalize_vector(&cam->right_vect);
-	product_vector(&cam->forward_vect, &cam->right_vect, &cam->up_vect);
+	cross_product(&cam->forward_vect, &cam->right_vect, &cam->up_vect);
 	normalize_vector(&cam->up_vect);
 }
 
