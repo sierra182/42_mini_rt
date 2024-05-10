@@ -5,14 +5,16 @@ void	normalize_vector(double vector[])
 {
 	int		i;
 	double	magnitude;
+	double	inverse_mag;
 
 	magnitude = sqrt(pow(vector[0], 2) + pow(vector[1], 2)
 			+ pow(vector[2], 2));
 	if (!magnitude)
 		return ;
+	inverse_mag = 1 / magnitude;
 	i = -1;
 	while (++i < AXIS)
-		vector[i] /= magnitude;
+		vector[i] *= inverse_mag;
 }
 
 double	normalize_zero_one(double scalar_product)
