@@ -33,9 +33,10 @@ double	normalize_zero_one(double scalar_product);
 // void	cast_vector_to_color(t_ray_vector *ray_vect, t_color *color);
 // void	scale_color(t_color *vect, double scaler, t_ray_vector *scaled_vect);
 
+double	is_intersect_sphere(t_ray *ray, t_sphere *sphere);
 
 double    is_intersect_plane(t_ray *ray, t_plane *plane, double *t);
-double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder, double *t2);
+double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
 // void	subtract_torvec(t_matrix_vector *b, t_ray_vector *a, t_ray_vector *subt_vect);
 // void	subtract_color_color(t_color *a, t_color *b, t_color *subt_color);
 

@@ -48,26 +48,6 @@ void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
 	}
 }
 
-double	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
-{
-	t_ray_vector	sphere_ray_vect;
-	double			a;
-	double			b;
-	double			c;	
-	double			discrim;
-
-	subtract_vector(ray->origin_vect.axis, sphere->origin_vect.axis,
-		sphere_ray_vect.axis);
-	a = scalar_product(ray->dir_vect.axis, ray->dir_vect.axis);
-	b = 2 * scalar_product(sphere_ray_vect.axis, ray->dir_vect.axis);
-	c = scalar_product(sphere_ray_vect.axis, sphere_ray_vect.axis)
-		- sphere->square_radius;
-	discrim = b * b - 4 * a * c;
-	if (discrim < 0)
-	    return (0.0);
-	return ((-b - sqrt(discrim)) / (2 * a));
-}
-
 int	get_color(unsigned char r, unsigned char g, unsigned char b)
 {
 	return (*(int *)(unsigned char[])
@@ -183,7 +163,7 @@ void	get_sphere_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t
 	// cast_vector_ray_to_color(&scaled_vect, color);
 }
 
-void	get_plane_normal_spotlight_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light)
+void	get_plane_normal_spotlight_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light, t_cylinder *cylinder)
 {	
 	t_ray_vector	normal;
 	t_ray			light_ray;
@@ -200,7 +180,7 @@ void	get_plane_normal_spotlight_color(t_ray *ray, double t, t_plane *plane, t_sp
 	normalize_vector(light_ray.dir_vect.axis);
 	color_with_ambiant_light(&plane->color, ambiant_light, &ambiant_color);
 	//printf("ambiant color :%i, %i, %i\n", ambiant_color.rgb[0], ambiant_color.rgb[1], ambiant_color.rgb[2]);
-	if (is_intersect_sphere(&light_ray, sphere))
+	if (is_intersect_sphere(&light_ray, sphere) || is_intersect_cylinder(&light_ray, cylinder))
 	{		
 		//*color = (t_color){.rgb[0] = 0, .rgb[1] = 0, .rgb[2] = 0};
 		*color = ambiant_color;		
@@ -241,7 +221,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			t = is_intersect_sphere(&ray, &data->spheres[0]);
 			inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb);
 			t2 = is_intersect_plane(&ray, &data->planes[0], NULL);
-			t3 = is_intersect_cylinder(&ray, &data->cylinders[0], NULL);
+			t3 = is_intersect_cylinder(&ray, &data->cylinders[0]);
 			// printf("t2: %f\n", t2);
 
 			if (t && !is_behind_cam(t))
@@ -257,7 +237,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 				put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
 			else if (t2 && !is_behind_cam(t2))
 			{
-				get_plane_normal_spotlight_color(&ray, t2, &data->planes[0], &data->spotlight, &color, &data->spheres[0], &data->ambiant_light);
+				get_plane_normal_spotlight_color(&ray, t2, &data->planes[0], &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
 				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 			}
 			else

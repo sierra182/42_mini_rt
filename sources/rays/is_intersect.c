@@ -25,23 +25,24 @@ void	scale_color(t_color *color, double scaler, t_color *scaled_color);
 double	scalar_product(double a[], double b[]);
 void	normalize_vector(double vector[]);
 
-void    vecop_vect_mat_minus_ray(t_matrix_vector *m, t_ray_vector *r, t_ray_vector *res)
+double	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 {
-    int i;
+	t_ray_vector	sphere_ray_vect;
+	double			a;
+	double			b;
+	double			c;	
+	double			discrim;
 
-    i = -1;
-    while (++i < AXIS)
-        res->axis[i] = m->axis[i] - r->axis[i];
-}
-
-void	print_vector(t_matrix_vector vec)
-{
-	printf("%f, %f, %f\n", vec.axis[0], vec.axis[1], vec.axis[2]);
-}
-
-void	print_torvec(t_ray_vector vec)
-{
-	printf("%f, %f, %f\n", vec.axis[0], vec.axis[1], vec.axis[2]);
+	subtract_vector(ray->origin_vect.axis, sphere->origin_vect.axis,
+		sphere_ray_vect.axis);
+	a = scalar_product(ray->dir_vect.axis, ray->dir_vect.axis);
+	b = 2 * scalar_product(sphere_ray_vect.axis, ray->dir_vect.axis);
+	c = scalar_product(sphere_ray_vect.axis, sphere_ray_vect.axis)
+		- sphere->square_radius;
+	discrim = b * b - 4 * a * c;
+	if (discrim < 0)
+	    return (0.0);
+	return ((-b - sqrt(discrim)) / (2 * a));
 }
 
 double    is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i_point)
@@ -50,8 +51,7 @@ double    is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i_point)
     t_ray_vector a;
     double num;
     double den;
-
-    vecop_vect_mat_minus_ray(&plane->origin_vect, &ray->origin_vect, &a);
+	subtract_vector(plane->origin_vect.axis, ray->origin_vect.axis, a.axis);
     num = scalar_product(a.axis, plane->norm_vect.axis);
     den = scalar_product(ray->dir_vect.axis, plane->norm_vect.axis);
  	if (fabs(den) > EPSILON)
@@ -136,7 +136,7 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 	double origin_proj = scalar_product(cylinder->origin_vect.axis, cylinder->axis_vect.axis);
 	if (intersect_disc_plans(ray, cylinder, &i_point))
 		return (get_t_from_point(ray, &i_point));
-if (proj < origin_proj - cylinder->height / 2|| proj > origin_proj + cylinder->height / 2)
+	if (proj < origin_proj - cylinder->height / 2|| proj > origin_proj + cylinder->height / 2)
 		return (0.0);
 	if (discrim < 0)
 	    return (0.0);
