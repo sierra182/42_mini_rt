@@ -67,6 +67,7 @@ SOURCES = \
 	$(GNL_DIR)/get_next_line_utils.c \
 	$(SRC_DIR)/rays/rays.c \
 	$(SRC_DIR)/rays/is_intersect.c \
+	$(SRC_DIR)/rays/is_intersect_utils.c \
 	$(SRC_DIR)/rays/vector_op.c \
 	$(SRC_DIR)/linear_algebra/addition.c \
 
