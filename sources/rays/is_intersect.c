@@ -59,14 +59,13 @@ double    is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i_point)
 	return (0);
 }
 
-double distance_between_points(t_ray_vector *point1, t_matrix_vector *point2) {
+double distance_between_points(t_ray_vector *point1, t_matrix_vector *point2)
+{
     double dx = point2->axis[0] - point1->axis[0];
     double dy = point2->axis[1] - point1->axis[1];
     double dz = point2->axis[2] - point1->axis[2];
     return sqrt(dx * dx + dy * dy + dz * dz);
 }
-
-
 
 int	intersect_disc_plans(t_ray *ray, t_cylinder *cylinder, t_ray_vector	*i_point)
 {
@@ -74,64 +73,34 @@ int	intersect_disc_plans(t_ray *ray, t_cylinder *cylinder, t_ray_vector	*i_point
 	t_plane plane_2;
 	t_matrix_vector scaled_v;
 
-	// plane_2.origin_vect.axis[0] = 0;
-	// plane_2.origin_vect.axis[1] = 0;
-	// plane_2.origin_vect.axis[2] = 0;
-	// plane_1.origin_vect.axis[0] = 0;
-	// plane_1.origin_vect.axis[1] = 0;
-	// plane_1.origin_vect.axis[2] = 0;
-	scaled_v.axis[0] = 0;
-	scaled_v.axis[1] = 0;
-	scaled_v.axis[2] = 0;
-	
-	
 	plane_1.norm_vect = cylinder->axis_vect;
     plane_2.norm_vect = cylinder->axis_vect;
-
-
 	scale_matrix_vector(&cylinder->axis_vect, cylinder->height / 2, &scaled_v);
 	add_matrix_vector(&scaled_v, &cylinder->origin_vect, &plane_1.origin_vect);
-
-	// print_vector(cylinder->origin_vect);
-
 	scale_matrix_vector(&cylinder->axis_vect, - cylinder->height / 2, &scaled_v);
 	add_matrix_vector(&scaled_v, &cylinder->origin_vect, &plane_2.origin_vect);
-
-	// printf("%f\n", cylinder->height /2);
-	// print_vector(plane_2.origin_vect);
-
 	if (is_intersect_plane(ray, &plane_1, i_point) || is_intersect_plane(ray, &plane_2, i_point))
 	{
-		// printf("2:%f, %f, %f\n", i_point->axis[0], i_point->axis[1], i_point->axis[2]);
 		if (distance_between_points(i_point, &plane_1.origin_vect) > cylinder->radius && distance_between_points(i_point, &plane_2.origin_vect) > cylinder->radius)
-		{
 			return (0);
-		}
-
 		return (1);
 	}
 	return (0);
 }
 
-
-double magnitude_vector(t_ray_vector *vector) {
-    // Calculer la magnitude du vecteur en utilisant la formule mathématique sqrt(x^2 + y^2 + z^2)
+double magnitude_vector(t_ray_vector *vector)
+{
     double magnitude = sqrt(pow(vector->axis[0], 2) + pow(vector->axis[1], 2) + pow(vector->axis[2], 2));
     return magnitude;
 }
 
-
-double get_t_from_point(t_ray *ray, t_ray_vector *point) {
-    // Calculer le vecteur entre l'origine du rayon et le point donné
+double get_t_from_point(t_ray *ray, t_ray_vector *point)
+{
     t_ray_vector diff;
     subtract_vecvec(point, &ray->origin_vect, &diff);
-
-    // Calculer le paramètre t en divisant la magnitude du vecteur de différence
-    // par la magnitude du vecteur de direction du rayon
     double t = magnitude_vector(&diff) / magnitude_vector(&ray->dir_vect);
     return t;
 }
-
 
 double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 {
@@ -143,52 +112,20 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 	double			t1;
 	t_ray_vector	i_point;
 
-	a = 0;
-	b = 0;
-	c = 0;
-	discrim = 0;
-	t1 = 0;
-	SR.axis[0] = 0;
-	SR.axis[1] = 0;
-	SR.axis[2] = 0;
-	i_point.axis[0] = 0;
-	i_point.axis[1] = 0;
-	i_point.axis[2] = 0;
-
 	subtract_vector(&ray->origin_vect, &cylinder->origin_vect, &SR);
-	// print_torvec(SR);
-
 	a = product_scalar(&ray->dir_vect, &ray->dir_vect) - pow(product_scalar_matrix(&ray->dir_vect, &cylinder->axis_vect), 2);
-
     b = 2 * (product_scalar(&ray->dir_vect, &SR) - product_scalar_matrix(&ray->dir_vect, &cylinder->axis_vect) * product_scalar_matrix(&SR, &cylinder->axis_vect));
     c = product_scalar(&SR, &SR) - pow(product_scalar_matrix(&SR, &cylinder->axis_vect), 2) - cylinder->square_radius;
-
 	discrim = b * b - 4 * a * c;
-	
-
 	t1 = (-b - sqrt(discrim)) / (2*a); // t2 = (-b + sqrt(discrim)) / (2*a) 	 
-	
-	// printf("t1: %f\n", t1);
-	// printf("discrim: %f\n", discrim);
-	// get intersection point coordinates
 	get_intersect_point(ray, t1, &i_point);
 	double proj = product_scalar_matrix(&i_point, &cylinder->axis_vect);
-	// project IP on cylinder axis
 	double origin_proj = product_scalar_trixma(&cylinder->origin_vect, &cylinder->axis_vect);
-
-	// check if projection is within cylinder height
-
 	if (intersect_disc_plans(ray, cylinder, &i_point))
-	{
-		// printf("intersect\n");
 		return (get_t_from_point(ray, &i_point));
-	}
-
 if (proj < origin_proj - cylinder->height / 2|| proj > origin_proj + cylinder->height / 2)
 		return (0.0);
 	if (discrim < 0)
 	    return (0.0);
 	return (t1);
-
-
 }
