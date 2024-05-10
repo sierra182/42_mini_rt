@@ -8,9 +8,9 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	t_matrix_vector	scaled_forward;
 	t_matrix_vector	sum_vect;
 
-	scale_matrix_vector(&cam->up_vect, norm_scale_y, &scaled_up);
-	scale_matrix_vector(&cam->right_vect, norm_scale_x, &scaled_right);
-	scale_matrix_vector(&cam->forward_vect, cam->focal_len, &scaled_forward);
+	scale_vector(cam->up_vect.axis, norm_scale_y, scaled_up.axis);
+	scale_vector(cam->right_vect.axis, norm_scale_x, scaled_right.axis);
+	scale_vector(cam->forward_vect.axis, cam->focal_len, scaled_forward.axis);
 	add_vector(scaled_up.axis, scaled_right.axis, sum_vect.axis);
 	add_vector(sum_vect.axis, scaled_forward.axis, ray->dir_vect.axis);
 }
@@ -86,7 +86,7 @@ void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 {
 	t_ray_vector scaled_vect;	
 
-	scale_ray_vector(&ray->dir_vect, t, &scaled_vect);
+	scale_vector(ray->dir_vect.axis, t, scaled_vect.axis);
 	add_vector(ray->origin_vect.axis, scaled_vect.axis, inter_pt->axis);	
 }
 
@@ -146,7 +146,7 @@ void	color_with_ambiant_light(t_color *mesh_color, t_ambiant_light *ambiant_ligh
 	t_color	ambiant_scaled_color;
 	double	tmp_color;
 
-	scale_color_color(&ambiant_light->color, ambiant_light->intensity, &ambiant_scaled_color);
+	scale_color(&ambiant_light->color, ambiant_light->intensity, &ambiant_scaled_color);
 	tmp_color = ambiant_scaled_color.rgb[0] / 255.0;
 	new_color->rgb[0] = tmp_color * mesh_color->rgb[0];	
 	tmp_color = ambiant_scaled_color.rgb[1] / 255.0;
@@ -174,10 +174,10 @@ void	get_sphere_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t
 	light_coef = product_scalar(&light_ray,&normal);
 	light_coef = normalize_scalar_product(light_coef);
 	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
-	subtract_color_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, &ambiant_color, &subt_color);
+	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, &ambiant_color, &subt_color);
 	
-	scale_color(&subt_color, light_coef * spotlight->intensity, &scaled_vect);
-	cast_vector_ray_to_color(&scaled_vect, color);
+	scale_color(&subt_color, light_coef * spotlight->intensity, color);
+	//cast_vector_ray_to_color(&scaled_vect, color);
 	add_color(color, &ambiant_color, color);
 	// scale_color(&sphere->color, light_coef, &scaled_vect);
 	// cast_vector_ray_to_color(&scaled_vect, color);
@@ -209,10 +209,10 @@ void	get_plane_normal_spotlight_color(t_ray *ray, double t, t_plane *plane, t_sp
 	light_coef = product_scalar(&normal, &light_ray.dir_vect);
 	//light_coef = normalize_scalar_product(light_coef);
 	
-	subtract_color_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, &ambiant_color, &subt_color);
+	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, &ambiant_color, &subt_color);
 
-	scale_color(&subt_color, light_coef * spotlight->intensity, &scaled_vect);
-	cast_vector_ray_to_color(&scaled_vect, color);
+	scale_color(&subt_color, light_coef * spotlight->intensity, color);
+	//cast_vector_ray_to_color(&scaled_vect, color);
 	add_color(color, &ambiant_color, color);
 }
 
