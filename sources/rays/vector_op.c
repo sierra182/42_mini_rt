@@ -14,63 +14,52 @@ void	normalize_vector(t_ray_vector *vector)
 		vector->axis[i] /= magnitude;
 }
 
-void	add_matrix_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *sum_vect)
-{
-	int	i;
+// void	add_matrix_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *sum_vect)
+// {
+// 	int	i;
 
-	i = -1;
-	while (++i < AXIS)
-		sum_vect->axis[i] = a->axis[i] + b->axis[i];
-}
+// 	i = -1;
+// 	while (++i < AXIS)
+// 		sum_vect->axis[i] = a->axis[i] + b->axis[i];
+// }
 
-void	add_matrix_to_ray_vector(t_matrix_vector *a, t_matrix_vector *b, t_ray_vector *sum_vect)
-{
-	int	i;
+// void	add_matrix_to_ray_vector(t_matrix_vector *a, t_matrix_vector *b, t_ray_vector *sum_vect)
+// {
+// 	int	i;
 
-	i = -1;
-	while (++i < AXIS)
-		sum_vect->axis[i] = a->axis[i] + b->axis[i];
-}
+// 	i = -1;
+// 	while (++i < AXIS)
+// 		sum_vect->axis[i] = a->axis[i] + b->axis[i];
+// }
 
-void	add_ray_vector(t_ray_vector *a, t_ray_vector *b, t_ray_vector *sum_vect)
-{
-	int	i;
+// void	add_ray_vector(t_ray_vector *a, t_ray_vector *b, t_ray_vector *sum_vect)
+// {
+// 	int	i;
 
-	i = -1;
-	while (++i < AXIS)
-		sum_vect->axis[i] = a->axis[i] + b->axis[i];
-}
+// 	i = -1;
+// 	while (++i < AXIS)
+// 		sum_vect->axis[i] = a->axis[i] + b->axis[i];
+// }
 
-void	add_color(t_color *a, t_color *b, t_color *sum_color)
-{
-	int	i;
+// void	add_color(t_color *a, t_color *b, t_color *sum_color)
+// {
+// 	int	i;
 
-	i = -1;
-	while (++i < AXIS)
-		sum_color->rgb[i] = a->rgb[i] + b->rgb[i];
-}
+// 	i = -1;
+// 	while (++i < AXIS)
+// 		sum_color->rgb[i] = a->rgb[i] + b->rgb[i];
+// }
 
-void	subtract_vector(t_ray_vector *a, t_matrix_vector *b, t_ray_vector *subt_vect)
-{
-	int	i;
 
-	i = -1;
-	while (++i < AXIS)
-		subt_vect->axis[i] = a->axis[i] - b->axis[i];
-}
 
-/**========================================================================
- *                           subtract_torvec
- *!func name to be changed! 
- *========================================================================**/
-void	subtract_torvec(t_matrix_vector *b, t_ray_vector *a, t_ray_vector *subt_vect)
-{
-	int	i;
+// void	subtract_torvec(t_matrix_vector *b, t_ray_vector *a, t_ray_vector *subt_vect)
+// {
+// 	int	i;
 
-	i = -1;
-	while (++i < AXIS)
-		subt_vect->axis[i] = b->axis[i] - a->axis[i];
-}
+// 	i = -1;
+// 	while (++i < AXIS)
+// 		subt_vect->axis[i] = b->axis[i] - a->axis[i];
+// }
 
 void	subtract_color_vector(t_ray_vector *a, t_matrix_vector *b, t_color *subt_vect)
 {
@@ -187,7 +176,7 @@ void	cast_vector_ray_to_color(t_ray_vector *ray_vect, t_color *color)
 	
 	i = -1;
 	while (++i < AXIS)	
-		color->rgb[i] = (ray_vect->axis[i]);
+		color->rgb[i] = ray_vect->axis[i];
 }
 
 void	cast_vector_to_color(t_ray_vector *ray_vect, t_color *color)

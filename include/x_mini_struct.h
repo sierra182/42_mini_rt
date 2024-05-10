@@ -55,7 +55,7 @@ typedef struct s_cam
 
 typedef struct	s_color
 {
-	int	rgb[3];
+	int	rgb[AXIS];
 }	t_color;
 
 
