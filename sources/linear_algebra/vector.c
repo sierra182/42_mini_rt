@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+# include "x_mini_struct.h"
 
 void    add_vector(double a[], double b[], double sum_vect[])
 {
@@ -27,33 +27,6 @@ void	scale_vector(double vect[], double scaler, double scaled_vect[])
 		scaled_vect[i] = vect[i] * scaler;
 }
 
-void	add_color(t_color *a, t_color *b, t_color *sum_color)
-{
-	int	i;
-
-	i = -1;
-	while (++i < AXIS)
-		sum_color->rgb[i] = a->rgb[i] + b->rgb[i];
-}
-
-void	subtract_color(t_color *a, t_color *b, t_color *subt_color)
-{
-	int	i;
-
-	i = -1;
-	while (++i < AXIS)
-		subt_color->rgb[i] = a->rgb[i] - b->rgb[i];
-}
-
-void	scale_color(t_color *color, double scaler, t_color *scaled_color)
-{
-	int	i;
-
-	i = -1;
-	while (++i < AXIS)
-		scaled_color->rgb[i] = color->rgb[i] * scaler;
-}
-
 double	scalar_product(double a[], double b[])
 {
 	double scalar;	
@@ -64,4 +37,11 @@ double	scalar_product(double a[], double b[])
 	while (++i < AXIS)
 		scalar += a[i] * b[i];
 	return (scalar);
+}
+
+void	cross_product(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *product_vect)
+{
+	product_vect->axis[0] = a->axis[1] * b->axis[2] - a->axis[2] * b->axis[1];
+	product_vect->axis[1] = a->axis[2] * b->axis[0] - a->axis[0] * b->axis[2];
+	product_vect->axis[2] = a->axis[0] * b->axis[1] - a->axis[1] * b->axis[0];
 }

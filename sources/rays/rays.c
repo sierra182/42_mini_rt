@@ -1,5 +1,13 @@
 #include "rays.h"
 
+# include "mlx.h"
+# include "x_mini_struct.h"
+# include "x_linear_algebra.h"
+# include <math.h>
+
+double    is_intersect_plane(t_ray *ray, t_plane *plane, double *t);
+double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder, double *t2);
+
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
 {

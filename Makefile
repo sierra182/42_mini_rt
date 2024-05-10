@@ -47,13 +47,14 @@ OBJECTS = $(SOURCES:.c=.o)
 
 SOURCES = \
 	$(SRC_DIR)/main.c \
-	$(SRC_DIR)/cam.c \
-	$(SRC_DIR)/cam_trans.c \
+	$(SRC_DIR)/mesh/cam.c \
+	$(SRC_DIR)/mesh/mesh_trsf.c \
 	$(SRC_DIR)/event.c \
 	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
 	$(SRC_DIR)/matrix/matrix.c \
+	$(SRC_DIR)/matrix/matrix_trsf.c \
 	$(SRC_DIR)/parsing/parse.c \
 	$(SRC_DIR)/parsing/file_content_is_correct.c \
 	$(SRC_DIR)/parsing/all_necessary_elements_are_present.c \
@@ -67,17 +68,19 @@ SOURCES = \
 	$(GNL_DIR)/get_next_line_utils.c \
 	$(SRC_DIR)/rays/rays.c \
 	$(SRC_DIR)/rays/is_intersect.c \
-	$(SRC_DIR)/rays/vector_op.c \
-	$(SRC_DIR)/linear_algebra/addition.c \
+	$(SRC_DIR)/linear_algebra/vector.c \
+	$(SRC_DIR)/linear_algebra/color.c \
+	$(SRC_DIR)/linear_algebra/vector_utils.c \
 
 HEADERS = \
-	$(HEADERS_DIR)/main.h \
 	$(HEADERS_DIR)/x_mini_struct.h \
 	$(HEADERS_DIR)/x_exit.h \
+	$(HEADERS_DIR)/x_matrix.h \
+	$(HEADERS_DIR)/x_linear_algebra.h \
+	$(HEADERS_DIR)/main.h \
 	$(HEADERS_DIR)/exit/exit.h \
 	$(HEADERS_DIR)/exit/data_store.h \
 	$(HEADERS_DIR)/rays/rays.h \
-	$(HEADERS_DIR)/rays/vector_op.h \
 	$(HEADERS_DIR)/parsing/all_necessary_elements_are_present.h \
 	$(HEADERS_DIR)/parsing/check_funcs.h \
 	$(HEADERS_DIR)/parsing/elements_data_are_valid.h \
