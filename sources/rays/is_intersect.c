@@ -14,6 +14,7 @@ void	subtract_vecvec(t_ray_vector *a, t_ray_vector *b, t_ray_vector *subt_vect);
 void	scale_matrix_torvec(t_matrix_vector *vect, double scaler, t_ray_vector *scaled_vect);
 void	subtract_torvec(t_matrix_vector *b, t_ray_vector *a, t_ray_vector *subt_vect);
 double	product_scalar_trixma(t_matrix_vector *d, t_matrix_vector *n);
+void	normalize_vector_matrix(t_matrix_vector *vector);
 #define EPSILON 1e-6
 
 void    vecop_vect_mat_minus_ray(t_matrix_vector *m, t_ray_vector *r, t_ray_vector *res)
@@ -112,6 +113,7 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder)
 	double			t1;
 	t_ray_vector	i_point;
 
+	normalize_vector_matrix(&cylinder->axis_vect);
 	subtract_vector(&ray->origin_vect, &cylinder->origin_vect, &SR);
 	a = product_scalar(&ray->dir_vect, &ray->dir_vect) - pow(product_scalar_matrix(&ray->dir_vect, &cylinder->axis_vect), 2);
     b = 2 * (product_scalar(&ray->dir_vect, &SR) - product_scalar_matrix(&ray->dir_vect, &cylinder->axis_vect) * product_scalar_matrix(&SR, &cylinder->axis_vect));

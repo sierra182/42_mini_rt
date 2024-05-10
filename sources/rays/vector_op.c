@@ -14,6 +14,20 @@ void	normalize_vector(t_ray_vector *vector)
 		vector->axis[i] /= magnitude;
 }
 
+void	normalize_vector_matrix(t_matrix_vector *vector)
+{
+	int		i;
+	double	magnitude;
+
+	magnitude = sqrt(pow(vector->axis[0], 2) + pow(vector->axis[1], 2)
+			+ pow(vector->axis[2], 2));
+	if (!magnitude)
+		return ;
+	i = -1;
+	while (++i < AXIS)
+		vector->axis[i] /= magnitude;
+}
+
 void	add_matrix_vector(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *sum_vect)
 {
 	int	i;
