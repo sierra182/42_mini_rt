@@ -8,6 +8,7 @@
 double    is_intersect_plane(t_ray *ray, t_plane *plane, double *t);
 double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
 double	is_intersect_sphere(t_ray *ray, t_sphere *sphere);
+void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
@@ -150,50 +151,16 @@ void	get_plane_normal_spotlight_color(t_ray *ray, double t, t_plane *plane, t_sp
 
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
-	t_ray			ray;
 	double			x;
 	double			y;
-	double			t;
-	t_ray_vector	*subt_vect;
-	t_color 		color;
-	t_ray_vector	p;
-	double			t2;
-	double			t3;
-	double			inter_bulb;
 
-	t2 = 0;
-	t3 = 0;
 	y = -1;
 	while (++y < data->cam.resol[1])
 	{
 		x = -1;
 		while (++x < data->cam.resol[0])
 		{
-			new_ray(&data->cam, &ray, x, y);
-			t = is_intersect_sphere(&ray, &data->spheres[0]);
-			inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb);
-			t2 = is_intersect_plane(&ray, &data->planes[0], NULL);
-			t3 = is_intersect_cylinder(&ray, &data->cylinders[0]);
-			// printf("t2: %f\n", t2);
-
-			if (t && !is_behind_cam(t))
-			{
-				get_sphere_normal_spotlight_color(&ray, t, &data->spheres[0], &data->spotlight, &color,  &data->ambiant_light);
-				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
-			}
-			else if (t3 && !is_behind_cam(t3))
-			{
-				put_pxl(mlx, x, y, get_color(0,255,255));
-			}
-			else if (inter_bulb && !is_behind_cam(inter_bulb))
-				put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
-			else if (t2 && !is_behind_cam(t2))
-			{
-				get_plane_normal_spotlight_color(&ray, t2, &data->planes[0], &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
-				put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
-			}
-			else
-				put_pxl(mlx, x, y, get_background_color(&ray));	
+			exec_launch_rays(mlx, data, x, y);
 		}		
 	}
 }
