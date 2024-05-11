@@ -72,13 +72,27 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	double			t3;
 	double			inter_bulb;
 	t_color 		color;
+	
+
+
 
 	new_ray(&data->cam, &ray, x, y);
 	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb);
+	// get smallest t + t_obj_type enum + ref to object
+	
+	
+	
 	t = is_intersect_sphere(&ray, &data->spheres[0]);
 	t2 = is_intersect_plane(&ray, &data->planes[0], NULL);
 	t3 = is_intersect_cylinder(&ray, &data->cylinders[0]);
 	// printf("t2: %f\n", t2);
+
+
+
+	// execute rendering function
+
+
+
 
 	if (t && !is_behind_cam(t))
 	{

@@ -144,6 +144,13 @@ typedef enum e_obj_type
 	O_PL
 } t_obj_type;
 
+typedef	struct s_obj_intersect
+{
+	double			t;
+	enum e_obj_type	obj_type;
+	void			*object;
+}	s_obj_intersect;
+
 typedef struct s_exit
 {
 	t_sphere	*spheres;
