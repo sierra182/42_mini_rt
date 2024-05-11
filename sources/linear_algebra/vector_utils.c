@@ -1,14 +1,31 @@
 # include <math.h>
 # include "x_mini_struct.h"
 
+void	invert_vector(double ori[], double dir[], double r_ori[], double r_dir[])
+{	
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+	{
+		r_ori[i] = ori[i] + dir[i];
+		r_dir[i] = -dir[i];
+	}
+}
+
+double	get_vector_magnitude(double vector[])
+{
+	return (sqrt(pow(vector[0], 2) + pow(vector[1], 2)
+			+ pow(vector[2], 2)));
+}
+
 void	normalize_vector(double vector[])
 {
 	int		i;
 	double	magnitude;
 	double	inverse_mag;
 
-	magnitude = sqrt(pow(vector[0], 2) + pow(vector[1], 2)
-			+ pow(vector[2], 2));
+	magnitude = get_vector_magnitude(vector);
 	if (!magnitude)
 		return ;
 	inverse_mag = 1 / magnitude;

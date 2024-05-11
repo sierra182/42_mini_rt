@@ -11,8 +11,8 @@ double	is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i);
 int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
 double	is_intersect_cylinder(t_ray *ray, t_cylinder *cyl);
 int		is_behind_cam(double t);
-void	get_sphere_normal_spotlight_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light);
-void	get_plane_normal_spotlight_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light, t_cylinder *cylinder);
+void	get_sphere_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light);
+void	get_plane_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light, t_cylinder *cylinder);
 int	get_background_color(t_ray *ray);
 
 void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
@@ -134,20 +134,20 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	
 	if (obj.t && obj.type == O_SP && !is_behind_cam(obj.t) && obj.ref)
 	{
-		get_sphere_normal_spotlight_color(&ray, obj.t, obj.ref, &data->spotlight, &color,  &data->ambiant_light);
+		get_sphere_color(&ray, obj.t, obj.ref, &data->spotlight, &color,  &data->ambiant_light);
 		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 	}
 	if (obj.t && obj.type == O_CY && !is_behind_cam(obj.t) && obj.ref)
 	{
 		put_pxl(mlx, x, y, get_color(0,255,255));
 	}
-	if (inter_bulb && !is_behind_cam(inter_bulb))
-		put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
 	if (obj.t && obj.type == O_PL && !is_behind_cam(obj.t) && obj.ref)
 	{
-		get_plane_normal_spotlight_color(&ray, obj.t, obj.ref, &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
+		get_plane_color(&ray, obj.t, obj.ref, &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
 		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 	}
+	if (inter_bulb && !is_behind_cam(inter_bulb))
+		put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
 	if (obj.ref == NULL)
 		put_pxl(mlx, x, y, get_background_color(&ray));	
 }

@@ -28,7 +28,7 @@ static void	event_translate(int keycode, t_matrix_vector *vector)
 {
     double t;
 
-    t = 0.05;
+    t = 0.1;
 	if (keycode == UP)	
 		trsl_vector(vector, (double []){0.0, -t, 0.0});		
 	else if (keycode == DWN)
