@@ -9,5 +9,6 @@ void	trsl_vector(t_matrix_vector *vect, double values[])
 	init_matrix(trsf_matrix);
 	set_matrix_translate(trsf_matrix, values);
 	apply_matrix(trsf_matrix, vect, &applied_vect);
+	// printf("%f, %f, %f\n", applied_vect.axis[0], applied_vect.axis[1], applied_vect.axis[2]);
 	*vect = applied_vect;
 }
