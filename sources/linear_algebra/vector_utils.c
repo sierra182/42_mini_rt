@@ -1,29 +1,25 @@
-#include "vector_op.h"
+# include <math.h>
+# include "x_mini_struct.h"
 
 void	normalize_vector(double vector[])
 {
 	int		i;
 	double	magnitude;
+	double	inverse_mag;
 
 	magnitude = sqrt(pow(vector[0], 2) + pow(vector[1], 2)
 			+ pow(vector[2], 2));
 	if (!magnitude)
 		return ;
+	inverse_mag = 1 / magnitude;
 	i = -1;
 	while (++i < AXIS)
-		vector[i] /= magnitude;
+		vector[i] *= inverse_mag;
 }
 
 double	normalize_zero_one(double scalar_product)
 {
 	return ((scalar_product + 1) * 0.5);
-}
-
-void	cross_product(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *product_vect)
-{
-	product_vect->axis[0] = a->axis[1] * b->axis[2] - a->axis[2] * b->axis[1];
-	product_vect->axis[1] = a->axis[2] * b->axis[0] - a->axis[0] * b->axis[2];
-	product_vect->axis[2] = a->axis[0] * b->axis[1] - a->axis[1] * b->axis[0];
 }
 
 int	are_collinear_vectors(t_matrix_vector *pdct_vect, double precision)

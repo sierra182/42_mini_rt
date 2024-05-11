@@ -29,7 +29,7 @@ double	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
 	subtract_vector(ray->origin_vect.axis, sphere->origin_vect.axis,
 		sphere_ray_vect.axis);
 	a = scalar_product(ray->dir_vect.axis, ray->dir_vect.axis);
-	b = 2 * scalar_product(sphere_ray_vect.axis, ray->dir_vect.axis);
+	b = scalar_product(sphere_ray_vect.axis, ray->dir_vect.axis) * 2;
 	c = scalar_product(sphere_ray_vect.axis, sphere_ray_vect.axis)
 		- sphere->square_radius;
 	discrim = b * b - 4 * a * c;
@@ -79,9 +79,9 @@ int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
 
 	plane_1.norm_vect = cyl->axis_vect;
 	plane_2.norm_vect = cyl->axis_vect;
-	scale_vector(cyl->axis_vect.axis, cyl->height / 2, scaled_v.axis);
+	scale_vector(cyl->axis_vect.axis, cyl->height * 0.5, scaled_v.axis);
 	add_vector(scaled_v.axis, cyl->origin_vect.axis, plane_1.origin_vect.axis);
-	scale_vector(cyl->axis_vect.axis, cyl->height / -2, scaled_v.axis);
+	scale_vector(cyl->axis_vect.axis, cyl->height * -0.5, scaled_v.axis);
 	add_vector(scaled_v.axis, cyl->origin_vect.axis, plane_2.origin_vect.axis);
 	if (is_intersect_plane(ray, &plane_1, i)
 		|| is_intersect_plane(ray, &plane_2, i))
@@ -114,8 +114,8 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cyl)
 	origin_proj = scalar_product(cyl->origin_vect.axis, cyl->axis_vect.axis);
 	if (intersect_disc_plans(ray, cyl, &i))
 		return (get_t_from_point(ray, &i));
-	if (proj < origin_proj - cyl->height / 2
-		|| proj > origin_proj + cyl->height / 2)
+	if (proj < origin_proj - cyl->height * 0.5
+		|| proj > origin_proj + cyl->height * 0.5)
 		return (0.0);
 	return (t1);
 }

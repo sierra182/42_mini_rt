@@ -80,20 +80,6 @@ int	key_event(int keycode, void *param)
 	return (0);
 }
 
-// int	key_event(int keycode, void *param)
-// {
-// 	t_mlx	*mlx;
-// 	t_data	*data;
-
-// 	mlx = (t_mlx *) ((void **) param)[0];
-// 	data = (t_data *) ((void **) param)[1];
-// 	printf("keycode: %d\n", keycode);
-// 	cam_event_translate(keycode, &data->cam);
-//     cam_event_rotate(keycode, &data->cam);
-// 	if (keycode == ESC)
-// 		mlx_loop_end(mlx->connect);
-// 	return (0);
-// }
 int    scroll_event(int button, int x, int y, void *param)
 {
     t_data	*data;
