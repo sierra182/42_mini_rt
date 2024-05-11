@@ -49,6 +49,7 @@ double	is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i)
 	double			num;
 	double			den;
 
+	normalize_vector(plane->norm_vect.axis);
 	subtract_vector(plane->origin_vect.axis, ray->origin_vect.axis, a.axis);
 	num = scalar_product(a.axis, plane->norm_vect.axis);
 	den = scalar_product(ray->dir_vect.axis, plane->norm_vect.axis);
