@@ -87,7 +87,6 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	
 	
 	// get smallest t + t_obj_type enum + ref to object
-	
 	void	*ref;
 	ref = NULL;
 	int	i = 0;
@@ -126,29 +125,22 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 		}
 		i++;
 	}
-	
-	//else
-	//{
-	//	start = 0;
-	//	ref = NULL;
-	//}
-	
-	// start == smallest t
 
-	if (start && type == O_SP && !is_behind_cam(start))
+
+	if (start && type == O_SP && !is_behind_cam(start) && ref)
 	{
-		get_sphere_normal_spotlight_color(&ray, start, &data->spheres[0], &data->spotlight, &color,  &data->ambiant_light);
+		get_sphere_normal_spotlight_color(&ray, start, ref, &data->spotlight, &color,  &data->ambiant_light);
 		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 	}
-	if (start && type == O_CY && !is_behind_cam(start))
+	if (start && type == O_CY && !is_behind_cam(start) && ref)
 	{
 		put_pxl(mlx, x, y, get_color(0,255,255));
 	}
 	if (inter_bulb && !is_behind_cam(inter_bulb))
 		put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
-	if (start && type == O_PL && !is_behind_cam(start))
+	if (start && type == O_PL && !is_behind_cam(start) && ref)
 	{
-		get_plane_normal_spotlight_color(&ray, start, &data->planes[0], &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
+		get_plane_normal_spotlight_color(&ray, start, ref, &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
 		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 	}
 	if (ref == NULL)
