@@ -137,6 +137,13 @@ typedef enum e_event_mesh
 	MESH_END
 }	t_enum_event_mesh;
 
+typedef enum e_obj_type
+{
+	O_SP,
+	O_CY,
+	O_PL
+} t_obj_type;
+
 typedef struct s_exit
 {
 	t_sphere	*spheres;
