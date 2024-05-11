@@ -63,7 +63,12 @@ static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 	normalize_vector(ray->dir_vect.axis);
 }
 
-
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 {
 	t_ray			ray;
@@ -72,44 +77,92 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	double			t3;
 	double			inter_bulb;
 	t_color 		color;
-	
+	t_obj_type		type;
+	double			start;
 
-
+	start = 100000000;
 
 	new_ray(&data->cam, &ray, x, y);
 	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb);
+	
+	
 	// get smallest t + t_obj_type enum + ref to object
 	
-	
-	
-	t = is_intersect_sphere(&ray, &data->spheres[0]);
-	t2 = is_intersect_plane(&ray, &data->planes[0], NULL);
-	t3 = is_intersect_cylinder(&ray, &data->cylinders[0]);
-	// printf("t2: %f\n", t2);
-
-
-
-	// execute rendering function
-
-
-
-
-	if (t && !is_behind_cam(t))
+	void	*ref;
+	ref = NULL;
+	int	i = 0;
+	while (i < data->sp_nbr)
 	{
-		get_sphere_normal_spotlight_color(&ray, t, &data->spheres[0], &data->spotlight, &color,  &data->ambiant_light);
+		t = is_intersect_sphere(&ray, &data->spheres[i]);
+		if (t && t < start)
+		{
+			start = t;
+			type = O_SP;
+			ref = &data->spheres[i];
+		}
+		i++;
+	}
+	i = 0;
+	while (i < data->pl_nbr)
+	{
+		t = is_intersect_plane(&ray, &data->planes[i], NULL);
+		if (t && t < start)
+		{
+			start = t;
+			type = O_PL;
+			ref = &data->planes[i];
+		}
+		i++;
+	}
+	i = 0;
+	while (i < data->cy_nbr)
+	{
+		t = is_intersect_cylinder(&ray, &data->cylinders[i]);
+		if (t && t < start)
+		{
+			start = t;
+			type = O_CY;
+			ref = &data->cylinders[i];
+		}
+		i++;
+	}
+	
+	//else
+	//{
+	//	start = 0;
+	//	ref = NULL;
+	//}
+	
+	// start == smallest t
+
+	if (start && type == O_SP && !is_behind_cam(start))
+	{
+		get_sphere_normal_spotlight_color(&ray, start, &data->spheres[0], &data->spotlight, &color,  &data->ambiant_light);
 		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 	}
-	else if (t3 && !is_behind_cam(t3))
+	if (start && type == O_CY && !is_behind_cam(start))
 	{
 		put_pxl(mlx, x, y, get_color(0,255,255));
 	}
-	else if (inter_bulb && !is_behind_cam(inter_bulb))
+	if (inter_bulb && !is_behind_cam(inter_bulb))
 		put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
-	else if (t2 && !is_behind_cam(t2))
+	if (start && type == O_PL && !is_behind_cam(start))
 	{
-		get_plane_normal_spotlight_color(&ray, t2, &data->planes[0], &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
+		get_plane_normal_spotlight_color(&ray, start, &data->planes[0], &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
 		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 	}
-	else
+	if (ref == NULL)
 		put_pxl(mlx, x, y, get_background_color(&ray));	
 }
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
+//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
