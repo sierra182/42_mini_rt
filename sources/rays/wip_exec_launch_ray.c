@@ -69,35 +69,21 @@ static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 //! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
 //! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
 //! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
+
+void	get_closest_object(t_data *data, t_ray ray, s_obj_intersect *obj)
 {
-	t_ray			ray;
 	double			t;
-	double			t2;
-	double			t3;
-	double			inter_bulb;
-	t_color 		color;
-	t_obj_type		type;
-	double			start;
-
-	start = 100000000;
-
-	new_ray(&data->cam, &ray, x, y);
-	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb);
+	int	i;
 	
-	
-	// get smallest t + t_obj_type enum + ref to object
-	void	*ref;
-	ref = NULL;
-	int	i = 0;
+	i = 0;
 	while (i < data->sp_nbr)
 	{
 		t = is_intersect_sphere(&ray, &data->spheres[i]);
-		if (t && t < start)
+		if (t && t < (*obj).t)
 		{
-			start = t;
-			type = O_SP;
-			ref = &data->spheres[i];
+			(*obj).t = t;
+			(*obj).type = O_SP;
+			(*obj).ref = &data->spheres[i];
 		}
 		i++;
 	}
@@ -105,11 +91,11 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	while (i < data->pl_nbr)
 	{
 		t = is_intersect_plane(&ray, &data->planes[i], NULL);
-		if (t && t < start)
+		if (t && t < (*obj).t)
 		{
-			start = t;
-			type = O_PL;
-			ref = &data->planes[i];
+			(*obj).t = t;
+			(*obj).type = O_PL;
+			(*obj).ref = &data->planes[i];
 		}
 		i++;
 	}
@@ -117,33 +103,52 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	while (i < data->cy_nbr)
 	{
 		t = is_intersect_cylinder(&ray, &data->cylinders[i]);
-		if (t && t < start)
+		if (t && t < (*obj).t)
 		{
-			start = t;
-			type = O_CY;
-			ref = &data->cylinders[i];
+			(*obj).t = t;
+			(*obj).type = O_CY;
+			(*obj).ref = &data->cylinders[i];
 		}
 		i++;
 	}
 
+}
 
-	if (start && type == O_SP && !is_behind_cam(start) && ref)
+void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
+{
+	t_ray			ray;
+	
+	double			inter_bulb;
+	t_color 		color;
+	s_obj_intersect	obj;
+	
+	// initialize variables
+	obj.t = 100000000;
+	new_ray(&data->cam, &ray, x, y);
+	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb);
+	obj.ref = NULL;
+
+	// get smallest t + obj type + obj ref
+	get_closest_object(data, ray, &obj);
+	// get color & display pixel
+	
+	if (obj.t && obj.type == O_SP && !is_behind_cam(obj.t) && obj.ref)
 	{
-		get_sphere_normal_spotlight_color(&ray, start, ref, &data->spotlight, &color,  &data->ambiant_light);
+		get_sphere_normal_spotlight_color(&ray, obj.t, obj.ref, &data->spotlight, &color,  &data->ambiant_light);
 		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 	}
-	if (start && type == O_CY && !is_behind_cam(start) && ref)
+	if (obj.t && obj.type == O_CY && !is_behind_cam(obj.t) && obj.ref)
 	{
 		put_pxl(mlx, x, y, get_color(0,255,255));
 	}
 	if (inter_bulb && !is_behind_cam(inter_bulb))
 		put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
-	if (start && type == O_PL && !is_behind_cam(start) && ref)
+	if (obj.t && obj.type == O_PL && !is_behind_cam(obj.t) && obj.ref)
 	{
-		get_plane_normal_spotlight_color(&ray, start, ref, &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
+		get_plane_normal_spotlight_color(&ray, obj.t, obj.ref, &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
 		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 	}
-	if (ref == NULL)
+	if (obj.ref == NULL)
 		put_pxl(mlx, x, y, get_background_color(&ray));	
 }
 //! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 

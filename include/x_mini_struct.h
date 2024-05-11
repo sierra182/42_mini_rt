@@ -147,8 +147,8 @@ typedef enum e_obj_type
 typedef	struct s_obj_intersect
 {
 	double			t;
-	enum e_obj_type	obj_type;
-	void			*object;
+	enum e_obj_type	type;
+	void			*ref;
 }	s_obj_intersect;
 
 typedef struct s_exit
