@@ -18,7 +18,7 @@ double	get_t_from_point(t_ray *ray, t_ray_vector *point);
 /**========================================================================
  *                           is_intersect_sphere
  *========================================================================**/
-double	is_intersect_sphere(t_ray *ray, void *input_sphere)
+double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i)
 {
 	t_ray_vector	sphere_ray_vect;
 	double			a;
@@ -99,7 +99,7 @@ int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
 /**========================================================================
  *                           is_intersect_cylinder
  *========================================================================**/
-double	is_intersect_cylinder(t_ray *ray, void *input_cyl)
+double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
 {
 	double			discrim;
 	double			t1;

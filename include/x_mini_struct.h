@@ -174,9 +174,10 @@ typedef struct s_intersection_params
 	t_ray			ray;
 	void			*objects;
 	int				obj_nbr;
-	double			(*intersect_func)(t_ray *, void *);
+	double			(*intersect_func)(t_ray *, void *, t_ray_vector *);
 	t_obj_intersect	*obj;
 	int				obj_type;
+	t_ray_vector	*i;
 }	t_intersection_params;
 
 #endif

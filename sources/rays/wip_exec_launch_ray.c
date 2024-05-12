@@ -6,10 +6,10 @@
 
 //void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
 
-double	is_intersect_sphere(t_ray *ray, void *input_sphere);
+double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 double	is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i);
 int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
-double	is_intersect_cylinder(t_ray *ray, void *cyl);
+double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 int		is_behind_cam(double t);
 void	get_sphere_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light);
 void	get_plane_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light, t_cylinder *cylinder);
@@ -73,7 +73,7 @@ void find_closest_intersection(t_intersection_params params)
 	{
 		//printf("out :%f\n", ((t_sphere **)params.objects)[0]->diameter);
 		//printf("i :%i\n", i)
-		t = params.intersect_func(&params.ray, ((t_sphere **)params.objects)[i]);
+		t = params.intersect_func(&params.ray, ((t_sphere **)params.objects)[i], params.i);
 		if (t && t < params.obj->t)
 		{
 			params.obj->t = t;
@@ -105,6 +105,7 @@ void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj)
 	params_sp.intersect_func = is_intersect_sphere;
 	params_sp.obj = obj;
 	params_sp.obj_type = O_SP;
+	params_sp.i = NULL;
 
 	i = -1;
 	while (++i < data->cy_nbr)
@@ -115,6 +116,7 @@ void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj)
 	params_cy.intersect_func = is_intersect_cylinder;
 	params_cy.obj = obj;
 	params_cy.obj_type = O_CY;
+	params_cy.i = NULL;
 
 
 
@@ -150,7 +152,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	// initialize variables
 	obj.t = 100000000;
 	new_ray(&data->cam, &ray, x, y);
-	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb);
+	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb, NULL);
 	obj.ref = NULL;
 
 	// get smallest t + obj type + obj ref
