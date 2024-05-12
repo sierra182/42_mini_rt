@@ -186,13 +186,13 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
 	if (is_shadow(data, &light_ray, sphere))
 	{
-		//normalize_zero_one(ray->dir_vect.axis);
-		light_coef = scalar_product(ray->dir_vect.axis, normal.axis);
+		normalize_vector(light_ray.dir_vect.axis);
+		light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
 		light_coef = normalize_zero_one(light_coef);//!opti
 		// subtract_color(&(t_color){.rgb[0] = 0, .rgb[1] = 0, .rgb[2] = 0},
 		// 	&ambiant_color, &subt_color);
 		scale_color(&ambiant_color, light_coef, color);
-		subtract_color(&ambiant_color, color, color);
+		add_color(&ambiant_color, color, color);
 		//  *color = ambiant_color;		
 		return ;
 	}
