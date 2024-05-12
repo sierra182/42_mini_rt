@@ -1,33 +1,29 @@
 #include "rays.h"
-
-
-# include "mlx.h"
-# include "x_mini_struct.h"
-
-//void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
+#include "mlx.h"
+#include "x_mini_struct.h"
 
 double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
-int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
+int		intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 int		is_behind_cam(double t);
 void	get_sphere_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light);
 void	get_plane_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light, t_cylinder *cylinder);
-int	get_background_color(t_ray *ray);
-
+int		get_background_color(t_ray *ray);
+int		get_pixel_color(t_data *data, t_ray ray, t_obj_intersect obj);
 void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
-int	get_color(unsigned char r, unsigned char g, unsigned char b);
+int		get_color(unsigned char r, unsigned char g, unsigned char b);
 void	scale_vector(double vect[], double scaler, double scaled_vect[]);
-void    add_vector(double a[], double b[], double sum_vect[]);
+void	add_vector(double a[], double b[], double sum_vect[]);
 void	normalize_vector(double vector[]);
 void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj_intersect *obj);
 void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj_intersect *obj);
 void	get_closest_intersection_pl(t_data *data, t_ray ray, t_obj_intersect *obj);
-
 void	cast_vector_mat_ray(t_matrix_vector *matrix_vect, t_ray_vector *ray_vect);
 
-
-
+/**========================================================================
+ *                           scale_and_add_vectors
+ *========================================================================**/
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
 {
@@ -43,6 +39,9 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	add_vector(sum_vect.axis, scaled_forward.axis, ray->dir_vect.axis);
 }
 
+/**========================================================================
+ *                           normalize_pixel
+ *========================================================================**/
 static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 {
 	if (!screen_size)
@@ -52,6 +51,9 @@ static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 	return ((1 - 2 * (pixel + 0.5) / screen_size));
 }
 
+/**========================================================================
+ *                           new_ray
+ *========================================================================**/
 static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 {
 	double		norm_scale_x;
@@ -65,40 +67,15 @@ static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 	normalize_vector(ray->dir_vect.axis);
 }
 
-int		get_pixel_color(t_data *data, t_ray ray, t_obj_intersect obj)
-{
-	int		rgb;
-	double	inter_bulb;
-	t_color color;
-
-	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb, NULL);
-	if (obj.t && obj.type == O_SP && !is_behind_cam(obj.t) && obj.ref)
-	{
-		get_sphere_color(&ray, obj.t, obj.ref, &data->spotlight, &color,  &data->ambiant_light);
-		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
-	}
-	if (obj.t && obj.type == O_CY && !is_behind_cam(obj.t) && obj.ref)
-	{
-		rgb = get_color(0,255,255);
-	}
-	if (obj.t && obj.type == O_PL && !is_behind_cam(obj.t) && obj.ref)
-	{
-		get_plane_color(&ray, obj.t, obj.ref, &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
-		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
-	}
-	if (inter_bulb && !is_behind_cam(inter_bulb))
-		rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
-	if (obj.ref == NULL)
-		rgb = get_background_color(&ray);
-	return (rgb);
-}
-
+/**========================================================================
+ *                           exec_launch_rays
+ *========================================================================**/
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 {
 	t_ray			ray;
 	t_obj_intersect	obj;
-	int	rgb;
-	
+	int				rgb;
+
 	new_ray(&data->cam, &ray, x, y);
 	obj.t = 100000000;
 	obj.ref = NULL;
@@ -106,5 +83,39 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	get_closest_intersection_cy(data, ray, &obj);
 	get_closest_intersection_pl(data, ray, &obj);
 	rgb = get_pixel_color(data, ray, obj);
-	put_pxl(mlx, x, y, rgb);	
+	put_pxl(mlx, x, y, rgb);
+}
+
+/**========================================================================
+ *                           get_pixel_color
+ *========================================================================**/
+int	get_pixel_color(t_data *data, t_ray ray, t_obj_intersect obj)
+{
+	int		rgb;
+	double	inter_bulb;
+	t_color	color;
+
+	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb, NULL);
+	if (obj.t && obj.type == O_SP && !is_behind_cam(obj.t) && obj.ref)
+	{
+		get_sphere_color(&ray, obj.t, obj.ref, &data->spotlight, &color,
+			&data->ambiant_light);
+		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
+	}
+	if (obj.t && obj.type == O_CY && !is_behind_cam(obj.t) && obj.ref)
+	{
+		rgb = get_color(0, 255, 255);
+	}
+	if (obj.t && obj.type == O_PL && !is_behind_cam(obj.t) && obj.ref)
+	{
+		get_plane_color(&ray, obj.t, obj.ref, &data->spotlight, &color,
+			&data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
+		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
+	}
+	if (inter_bulb && !is_behind_cam(inter_bulb))
+		rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight
+				.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
+	if (obj.ref == NULL)
+		rgb = get_background_color(&ray);
+	return (rgb);
 }

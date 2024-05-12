@@ -71,7 +71,7 @@ SOURCES = \
 	$(SRC_DIR)/rays/is_intersect.c \
 	$(SRC_DIR)/rays/is_intersect_utils.c \
 	$(SRC_DIR)/rays/find_closest_intersection.c \
-	$(SRC_DIR)/rays/wip_exec_launch_ray.c \
+	$(SRC_DIR)/rays/exec_launch_ray.c \
 	$(SRC_DIR)/linear_algebra/vector.c \
 	$(SRC_DIR)/linear_algebra/color.c \
 	$(SRC_DIR)/linear_algebra/vector_utils.c \
