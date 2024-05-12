@@ -105,28 +105,60 @@ void	color_with_ambiant_light(t_color *mesh_color,
 	new_color->rgb[2] = tmp_color * mesh_color->rgb[2];
 }
 
-int	is_any_intersect(t_data *data, t_ray *light_ray)
+void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
+{
+	t_ray_vector scaled_vect;	
+
+	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);
+		
+}
+
+int	is_any_intersect(t_data *data, t_ray *light_ray, t_sphere *sphere)
 {
 	int	i;
+	double	t;
+	double	mesh_mag;
+	double	light_mag;
+
+	t_ray_vector	inter_pt;
 
 	i = -1;
 	while (++i < data->sp_nbr)
-		if (is_intersect_sphere(light_ray, &data->spheres[i]) > 0.0)
-			return (1);
-	i = -1;
-	while (++i < data->cy_nbr)
-		if (is_intersect_cylinder(light_ray, &data->cylinders[i]) > 0.0)
-			return (1);
+		if (sphere && &data->spheres[i] != sphere)
+		{
+			t = is_intersect_sphere(light_ray, &data->spheres[i]);  
+			if (t > 0.0)
+			{
+				//return (1);	
+				get_local_intersect_point(light_ray, t, &inter_pt);
+				mesh_mag = get_vector_magnitude(inter_pt.axis);
+				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+				if (mesh_mag < light_mag)
+					return (1);			
+			}
+		}
+		else if (!sphere)
+		{
+			t = is_intersect_sphere(light_ray, &data->spheres[i]);  
+			if (t > 0.0)
+			{
+					return (1);	
+			}
+		}
+	// i = -1;
+	// while (++i < data->cy_nbr)
+	// 	if (is_intersect_cylinder(light_ray, &data->cylinders[i]) > 0.0)
+	// 		return (1);
 	return (0);
 }
 
-int	is_shadow(t_data *data, t_ray *light_ray)
+int	is_shadow(t_data *data, t_ray *light_ray, t_sphere *sphere)
 {
 	t_ray			opp_light_ray; 
 
 	invert_vector(light_ray->origin_vect.axis, light_ray->dir_vect.axis, 
 		opp_light_ray.origin_vect.axis, opp_light_ray.dir_vect.axis);
-	if (is_any_intersect(data, &opp_light_ray))
+	if (is_any_intersect(data, &opp_light_ray, sphere))
 		return (1);
 	return (0);	
 }
@@ -135,7 +167,7 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	t_sphere *sphere, t_spotlight *spotlight, t_color *color,
 	t_ambiant_light *ambiant_light)
 {
-	t_ray_vector	inter_pt;
+	//t_ray_vector	inter_pt;
 	t_ray_vector	normal;
 	t_ray			light_ray;
 	t_ray_vector	scaled_vect;
@@ -143,13 +175,13 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	t_color			subt_color;
 	t_color			ambiant_color;
 
-	get_intersect_point(ray, t, &inter_pt);
-	subtract_vector(inter_pt.axis, sphere->origin_vect.axis, normal.axis);
+	get_intersect_point(ray, t, &light_ray.origin_vect);
+	subtract_vector(light_ray.origin_vect.axis, sphere->origin_vect.axis, normal.axis);
 	normalize_vector(normal.axis);
-	subtract_vector(spotlight->origin_vect.axis, inter_pt.axis,
+	subtract_vector(spotlight->origin_vect.axis, light_ray.origin_vect.axis,
 		light_ray.dir_vect.axis);
 	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
-	if (is_shadow(data, &light_ray))
+	if (is_shadow(data, &light_ray, sphere))
 	{		
 		*color = ambiant_color;		
 		return ;
@@ -179,7 +211,7 @@ void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 	subtract_vector(spotlight->origin_vect.axis, light_ray.origin_vect.axis,
 		light_ray.dir_vect.axis);	
 	color_with_ambiant_light(&plane->color, ambiant_light, &ambiant_color);
-	if (is_shadow(data, &light_ray))
+	if (is_shadow(data, &light_ray, NULL))
 	{		
 		*color = ambiant_color;		
 		return ;
