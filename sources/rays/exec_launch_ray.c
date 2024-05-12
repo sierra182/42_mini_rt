@@ -10,15 +10,15 @@ int		is_behind_cam(double t);
 void	get_sphere_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light);
 void	get_plane_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light, t_cylinder *cylinder);
 int		get_background_color(t_ray *ray);
-int		get_pixel_color(t_data *data, t_ray ray, t_obj_intersect obj);
+int		get_pixel_color(t_data *data, t_ray ray, t_obj obj);
 void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
 int		get_color(unsigned char r, unsigned char g, unsigned char b);
 void	scale_vector(double vect[], double scaler, double scaled_vect[]);
 void	add_vector(double a[], double b[], double sum_vect[]);
 void	normalize_vector(double vector[]);
-void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj_intersect *obj);
-void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj_intersect *obj);
-void	get_closest_intersection_pl(t_data *data, t_ray ray, t_obj_intersect *obj);
+void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj *obj);
+void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj *obj);
+void	get_closest_intersection_pl(t_data *data, t_ray ray, t_obj *obj);
 void	cast_vector_mat_ray(t_matrix_vector *matrix_vect, t_ray_vector *ray_vect);
 
 /**========================================================================
@@ -73,7 +73,7 @@ static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 {
 	t_ray			ray;
-	t_obj_intersect	obj;
+	t_obj	obj;
 	int				rgb;
 
 	new_ray(&data->cam, &ray, x, y);
@@ -89,7 +89,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 /**========================================================================
  *                           get_pixel_color
  *========================================================================**/
-int	get_pixel_color(t_data *data, t_ray ray, t_obj_intersect obj)
+int	get_pixel_color(t_data *data, t_ray ray, t_obj obj)
 {
 	int		rgb;
 	double	inter_bulb;

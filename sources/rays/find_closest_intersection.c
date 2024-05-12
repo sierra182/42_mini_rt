@@ -1,27 +1,10 @@
-# include "mlx.h"
-# include "x_mini_struct.h"
-
-//void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
+#include "x_mini_struct.h"
 
 double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
-int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
-int		is_behind_cam(double t);
-void	get_sphere_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light);
-void	get_plane_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light, t_cylinder *cylinder);
-int	get_background_color(t_ray *ray);
 
-void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
-int	get_color(unsigned char r, unsigned char g, unsigned char b);
-void	scale_vector(double vect[], double scaler, double scaled_vect[]);
-void    add_vector(double a[], double b[], double sum_vect[]);
-void	normalize_vector(double vector[]);
-void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj_intersect *obj);
-void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj_intersect *obj);
-void	get_closest_intersection_pl(t_data *data, t_ray ray, t_obj_intersect *obj);
-
-void find_closest_intersection(t_intersection_params params)
+void	find_closest_intersection(t_intersection_params params)
 {
 	int		i;
 	double	t;
@@ -29,7 +12,8 @@ void find_closest_intersection(t_intersection_params params)
 	i = 0;
 	while (i < params.obj_nbr)
 	{
-		t = params.intersect_func(&params.ray, ((char **)params.objects)[i], params.i);
+		t = params.intersect_func(&params.ray,
+				((char **)params.objects)[i], params.i);
 		if (t && t < params.obj->t)
 		{
 			params.obj->t = t;
@@ -40,9 +24,9 @@ void find_closest_intersection(t_intersection_params params)
 	}
 }
 
-void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj_intersect *obj)
+void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj *obj)
 {
-	t_intersection_params 	params_sp;
+	t_intersection_params	params_sp;
 	t_sphere				*sphere_addresses[1000];
 	int						i;
 
@@ -59,9 +43,9 @@ void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj_intersect *obj)
 	find_closest_intersection(params_sp);
 }
 
-void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj_intersect *obj)
+void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj *obj)
 {
-	t_intersection_params 	params_cy;
+	t_intersection_params	params_cy;
 	t_cylinder				*cylinders_addresses[1000];
 	int						i;
 
@@ -78,10 +62,10 @@ void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj_intersect *obj)
 	find_closest_intersection(params_cy);
 }
 
-void	get_closest_intersection_pl(t_data *data, t_ray ray, t_obj_intersect *obj)
+void	get_closest_intersection_pl(t_data *data, t_ray ray, t_obj *obj)
 {
-	t_intersection_params 	params_pl;
-	t_plane				*planes_addresses[1000];
+	t_intersection_params	params_pl;
+	t_plane					*planes_addresses[1000];
 	int						i;
 
 	i = -1;
