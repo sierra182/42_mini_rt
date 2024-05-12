@@ -7,7 +7,7 @@
 //void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
 
 double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
-double	is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i);
+double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 int		is_behind_cam(double t);
@@ -71,9 +71,12 @@ void find_closest_intersection(t_intersection_params params)
 	i = 0;
 	while (i < params.obj_nbr)
 	{
-		//printf("out :%f\n", ((t_sphere **)params.objects)[0]->diameter);
-		//printf("i :%i\n", i)
-		t = params.intersect_func(&params.ray, ((t_sphere **)params.objects)[i], params.i);
+		if (params.obj_type == O_CY)
+			t = params.intersect_func(&params.ray, ((t_cylinder **)params.objects)[i], params.i);
+		else if (params.obj_type == O_PL)
+			t = params.intersect_func(&params.ray, ((t_plane **)params.objects)[i], params.i);
+		else if (params.obj_type == O_SP)
+			t = params.intersect_func(&params.ray, ((t_sphere **)params.objects)[i], params.i);
 		if (t && t < params.obj->t)
 		{
 			params.obj->t = t;
@@ -82,19 +85,13 @@ void find_closest_intersection(t_intersection_params params)
 		}
 		i++;
 	}
-	
 }
-#include "libft.h"
-#include <stdlib.h>
-void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj)
+
+void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj_intersect *obj)
 {
-	double			t;
-	int	i;
-	t_intersection_params params_sp;
-	t_intersection_params params_cy;
-	t_intersection_params *params_pl;
-	t_sphere *sphere_addresses[1000];
-	t_cylinder *cylinders_addresses[1000];
+	t_intersection_params 	params_sp;
+	t_sphere				*sphere_addresses[1000];
+	int						i;
 
 	i = -1;
 	while (++i < data->sp_nbr)
@@ -106,6 +103,31 @@ void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj)
 	params_sp.obj = obj;
 	params_sp.obj_type = O_SP;
 	params_sp.i = NULL;
+	find_closest_intersection(params_sp);
+}
+
+
+#include "libft.h"
+#include <stdlib.h>
+void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj)
+{
+	int						i;
+	t_intersection_params 	params_cy;
+	t_intersection_params 	params_pl;
+	t_cylinder				*cylinders_addresses[1000];
+	t_plane					*planes_addresses[1000];
+
+	get_closest_intersection_sp(data, ray, obj);
+	//i = -1;
+	//while (++i < data->sp_nbr)
+	//	sphere_addresses[i] = &(data->spheres[i]);
+	//params_sp.objects = sphere_addresses;
+	//params_sp.ray = ray;
+	//params_sp.obj_nbr = data->sp_nbr;
+	//params_sp.intersect_func = is_intersect_sphere;
+	//params_sp.obj = obj;
+	//params_sp.obj_type = O_SP;
+	//params_sp.i = NULL;
 
 	i = -1;
 	while (++i < data->cy_nbr)
@@ -117,27 +139,19 @@ void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj)
 	params_cy.obj = obj;
 	params_cy.obj_type = O_CY;
 	params_cy.i = NULL;
-
-
-
-	find_closest_intersection(params_sp);
 	find_closest_intersection(params_cy);
-	//find_closest_intersection(params_pl);
+	i = -1;
+	while (++i < data->pl_nbr)
+		planes_addresses[i] = &(data->planes[i]);
+	params_pl.objects = planes_addresses;
+	params_pl.ray = ray;
+	params_pl.obj_nbr = data->pl_nbr;
+	params_pl.intersect_func = is_intersect_plane;
+	params_pl.obj = obj;
+	params_pl.obj_type = O_PL;
+	params_pl.i = NULL;
+	find_closest_intersection(params_pl);
 
-
-	i = 0;
-	while (i < data->pl_nbr)
-	{
-		t = is_intersect_plane(&ray, &data->planes[i], NULL);
-		if (t && t < (*obj).t)
-		{
-			(*obj).t = t;
-			(*obj).type = O_PL;
-			(*obj).ref = &data->planes[i];
-		}
-		i++;
-	}
-	
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 17:45:00 by svidot            #+#    #+#             */
-/*   Updated: 2024/05/12 09:56:44 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:11:31 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "x_linear_algebra.h"
 # include <math.h>
 
-double    is_intersect_plane(t_ray *ray, t_plane *plane, double *t);
+double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
 double	is_intersect_sphere(t_ray *ray, void *input_sphere);
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y);

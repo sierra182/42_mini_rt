@@ -43,13 +43,14 @@ double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i)
 /**========================================================================
  *                           is_intersect_plane
  *========================================================================**/
-double	is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i)
+double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 {
 	double			t;
 	t_ray_vector	a;
 	double			num;
 	double			den;
 
+	t_plane *plane = (t_plane *)input_plane;
 	normalize_vector(plane->norm_vect.axis);
 	subtract_vector(plane->origin_vect.axis, ray->origin_vect.axis, a.axis);
 	num = scalar_product(a.axis, plane->norm_vect.axis);
