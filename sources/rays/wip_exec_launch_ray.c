@@ -65,53 +65,46 @@ static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 	normalize_vector(ray->dir_vect.axis);
 }
 
-void		get_pixel_color(t_data *data, t_ray ray, t_obj_intersect obj, t_color color)
+int		get_pixel_color(t_data *data, t_ray ray, t_obj_intersect obj)
 {
+	int		rgb;
+	double	inter_bulb;
+	t_color color;
 
-	
-}
-
-
-/* 
-	je suis en train de refactoriser la fonciton exec_launch_rays.
-	prochaine etape: get_pixel_color!
-
- */
-
-void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
-{
-	t_ray			ray;
-	double			inter_bulb;
-	t_color 		color;
-	t_obj_intersect	obj;
-	
-	new_ray(&data->cam, &ray, x, y);
 	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb, NULL);
-	obj.t = 100000000;
-	obj.ref = NULL;
-
-	get_closest_intersection_sp(data, ray, &obj);
-	get_closest_intersection_cy(data, ray, &obj);
-	get_closest_intersection_pl(data, ray, &obj);
-	get_pixel_color(data, ray, obj, color);
-
-	
 	if (obj.t && obj.type == O_SP && !is_behind_cam(obj.t) && obj.ref)
 	{
 		get_sphere_color(&ray, obj.t, obj.ref, &data->spotlight, &color,  &data->ambiant_light);
-		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
+		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
 	if (obj.t && obj.type == O_CY && !is_behind_cam(obj.t) && obj.ref)
 	{
-		put_pxl(mlx, x, y, get_color(0,255,255));
+		rgb = get_color(0,255,255);
 	}
 	if (obj.t && obj.type == O_PL && !is_behind_cam(obj.t) && obj.ref)
 	{
 		get_plane_color(&ray, obj.t, obj.ref, &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
-		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
+		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
 	if (inter_bulb && !is_behind_cam(inter_bulb))
-		put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
+		rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
 	if (obj.ref == NULL)
-		put_pxl(mlx, x, y, get_background_color(&ray));	
+		rgb = get_background_color(&ray);
+	return (rgb);
+}
+
+void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
+{
+	t_ray			ray;
+	t_obj_intersect	obj;
+	int	rgb;
+	
+	new_ray(&data->cam, &ray, x, y);
+	obj.t = 100000000;
+	obj.ref = NULL;
+	get_closest_intersection_sp(data, ray, &obj);
+	get_closest_intersection_cy(data, ray, &obj);
+	get_closest_intersection_pl(data, ray, &obj);
+	rgb = get_pixel_color(data, ray, obj);
+	put_pxl(mlx, x, y, rgb);	
 }
