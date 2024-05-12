@@ -124,10 +124,11 @@ int	is_any_intersect(t_data *data, t_ray *light_ray, t_sphere *sphere)
 
 	i = -1;
 	while (++i < data->sp_nbr)
-		if (sphere && &data->spheres[i] != sphere)
-		{
+	{
+		// if (sphere && &data->spheres[i] != sphere)
+		// {
 			t = is_intersect_sphere(light_ray, &data->spheres[i]);  
-			if (t > 0.0)
+			if (t > 1e-5)
 			{
 				//return (1);	
 				get_local_intersect_point(light_ray, t, &inter_pt);
@@ -136,15 +137,17 @@ int	is_any_intersect(t_data *data, t_ray *light_ray, t_sphere *sphere)
 				if (mesh_mag < light_mag)
 					return (1);			
 			}
-		}
-		else if (!sphere)
-		{
-			t = is_intersect_sphere(light_ray, &data->spheres[i]);  
-			if (t > 0.0)
-			{
-					return (1);	
-			}
-		}
+		//}
+		// else if (!sphere)
+		// {
+		// 	t = is_intersect_sphere(light_ray, &data->spheres[i]);  
+		// 	if (t > 0.0)
+		// 	{
+		// 		return (1);	
+		// 	}
+		// }
+	}
+
 	// i = -1;
 	// while (++i < data->cy_nbr)
 	// 	if (is_intersect_cylinder(light_ray, &data->cylinders[i]) > 0.0)
@@ -158,7 +161,7 @@ int	is_shadow(t_data *data, t_ray *light_ray, t_sphere *sphere)
 
 	invert_vector(light_ray->origin_vect.axis, light_ray->dir_vect.axis, 
 		opp_light_ray.origin_vect.axis, opp_light_ray.dir_vect.axis);
-	if (is_any_intersect(data, &opp_light_ray, sphere))
+	if (is_any_intersect(data, light_ray, sphere))
 		return (1);
 	return (0);	
 }
