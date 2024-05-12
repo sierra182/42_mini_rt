@@ -139,10 +139,10 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 		get_plane_color(data, &ray, obj.t, obj.ref, &data->spotlight, &color, &data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
 		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 	}
-	if (inter_bulb && !is_behind_cam(inter_bulb))
-		put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
 	if (obj.ref == NULL)
 		put_pxl(mlx, x, y, get_background_color(&ray));	
+	if (inter_bulb && !is_behind_cam(inter_bulb))
+		put_pxl(mlx, x, y, get_color(data->spotlight.bulb.color.rgb[0], data->spotlight.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]));
 }
 //! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
 //! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 

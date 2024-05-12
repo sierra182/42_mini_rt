@@ -120,30 +120,24 @@ int	is_any_intersect(t_data *data, t_ray *light_ray)
 	return (0);
 }
 
-int	is_shadow(t_data *data, t_ray *light_ray, t_sphere *sphere, t_cylinder *cylinder)
+int	is_shadow(t_data *data, t_ray *light_ray)
 {
-	t_ray			opp_light_ray;
-	t_obj_intersect	obj;
+	t_ray			opp_light_ray; 
 
-	obj.t = 100000000;
-	obj.ref = NULL;	
 	invert_vector(light_ray->origin_vect.axis, light_ray->dir_vect.axis, 
 		opp_light_ray.origin_vect.axis, opp_light_ray.dir_vect.axis);
-	// if (is_intersect_sphere(&opp_light_ray, sphere) > 0.0
-	// 	|| is_intersect_cylinder(&opp_light_ray, cylinder) > 0.0)
-	//get_closest_object(data, *light_ray, &obj);
 	if (is_any_intersect(data, &opp_light_ray))
 		return (1);
 	return (0);	
 }
 
-void	get_sphere_color(t_data *data, t_ray *ray, double t, //!!!!! ray to pointer
+void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	t_sphere *sphere, t_spotlight *spotlight, t_color *color,
 	t_ambiant_light *ambiant_light)
 {
 	t_ray_vector	inter_pt;
 	t_ray_vector	normal;
-	t_ray_vector	light_ray;
+	t_ray			light_ray;
 	t_ray_vector	scaled_vect;
 	double 			light_coef;
 	t_color			subt_color;
@@ -153,11 +147,16 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t, //!!!!! ray to pointer
 	subtract_vector(inter_pt.axis, sphere->origin_vect.axis, normal.axis);
 	normalize_vector(normal.axis);
 	subtract_vector(spotlight->origin_vect.axis, inter_pt.axis,
-		light_ray.axis);
-	normalize_vector(light_ray.axis);
-	light_coef = scalar_product(light_ray.axis, normal.axis);
-	light_coef = normalize_zero_one(light_coef);
+		light_ray.dir_vect.axis);
 	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
+	if (is_shadow(data, &light_ray))
+	{		
+		*color = ambiant_color;		
+		return ;
+	}
+	normalize_vector(light_ray.dir_vect.axis);
+	light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
+	light_coef = normalize_zero_one(light_coef);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		&ambiant_color, &subt_color);	
 	scale_color(&subt_color, light_coef * spotlight->intensity, color);
@@ -180,7 +179,7 @@ void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 	subtract_vector(spotlight->origin_vect.axis, light_ray.origin_vect.axis,
 		light_ray.dir_vect.axis);	
 	color_with_ambiant_light(&plane->color, ambiant_light, &ambiant_color);
-	if (is_shadow(data, &light_ray, sphere, cylinder))
+	if (is_shadow(data, &light_ray))
 	{		
 		*color = ambiant_color;		
 		return ;
