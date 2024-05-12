@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 17:45:00 by svidot            #+#    #+#             */
-/*   Updated: 2024/05/11 18:17:56 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/05/12 09:56:44 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 double    is_intersect_plane(t_ray *ray, t_plane *plane, double *t);
 double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
-double	is_intersect_sphere(t_ray *ray, t_sphere *sphere);
+double	is_intersect_sphere(t_ray *ray, void *input_sphere);
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y);
 void	invert_vector(double a[], double b[], double r_a[], double r_b[]);
 

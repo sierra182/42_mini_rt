@@ -18,14 +18,15 @@ double	get_t_from_point(t_ray *ray, t_ray_vector *point);
 /**========================================================================
  *                           is_intersect_sphere
  *========================================================================**/
-double	is_intersect_sphere(t_ray *ray, t_sphere *sphere)
+double	is_intersect_sphere(t_ray *ray, void *input_sphere)
 {
 	t_ray_vector	sphere_ray_vect;
 	double			a;
 	double			b;
 	double			c;	
 	double			discrim;
-
+	
+	t_sphere *sphere = (t_sphere *)input_sphere;
 	subtract_vector(ray->origin_vect.axis, sphere->origin_vect.axis,
 		sphere_ray_vect.axis);
 	a = scalar_product(ray->dir_vect.axis, ray->dir_vect.axis);

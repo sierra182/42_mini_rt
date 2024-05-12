@@ -6,7 +6,7 @@
 
 //void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
 
-double	is_intersect_sphere(t_ray *ray, t_sphere *sphere);
+double	is_intersect_sphere(t_ray *ray, void *input_sphere);
 double	is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i);
 int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
 double	is_intersect_cylinder(t_ray *ray, t_cylinder *cyl);
@@ -63,30 +63,77 @@ static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 	normalize_vector(ray->dir_vect.axis);
 }
 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-
-void	get_closest_object(t_data *data, t_ray ray, s_obj_intersect *obj)
+void find_closest_intersection(t_intersection_params params)
 {
-	double			t;
-	int	i;
-	
+	int		i;
+	double	t;
+
 	i = 0;
-	while (i < data->sp_nbr)
+	while (i < params.obj_nbr)
 	{
-		t = is_intersect_sphere(&ray, &data->spheres[i]);
-		if (t && t < (*obj).t)
+		//printf("out :%f\n", ((t_sphere **)params.objects)[0]->diameter);
+		//printf("i :%i\n", i)
+		t = params.intersect_func(&params.ray, ((t_sphere **)params.objects)[i]);
+		if (t && t < params.obj->t)
 		{
-			(*obj).t = t;
-			(*obj).type = O_SP;
-			(*obj).ref = &data->spheres[i];
+			params.obj->t = t;
+			params.obj->type = params.obj_type;
+			params.obj->ref = ((t_sphere **)params.objects)[i];
 		}
 		i++;
 	}
+	
+}
+#include "libft.h"
+#include <stdlib.h>
+void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj)
+{
+	double			t;
+	int	i;
+	t_intersection_params params_sp;
+	t_intersection_params *params_cy;
+	t_intersection_params *params_pl;
+	t_sphere *sphere_addresses[1000];
+
+	i = 0;
+	while (i < data->sp_nbr)
+	{
+		sphere_addresses[i] = &(data->spheres[i]);
+		//printf("in :%f\n", sphere_addresses[i]->diameter);
+		i++;
+	}
+	params_sp.objects = sphere_addresses;
+	//i = 0;
+	//while (i < data->sp_nbr)
+	//{
+	//	printf("out :%f\n", ((t_sphere **)params_sp.objects)[i]->diameter);
+	//	i++;
+	//}
+
+	params_sp.ray = ray;
+	
+
+	//params_sp.objects = data->spheres;
+	params_sp.obj_nbr = data->sp_nbr;
+	params_sp.intersect_func = is_intersect_sphere;
+	params_sp.obj = obj;
+	params_sp.obj_type = O_SP;
+
+	find_closest_intersection(params_sp);
+	//find_closest_intersection(params_cy);
+	//find_closest_intersection(params_pl);
+	//i = 0;
+	//while (i < data->sp_nbr)
+	//{
+	//	t = is_intersect_sphere(&ray, ((t_sphere **)params_sp.objects)[i]);
+	//	if (t && t < (*obj).t)
+	//	{
+	//		(*obj).t = t;
+	//		(*obj).type = O_SP;
+	//		(*obj).ref = ((t_sphere **)params_sp.objects)[i];
+	//	}
+	//	i++;
+	//}
 	i = 0;
 	while (i < data->pl_nbr)
 	{
@@ -120,7 +167,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	
 	double			inter_bulb;
 	t_color 		color;
-	s_obj_intersect	obj;
+	t_obj_intersect	obj;
 	
 	// initialize variables
 	obj.t = 100000000;
@@ -151,15 +198,3 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	if (obj.ref == NULL)
 		put_pxl(mlx, x, y, get_background_color(&ray));	
 }
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 
-//! WARNING ERROR FOUND PARSING: VALUE STARTING WITH '+' !!! 

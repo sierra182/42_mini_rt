@@ -149,7 +149,7 @@ typedef	struct s_obj_intersect
 	double			t;
 	enum e_obj_type	type;
 	void			*ref;
-}	s_obj_intersect;
+}	t_obj_intersect;
 
 typedef struct s_exit
 {
@@ -168,5 +168,15 @@ typedef enum e_exit
 	PL,
 	END
 }	t_enum_exit;
+
+typedef struct s_intersection_params
+{
+	t_ray			ray;
+	void			*objects;
+	int				obj_nbr;
+	double			(*intersect_func)(t_ray *, void *);
+	t_obj_intersect	*obj;
+	int				obj_type;
+}	t_intersection_params;
 
 #endif
