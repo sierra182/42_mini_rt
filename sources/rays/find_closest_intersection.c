@@ -4,6 +4,9 @@ double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 
+/**========================================================================
+ *                           find_closest_intersection
+ *========================================================================**/
 void	find_closest_intersection(t_intersection_params params)
 {
 	int		i;
@@ -24,6 +27,9 @@ void	find_closest_intersection(t_intersection_params params)
 	}
 }
 
+/**========================================================================
+ *                           get_closest_intersection_sp
+ *========================================================================**/
 void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj *obj)
 {
 	t_intersection_params	params_sp;
@@ -43,6 +49,9 @@ void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj *obj)
 	find_closest_intersection(params_sp);
 }
 
+/**========================================================================
+ *                           get_closest_intersection_cy
+ *========================================================================**/
 void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj *obj)
 {
 	t_intersection_params	params_cy;
@@ -62,6 +71,9 @@ void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj *obj)
 	find_closest_intersection(params_cy);
 }
 
+/**========================================================================
+ *                           get_closest_intersection_pl
+ *========================================================================**/
 void	get_closest_intersection_pl(t_data *data, t_ray ray, t_obj *obj)
 {
 	t_intersection_params	params_pl;
