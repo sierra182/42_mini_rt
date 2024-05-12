@@ -5,11 +5,12 @@
 # include "x_linear_algebra.h"
 # include <math.h>
 
-double    is_intersect_plane(t_ray *ray, t_plane *plane, double *t);
-double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
+double  is_intersect_plane(t_ray *ray, t_plane *plane, double *t);
+double  is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
 double	is_intersect_sphere(t_ray *ray, t_sphere *sphere);
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y);
 void	invert_vector(double a[], double b[], double r_a[], double r_b[]);
+void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
@@ -104,19 +105,39 @@ void	color_with_ambiant_light(t_color *mesh_color,
 	new_color->rgb[2] = tmp_color * mesh_color->rgb[2];
 }
 
-int	is_shadow(t_ray	*light_ray, t_sphere *sphere, t_cylinder *cylinder)
+int	is_any_intersect(t_data *data, t_ray *light_ray)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->sp_nbr)
+		if (is_intersect_sphere(light_ray, &data->spheres[i]) > 0.0)
+			return (1);
+	i = -1;
+	while (++i < data->cy_nbr)
+		if (is_intersect_cylinder(light_ray, &data->cylinders[i]) > 0.0)
+			return (1);
+	return (0);
+}
+
+int	is_shadow(t_data *data, t_ray *light_ray, t_sphere *sphere, t_cylinder *cylinder)
 {
 	t_ray			opp_light_ray;
+	t_obj_intersect	obj;
 
+	obj.t = 100000000;
+	obj.ref = NULL;	
 	invert_vector(light_ray->origin_vect.axis, light_ray->dir_vect.axis, 
 		opp_light_ray.origin_vect.axis, opp_light_ray.dir_vect.axis);
-	if (is_intersect_sphere(&opp_light_ray, sphere) > 0.0
-		|| is_intersect_cylinder(&opp_light_ray, cylinder) > 0.0)
+	// if (is_intersect_sphere(&opp_light_ray, sphere) > 0.0
+	// 	|| is_intersect_cylinder(&opp_light_ray, cylinder) > 0.0)
+	//get_closest_object(data, *light_ray, &obj);
+	if (is_any_intersect(data, &opp_light_ray))
 		return (1);
 	return (0);	
 }
 
-void	get_sphere_color(t_ray *ray, double t,
+void	get_sphere_color(t_data *data, t_ray *ray, double t, //!!!!! ray to pointer
 	t_sphere *sphere, t_spotlight *spotlight, t_color *color,
 	t_ambiant_light *ambiant_light)
 {
@@ -143,7 +164,7 @@ void	get_sphere_color(t_ray *ray, double t,
 	add_color(color, &ambiant_color, color);	
 }
 
-void	get_plane_color(t_ray *ray, double t, t_plane *plane,
+void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 	t_spotlight *spotlight, t_color *color, t_sphere *sphere,
 	t_ambiant_light *ambiant_light, t_cylinder *cylinder)
 {	
@@ -159,7 +180,7 @@ void	get_plane_color(t_ray *ray, double t, t_plane *plane,
 	subtract_vector(spotlight->origin_vect.axis, light_ray.origin_vect.axis,
 		light_ray.dir_vect.axis);	
 	color_with_ambiant_light(&plane->color, ambiant_light, &ambiant_color);
-	if (is_shadow(&light_ray, sphere, cylinder))
+	if (is_shadow(data, &light_ray, sphere, cylinder))
 	{		
 		*color = ambiant_color;		
 		return ;
