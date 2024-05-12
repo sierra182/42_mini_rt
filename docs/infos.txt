@@ -9,3 +9,6 @@ valgrind --leak-check=full --show-leak-kinds=all ./miniRT
 Ressources:
 https://github.com/ricardoreves/42-minirt?tab=readme-ov-file
 
+---
+A propos du resizing des fenetres:
+je n'ai pas trouve el moyen de le faire. Il semble meme qu'il y ait une fonction mise en place pour l'empecher: 43,2: 	mlx_int_anti_resize_win...

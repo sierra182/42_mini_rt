@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:22:21 by dansylvain        #+#    #+#             */
-/*   Updated: 2024/04/30 11:09:03 by dansylvain       ###   ########.fr       */
+/*   Updated: 2024/05/12 08:12:16 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ double	ft_atof(char *str)
 	int		exponent;
 	int		divisor;
 
+	if (*str == '+')
+		str++;
 	result = 0.0;
 	fraction = 0.0;
 	sign = 1;

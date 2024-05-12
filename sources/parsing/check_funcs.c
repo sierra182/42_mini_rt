@@ -85,11 +85,11 @@ int	chck_bt(char *str, t_num_type num)
 	i = 0;
 	if (str == NULL)
 		return (1);
-	if (ft_strlen(str) > 3)
+	if (ft_strlen(str) > 4 || (ft_strlen(str) > 3 && str[0] != '+'))
 		return (0);
 	while (str[i] != '\0')
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[i] != '+')
 			return (0);
 		i++;
 	}
