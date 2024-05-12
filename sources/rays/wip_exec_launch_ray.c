@@ -9,7 +9,7 @@
 double	is_intersect_sphere(t_ray *ray, void *input_sphere);
 double	is_intersect_plane(t_ray *ray, t_plane *plane, t_ray_vector *i);
 int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
-double	is_intersect_cylinder(t_ray *ray, t_cylinder *cyl);
+double	is_intersect_cylinder(t_ray *ray, void *cyl);
 int		is_behind_cam(double t);
 void	get_sphere_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light);
 void	get_plane_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light, t_cylinder *cylinder);
@@ -91,49 +91,38 @@ void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj)
 	double			t;
 	int	i;
 	t_intersection_params params_sp;
-	t_intersection_params *params_cy;
+	t_intersection_params params_cy;
 	t_intersection_params *params_pl;
 	t_sphere *sphere_addresses[1000];
+	t_cylinder *cylinders_addresses[1000];
 
-	i = 0;
-	while (i < data->sp_nbr)
-	{
+	i = -1;
+	while (++i < data->sp_nbr)
 		sphere_addresses[i] = &(data->spheres[i]);
-		//printf("in :%f\n", sphere_addresses[i]->diameter);
-		i++;
-	}
 	params_sp.objects = sphere_addresses;
-	//i = 0;
-	//while (i < data->sp_nbr)
-	//{
-	//	printf("out :%f\n", ((t_sphere **)params_sp.objects)[i]->diameter);
-	//	i++;
-	//}
-
 	params_sp.ray = ray;
-	
-
-	//params_sp.objects = data->spheres;
 	params_sp.obj_nbr = data->sp_nbr;
 	params_sp.intersect_func = is_intersect_sphere;
 	params_sp.obj = obj;
 	params_sp.obj_type = O_SP;
 
+	i = -1;
+	while (++i < data->cy_nbr)
+		cylinders_addresses[i] = &(data->cylinders[i]);
+	params_cy.objects = cylinders_addresses;
+	params_cy.ray = ray;
+	params_cy.obj_nbr = data->cy_nbr;
+	params_cy.intersect_func = is_intersect_cylinder;
+	params_cy.obj = obj;
+	params_cy.obj_type = O_CY;
+
+
+
 	find_closest_intersection(params_sp);
-	//find_closest_intersection(params_cy);
+	find_closest_intersection(params_cy);
 	//find_closest_intersection(params_pl);
-	//i = 0;
-	//while (i < data->sp_nbr)
-	//{
-	//	t = is_intersect_sphere(&ray, ((t_sphere **)params_sp.objects)[i]);
-	//	if (t && t < (*obj).t)
-	//	{
-	//		(*obj).t = t;
-	//		(*obj).type = O_SP;
-	//		(*obj).ref = ((t_sphere **)params_sp.objects)[i];
-	//	}
-	//	i++;
-	//}
+
+
 	i = 0;
 	while (i < data->pl_nbr)
 	{
@@ -146,18 +135,7 @@ void	get_closest_object(t_data *data, t_ray ray, t_obj_intersect *obj)
 		}
 		i++;
 	}
-	i = 0;
-	while (i < data->cy_nbr)
-	{
-		t = is_intersect_cylinder(&ray, &data->cylinders[i]);
-		if (t && t < (*obj).t)
-		{
-			(*obj).t = t;
-			(*obj).type = O_CY;
-			(*obj).ref = &data->cylinders[i];
-		}
-		i++;
-	}
+	
 
 }
 
