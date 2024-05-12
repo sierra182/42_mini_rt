@@ -65,17 +65,22 @@ static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 	normalize_vector(ray->dir_vect.axis);
 }
 
-void		get_color_and_put_pixel()
+void		get_pixel_color(t_data *data, t_ray ray, t_obj_intersect obj, t_color color)
 {
 
 	
 }
 
 
+/* 
+	je suis en train de refactoriser la fonciton exec_launch_rays.
+	prochaine etape: get_pixel_color!
+
+ */
+
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 {
 	t_ray			ray;
-	
 	double			inter_bulb;
 	t_color 		color;
 	t_obj_intersect	obj;
@@ -88,7 +93,9 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	get_closest_intersection_sp(data, ray, &obj);
 	get_closest_intersection_cy(data, ray, &obj);
 	get_closest_intersection_pl(data, ray, &obj);
-	get_color_and_put_pixel();
+	get_pixel_color(data, ray, obj, color);
+
+	
 	if (obj.t && obj.type == O_SP && !is_behind_cam(obj.t) && obj.ref)
 	{
 		get_sphere_color(&ray, obj.t, obj.ref, &data->spotlight, &color,  &data->ambiant_light);
