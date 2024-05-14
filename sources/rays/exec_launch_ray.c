@@ -14,15 +14,15 @@ void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 			t_spotlight *spotlight, t_color *color, t_sphere *sphere,
 			t_ambiant_light *ambiant_light, t_cylinder *cylinder);
 int		get_background_color(t_ray *ray);
-int		get_pixel_color(t_data *data, t_ray ray, t_obj *obj);
+int		get_pixel_color(t_data *data, t_ray *ray, t_obj *obj);
 void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
 int		get_color(unsigned char r, unsigned char g, unsigned char b);
 void	scale_vector(double vect[], double scaler, double scaled_vect[]);
 void	add_vector(double a[], double b[], double sum_vect[]);
 void	normalize_vector(double vector[]);
-void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj *obj);
-void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj *obj);
-void	get_closest_intersection_pl(t_data *data, t_ray ray, t_obj *obj);
+void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
+void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
+void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
 void	cast_vector_mat_ray(t_matrix_vector *matrix_vect,
 			t_ray_vector *ray_vect);
 
@@ -79,31 +79,29 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 {
 	t_ray	ray;
 	t_obj	obj;
-	int		rgb;
 
 	new_ray(&data->cam, &ray, x, y);
 	obj.t = 100000000;
 	obj.ref = NULL;
-	get_closest_intersection_sp(data, ray, &obj);
-	get_closest_intersection_cy(data, ray, &obj);
-	get_closest_intersection_pl(data, ray, &obj);
-	rgb = get_pixel_color(data, ray, &obj);
-	put_pxl(mlx, x, y, rgb);
+	get_closest_intersection_sp(data, &ray, &obj);
+	get_closest_intersection_cy(data, &ray, &obj);
+	get_closest_intersection_pl(data, &ray, &obj);
+	put_pxl(mlx, x, y, get_pixel_color(data, &ray, &obj));
 }
 
 /**========================================================================
  *                           get_pixel_color
  *========================================================================**/
-int	get_pixel_color(t_data *data, t_ray ray, t_obj *obj)
+int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 {
 	int		rgb;
 	double	inter_bulb;
 	t_color	color;
 
-	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb, NULL);
+	inter_bulb = is_intersect_sphere(ray, &data->spotlight.bulb, NULL);
 	if (obj->t && obj->type == O_SP && !is_behind_cam(obj->t) && obj->ref)
 	{
-		get_sphere_color(data, &ray, obj->t, (t_sphere *)obj->ref,
+		get_sphere_color(data, ray, obj->t, (t_sphere *)obj->ref,
 			&data->spotlight, &color, &data->ambiant_light);
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
@@ -113,7 +111,7 @@ int	get_pixel_color(t_data *data, t_ray ray, t_obj *obj)
 	}
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref)
 	{
-		get_plane_color(data, &ray, obj->t, obj->ref, &data->spotlight, &color,
+		get_plane_color(data, ray, obj->t, obj->ref, &data->spotlight, &color,
 			&data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
@@ -121,6 +119,6 @@ int	get_pixel_color(t_data *data, t_ray ray, t_obj *obj)
 		rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight
 				.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
 	if (obj->ref == NULL)
-		rgb = get_background_color(&ray);
+		rgb = get_background_color(ray);
 	return (rgb);
 }
