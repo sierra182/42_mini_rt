@@ -204,8 +204,7 @@ get_sphere_color(&ray, obj->t, (t_sphere *)obj->ref, &data->spotlight, &color,
 void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	t_sphere *sphere, t_spotlight *spotlight, t_color *color,
 	t_ambiant_light *ambiant_light)
-{
-	printf("IN color:%d\n", sphere->color.rgb[1]);
+{	
 	//t_ray_vector	inter_pt;
 	t_ray_vector	normal;
 	t_ray			light_ray;
