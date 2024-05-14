@@ -8,14 +8,11 @@ int		intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 int		is_behind_cam(double t);
 void	get_sphere_color(t_data *data, t_ray *ray, double t,
-	t_sphere *sphere, t_spotlight *spotlight, t_color *color,
-	t_ambiant_light *ambiant_light);
+			t_sphere *sphere, t_spotlight *spotlight, t_color *color,
+			t_ambiant_light *ambiant_light);
 void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
-t_spotlight *spotlight, t_color *color, t_sphere *sphere,
-t_ambiant_light *ambiant_light, t_cylinder *cylinder);
-
-//void	get_sphere_color(t_ray *ray, double t, t_sphere *sphere, t_spotlight *spotlight, t_color *color, t_ambiant_light *ambiant_light);
-//void	get_plane_color(t_ray *ray, double t, t_plane *plane, t_spotlight *spotlight, t_color *color, t_sphere *sphere, t_ambiant_light *ambiant_light, t_cylinder *cylinder);
+			t_spotlight *spotlight, t_color *color, t_sphere *sphere,
+			t_ambiant_light *ambiant_light, t_cylinder *cylinder);
 int		get_background_color(t_ray *ray);
 int		get_pixel_color(t_data *data, t_ray ray, t_obj *obj);
 void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
@@ -26,7 +23,8 @@ void	normalize_vector(double vector[]);
 void	get_closest_intersection_sp(t_data *data, t_ray ray, t_obj *obj);
 void	get_closest_intersection_cy(t_data *data, t_ray ray, t_obj *obj);
 void	get_closest_intersection_pl(t_data *data, t_ray ray, t_obj *obj);
-void	cast_vector_mat_ray(t_matrix_vector *matrix_vect, t_ray_vector *ray_vect);
+void	cast_vector_mat_ray(t_matrix_vector *matrix_vect,
+			t_ray_vector *ray_vect);
 
 /**========================================================================
  *                           scale_and_add_vectors
@@ -79,9 +77,9 @@ static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
  *========================================================================**/
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 {
-	t_ray			ray;
+	t_ray	ray;
 	t_obj	obj;
-	int				rgb;
+	int		rgb;
 
 	new_ray(&data->cam, &ray, x, y);
 	obj.t = 100000000;
@@ -93,11 +91,6 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
 	put_pxl(mlx, x, y, rgb);
 }
 
-/* 
-void	get_sphere_color(t_data *data, t_ray *ray, double t,
-	t_sphere *sphere, t_spotlight *spotlight, t_color *color,
-	t_ambiant_light *ambiant_light)
-	 */
 /**========================================================================
  *                           get_pixel_color
  *========================================================================**/
@@ -110,9 +103,8 @@ int	get_pixel_color(t_data *data, t_ray ray, t_obj *obj)
 	inter_bulb = is_intersect_sphere(&ray, &data->spotlight.bulb, NULL);
 	if (obj->t && obj->type == O_SP && !is_behind_cam(obj->t) && obj->ref)
 	{
-		printf("color:%d\n", ((t_sphere *)obj->ref)->color.rgb[2]);
-		get_sphere_color(data, &ray, obj->t, (t_sphere *)obj->ref, &data->spotlight, &color,
-			&data->ambiant_light);
+		get_sphere_color(data, &ray, obj->t, (t_sphere *)obj->ref,
+			&data->spotlight, &color, &data->ambiant_light);
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
 	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref)
