@@ -2,6 +2,7 @@
 
 #include "x_mini_struct.h"
 #include "math.h"
+#include "x_linear_algebra.h"
 
 double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
