@@ -128,8 +128,8 @@ int	is_any_intersect(t_data *data, t_ray *light_ray)
 		// if (sphere && &data->spheres[i] != sphere)
 		// {
 			t = is_intersect_sphere(light_ray, &data->spheres[i]);  
-		//	if (t >= -1e-5 && t)//!auto shadows
-			if (t >= 1e-5) 
+		//	if (t >= 1e-5) 
+			if (t >= -1e-5 && t)//!auto shadows
 			{
 				//return (1);	
 				get_local_intersect_point(light_ray, t, &inter_pt);
@@ -221,10 +221,10 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 
 		light_coef = scalar_product(ray->dir_vect.axis, normal.axis);
 		light_coef = normalize_zero_one(light_coef);//!opti
-		double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);
+		//double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);
 		// subtract_color(&(t_color){.rgb[0] = 0, .rgb[1] = 0, .rgb[2] = 0},
 		// 	&ambiant_color, &subt_color);
-		scale_color(&ambiant_color, light_attenuation, color);
+		scale_color(&ambiant_color, light_coef, color);
 		subtract_color(&ambiant_color, color, color);
 		//  *color = ambiant_color;		
 		return ;
