@@ -36,7 +36,12 @@ double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i)
 	discrim = b * b - 4 * a * c;
 	if (discrim < 0)
 		return (0.0);
-	return ((-b - sqrt(discrim)) / (2 * a));
+	if ((-b - sqrt(discrim)) / (2 * a) > 1e-5)
+		return ((-b - sqrt(discrim)) / (2 * a));
+	else if ((-b + sqrt(discrim)) / (2 * a) > 1e-5)
+		return ((-b + sqrt(discrim)) / (2 * a));
+	else
+		return (0.0);
 }
 
 /* ************************************************************************** */

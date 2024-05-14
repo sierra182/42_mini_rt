@@ -256,6 +256,8 @@ void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 	subtract_vector(spotlight->origin_vect.axis, light_ray.origin_vect.axis,
 		light_ray.dir_vect.axis);	
 	color_with_ambiant_light(&plane->color, ambiant_light, &ambiant_color);
+	t_ray			light_ray_dup;
+	light_ray_dup =  light_ray;
 	if (is_any_intersect(data, &light_ray))
 	{		
 		*color = ambiant_color;		
@@ -265,7 +267,9 @@ void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 	light_coef = scalar_product(normal.axis, light_ray.dir_vect.axis);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		&ambiant_color, &subt_color);
-	scale_color(&subt_color, light_coef * spotlight->intensity, color);
+	double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef * spotlight->intensity);
+
+	scale_color(&subt_color, light_attenuation, color);
 	add_color(color, &ambiant_color, color);
 }
 
