@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rays.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/11 17:45:00 by svidot            #+#    #+#             */
-/*   Updated: 2024/05/12 16:11:31 by dsylvain         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "rays.h"
 
 # include "mlx.h"
@@ -22,6 +10,7 @@ double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
 double	is_intersect_sphere(t_ray *ray, void *input_sphere);
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y);
 void	invert_vector(double a[], double b[], double r_a[], double r_b[]);
+//void	get_closest_object(t_data *data, t_ray ray, t_obj *obj);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
@@ -116,46 +105,150 @@ void	color_with_ambiant_light(t_color *mesh_color,
 	new_color->rgb[2] = tmp_color * mesh_color->rgb[2];
 }
 
-int	is_shadow(t_ray	*light_ray, t_sphere *sphere, t_cylinder *cylinder)
+void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 {
-	t_ray			opp_light_ray;
+	t_ray_vector scaled_vect;	
 
-	invert_vector(light_ray->origin_vect.axis, light_ray->dir_vect.axis, 
-		opp_light_ray.origin_vect.axis, opp_light_ray.dir_vect.axis);
-	if (is_intersect_sphere(&opp_light_ray, sphere) > 0.0
-		|| is_intersect_cylinder(&opp_light_ray, cylinder) > 0.0)
-		return (1);
-	return (0);	
+	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);
+		
 }
 
-void	get_sphere_color(t_ray *ray, double t,
+int	is_any_intersect(t_data *data, t_ray *light_ray)
+{
+	int	i;
+	double	t;
+	double	mesh_mag;
+	double	light_mag;
+
+	t_ray_vector	inter_pt;
+
+	i = -1;
+	while (++i < data->sp_nbr)
+	{
+		// if (sphere && &data->spheres[i] != sphere)
+		// {
+			t = is_intersect_sphere(light_ray, &data->spheres[i]);  
+		//	if (t >= 1e-5) 
+			if (t >= -1e-5 && t)//!auto shadows
+			{
+				//return (1);	
+				get_local_intersect_point(light_ray, t, &inter_pt);
+				mesh_mag = get_vector_magnitude(inter_pt.axis);
+				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+				if (mesh_mag < light_mag)
+					return (1);			
+			}
+		//}
+		// else if (!sphere)
+		// {
+		// 	t = is_intersect_sphere(light_ray, &data->spheres[i]);  
+		// 	if (t > 0.0)
+		// 	{
+		// 		return (1);	
+		// 	}
+		// }
+	}
+
+	// i = -1;
+	// while (++i < data->cy_nbr)
+	// 	if (is_intersect_cylinder(light_ray, &data->cylinders[i]) > 0.0)
+	// 		return (1);
+	return (0);
+}
+
+// int	is_shadow(t_data *data, t_ray *light_ray, t_sphere *sphere)
+// {
+// 	t_ray			opp_light_ray; 
+
+// 	invert_vector(light_ray->origin_vect.axis, light_ray->dir_vect.axis, 
+// 		opp_light_ray.origin_vect.axis, opp_light_ray.dir_vect.axis);
+// 	if (is_any_intersect(data, light_ray, sphere))
+// 		return (1);
+// 	return (0);	
+// }
+
+// double calculate_light_attenuation(t_ray *light_ray, double intensity)
+// {
+// 	double	light_mag;
+// 	double	kc;
+// 	double	kl;
+// 	double	kq;
+
+// 	kc = 1.0;
+// 	kl = 45e-3;
+// 	kq = 75e-4;
+// 	light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+// 	return (intensity / (light_mag * light_mag));
+// }
+
+double calculate_light_attenuation(t_ray *light_ray, double intensity)
+{
+	double	light_mag;
+	double	kc;
+	double	kl;
+	double	kq;
+
+	kc = 1.0;
+	kl = 45e-3;
+	kq = 75e-4;
+	light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
+}
+
+
+/* 
+
+get_sphere_color(&ray, obj->t, (t_sphere *)obj->ref, &data->spotlight, &color,
+			&data->ambiant_light);
+			 */
+void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	t_sphere *sphere, t_spotlight *spotlight, t_color *color,
 	t_ambiant_light *ambiant_light)
 {
-	t_ray_vector	inter_pt;
+	printf("IN color:%d\n", sphere->color.rgb[1]);
+	//t_ray_vector	inter_pt;
 	t_ray_vector	normal;
-	t_ray_vector	light_ray;
+	t_ray			light_ray;
 	t_ray_vector	scaled_vect;
 	double 			light_coef;
 	t_color			subt_color;
 	t_color			ambiant_color;
 
-	get_intersect_point(ray, t, &inter_pt);
-	subtract_vector(inter_pt.axis, sphere->origin_vect.axis, normal.axis);
+	get_intersect_point(ray, t, &light_ray.origin_vect);
+	subtract_vector(light_ray.origin_vect.axis, sphere->origin_vect.axis, normal.axis);
 	normalize_vector(normal.axis);
-	subtract_vector(spotlight->origin_vect.axis, inter_pt.axis,
-		light_ray.axis);
-	normalize_vector(light_ray.axis);
-	light_coef = scalar_product(light_ray.axis, normal.axis);
-	light_coef = normalize_zero_one(light_coef);
+	subtract_vector(spotlight->origin_vect.axis, light_ray.origin_vect.axis,
+		light_ray.dir_vect.axis);
+
 	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
+	t_ray			light_ray_dup;
+	light_ray_dup =  light_ray;
+	if (is_any_intersect(data, &light_ray))
+	{
+		//normalize_vector(light_ray.dir_vect.axis);
+
+		light_coef = scalar_product(ray->dir_vect.axis, normal.axis);
+		light_coef = normalize_zero_one(light_coef);//!opti
+		//double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);
+		// subtract_color(&(t_color){.rgb[0] = 0, .rgb[1] = 0, .rgb[2] = 0},
+		// 	&ambiant_color, &subt_color);
+		scale_color(&ambiant_color, light_coef, color);
+		subtract_color(&ambiant_color, color, color);
+		//  *color = ambiant_color;		
+		return ;
+	}
+	normalize_vector(light_ray.dir_vect.axis);
+	light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
+	light_coef = normalize_zero_one(light_coef);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
-		&ambiant_color, &subt_color);	
-	scale_color(&subt_color, light_coef * spotlight->intensity, color);
+		&ambiant_color, &subt_color);
+	double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef * spotlight->intensity);
+	//printf("light :%f, %f\n", light_coef * spotlight->intensity, light_attenuation);
+	scale_color(&subt_color, light_attenuation, color);
 	add_color(color, &ambiant_color, color);	
 }
 
-void	get_plane_color(t_ray *ray, double t, t_plane *plane,
+void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 	t_spotlight *spotlight, t_color *color, t_sphere *sphere,
 	t_ambiant_light *ambiant_light, t_cylinder *cylinder)
 {	
@@ -171,7 +264,7 @@ void	get_plane_color(t_ray *ray, double t, t_plane *plane,
 	subtract_vector(spotlight->origin_vect.axis, light_ray.origin_vect.axis,
 		light_ray.dir_vect.axis);	
 	color_with_ambiant_light(&plane->color, ambiant_light, &ambiant_color);
-	if (is_shadow(&light_ray, sphere, cylinder))
+	if (is_any_intersect(data, &light_ray))
 	{		
 		*color = ambiant_color;		
 		return ;
