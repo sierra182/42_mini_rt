@@ -6,8 +6,8 @@
 # include <math.h>
 
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
-double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder);
-double	is_intersect_sphere(t_ray *ray, void *input_sphere);
+double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder, t_ray_vector *i);
+double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y);
 void	invert_vector(double a[], double b[], double r_a[], double r_b[]);
 //void	get_closest_object(t_data *data, t_ray ray, t_obj *obj);
@@ -127,7 +127,7 @@ int	is_any_intersect(t_data *data, t_ray *light_ray)
 	{
 		// if (sphere && &data->spheres[i] != sphere)
 		// {
-			t = is_intersect_sphere(light_ray, &data->spheres[i]);  
+			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL);  
 		//	if (t >= 1e-5) 
 			if (t >= -1e-5 && t)//!auto shadows
 			{
