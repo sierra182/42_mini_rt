@@ -15,6 +15,13 @@ int		parse(t_data *data, char *map_path);
 void	launch_rays(t_mlx *mlx, t_data *data);
 void	post_init_cam(t_cam *cam);
 
+/**========================================================================
+ *                             COMMENTS
+ *! taille maximal input file = 1024 chars. peut etre modifie...
+ *  
+ *  
+ *  
+ *========================================================================**/
 #include <unistd.h> 
 int	frame(void *param)
 {
