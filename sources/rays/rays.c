@@ -209,7 +209,6 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
 	t_ray			light_ray_dup;
 	light_ray_dup =  light_ray;	
-
 		light_coef = scalar_product(ray->dir_vect.axis, symmetrize_vector(normal.axis));
 		light_coef = normalize_zero_one(light_coef);//!opti
 		// double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);

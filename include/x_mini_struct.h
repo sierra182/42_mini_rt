@@ -65,6 +65,7 @@ typedef struct s_sphere
 	double			diameter;
 	double			square_radius;
 	t_color			color;
+	int				which_t;
 }	t_sphere;
 
 typedef struct	s_spotlight
