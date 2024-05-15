@@ -113,7 +113,7 @@ void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 		
 }
 
-int	is_any_intersect(t_data *data, t_ray *light_ray)
+int	is_any_intersect(t_data *data, void *mesh, t_ray *light_ray)
 {
 	int	i;
 	double	t;
@@ -125,8 +125,9 @@ int	is_any_intersect(t_data *data, t_ray *light_ray)
 	i = -1;
 	while (++i < data->sp_nbr)
 	{
-		// if (sphere && &data->spheres[i] != sphere)
-		// {
+		if (mesh && &data->spheres[i] != (t_sphere *) mesh)
+		{
+			
 			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL);  
 			// if (t >= 1e-5) 
 			if (t && data->spheres[i].which_t == 1)// >= -1e-5 && t)//!auto shadows
@@ -138,7 +139,7 @@ int	is_any_intersect(t_data *data, t_ray *light_ray)
 				if (mesh_mag < light_mag)
 					return (1);			
 			}
-		//}
+		}
 		// else if (!sphere)
 		// {
 		// 	t = is_intersect_sphere(light_ray, &data->spheres[i]);  
@@ -216,7 +217,7 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 		// double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);
 		scale_color(&ambiant_color, light_coef, color);
 		subtract_color(&ambiant_color, color, &ambiant_color);
-	if (is_any_intersect(data, &light_ray))
+	if (is_any_intersect(data, sphere, &light_ray))
 	{
 		// normalize_vector(light_ray.dir_vect.axis);
 		// light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
@@ -315,7 +316,7 @@ void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 	color_with_ambiant_light(&plane->color, ambiant_light, &ambiant_color);
 	t_ray			light_ray_dup;
 	light_ray_dup =  light_ray;
-	if (is_any_intersect(data, &light_ray))
+	if (is_any_intersect(data, plane, &light_ray))
 	{		
 		*color = ambiant_color;		
 		return ;
