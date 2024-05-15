@@ -20,7 +20,7 @@ int	all_necessary_elements_are_present(t_data *data, char file_content[])
 	data->pl_nbr = element_is_present(file_content, "pl");
 	if (data->pl_nbr == 0)
 		return (0);
-	return (1);
+	return (1); 
 }
 
 /**========================================================================

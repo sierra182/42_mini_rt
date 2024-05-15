@@ -104,12 +104,8 @@ int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
 	add_vector(scaled_v.axis, cyl->origin_vect.axis, plane_1.origin_vect.axis);
 	scale_vector(cyl->axis_vect.axis, cyl->height * -0.5, scaled_v.axis);
 	add_vector(scaled_v.axis, cyl->origin_vect.axis, plane_2.origin_vect.axis);
-	if (is_intersect_plane(ray, &plane_1, i) || is_intersect_plane(ray, &plane_2, i))
+	if ((is_intersect_plane(ray, &plane_1, i) && distance_between_points(i, &plane_1.origin_vect) <= cyl->radius) || (is_intersect_plane(ray, &plane_2, i) && distance_between_points(i, &plane_2.origin_vect) <= cyl->radius))
 	{
-		if (distance_between_points(i, &plane_1.origin_vect)
-			> cyl->radius && distance_between_points
-			(i, &plane_2.origin_vect) > cyl->radius)
-			return (0);
 		return (1);
 	}
 	return (0);
