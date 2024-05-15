@@ -1,6 +1,6 @@
 #include "x_mini_struct.h"
 
-void	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i, double t[]);
+double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 
