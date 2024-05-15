@@ -1,17 +1,28 @@
 # include <math.h>
 # include "x_mini_struct.h"
 
-void	invert_vector(double ori[], double dir[], double r_ori[], double r_dir[])
+void	invert_vector(double ori[], double dir[], double inv_ori[], double inv_dir[])
 {	
 	int	i;
 
 	i = -1;
 	while (++i < AXIS)
 	{
-		r_ori[i] = ori[i] + dir[i];
-		r_dir[i] = -dir[i];
+		inv_ori[i] = ori[i] + dir[i];
+		inv_dir[i] = -dir[i];
 	}
 }
+
+double	*symetric_vector(double vect[])
+{	
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)	
+		vect[i] = -vect[i];
+	return (vect);
+}
+
 
 double	get_vector_magnitude(double vector[])
 {
