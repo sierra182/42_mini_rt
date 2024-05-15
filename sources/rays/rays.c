@@ -130,7 +130,7 @@ int	is_any_intersect(t_data *data, void *mesh, t_ray *light_ray)
 			
 			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL);  
 			// if (t >= 1e-5) 
-			if (t && data->spheres[i].which_t == 1)// >= -1e-5 && t)//!auto shadows
+			if (t && t >= 1 && data->spheres[i].which_t == 1)// >= -1e-5 && t)//!auto shadows
 			{
 				//return (1);	
 				get_local_intersect_point(light_ray, t, &inter_pt);
