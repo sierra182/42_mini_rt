@@ -210,25 +210,48 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	t_ray			light_ray_dup;
 	light_ray_dup =  light_ray;	
 
-		light_coef = scalar_product(ray->dir_vect.axis, normal.axis);
+		light_coef = scalar_product(ray->dir_vect.axis, symmetrize_vector(normal.axis));
 		light_coef = normalize_zero_one(light_coef);//!opti
 		// double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);
 		scale_color(&ambiant_color, light_coef, color);
 		subtract_color(&ambiant_color, color, &ambiant_color);
 	if (is_any_intersect(data, &light_ray))
 	{
+		// normalize_vector(light_ray.dir_vect.axis);
+		// light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
+		// light_coef = normalize_zero_one(light_coef);//!opti
+		// // double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);
+		// scale_color(&ambiant_color, light_coef, color);
+		// add_color(&ambiant_color, color, &ambiant_color);
+		if (light_coef < 0.5)
+	{
+		//printf("yp\n");
+		scale_color(&ambiant_color, light_coef, color);
+		subtract_color(color, &ambiant_color, color);
+	}
 		*color = ambiant_color;		
 		return ;
 	}
 	normalize_vector(light_ray.dir_vect.axis);
-	light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
+
+	light_coef = scalar_product(light_ray.dir_vect.axis, symmetrize_vector(normal.axis));
 	light_coef = normalize_zero_one(light_coef);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		&ambiant_color, &subt_color);
 	double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef * spotlight->intensity);
-	scale_color(&subt_color, light_attenuation, color);
-	add_color(color, &ambiant_color, color);
 	
+
+	
+		scale_color(&subt_color, light_attenuation, color);
+		add_color(color, &ambiant_color, color);
+	
+		if(light_coef > 0.5)
+	{
+		t_color recolor = *color;
+		scale_color(color, -0.2 *light_attenuation, color);
+		subtract_color(&recolor, color, color);
+	}
+		
 }
 
 // void	get_sphere_color(t_data *data, t_ray *ray, double t,

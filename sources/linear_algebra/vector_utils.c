@@ -13,7 +13,7 @@ void	invert_vector(double ori[], double dir[], double inv_ori[], double inv_dir[
 	}
 }
 
-double	*symetric_vector(double vect[])
+double	*symmetrize_vector(double vect[])
 {	
 	int	i;
 

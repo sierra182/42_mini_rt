@@ -19,7 +19,7 @@ int	    are_collinear_vectors(t_matrix_vector *pdct_vect, double precision);
 double	normalize_zero_one(double scalar_product);
 void	normalize_vector(double vector[]);
 double	get_vector_magnitude(double vector[]);
-double	*symetric_vector(double vect[]);
+double	*symmetrize_vector(double vect[]);
 void	invert_vector(double ori[], double dir[], double inv_ori[], double inv_dir[]);
 
 #endif
