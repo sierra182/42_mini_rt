@@ -99,7 +99,7 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 	t_color	color;
 
 	inter_bulb = is_intersect_sphere(ray, &data->spotlight.bulb, NULL);
-	if (obj->t && obj->type == O_SP && !is_behind_cam(obj->t) && obj->ref)
+	if (obj->t && obj->type == O_SP && obj->ref)
 	{
 		get_sphere_color(data, ray, obj->t, (t_sphere *)obj->ref,
 			&data->spotlight, &color, &data->ambiant_light);
@@ -115,10 +115,10 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 			&data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
+	if (obj->ref == NULL)
+		rgb = get_background_color(ray);
 	if (inter_bulb && !is_behind_cam(inter_bulb))
 		rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight
 				.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
-	if (obj->ref == NULL)
-		rgb = get_background_color(ray);
 	return (rgb);
 }

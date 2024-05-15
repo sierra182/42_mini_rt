@@ -9,7 +9,7 @@ static void cam_event_rotate(int keycode, t_cam *cam)
 {
     double  r;
 
-    r = .05;
+    r = 1.0;
     if (keycode == R_LFT)	
 		rotate_cam(cam, r, (int []){1, 0, 0});
     else if (keycode == R_RGHT)	
