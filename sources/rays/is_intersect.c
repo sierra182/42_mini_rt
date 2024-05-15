@@ -16,10 +16,27 @@ double	get_t_from_point(t_ray *ray, t_ray_vector *point);
 
 #define EPSILON 1e-6
 
+void	fill_t(double discrim, double t[])
+{
+	double t1;
+	double t2;
+
+	t[0] = 0.0;
+	t[1] = 0.0;
+	if (discrim < 0)
+		return t;
+	t1 = (-b - sqrt(discrim)) / (2 * a);
+	t2 = (-b + sqrt(discrim)) / (2 * a);
+	if (t1 > 1e-5)
+		t[0] = t1;
+	else if (t2 > 1e-5)
+		t[1] = t2;
+}
+
 /**========================================================================
  *                           is_intersect_sphere
  *========================================================================**/
-double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i)
+void	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i, double t[])
 {
 	t_ray_vector	sphere_ray_vect;
 	double			a;
@@ -27,6 +44,8 @@ double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i)
 	double			c;	
 	double			discrim;
 	
+	t[0] = 0.0;
+	t[1] = 0.0;
 	t_sphere *sphere = (t_sphere *)input_sphere;
 	subtract_vector(ray->origin_vect.axis, sphere->origin_vect.axis,
 		sphere_ray_vect.axis);
@@ -35,14 +54,7 @@ double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i)
 	c = scalar_product(sphere_ray_vect.axis, sphere_ray_vect.axis)
 		- sphere->square_radius;
 	discrim = b * b - 4 * a * c;
-	if (discrim < 0)
-		return (0.0);
-	if ((-b - sqrt(discrim)) / (2 * a) > 1e-5)
-		return ((-b - sqrt(discrim)) / (2 * a));
-	// else if ((-b + sqrt(discrim)) / (2 * a) > 1e-5)
-	// 	return ((-b + sqrt(discrim)) / (2 * a));
-	else
-		return (0.0);
+	fill_t(discrim, t);
 }
 
 /* ************************************************************************** */

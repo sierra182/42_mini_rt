@@ -7,7 +7,7 @@
 
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double    is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder, t_ray_vector *i);
-double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
+void	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i, double t[]);
 void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y);
 void	invert_vector(double a[], double b[], double r_a[], double r_b[]);
 //void	get_closest_object(t_data *data, t_ray ray, t_obj *obj);
