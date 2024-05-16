@@ -18,7 +18,7 @@ void	post_init_cam(t_cam *cam);
 /**========================================================================
  *                             COMMENTS
  *! taille maximal input file = 1024 chars. peut etre modifie...
- *  
+ *! element count commented out (see parsing)
  *  
  *  
  *========================================================================**/
@@ -78,13 +78,13 @@ int	main(int argc, char **argv)
 		return (display_error("arg number not valid\n"), 1);
 	if (parse(&data, argv[1]) == 0)
 		return (display_error(".rt file not valid\n"), 2);
-	// if (init_data(argv[1], &data) == 0)
-	// 	return (display_error("data init. error\n"), 3);
-	// post_init_cam(&data.cam);
-	// update_cam(&data.cam);
-	// if (init_mlx(&mlx))
-	// 	return (4);
-	// launch_mlx_loop(&mlx, &data);
+	if (init_data(argv[1], &data) == 0)
+		return (display_error("data init. error\n"), 3);
+	post_init_cam(&data.cam);
+	update_cam(&data.cam);
+	if (init_mlx(&mlx))
+		return (4);
+	launch_mlx_loop(&mlx, &data);
 	flush_exit_struct();
 	return (0);
 }

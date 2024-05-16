@@ -4,24 +4,26 @@
 #include <get_next_line.h>
 /**========================================================================
  *                           all_necessary_elements_are_present
- * ! remove comment to enable element nbr check 
  *========================================================================**/
 int	all_necessary_elements_are_present(t_data *data, char *map_path)
 {
+	int nbr;
+
+	nbr = -1;
 	if (element_is_present(map_path, "A") != 1)
 		return (0);
 	if (element_is_present(map_path, "C") != 1)
 		return (0);
 	if (element_is_present(map_path, "L") != 1)
 		return (0);
-	data->sp_nbr = element_is_present(map_path, "sp");
-	if (data->sp_nbr == 0)
+	nbr = element_is_present(map_path, "sp");
+	if (nbr == 0)
 		return (0);
-	data->cy_nbr = element_is_present(map_path, "cy");
-	if (data->cy_nbr == 0)
+	nbr = element_is_present(map_path, "cy");
+	if (nbr == 0)
 		return (0);
-	data->pl_nbr = element_is_present(map_path, "pl");
-	if (data->pl_nbr == 0)
+	nbr = element_is_present(map_path, "pl");
+	if (nbr == 0)
 		return (0);
 	return (1);
 }

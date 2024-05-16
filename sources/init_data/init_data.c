@@ -1,12 +1,27 @@
 #include "init_data.h"
 
 void	print_cylinder(t_cylinder *cylinder);
+int		element_is_present(char *map_path, char *el);
 
 /**========================================================================
  *                             COMMENT BLOCK
  * tab cells are initialized at 1024.
  * => values of floats for coordinates should not be greater than 1024 
  *========================================================================**/
+
+int	get_elements_number(t_data *data, char *map_path)
+{
+	data->sp_nbr = element_is_present(map_path, "sp");
+	if (data->sp_nbr == 0)
+		return (0);
+	data->cy_nbr = element_is_present(map_path, "cy");
+	if (data->cy_nbr == 0)
+		return (0);
+	data->pl_nbr = element_is_present(map_path, "pl");
+	if (data->pl_nbr == 0)
+		return (0);
+	return (1);
+}
 
 /**========================================================================
  *                           init_data
@@ -15,6 +30,8 @@ int	init_data(char *map_path, t_data *data)
 {
 	double	tab[20];
 
+	if (get_elements_number(data, map_path) == 0)
+		return (0);
 	if (create_data_structs(data, map_path) == 0)
 		return (0);
 	while (get_element_data(map_path, tab, "A") != NULL)
