@@ -14,6 +14,8 @@ int	is_empty_str(char *str)
 	{
 		if (!ft_isspace(str[i]))
 			return (0);
+		if (str[i] == '#')
+			return (1);
 		i++;
 	}
 	return (1);

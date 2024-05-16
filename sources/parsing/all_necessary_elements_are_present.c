@@ -1,46 +1,76 @@
 #include "all_necessary_elements_are_present.h"
-
+#include <fcntl.h>
+#include <unistd.h>
+#include <get_next_line.h>
 /**========================================================================
  *                           all_necessary_elements_are_present
  *========================================================================**/
-int	all_necessary_elements_are_present(t_data *data, char file_content[])
+int	all_necessary_elements_are_present(t_data *data, char *map_path)
 {
-	if (element_is_present(file_content, "A") != 1)
+	int nbr;
+
+	nbr = -1;
+	if (element_is_present(map_path, "A") != 1)
 		return (0);
-	if (element_is_present(file_content, "C") != 1)
+	if (element_is_present(map_path, "C") != 1)
 		return (0);
-	if (element_is_present(file_content, "L") != 1)
+	if (element_is_present(map_path, "L") != 1)
 		return (0);
-	data->sp_nbr = element_is_present(file_content, "sp");
-	if (data->sp_nbr == 0)
+	nbr = element_is_present(map_path, "sp");
+	if (nbr == 0)
 		return (0);
-	data->cy_nbr = element_is_present(file_content, "cy");
-	if (data->cy_nbr == 0)
+	nbr = element_is_present(map_path, "cy");
+	if (nbr == 0)
 		return (0);
-	data->pl_nbr = element_is_present(file_content, "pl");
-	if (data->pl_nbr == 0)
+	nbr = element_is_present(map_path, "pl");
+	if (nbr == 0)
 		return (0);
 	return (1); 
+}
+
+int	is_comment(char *str)
+{
+	int	i;
+	int	yes_no;
+
+	i = 0;
+	yes_no = 0;
+	while (str[i])
+	{
+		if (str[i] == '#')
+			return (1);
+		i++;
+	}
+	return (yes_no);
 }
 
 /**========================================================================
  *                           element_is_present
  *========================================================================**/
-int	element_is_present(char file_content[], char *el)
+int	element_is_present(char *map_path, char *el)
 {
-	int	i;
-	int	n;
+	int		i;
+	int		n;
+	int		map_fd;
+	char	*str;
 
 	n = 0;
-	i = 0;
-	while (i < FILE_SIZE)
+	map_fd = open(map_path, O_RDONLY);
+	while (1)
 	{
-		if (!ft_strncmp(&file_content[i], el, ft_strlen(el))
-			&& (!file_content[i + ft_strlen(el)] || ft_isspace(file_content
-					[i + ft_strlen(el)])) && (i > 0 && (!file_content[i - 1]
-					|| ft_isspace(file_content[i - 1]))))
-			n++;
-		i++;
+		str = get_next_line(map_fd);
+		if (!str)
+			break ;
+		if (is_comment(str))
+		{
+			free(str);
+			get_next_line(42);
+			continue ;
+		}
+		n += ft_strcount(str, el);
+		free(str);
 	}
+	close(map_fd);
+	i = 0;
 	return (n);
 }
