@@ -6,11 +6,20 @@
 int	parse(t_data *data, char *map_path)
 {
 	if (!is_rt_file(map_path))
+	{
+		printf("is_rt_file\n");
 		return (0);
+	}
 	if (!file_exists(map_path))
+	{
+		printf("file_exists\n");
 		return (0);
+	}
 	if (!file_content_is_correct(data, map_path))
+	{
+		printf("file_content_is_correct\n");
 		return (0);
+	}
 	return (1);
 }
 
