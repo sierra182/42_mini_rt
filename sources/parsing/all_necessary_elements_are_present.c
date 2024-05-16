@@ -9,39 +9,20 @@
 int	all_necessary_elements_are_present(t_data *data, char *map_path)
 {
 	if (element_is_present(map_path, "A") != 1)
-	{
-		int n = element_is_present(map_path, "A");
-		printf("element_is_present 1, A: %i\n", n);
 		return (0);
-	}
 	if (element_is_present(map_path, "C") != 1)
-	{
-		printf("element_is_present 2\n");
 		return (0);
-	}
 	if (element_is_present(map_path, "L") != 1)
-	{
-		printf("element_is_present 3\n");
 		return (0);
-	}
 	data->sp_nbr = element_is_present(map_path, "sp");
 	if (data->sp_nbr == 0)
-	{
-		printf("element_is_present 4\n");
 		return (0);
-	}
 	data->cy_nbr = element_is_present(map_path, "cy");
 	if (data->cy_nbr == 0)
-	{
-		printf("element_is_present 5\n");
 		return (0);
-	}
 	data->pl_nbr = element_is_present(map_path, "pl");
 	if (data->pl_nbr == 0)
-	{
-		printf("element_is_present 6\n");
 		return (0);
-	}
 	return (1);
 }
 
@@ -90,11 +71,6 @@ int	element_is_present(char *map_path , char *el)
 		free(str);
 	}
 	close(map_fd);
-
-	printf("el: %s\nn: %i\n", el, n);
-
-
-
 	i = 0;
 	return (n);
 }

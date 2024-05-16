@@ -15,37 +15,20 @@ int	file_content_is_correct(t_data *data, char *map_path)
 	ft_bzero(file_content, FILE_SIZE);
 	file_size = read(map_fd, file_content, FILE_SIZE);
 	if (file_size > FILE_SIZE)
-	{
-		printf("file_content_is_correct 0\n");
 		return (0);
-	}
-
 	while (1)
 	{
 		str = get_next_line(map_fd);
 		if (!str)
 			break ;
 		if (!is_only_valid_chars(str))
-		{
-			printf("file_content_is_correct 1\n");
 			return (free(str), 0);
-		}
-		
 		free(str);
 	}
-
 	if (!all_necessary_elements_are_present(data, map_path))
-		{
-			printf("file_content_is_correct 2\n");
 			return (0);
-		}
-
-
 	if (!elements_data_are_valid(map_path))
-	{
-		printf("file_content_is_correct 3\n");
 		return (0);
-	}
 	close(map_fd);
 	return (1);
 }
@@ -63,10 +46,7 @@ int	is_only_valid_chars(char str[])
 		if (str[i] == '#')
 			return (1);
 		if (!is_valid_char(str[i]))
-		{
-			printf("is_only_valid_chars\n");
 			return (0);
-		}
 		i++;
 	}
 	return (1);
@@ -88,6 +68,5 @@ int	is_valid_char(char c)
 			return (1);
 		i++;
 	}
-	printf("is_valid_char\n");
 	return (0);
 }
