@@ -26,7 +26,7 @@ int	file_content_is_correct(t_data *data, char *map_path)
 		free(str);
 	}
 	if (!all_necessary_elements_are_present(data, map_path))
-			return (0);
+		return (0);
 	if (!elements_data_are_valid(map_path))
 		return (0);
 	close(map_fd);

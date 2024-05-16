@@ -1,5 +1,5 @@
 #include "all_necessary_elements_are_present.h"
-# include <fcntl.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <get_next_line.h>
 /**========================================================================
@@ -39,19 +39,18 @@ int	is_comment(char *str)
 			return (1);
 		i++;
 	}
-
 	return (yes_no);
 }
 
 /**========================================================================
  *                           element_is_present
  *========================================================================**/
-int	element_is_present(char *map_path , char *el)
+int	element_is_present(char *map_path, char *el)
 {
-	int	i;
-	int	n;
-	int	map_fd;
-	char *str;
+	int		i;
+	int		n;
+	int		map_fd;
+	char	*str;
 
 	n = 0;
 	map_fd = open(map_path, O_RDONLY);
@@ -67,7 +66,6 @@ int	element_is_present(char *map_path , char *el)
 			continue ;
 		}
 		n += ft_strcount(str, el);
-		
 		free(str);
 	}
 	close(map_fd);
