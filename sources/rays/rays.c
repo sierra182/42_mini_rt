@@ -140,7 +140,7 @@ int	is_any_intersect(t_data *data, void *mesh, t_ray *light_ray)
 				// {
 					//printf("ligh: %f", light_mag);
 					mesh_mag = get_vector_magnitude(inter_pt.axis);
-					if (mesh_mag < light_mag)
+					if (mesh_mag - 1e-5 < light_mag)
 						return (1);			
 				// }
 			}
@@ -213,8 +213,8 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 		light_ray.dir_vect.axis);
 
 	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
-	// if (sphere->which_t == 2)
-	// 	symmetrize_vector(normal.axis);
+	if (sphere->which_t == 2)
+		symmetrize_vector(normal.axis);
 	t_ray			light_ray_dup;
 	light_ray_dup =  light_ray;	
 		light_coef = scalar_product(ray->dir_vect.axis, normal.axis);
@@ -321,11 +321,11 @@ void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 	color_with_ambiant_light(&plane->color, ambiant_light, &ambiant_color);
 	t_ray			light_ray_dup;
 	light_ray_dup =  light_ray;
-	// if (is_any_intersect(data, plane, &light_ray))
-	// {		
+	if (is_any_intersect(data, plane, &light_ray))
+	{		
 		*color = ambiant_color;		
 		return ;
-	// }
+	}
 	normalize_vector(light_ray.dir_vect.axis);
 	light_coef = scalar_product(normal.axis, light_ray.dir_vect.axis);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
