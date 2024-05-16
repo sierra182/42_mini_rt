@@ -91,26 +91,25 @@ int		is_behind_cam(double t)
 void	color_with_ambiant_light(t_color *mesh_color,
 	t_ambiant_light *ambiant_light, t_color *new_color)
 {
-	t_color	subt_color;
 	t_color	ambiant_scaled_color;
 	double	tmp_color;
+	int		i;
 
 	scale_color(&ambiant_light->color, ambiant_light->intensity,
 		&ambiant_scaled_color);
-	tmp_color = ambiant_scaled_color.rgb[0] / 255.0;
-	new_color->rgb[0] = tmp_color * mesh_color->rgb[0];	
-	tmp_color = ambiant_scaled_color.rgb[1] / 255.0;
-	new_color->rgb[1] = tmp_color * mesh_color->rgb[1];
-	tmp_color = ambiant_scaled_color.rgb[2] / 255.0;
-	new_color->rgb[2] = tmp_color * mesh_color->rgb[2];
+	i = -1;
+	while (++i < AXIS)
+	{
+		tmp_color = ambiant_scaled_color.rgb[i] / 255.0;
+		new_color->rgb[i] = tmp_color * mesh_color->rgb[i];
+	}	
 }
 
 void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 {
 	t_ray_vector scaled_vect;	
 
-	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);
-		
+	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);		
 }
 
 int	is_any_intersect(t_data *data, void *mesh, t_ray *light_ray)
@@ -119,7 +118,6 @@ int	is_any_intersect(t_data *data, void *mesh, t_ray *light_ray)
 	double	t;
 	long double	mesh_mag;
 	long double	light_mag;
-
 	t_ray_vector	inter_pt;
 
 	i = -1;
@@ -128,37 +126,17 @@ int	is_any_intersect(t_data *data, void *mesh, t_ray *light_ray)
 		if (mesh && (void *) &data->spheres[i] != mesh)
 		{
 		
-			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL); 
-			
-			// if (t >= 1e-5) 
-			if (t && data->spheres[i].which_t == 1)// >= -1e-5 && t)//!auto shadows
-			{//printf("t: %f\n", t);
-				// return (1);	
+			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL); 		
+			if (t && data->spheres[i].which_t == 1)
+			{
 				get_local_intersect_point(light_ray, t, &inter_pt);
-				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
-				// if (light_mag > 1)
-				// {
-					//printf("ligh: %f", light_mag);
-					mesh_mag = get_vector_magnitude(inter_pt.axis);
-					if (mesh_mag - 1e-5 < light_mag)
-						return (1);			
-				// }
+				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);		
+				mesh_mag = get_vector_magnitude(inter_pt.axis);
+				if (mesh_mag - 1e-5 < light_mag)
+					return (1);		
 			}
-		 }
-		// else if (!sphere)
-		// {
-		// 	t = is_intersect_sphere(light_ray, &data->spheres[i]);  
-		// 	if (t > 0.0)
-		// 	{
-		// 		return (1);	
-		// 	}
-		// }
+		}
 	}
-
-	// i = -1;
-	// while (++i < data->cy_nbr)
-	// 	if (is_intersect_cylinder(light_ray, &data->cylinders[i]) > 0.0)
-	// 		return (1);
 	return (0);
 }
 
