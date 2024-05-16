@@ -16,7 +16,7 @@ void	cross_product(t_matrix_vector *a, t_matrix_vector *b,
 
 void	cast_vector_mat_ray(t_matrix_vector *matrix_vect, t_ray_vector *ray_vect);
 int	    are_collinear_vectors(t_matrix_vector *pdct_vect, double precision);
-double	normalize_zero_one(double scalar_product);
+void	normalize_zero_one(double *scalar_product);
 void	normalize_vector(double vector[]);
 double	get_vector_magnitude(double vector[]);
 double	*symmetrize_vector(double vect[]);

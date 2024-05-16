@@ -115,71 +115,30 @@ void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 
 int	is_any_intersect(t_data *data, void *mesh, t_ray *light_ray)
 {
-	int	i;
-	double	t;
-	long double	mesh_mag;
-	long double	light_mag;
-
-	t_ray_vector	inter_pt;
+	int				i;
+	double			t;
+	long double		mesh_mag;
+	long double		light_mag;
+	t_ray_vector	intersect_pt;
 
 	i = -1;
 	while (++i < data->sp_nbr)
 	{
 		if (mesh && (void *) &data->spheres[i] != mesh)
-		{
-		
+		{		
 			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL); 
-			
-			// if (t >= 1e-5) 
-			if (t && data->spheres[i].which_t == 1)// >= -1e-5 && t)//!auto shadows
-			{//printf("t: %f\n", t);
-				// return (1);	
-				get_local_intersect_point(light_ray, t, &inter_pt);
-				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
-				// if (light_mag > 1)
-				// {
-					//printf("ligh: %f", light_mag);
-					mesh_mag = get_vector_magnitude(inter_pt.axis);
-					if (mesh_mag - 1e-5 < light_mag)
-						return (1);			
-				// }
+			if (t && data->spheres[i].which_t == 1)
+			{	
+				get_local_intersect_point(light_ray, t, &intersect_pt);
+				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);		
+				mesh_mag = get_vector_magnitude(intersect_pt.axis);
+				if (mesh_mag - 1e-5 < light_mag)
+					return (1);			
 			}
-		 }
-		// else if (!sphere)
-		// {
-		// 	t = is_intersect_sphere(light_ray, &data->spheres[i]);  
-		// 	if (t > 0.0)
-		// 	{
-		// 		return (1);	
-		// 	}
-		// }
+		}
 	}
-
-	// i = -1;
-	// while (++i < data->cy_nbr)
-	// 	if (is_intersect_cylinder(light_ray, &data->cylinders[i]) > 0.0)
-	// 		return (1);
 	return (0);
 }
-
-// int	is_shadow(t_data *data, t_ray *light_ray, t_sphere *sphere)
-// {
-// 	t_ray			opp_light_ray; 
-
-// 	invert_vector(light_ray->origin_vect.axis, light_ray->dir_vect.axis, 
-// 		opp_light_ray.origin_vect.axis, opp_light_ray.dir_vect.axis);
-// 	if (is_any_intersect(data, light_ray, sphere))
-// 		return (1);
-// 	return (0);	
-// }
-
-// double calculate_light_attenuation(t_ray *light_ray, double intensity)
-// {
-// 	double	light_mag;
-
-// 	light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
-// 	return (intensity / (1 + .0025 *(light_mag * light_mag)));
-// }
 
 double calculate_light_attenuation(t_ray *light_ray, double intensity)
 {
@@ -218,8 +177,7 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	t_ray			light_ray_dup;
 	light_ray_dup =  light_ray;	
 		light_coef = scalar_product(ray->dir_vect.axis, normal.axis);
-		light_coef = normalize_zero_one(light_coef);//!opti
-		// double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);
+		normalize_zero_one(&light_coef);//!opti
 		scale_color(&ambiant_color, light_coef, color);
 		subtract_color(&ambiant_color, color, &ambiant_color);
 	if (is_any_intersect(data, sphere, &light_ray))
@@ -242,7 +200,7 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	normalize_vector(light_ray.dir_vect.axis);
 
 	light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
-	light_coef = normalize_zero_one(light_coef);
+	normalize_zero_one(&light_coef);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		&ambiant_color, &subt_color);
 	double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef * spotlight->intensity);
