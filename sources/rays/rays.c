@@ -154,11 +154,14 @@ double calculate_light_attenuation(t_ray *light_ray, double intensity)
 }
 
 void	add_self_shadowing(double light_coef, double light_attenuation,
-	t_color *color, t_color color_sav)
-{	
+	t_color *color)
+{
+	t_color color_sav;
+
+	color_sav = *color;
 	if (light_coef < 0.5)
 	{		
-		scale_color(color, 0.1 *light_attenuation, color);
+		scale_color(color, 0.8 *light_attenuation, color);
 		subtract_color(&color_sav, color, color);	
 	}
 }
@@ -174,7 +177,8 @@ void	add_initial_shading( t_ray *ray, t_ray_vector *normal,
 	subtract_color(ambiantly_color, color, ambiantly_color);
 }
 
-void	add_shading(t_ray *light_ray, t_ray_vector *normal, t_spotlight *spotlight, t_color *colors[])
+void	add_shading(t_ray *light_ray, t_ray_vector *normal,
+	t_spotlight *spotlight, t_color *colors[])
 {
 	t_color	subt_color;
 	double	light_coef;
@@ -193,8 +197,7 @@ void	add_shading(t_ray *light_ray, t_ray_vector *normal, t_spotlight *spotlight,
 	add_color(colors[1], colors[0], colors[1]);
 }
 
-void	get_sphere_color(t_data *data, t_ray *ray, double t,
-	t_sphere *sphere, t_color *color)
+void	get_sphere_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;
 	t_ray			light_ray;
@@ -202,25 +205,25 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	double			light_attenuation;
 	double 			light_coef;	
 
-	get_intersect_point(ray, t, &light_ray.origin_vect);
-	subtract_vector(light_ray.origin_vect.axis, sphere->origin_vect.axis,
-		normal.axis);
+	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
+	subtract_vector(light_ray.origin_vect.axis,
+		((t_sphere *) params->mesh)->origin_vect.axis, normal.axis);
 	normalize_vector(normal.axis);
-	subtract_vector(data->spotlight.origin_vect.axis,
+	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis,	light_ray.dir_vect.axis);
-	color_with_ambiant_light(&sphere->color, &data->ambiant_light,
-		&ambiantly_color);
-	if (sphere->which_t == 2)
+	color_with_ambiant_light(&((t_sphere *) params->mesh)->color,
+		&params->data->ambiant_light, &ambiantly_color);
+	if (((t_sphere *) params->mesh)->which_t == 2)
 		symmetrize_vector(normal.axis);
-	add_initial_shading(ray, &normal, &ambiantly_color, color);
-	if (has_shadow(data, sphere, &light_ray))
+	add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
+	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
 	{	
-		*color = ambiantly_color;		
+		*params->color = ambiantly_color;		
 		return ;
 	}
-	add_shading(&light_ray, &normal, &data->spotlight,
-		(t_color *[]) {&ambiantly_color, color});
-	add_self_shadowing(light_coef, light_attenuation, color, *color);		
+	add_shading(&light_ray, &normal, &params->data->spotlight,
+		(t_color *[]) {&ambiantly_color, params->color});
+	add_self_shadowing(light_coef, light_attenuation, params->color);		
 }
 
 void	get_plane_color(t_get_color_params *params)
