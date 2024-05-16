@@ -153,6 +153,32 @@ double calculate_light_attenuation(t_ray *light_ray, double intensity)
 	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
 }
 
+void	add_self_shadowing(double light_coef, double light_attenuation,
+	t_color *color, t_color color_sav)
+{	
+	if (light_coef < 0.5)
+	{		
+		scale_color(color, 0.1 *light_attenuation, color);
+		subtract_color(&color_sav, color, color);	
+	}
+}
+
+void	add_initial_shading( t_ray *ray, t_ray_vector *normal,
+	t_color *ambiantly_color, t_color *color)
+{
+	double	light_coef;
+	
+	light_coef = scalar_product(ray->dir_vect.axis, normal->axis);
+	normalize_zero_one(&light_coef);
+	scale_color(ambiantly_color, light_coef, color);
+	subtract_color(ambiantly_color, color, ambiantly_color);
+}
+
+void	add_shading()
+{
+	
+}
+
 void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	t_sphere *sphere, t_spotlight *spotlight, t_color *color,
 	t_ambiant_light *ambiant_light)
@@ -162,60 +188,35 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 	t_ray_vector	scaled_vect;
 	double 			light_coef;
 	t_color			subt_color;
-	t_color			ambiant_color;
+	t_color			ambiantly_color;
 
 	get_intersect_point(ray, t, &light_ray.origin_vect);
 	subtract_vector(light_ray.origin_vect.axis, sphere->origin_vect.axis, normal.axis);
 	normalize_vector(normal.axis);
 	subtract_vector(spotlight->origin_vect.axis, light_ray.origin_vect.axis,
 		light_ray.dir_vect.axis);
-
-	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
+	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiantly_color);
 	if (sphere->which_t == 2)
 		symmetrize_vector(normal.axis);
-	t_ray			light_ray_dup;
-	light_ray_dup =  light_ray;	
-		light_coef = scalar_product(ray->dir_vect.axis, normal.axis);
-		normalize_zero_one(&light_coef);//!opti
-		scale_color(&ambiant_color, light_coef, color);
-		subtract_color(&ambiant_color, color, &ambiant_color);
+	add_initial_shading(ray, &normal, &ambiantly_color, color);
 	if (is_any_intersect(data, sphere, &light_ray))
-	{
-		// normalize_vector(light_ray.dir_vect.axis);
-		// light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
-		// light_coef = normalize_zero_one(light_coef);//!opti
-		// // double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);
-		// scale_color(&ambiant_color, light_coef, color);
-		// add_color(&ambiant_color, color, &ambiant_color);
-	// 	if (light_coef < 0.5)
-	// {
-	// 	//printf("yp\n");
-	// 	scale_color(&ambiant_color, light_coef, color);
-	// 	subtract_color(color, &ambiant_color, color);
-	// }
-		*color = ambiant_color;		
+	{	
+		*color = ambiantly_color;		
 		return ;
 	}
+	t_ray light_ray_dup =  light_ray;	
 	normalize_vector(light_ray.dir_vect.axis);
-
 	light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
 	normalize_zero_one(&light_coef);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
-		&ambiant_color, &subt_color);
+		&ambiantly_color, &subt_color);
 	double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef * spotlight->intensity);
 	
-
 	
 		scale_color(&subt_color, light_attenuation, color);
-		add_color(color, &ambiant_color, color);
+		add_color(color, &ambiantly_color, color);
 	
-		if(light_coef < 0.5)
-	{
-		t_color recolor = *color;
-		scale_color(color, 0.1 *light_attenuation, color);
-		subtract_color(&recolor, color, color);	
-	}
-		
+	add_self_shadowing(light_coef, light_attenuation, color, *color);		
 }
 
 // void	get_sphere_color(t_data *data, t_ray *ray, double t,
