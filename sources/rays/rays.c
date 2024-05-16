@@ -153,15 +153,25 @@ double calculate_light_attenuation(t_ray *light_ray, double intensity)
 	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
 }
 
-void	add_self_shadowing(double light_coef, double light_attenuation,
-	t_color *color)
-{
-	t_color color_sav;
+// void	add_self_shadowing(double light_coef, double light_attenuation,
+// 	t_color *color)
+// {
+// 	t_color color_sav;
 
-	color_sav = *color;
+// 	color_sav = *color;
+// 	if (light_coef < 0.5)
+// 	{		
+// 		scale_color(color, 0.1 *light_attenuation, color);
+// 		subtract_color(&color_sav, color, color);	
+// 	}
+// }
+
+void	add_self_shadowing(double light_coef, double light_attenuation,
+	t_color *color, t_color color_sav)
+{	
 	if (light_coef < 0.5)
 	{		
-		scale_color(color, 0.1 *light_attenuation, color);
+		scale_color(color, 0.9 *light_attenuation, color);
 		subtract_color(&color_sav, color, color);	
 	}
 }
@@ -220,7 +230,7 @@ void	get_sphere_color(t_get_color_params *params)
 	}
 	add_shading(&(t_add_shading_params){&light_ray, &normal,
 		&params->data->spotlight, &ambiantly_color, params->color, &light_coef, &light_attenuat});
-	add_self_shadowing(light_coef, light_attenuat, params->color);		
+	add_self_shadowing(light_coef, light_attenuat, params->color, *params->color);		
 }
 
 void	get_plane_color(t_get_color_params *params)
