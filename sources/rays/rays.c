@@ -174,9 +174,23 @@ void	add_initial_shading( t_ray *ray, t_ray_vector *normal,
 	subtract_color(ambiantly_color, color, ambiantly_color);
 }
 
-void	add_shading()
+void	add_shading(t_ray *light_ray, t_ray_vector *normal, t_spotlight *spotlight, t_color *colors[])
 {
-	
+	t_color	subt_color;
+	double	light_coef;
+	double	light_attenuation;
+	t_ray	light_ray_sav;
+
+	light_ray_sav = *light_ray;
+	normalize_vector(light_ray->dir_vect.axis);
+	light_coef = scalar_product(light_ray->dir_vect.axis, normal->axis);
+	normalize_zero_one(&light_coef);
+	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
+		colors[0], &subt_color);
+	light_attenuation = calculate_light_attenuation(&light_ray_sav,
+		light_coef * spotlight->intensity);
+	scale_color(&subt_color, light_attenuation, colors[1]);
+	add_color(colors[1], colors[0], colors[1]);
 }
 
 void	get_sphere_color(t_data *data, t_ray *ray, double t,
@@ -185,13 +199,13 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 {
 	t_ray_vector	normal;
 	t_ray			light_ray;
-	t_ray_vector	scaled_vect;
-	double 			light_coef;
-	t_color			subt_color;
 	t_color			ambiantly_color;
+	double			light_attenuation;
+	double 			light_coef;	
 
 	get_intersect_point(ray, t, &light_ray.origin_vect);
-	subtract_vector(light_ray.origin_vect.axis, sphere->origin_vect.axis, normal.axis);
+	subtract_vector(light_ray.origin_vect.axis, sphere->origin_vect.axis,
+		normal.axis);
 	normalize_vector(normal.axis);
 	subtract_vector(spotlight->origin_vect.axis, light_ray.origin_vect.axis,
 		light_ray.dir_vect.axis);
@@ -204,18 +218,8 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 		*color = ambiantly_color;		
 		return ;
 	}
-	t_ray light_ray_dup =  light_ray;	
-	normalize_vector(light_ray.dir_vect.axis);
-	light_coef = scalar_product(light_ray.dir_vect.axis, normal.axis);
-	normalize_zero_one(&light_coef);
-	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
-		&ambiantly_color, &subt_color);
-	double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef * spotlight->intensity);
-	
-	
-		scale_color(&subt_color, light_attenuation, color);
-		add_color(color, &ambiantly_color, color);
-	
+	add_shading(&light_ray, &normal, &data->spotlight,
+		(t_color *[]) {&ambiantly_color, color});
 	add_self_shadowing(light_coef, light_attenuation, color, *color);		
 }
 
