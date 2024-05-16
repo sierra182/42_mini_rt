@@ -56,28 +56,28 @@ void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
 
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
-		pxl_pos = x *  mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
+		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
 		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
 	}
 }
 
 int	get_color(unsigned char r, unsigned char g, unsigned char b)
 {
-	return (*(int *)(unsigned char[]){r, g, b, 0});
+	return (*(int *)(unsigned char []){r, g, b, 0});
 }
 
 int	get_background_color(t_ray *ray)
 {
-	double a;
+	double	a;
 
 	a = 0.5 * (ray->dir_vect.axis[1] + 10.0);
-    return (1.0 - a) * get_color(255, 255, 255) +
-		a * get_color(0.5 * 255, 0.7 * 255, 1.0 * 255);
+	return ((1.0 - a) * get_color(255, 255, 255)
+		+ a * get_color(0.5 * 255, 0.7 * 255, 1.0 * 255));
 }
 
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 {
-	t_ray_vector scaled_vect;
+	t_ray_vector	scaled_vect;
 
 	scale_vector(ray->dir_vect.axis, t, scaled_vect.axis);
 	add_vector(ray->origin_vect.axis, scaled_vect.axis, inter_pt->axis);
@@ -107,7 +107,7 @@ void	color_with_ambiant_light(t_color *mesh_color,
 
 void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 {
-	t_ray_vector scaled_vect;
+	t_ray_vector	scaled_vect;
 
 	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);
 }
@@ -139,7 +139,7 @@ int	has_shadow(t_data *data, void *mesh, t_ray *light_ray)
 	return (0);
 }
 
-double calculate_light_attenuation(t_ray *light_ray, double intensity)
+double	calculate_light_attenuation(t_ray *light_ray, double intensity)
 {
 	double			light_mag;
 	const double	kc = 1.0;
@@ -153,12 +153,12 @@ double calculate_light_attenuation(t_ray *light_ray, double intensity)
 void	add_self_shadowing(double light_coef, double light_attenuation,
 	t_color *color)
 {
-	t_color color_sav;
+	t_color	color_sav;
 
 	color_sav = *color;
 	if (light_coef < 0.5)
 	{
-		scale_color(color, 0.15 *light_attenuation, color);
+		scale_color(color, 0.15 * light_attenuation, color);
 		subtract_color(&color_sav, color, color);
 	}
 }
@@ -182,12 +182,12 @@ void	add_shading(t_add_shading_params *params)
 	light_ray_sav = *params->light_ray;
 	normalize_vector(params->light_ray->dir_vect.axis);
 	*params->light_coef = scalar_product(params->light_ray->dir_vect.axis,
-		params->normal->axis);
+			params->normal->axis);
 	normalize_zero_one(params->light_coef);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		params->ambiently_color, &subt_color);
 	*params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
-		*params->light_coef * params->spotlight->intensity);
+			*params->light_coef * params->spotlight->intensity);
 	scale_color(&subt_color, *params->light_attenuat, params->color);
 	add_color(params->color, params->ambiently_color, params->color);
 }
@@ -198,14 +198,14 @@ int	get_sphere_color(t_get_color_params *params)
 	t_ray			light_ray;
 	t_color			ambiantly_color;
 	double			light_attenuat;
-	double 			light_coef;	
+	double			light_coef;	
 
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(light_ray.origin_vect.axis,
 		((t_sphere *) params->mesh)->origin_vect.axis, normal.axis);
 	normalize_vector(normal.axis);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
-		light_ray.origin_vect.axis,	light_ray.dir_vect.axis);
+		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
 	color_with_ambiant_light(&((t_sphere *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
 	if (((t_sphere *) params->mesh)->which_t == 2)
@@ -229,7 +229,7 @@ void	get_plane_color(t_get_color_params *params)
 	cast_vector_mat_ray(&((t_plane *) params->mesh)->norm_vect, &normal);
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
-		light_ray.origin_vect.axis,	light_ray.dir_vect.axis);
+		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
 	color_with_ambiant_light(&((t_plane *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
 	if (has_shadow(params->data, params->mesh, &light_ray))
@@ -251,7 +251,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	while (++y < data->cam.resol[1])
 	{
 		x = -1;
-		while (++x < data->cam.resol[0])		
-			exec_launch_rays(mlx, data, x, y);		
+		while (++x < data->cam.resol[0])
+			exec_launch_rays(mlx, data, x, y);
 	}
 }
