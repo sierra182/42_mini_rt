@@ -230,12 +230,12 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 		// // double light_attenuation = calculate_light_attenuation(&light_ray_dup, light_coef);
 		// scale_color(&ambiant_color, light_coef, color);
 		// add_color(&ambiant_color, color, &ambiant_color);
-		if (light_coef < 0.5)
-	{
-		//printf("yp\n");
-		scale_color(&ambiant_color, light_coef, color);
-		subtract_color(color, &ambiant_color, color);
-	}
+	// 	if (light_coef < 0.5)
+	// {
+	// 	//printf("yp\n");
+	// 	scale_color(&ambiant_color, light_coef, color);
+	// 	subtract_color(color, &ambiant_color, color);
+	// }
 		*color = ambiant_color;		
 		return ;
 	}
