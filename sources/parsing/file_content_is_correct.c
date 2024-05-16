@@ -34,7 +34,7 @@ int	file_content_is_correct(t_data *data, char *map_path)
 		free(str);
 	}
 
-	if (!all_necessary_elements_are_present(data, file_content))
+	if (!all_necessary_elements_are_present(data, map_path))
 		{
 			printf("file_content_is_correct 2\n");
 			return (0);
