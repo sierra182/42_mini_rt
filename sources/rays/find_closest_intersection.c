@@ -3,6 +3,7 @@
 double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
+#define OBJ_MAX_NBR 1000
 
 /**========================================================================
  *                           find_closest_intersection
@@ -33,7 +34,7 @@ void	find_closest_intersection(t_intersection_params params)
 void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj)
 {
 	t_intersection_params	params_sp;
-	t_sphere				*sphere_addresses[1000];
+	t_sphere				*sphere_addresses[OBJ_MAX_NBR];
 	int						i;
 
 	i = -1;
@@ -55,7 +56,7 @@ void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj)
 void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj)
 {
 	t_intersection_params	params_cy;
-	t_cylinder				*cylinders_addresses[1000];
+	t_cylinder				*cylinders_addresses[OBJ_MAX_NBR];
 	int						i;
 
 	i = -1;
@@ -77,7 +78,7 @@ void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj)
 void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj)
 {
 	t_intersection_params	params_pl;
-	t_plane					*planes_addresses[1000];
+	t_plane					*planes_addresses[OBJ_MAX_NBR];
 	int						i;
 
 	i = -1;
