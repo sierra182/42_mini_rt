@@ -255,7 +255,7 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 		if(light_coef < 0.5)
 	{
 		t_color recolor = *color;
-		scale_color(color, -0.1 *light_attenuation, color);
+		scale_color(color, 0.1 *light_attenuation, color);
 		subtract_color(&recolor, color, color);	
 	}
 		
