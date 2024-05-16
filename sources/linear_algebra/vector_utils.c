@@ -45,9 +45,9 @@ void	normalize_vector(double vector[])
 		vector[i] *= inverse_mag;
 }
 
-double	normalize_zero_one(double scalar_product)
+void	normalize_zero_one(double *scalar_product)
 {
-	return ((scalar_product + 1) * 0.5);
+	*scalar_product = (*scalar_product + 1) * 0.5;
 }
 
 int	are_collinear_vectors(t_matrix_vector *pdct_vect, double precision)
