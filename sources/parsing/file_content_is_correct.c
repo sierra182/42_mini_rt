@@ -28,7 +28,7 @@ int	file_content_is_correct(t_data *data, char *map_path)
 		if (!is_only_valid_chars(str))
 		{
 			printf("file_content_is_correct 1\n");
-			return (0);
+			return (free(str), 0);
 		}
 		
 		free(str);

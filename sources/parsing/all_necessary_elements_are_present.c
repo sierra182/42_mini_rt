@@ -80,7 +80,11 @@ int	element_is_present(char *map_path , char *el)
 		if (!str)
 			break ;
 		if (is_comment(str))
+		{
+			free(str);
+			get_next_line(42);
 			continue ;
+		}
 		n += ft_strcount(str, el);
 		
 		free(str);
