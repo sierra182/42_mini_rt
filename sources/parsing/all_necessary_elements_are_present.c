@@ -2,12 +2,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <get_next_line.h>
+
 /**========================================================================
  *                           all_necessary_elements_are_present
  *========================================================================**/
 int	all_necessary_elements_are_present(t_data *data, char *map_path)
 {
-	int nbr;
+	int	nbr;
 
 	nbr = -1;
 	if (element_is_present(map_path, "A") != 1)
@@ -25,9 +26,12 @@ int	all_necessary_elements_are_present(t_data *data, char *map_path)
 	nbr = element_is_present(map_path, "pl");
 	if (nbr == 0)
 		return (0);
-	return (1); 
+	return (1);
 }
 
+/**========================================================================
+ *                           is_comment
+ *========================================================================**/
 int	is_comment(char *str)
 {
 	int	i;
