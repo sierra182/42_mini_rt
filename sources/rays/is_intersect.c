@@ -74,7 +74,7 @@ double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i)
 		- sphere->square_radius;
 	discrim = b * b - 4 * a * c;
 	if (discrim < 0)
-		return (0.0);
+		return (sphere->which_t = 0, 0.0);
 	if ((-b - sqrt(discrim)) / (2 * a) > 0.0)
 		return (sphere->which_t = 1, (-b - sqrt(discrim)) / (2 * a));
 	 else if ((-b + sqrt(discrim)) / (2 * a) > 0.0)

@@ -117,29 +117,34 @@ int	is_any_intersect(t_data *data, void *mesh, t_ray *light_ray)
 {
 	int	i;
 	double	t;
-	double	mesh_mag;
-	double	light_mag;
+	long double	mesh_mag;
+	long double	light_mag;
 
 	t_ray_vector	inter_pt;
 
 	i = -1;
 	while (++i < data->sp_nbr)
 	{
-		if (mesh && &data->spheres[i] != (t_sphere *) mesh)
+		if (mesh && (void *) &data->spheres[i] != mesh)
 		{
+		
+			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL); 
 			
-			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL);  
 			// if (t >= 1e-5) 
-			if (t && t >= 1 && data->spheres[i].which_t == 1)// >= -1e-5 && t)//!auto shadows
-			{
-				//return (1);	
+			if (t && data->spheres[i].which_t == 1)// >= -1e-5 && t)//!auto shadows
+			{//printf("t: %f\n", t);
+				// return (1);	
 				get_local_intersect_point(light_ray, t, &inter_pt);
-				mesh_mag = get_vector_magnitude(inter_pt.axis);
 				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
-				if (mesh_mag < light_mag)
-					return (1);			
+				// if (light_mag > 1)
+				// {
+					//printf("ligh: %f", light_mag);
+					mesh_mag = get_vector_magnitude(inter_pt.axis);
+					if (mesh_mag < light_mag)
+						return (1);			
+				// }
 			}
-		}
+		 }
 		// else if (!sphere)
 		// {
 		// 	t = is_intersect_sphere(light_ray, &data->spheres[i]);  
@@ -208,8 +213,8 @@ void	get_sphere_color(t_data *data, t_ray *ray, double t,
 		light_ray.dir_vect.axis);
 
 	color_with_ambiant_light(&sphere->color, ambiant_light, &ambiant_color);
-	if (sphere->which_t == 2)
-		symmetrize_vector(normal.axis);
+	// if (sphere->which_t == 2)
+	// 	symmetrize_vector(normal.axis);
 	t_ray			light_ray_dup;
 	light_ray_dup =  light_ray;	
 		light_coef = scalar_product(ray->dir_vect.axis, normal.axis);
@@ -316,11 +321,11 @@ void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
 	color_with_ambiant_light(&plane->color, ambiant_light, &ambiant_color);
 	t_ray			light_ray_dup;
 	light_ray_dup =  light_ray;
-	if (is_any_intersect(data, plane, &light_ray))
-	{		
+	// if (is_any_intersect(data, plane, &light_ray))
+	// {		
 		*color = ambiant_color;		
 		return ;
-	}
+	// }
 	normalize_vector(light_ray.dir_vect.axis);
 	light_coef = scalar_product(normal.axis, light_ray.dir_vect.axis);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
