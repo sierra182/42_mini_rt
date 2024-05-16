@@ -161,7 +161,7 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 	color_sav = *color;
 	if (light_coef < 0.5)
 	{		
-		scale_color(color, 0.8 *light_attenuation, color);
+		scale_color(color, 0.1 *light_attenuation, color);
 		subtract_color(&color_sav, color, color);	
 	}
 }
@@ -177,25 +177,21 @@ void	add_initial_shading( t_ray *ray, t_ray_vector *normal,
 	subtract_color(ambiantly_color, color, ambiantly_color);
 }
 
-double	add_shading(t_ray *light_ray, t_ray_vector *normal,
-	t_spotlight *spotlight, t_color *colors[])
+void	add_shading(t_add_shading_params *params)
 {
 	t_color	subt_color;
-	double	light_coef;
-	double	light_attenuation;
 	t_ray	light_ray_sav;
 
-	light_ray_sav = *light_ray;
-	normalize_vector(light_ray->dir_vect.axis);
-	light_coef = scalar_product(light_ray->dir_vect.axis, normal->axis);
-	normalize_zero_one(&light_coef);
+	light_ray_sav = *params->light_ray;
+	normalize_vector(params->light_ray->dir_vect.axis);
+	*params->light_coef = scalar_product(params->light_ray->dir_vect.axis, params->normal->axis);
+	normalize_zero_one(params->light_coef);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
-		colors[0], &subt_color);
-	light_attenuation = calculate_light_attenuation(&light_ray_sav,
-		light_coef * spotlight->intensity);
-	scale_color(&subt_color, light_attenuation, colors[1]);
-	add_color(colors[1], colors[0], colors[1]);
-	return (light_attenuation);
+		params->ambiently_color, &subt_color);
+	*params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
+		*params->light_coef * params->spotlight->intensity);
+	scale_color(&subt_color, *params->light_attenuat, params->color);
+	add_color(params->color, params->ambiently_color, params->color);	
 }
 
 void	get_sphere_color(t_get_color_params *params)
@@ -222,8 +218,8 @@ void	get_sphere_color(t_get_color_params *params)
 		*params->color = ambiantly_color;		
 		return ;
 	}
-	light_attenuat = add_shading(&light_ray, &normal, &params->data->spotlight,
-		(t_color *[]) {&ambiantly_color, params->color});
+	add_shading(&(t_add_shading_params){&light_ray, &normal,
+		&params->data->spotlight, &ambiantly_color, params->color, &light_coef, &light_attenuat});
 	add_self_shadowing(light_coef, light_attenuat, params->color);		
 }
 
@@ -244,8 +240,8 @@ void	get_plane_color(t_get_color_params *params)
 		*params->color = ambiantly_color;		
 		return ;
 	}
-	add_shading(&light_ray, &normal, &params->data->spotlight,
-		(t_color *[]) {&ambiantly_color, params->color});
+	add_shading(&(t_add_shading_params){&light_ray, &normal,
+		&params->data->spotlight, &ambiantly_color, params->color, &(double){0.0}, &(double){0.0}});
 }
 
 void	launch_rays(t_mlx *mlx, t_data *data)
