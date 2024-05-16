@@ -8,11 +8,8 @@ int		intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 int		is_behind_cam(double t);
 void	get_sphere_color(t_data *data, t_ray *ray, double t,
-			t_sphere *sphere, t_spotlight *spotlight, t_color *color,
-			t_ambiant_light *ambiant_light);
-void	get_plane_color(t_data *data, t_ray *ray, double t, t_plane *plane,
-			t_spotlight *spotlight, t_color *color, t_sphere *sphere,
-			t_ambiant_light *ambiant_light, t_cylinder *cylinder);
+			t_sphere *sphere, t_color *color);
+void	get_plane_color(t_get_color_params *params);
 int		get_background_color(t_ray *ray);
 int		get_pixel_color(t_data *data, t_ray *ray, t_obj *obj);
 void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
@@ -102,7 +99,7 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 	if (obj->t && obj->type == O_SP && obj->ref)
 	{
 		get_sphere_color(data, ray, obj->t, (t_sphere *)obj->ref,
-			&data->spotlight, &color, &data->ambiant_light);
+			&color);
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
 	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref)
@@ -111,8 +108,7 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 	}
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref)
 	{
-		get_plane_color(data, ray, obj->t, obj->ref, &data->spotlight, &color,
-			&data->spheres[0], &data->ambiant_light, &data->cylinders[0]);
+		get_plane_color(&(t_get_color_params) {data, ray, obj->t, obj->ref, &color});
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
 	if (obj->ref == NULL)

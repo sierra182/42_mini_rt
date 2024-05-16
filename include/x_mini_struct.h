@@ -181,4 +181,13 @@ typedef struct s_intersection_params
 	t_ray_vector	*i;
 }	t_intersection_params;
 
+typedef struct s_get_color_params
+{
+	t_data	*data;
+	t_ray	*ray;
+	double	t;
+	void	*mesh;
+	t_color *color;
+}	t_get_color_params;
+
 #endif
