@@ -90,6 +90,7 @@ typedef struct s_cylinder
 	float			radius;
 	float			height;
 	t_color			color;
+	int				which_t;
 }	t_cylinder;
 
 typedef struct s_plane
