@@ -1,8 +1,8 @@
 #ifndef X_MINI_STRUCT_H
 # define X_MINI_STRUCT_H
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 600
+# define HEIGHT 600
 # define AXIS 3
 # define MTX 4 
 # include <stdio.h>

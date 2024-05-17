@@ -2,6 +2,7 @@
 # include "mlx.h"
 
 void	trsl_mesh(t_matrix_vector *vect, double values[]);
+void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
 void	update_cam(t_cam *cam);
 
@@ -24,23 +25,23 @@ static void cam_event_rotate(int keycode, t_cam *cam)
 		rotate_cam(cam, -50 * r, (int []){0, 0, 1});
 }
 
-static void event_rotate(int keycode, t_cam *cam)
+static void event_rotate(int keycode, t_matrix_vector *vector)
 {
     double  r;
 
     r = 1.0;
     if (keycode == R_LFT)	
-		rotate_mesh(cam, r, (int []){1, 0, 0});
+		rotate_mesh(vector, r, (int []){1, 0, 0});
     else if (keycode == R_RGHT)	
-		rotate_mesh(cam, -r, (int []){1, 0, 0});
+		rotate_mesh(vector, -r, (int []){1, 0, 0});
     else if (keycode == R_UP)	
-		rotate_mesh(cam, r, (int []){0, 1, 0});
+		rotate_mesh(vector, r, (int []){0, 1, 0});
     else if (keycode == R_DWN)	
-		rotate_(cam, -r, (int []){0, 1, 0});
+		rotate_mesh(vector, -r, (int []){0, 1, 0});
     else if (keycode == S_LFT)	
-		rotate_cam(cam, 50 * r, (int []){0, 0, 1});
+		rotate_mesh(vector, 50 * r, (int []){0, 0, 1});
     else if (keycode == S_RGHT)	
-		rotate_cam(cam, -50 * r, (int []){0, 0, 1});
+		rotate_mesh(vector, -50 * r, (int []){0, 0, 1});
 }
 
 static void	event_translate(int keycode, t_matrix_vector *vector)
@@ -67,7 +68,8 @@ int	key_event(int keycode, void *param)
 	t_mlx						*mlx;
 	t_data						*data;
 	static t_enum_event_mesh	mesh_enum;
-	t_matrix_vector 			*vector;
+	t_matrix_vector 			*rotate_vect;
+	t_matrix_vector 			*transl_vect;
 
 	mlx = (t_mlx *) ((void **) param)[0];
 	data = (t_data *) ((void **) param)[1];
@@ -77,17 +79,23 @@ int	key_event(int keycode, void *param)
 		mesh_enum = (mesh_enum + 1) % E_MESH_END;
 		printf("%d\n", mesh_enum);
 	}
-	if (mesh_enum == E_PLN)	
-		vector = &data->planes[0].origin_vect;
-	else if (mesh_enum == E_CAM)	
-		vector = &data->cam.origin_vect;	
-	else if (mesh_enum == E_SPH)
-		vector = &data->spheres[0].origin_vect;
-	else if (mesh_enum == E_CYL)	
-		vector = &data->cylinders[0].origin_vect;
+	if (mesh_enum == E_PLN)
+	{
+		rotate_vect = &data->planes[0].norm_vect;
+		transl_vect = &data->planes[0].origin_vect;
+	}
+	else if (mesh_enum == E_CAM)
+		transl_vect = &data->cam.origin_vect;	
+	else if (mesh_enum == E_SPH)	
+		transl_vect = &data->spheres[0].origin_vect;
+	else if (mesh_enum == E_CYL)
+	{
+		rotate_vect = &data->cylinders[0].axis_vect;
+		transl_vect = &data->cylinders[0].origin_vect;
+	}
 	else if (mesh_enum == E_SPOTL)	
-		vector = &data->spotlight.origin_vect;
-	event_translate(keycode, vector);
+		transl_vect = &data->spotlight.origin_vect;
+	event_translate(keycode, transl_vect);
 	if (mesh_enum == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
@@ -96,7 +104,10 @@ int	key_event(int keycode, void *param)
 		else if (keycode == MINUS && data->spotlight.intensity >= 0.1)
 			data->spotlight.intensity -= 0.1;		
 	}
-    cam_event_rotate(keycode, &data->cam);
+	if (mesh_enum == E_CAM)
+   		cam_event_rotate(keycode, &data->cam);
+	else
+		event_rotate(keycode, rotate_vect);
 	if (keycode == ESC)
 		mlx_loop_end(mlx->connect);
 	return (0);
