@@ -43,6 +43,7 @@ void	fill_struct_pl(t_data *data, double tab[])
 	data->planes[i].origin_vect.axis[0] = tab[0];
 	data->planes[i].origin_vect.axis[1] = tab[1];
 	data->planes[i].origin_vect.axis[2] = tab[2];
+	data->planes[i].origin_vect.axis[3] = 1;
 	data->planes[i].norm_vect.axis[0] = tab[3];
 	data->planes[i].norm_vect.axis[1] = tab[4];
 	data->planes[i].norm_vect.axis[2] = tab[5];

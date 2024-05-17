@@ -30,7 +30,7 @@ int	frame(void *param)
 
 	mlx = (t_mlx *) ((void **) param)[0];
 	data = (t_data *) ((void **) param)[1];
-	usleep(500);
+	usleep(100);
 	// static int	refresh;
 	//(void) param;
 	// refresh = (refresh + 1) % 100;	
