@@ -18,12 +18,17 @@ double	get_t_from_point(t_ray *ray, t_ray_vector *point);
 
 double	which_t(double a, double b, double discrim, int *which_t)
 {
+	double t1;
+	double t2;
+
 	if (discrim < 0)
 		return (*which_t = 0, 0.0);
-	if ((-b - sqrt(discrim)) / (2 * a) > 0.0)
-		return (*which_t = 1, (-b - sqrt(discrim)) / (2 * a));
-	 else if ((-b + sqrt(discrim)) / (2 * a) > 0.0)
-	 	return (*which_t = 2, (-b + sqrt(discrim)) / (2 * a));
+	t1 = (-b - sqrt(discrim)) / (2 * a);
+	t2 = (-b + sqrt(discrim)) / (2 * a);
+	if (t1 > 0.0)
+		return (*which_t = 1, t1);
+	else if (t2 > 0.0)
+	 	return (*which_t = 2, t2);
 	else
 		return (*which_t = 0, 0.0);
 }
