@@ -7,6 +7,10 @@ int	has_shadow(t_data *data, void *mesh, t_ray *light_ray);
 void	add_shading(t_add_shading_params *params);
 
 void	get_plane_color(t_get_color_params *params);
+void	add_initial_shading( t_ray *ray, t_ray_vector *normal,
+	t_color *ambiantly_color, t_color *color);
+void	add_self_shadowing(double light_coef, double light_attenuation,
+	t_color *color);
 
 /*
 typedef	struct s_obj_intersect
@@ -16,14 +20,7 @@ typedef	struct s_obj_intersect
 	void			*ref;
 }	t_obj;
 
-typedef struct s_get_color_params
-{
-	t_data	*data;
-	t_ray	*ray;
-	double	t;
-	void	*mesh;
-	t_color *color;
-}	t_get_color_params;
+
 
 typedef struct s_add_shading_params
 {
@@ -44,36 +41,56 @@ typedef struct s_add_shading_params
 		=> redirect to corresponding get_color func
 */
 
+/*
+typedef struct s_get_color_params
+{
+	t_data	*data;
+	t_ray	*ray;
+	double	t;
+	void	*mesh;
+	t_color *color;
+}	t_get_color_params;
+*/
 
-
-void	get_cylinder_color_cyl()
+/**========================================================================
+ *                           get_cylinder_color_cyl
+ *! which_t calculation to be added! 
+ *========================================================================**/
+int	get_cylinder_color_cyl(t_get_color_params *params)
 {
 
-	//printf("intersect cylinder\n");
+	//todo : change normal calculation
 
-	//t_ray_vector	normal;
-	//t_ray			light_ray;
-	//t_color			ambiantly_color;
-	//double			light_attenuat;
-	//double			light_coef;	
+	t_ray_vector	normal;
+	t_ray			light_ray;
+	t_color			ambiantly_color;
+	double			light_attenuat;
+	double			light_coef;	
+	t_ray	proj_origin;
 
-	//get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
-	//subtract_vector(light_ray.origin_vect.axis,
-	//	((t_sphere *) params->mesh)->origin_vect.axis, normal.axis);
-	//normalize_vector(normal.axis);
-	//subtract_vector(params->data->spotlight.origin_vect.axis,
-	//	light_ray.origin_vect.axis, light_ray.dir_vect.axis);
-	//color_with_ambiant_light(&((t_sphere *) params->mesh)->color,
-	//	&params->data->ambiant_light, &ambiantly_color);
-	//if (((t_sphere *) params->mesh)->which_t == 2)
-	//	symmetrize_vector(normal.axis);
+	printf("je suis appelee...\n");
+	light_ray.origin_vect.axis[0] = ((t_cylinder *) params->mesh)->intersec_point.axis[0];
+	light_ray.origin_vect.axis[1] = ((t_cylinder *) params->mesh)->intersec_point.axis[1];
+	light_ray.origin_vect.axis[2] = ((t_cylinder *) params->mesh)->intersec_point.axis[2];
+	cast_vector_mat_ray(&((t_cylinder *) params->mesh)->axis_vect, &proj_origin.dir_vect);
+	get_intersect_point(&proj_origin, ((t_cylinder *) params->mesh)->proj, &((t_cylinder *) params->mesh)->origin_proj);
+	subtract_vector(light_ray.origin_vect.axis,
+		((t_cylinder *) params->mesh)->origin_proj.axis, normal.axis);
+	normalize_vector(normal.axis);
+	subtract_vector(params->data->spotlight.origin_vect.axis,
+		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
+	color_with_ambiant_light(&((t_cylinder *) params->mesh)->color,
+		&params->data->ambiant_light, &ambiantly_color);
+	if (((t_cylinder *) params->mesh)->which_t == 2)
+		symmetrize_vector(normal.axis);
 	//add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
-	//if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
+	//if (has_shadow(params->data, (t_cylinder *) params->mesh, &light_ray))
 	//	return (*params->color = ambiantly_color, 0);
 	//add_shading(&(t_add_shading_params){&light_ray, &normal,
 	//	&params->data->spotlight, &ambiantly_color, params->color,
 	//	&light_attenuat, &light_coef});
 	//add_self_shadowing(light_coef, light_attenuat, params->color);
+	return (42);
 }
 
 void	get_cylinder_color_discs(t_get_color_params *params)
@@ -109,12 +126,7 @@ void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj, t_color	*color)
 	
 	if (cyl->cyl_or_discs == cylinder)
 	{
-		color->rgb[0] = 0;
-		color->rgb[1] = 0;
-		color->rgb[2] = 0;
-
-		//get_cylinder_color_cyl();
-
+		get_cylinder_color_cyl(&(t_get_color_params) {data, ray, obj->t, obj->ref, color});
 	}
 	else if (cyl->cyl_or_discs == discs)
 	{

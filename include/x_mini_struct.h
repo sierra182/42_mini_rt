@@ -90,6 +90,7 @@ typedef enum e_cyl_or_discs
 typedef struct s_cylinder
 {
 	t_matrix_vector	origin_vect;
+	double	proj;
 	t_matrix_vector	axis_vect;
 	float			diameter;
 	float			square_radius;
@@ -99,6 +100,8 @@ typedef struct s_cylinder
 	int				which_t;
 	t_cyl_or_discs	cyl_or_discs;
 	t_ray_vector	intersec_point;
+	t_ray_vector	origin_proj;
+
 }	t_cylinder;
 
 typedef struct s_plane
