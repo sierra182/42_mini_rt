@@ -39,12 +39,8 @@ int	frame(void *param)
 	// frame();
 	// event->flag = 0;
 
-	mlx->img.img_ptr = mlx_new_image(mlx->connect, WIDTH, HEIGHT);
-	mlx->img.img_data = mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
-		&mlx->img.line_len,	&(int){0});
 	launch_rays(mlx, data);
-	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
-	mlx_destroy_image(mlx->connect, mlx->img.img_ptr);
+	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);	
 	return (0);
 }
 
@@ -65,6 +61,9 @@ int	init_mlx(t_mlx *mlx)
 	mlx->window = mlx_new_window(mlx->connect, WIDTH, HEIGHT, "miniRT");
 	if (!mlx->window)
 		return (mlx_destroy_display(mlx->connect),free(mlx->connect), 1);
+	mlx->img.img_ptr = mlx_new_image(mlx->connect, WIDTH, HEIGHT);
+	mlx->img.img_data = mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
+	&mlx->img.line_len,	&(int){0});
 	add_exit_struct((void *) mlx, MLX);
 	return (0);
 }
@@ -83,8 +82,8 @@ int	main(int argc, char **argv)
 	post_init_cam(&data.cam);
 	update_cam(&data.cam);
 	if (init_mlx(&mlx))
-		return (4);
-	launch_mlx_loop(&mlx, &data);
+		return (4);	
+	launch_mlx_loop(&mlx, &data);		
 	flush_exit_struct();
 	return (0);
 }

@@ -52,7 +52,7 @@ int	key_event(int keycode, void *param)
 
 	mlx = (t_mlx *) ((void **) param)[0];
 	data = (t_data *) ((void **) param)[1];
-	// printf("keycode: %d\n", keycode);
+	 printf("keycode: %d\n", keycode);
 	if (keycode == MESH)
 	{
 		mesh_enum = (mesh_enum + 1) % MESH_END;
@@ -63,16 +63,17 @@ int	key_event(int keycode, void *param)
 	else if (mesh_enum == SPH)
 		vector = &data->spheres[0].origin_vect;
 	else if (mesh_enum == SPOTL)
+	{
 		vector = &data->spotlight.origin_vect;
+		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;	
+	}
 	event_translate(keycode, vector);
 	if (mesh_enum == SPOTL)
 	{
-		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;	
-		if (keycode == 105 && data->spotlight.intensity <= 0.9)
+		if (keycode == PLUS && data->spotlight.intensity <= 0.9)
 			data->spotlight.intensity += 0.1;
-		else if (keycode == 107 && data->spotlight.intensity >= 0.1)
-			data->spotlight.intensity -= 0.1;
-		printf("lum: %f\n", data->spotlight.intensity);
+		else if (keycode == MINUS && data->spotlight.intensity >= 0.1)
+			data->spotlight.intensity -= 0.1;		
 	}
     cam_event_rotate(keycode, &data->cam);	
 	if (keycode == ESC)

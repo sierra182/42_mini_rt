@@ -128,6 +128,8 @@ typedef enum e_event
 	R_RGHT = 65432,
 	S_LFT = 65433,
 	S_RGHT = 65435,
+	PLUS = 65451,
+	MINUS = 65453,
 	MESH = 111
 }	t_enum_event;
 
