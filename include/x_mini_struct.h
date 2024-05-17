@@ -1,8 +1,8 @@
 #ifndef X_MINI_STRUCT_H
 # define X_MINI_STRUCT_H
 
-# define WIDTH 1500
-# define HEIGHT 1200
+# define WIDTH 500
+# define HEIGHT 500
 # define AXIS 3
 # define MTX 4 
 # include <stdio.h>
@@ -90,6 +90,7 @@ typedef struct s_cylinder
 	float			radius;
 	float			height;
 	t_color			color;
+	int				which_t;
 }	t_cylinder;
 
 typedef struct s_plane
@@ -180,5 +181,25 @@ typedef struct s_intersection_params
 	int				obj_type;
 	t_ray_vector	*i;
 }	t_intersection_params;
+
+typedef struct s_get_color_params
+{
+	t_data	*data;
+	t_ray	*ray;
+	double	t;
+	void	*mesh;
+	t_color *color;
+}	t_get_color_params;
+
+typedef struct s_add_shading_params
+{
+	t_ray 			*light_ray;
+	t_ray_vector	*normal;
+	t_spotlight		*spotlight;
+	t_color			*ambiently_color;
+	t_color			*color;
+	double			*light_attenuat;
+	double 			*light_coef;
+}	t_add_shading_params;
 
 #endif
