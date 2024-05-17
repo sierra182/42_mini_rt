@@ -19,7 +19,7 @@ void	post_init_cam(t_cam *cam);
  *                             COMMENTS
  *! taille maximal input file = 1024 chars. peut etre modifie...
  *! element count commented out (see parsing)
- *  
+ *! parsing error : element not taken into account when line starts with ' '  
  *  
  *========================================================================**/
 #include <unistd.h> 
