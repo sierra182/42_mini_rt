@@ -98,7 +98,7 @@ typedef struct s_cylinder
 	t_color			color;
 	int				which_t;
 	t_cyl_or_discs	cyl_or_discs;
-	t_ray_vector	*intersec_point;
+	t_ray_vector	intersec_point;
 }	t_cylinder;
 
 typedef struct s_plane

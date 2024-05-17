@@ -41,7 +41,7 @@ typedef struct s_add_shading_params
 void	get_cylinder_color_cyl()
 {
 
-	printf("intersect cylinder\n");
+	//printf("intersect cylinder\n");
 
 	//t_ray_vector	normal;
 	//t_ray			light_ray;
@@ -70,7 +70,7 @@ void	get_cylinder_color_cyl()
 
 void	get_cylinder_color_discs()
 {
-	printf("intersect discs\n");
+	//printf("intersect discs\n");
 
 	//t_ray_vector	normal;
 	//t_ray			light_ray;
@@ -95,6 +95,7 @@ void	get_cylinder_color_discs()
 void	get_cylinder_color(t_obj *obj)
 {
 	t_cylinder *cyl = (t_cylinder *)obj->ref;
+	printf("%f, %f, %f\n", cyl->intersec_point.axis[0], cyl->intersec_point.axis[1], cyl->intersec_point.axis[2]);
 	if (cyl->cyl_or_discs == cylinder)
 	{
 		get_cylinder_color_cyl();

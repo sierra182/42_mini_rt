@@ -120,6 +120,9 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
 	if (discrim < 0)
 		return (0.0);
 	get_intersect_point(ray, t1, &i);
+	cyl->intersec_point.axis[0] = i.axis[0];
+	cyl->intersec_point.axis[1] = i.axis[1];
+	cyl->intersec_point.axis[2] = i.axis[2];
 	proj = scalar_product(i.axis, cyl->axis_vect.axis);
 	origin_proj = scalar_product(cyl->origin_vect.axis, cyl->axis_vect.axis);
 	if (intersect_disc_plans(ray, cyl, &i))
