@@ -23,6 +23,7 @@ void	fill_struct_cy(t_data *data, double tab[])
 	data->cylinders[i].origin_vect.axis[0] = tab[0];
 	data->cylinders[i].origin_vect.axis[1] = tab[1];
 	data->cylinders[i].origin_vect.axis[2] = tab[2];
+	data->cylinders[i].origin_vect.axis[3] = 1;
 	data->cylinders[i].axis_vect.axis[0] = tab[3];
 	data->cylinders[i].axis_vect.axis[1] = tab[4];
 	data->cylinders[i].axis_vect.axis[2] = tab[5];

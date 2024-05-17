@@ -64,8 +64,10 @@ int	key_event(int keycode, void *param)
 		vector = &data->cam.origin_vect;	
 	else if (mesh_enum == E_SPH)
 		vector = &data->spheres[0].origin_vect;
+	else if (mesh_enum == E_CYL)	
+		vector = &data->cylinders[0].origin_vect;
 	else if (mesh_enum == E_SPOTL)	
-		vector = &data->spotlight.origin_vect;	
+		vector = &data->spotlight.origin_vect;
 	event_translate(keycode, vector);
 	if (mesh_enum == E_SPOTL)
 	{

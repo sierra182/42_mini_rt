@@ -138,6 +138,7 @@ typedef enum e_event_mesh
 	E_CAM,
 	E_PLN,
 	E_SPH,
+	E_CYL,
 	E_SPOTL,
 	E_MESH_END
 }	t_enum_event_mesh;
