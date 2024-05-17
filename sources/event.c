@@ -1,7 +1,7 @@
 # include "x_mini_struct.h"
 # include "mlx.h"
 
-void	trsl_vector(t_matrix_vector *vect, double values[]);
+void	trsl_mesh(t_matrix_vector *vect, double values[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
 void	update_cam(t_cam *cam);
 
@@ -24,23 +24,42 @@ static void cam_event_rotate(int keycode, t_cam *cam)
 		rotate_cam(cam, -50 * r, (int []){0, 0, 1});
 }
 
+static void event_rotate(int keycode, t_cam *cam)
+{
+    double  r;
+
+    r = 1.0;
+    if (keycode == R_LFT)	
+		rotate_mesh(cam, r, (int []){1, 0, 0});
+    else if (keycode == R_RGHT)	
+		rotate_mesh(cam, -r, (int []){1, 0, 0});
+    else if (keycode == R_UP)	
+		rotate_mesh(cam, r, (int []){0, 1, 0});
+    else if (keycode == R_DWN)	
+		rotate_(cam, -r, (int []){0, 1, 0});
+    else if (keycode == S_LFT)	
+		rotate_cam(cam, 50 * r, (int []){0, 0, 1});
+    else if (keycode == S_RGHT)	
+		rotate_cam(cam, -50 * r, (int []){0, 0, 1});
+}
+
 static void	event_translate(int keycode, t_matrix_vector *vector)
 {
     double t;
 
     t = 0.1;
 	if (keycode == UP)	
-		trsl_vector(vector, (double []){0.0, -t, 0.0});		
+		trsl_mesh(vector, (double []){0.0, -t, 0.0});		
 	else if (keycode == DWN)
-		trsl_vector(vector, (double []){0.0, t, 0.0});	
+		trsl_mesh(vector, (double []){0.0, t, 0.0});	
 	else if (keycode == LFT)
-		trsl_vector(vector, (double []){t, 0.0, 0.0});	
+		trsl_mesh(vector, (double []){t, 0.0, 0.0});	
 	else if (keycode == RGHT)
-		trsl_vector(vector, (double []){-t, 0.0, 0.0});
+		trsl_mesh(vector, (double []){-t, 0.0, 0.0});
 	else if (keycode == FWRD)
-		trsl_vector(vector, (double []){0.0, 0.0, 20 * t});
+		trsl_mesh(vector, (double []){0.0, 0.0, 20 * t});
 	else if (keycode == BACK)
-		trsl_vector(vector, (double []){0.0, 0.0, -20 * t});
+		trsl_mesh(vector, (double []){0.0, 0.0, -20 * t});
 } 	
 
 int	key_event(int keycode, void *param)
