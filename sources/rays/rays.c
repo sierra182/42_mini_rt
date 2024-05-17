@@ -254,7 +254,7 @@ int	get_sphere_color(t_get_color_params *params)
 		&light_attenuat, &light_coef});
 	add_self_shadowing(light_coef, light_attenuat, params->color);
 	return (0);
-}
+} 
 
 void	get_plane_color(t_get_color_params *params)
 {
