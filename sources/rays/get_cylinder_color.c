@@ -1,4 +1,12 @@
 #include "x_mini_struct.h"
+#include "x_linear_algebra.h"
+void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
+void	color_with_ambiant_light(t_color *mesh_color,
+	t_ambiant_light *ambiant_light, t_color *new_color);
+int	has_shadow(t_data *data, void *mesh, t_ray *light_ray);
+void	add_shading(t_add_shading_params *params);
+
+void	get_plane_color(t_get_color_params *params);
 
 /*
 typedef	struct s_obj_intersect
@@ -68,42 +76,49 @@ void	get_cylinder_color_cyl()
 	//add_self_shadowing(light_coef, light_attenuat, params->color);
 }
 
-void	get_cylinder_color_discs()
+void	get_cylinder_color_discs(t_get_color_params *params)
 {
+
+
 	//printf("intersect discs\n");
 
-	//t_ray_vector	normal;
-	//t_ray			light_ray;
-	//t_color			ambiantly_color;
+	t_ray_vector	normal;
+	t_ray			light_ray;
+	t_color			ambiantly_color;
 
-	//cast_vector_mat_ray(&((t_plane *) params->mesh)->norm_vect, &normal);
-	//get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
-	//subtract_vector(params->data->spotlight.origin_vect.axis,
-	//	light_ray.origin_vect.axis, light_ray.dir_vect.axis);
-	//color_with_ambiant_light(&((t_plane *) params->mesh)->color,
-	//	&params->data->ambiant_light, &ambiantly_color);
-	//if (has_shadow(params->data, params->mesh, &light_ray))
-	//{
-	//	*params->color = ambiantly_color;
-	//	return ;
-	//}
-	//add_shading(&(t_add_shading_params){&light_ray, &normal,
-	//	&params->data->spotlight, &ambiantly_color, params->color,
-	//	&(double){0.0}, &(double){0.0}});
+	cast_vector_mat_ray(&((t_cylinder *) params->mesh)->axis_vect, &normal);
+	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
+	subtract_vector(params->data->spotlight.origin_vect.axis,
+		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
+	color_with_ambiant_light(&((t_cylinder *) params->mesh)->color,
+		&params->data->ambiant_light, &ambiantly_color);
+	if (has_shadow(params->data, params->mesh, &light_ray))
+	{
+		*params->color = ambiantly_color;
+		return ;
+	}
+	add_shading(&(t_add_shading_params){&light_ray, &normal,
+		&params->data->spotlight, &ambiantly_color, params->color,
+		&(double){0.0}, &(double){0.0}});
 }
 
-void	get_cylinder_color(t_obj *obj)
+void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj, t_color	*color)
 {
 	t_cylinder *cyl = (t_cylinder *)obj->ref;
-	printf("%f, %f, %f\n", cyl->intersec_point.axis[0], cyl->intersec_point.axis[1], cyl->intersec_point.axis[2]);
+	//printf("%f, %f, %f\n", cyl->intersec_point.axis[0], cyl->intersec_point.axis[1], cyl->intersec_point.axis[2]);
+	
 	if (cyl->cyl_or_discs == cylinder)
 	{
-		get_cylinder_color_cyl();
+		color->rgb[0] = 0;
+		color->rgb[1] = 0;
+		color->rgb[2] = 0;
+
+		//get_cylinder_color_cyl();
 
 	}
 	else if (cyl->cyl_or_discs == discs)
 	{
-		get_cylinder_color_discs();
-
+		//symmetrize_vector(cyl->axis_vect.axis);
+		get_cylinder_color_discs(&(t_get_color_params) {data, ray, obj->t, obj->ref, color});
 	}
 }
