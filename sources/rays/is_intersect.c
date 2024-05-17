@@ -123,11 +123,11 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
 	proj = scalar_product(i.axis, cyl->axis_vect.axis);
 	origin_proj = scalar_product(cyl->origin_vect.axis, cyl->axis_vect.axis);
 	if (intersect_disc_plans(ray, cyl, &i))
-		return (get_t_from_point(ray, &i));
+		return (cyl->cyl_or_discs = discs, get_t_from_point(ray, &i));
 	if (proj < origin_proj - cyl->height * 0.5
 		|| proj > origin_proj + cyl->height * 0.5)
 		return (0.0);
-	return (t1);
+	return (cyl->cyl_or_discs = cylinder, t1);
 }
 
 /**========================================================================

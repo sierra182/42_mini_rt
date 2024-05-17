@@ -81,6 +81,12 @@ typedef struct	s_ambiant_light
 	t_color			color;
 }	t_ambiant_light;
 
+typedef enum e_cyl_or_discs
+{
+	cylinder,
+	discs
+} t_cyl_or_discs;
+
 typedef struct s_cylinder
 {
 	t_matrix_vector	origin_vect;
@@ -91,6 +97,7 @@ typedef struct s_cylinder
 	float			height;
 	t_color			color;
 	int				which_t;
+	t_cyl_or_discs	cyl_or_discs;
 }	t_cylinder;
 
 typedef struct s_plane
