@@ -5,6 +5,7 @@
 # define HEIGHT 600
 # define AXIS 3
 # define MTX 4 
+# define BIG_VALUE 100000000
 # include <stdio.h>
 
 typedef	struct s_img

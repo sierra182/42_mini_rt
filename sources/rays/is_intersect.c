@@ -156,9 +156,12 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
 	cyl->proj = proj;
 	origin_proj = scalar_product(cyl->origin_vect.axis, cyl->axis_vect.axis);
 	
+	if (proj < origin_proj - cyl->height * 0.5
+		|| proj > origin_proj + cyl->height * 0.5)
+		t1 = BIG_VALUE;
 	
 	t2 = intersect_disc_plans(ray, cyl, &i);
-	if (t2 && t2 < cyl->t2 && t2 > cyl->t1)
+	if (t2 && t2 < t1)
 		return (cyl->cyl_or_discs = discs, t2);
 	else if (proj < origin_proj - cyl->height * 0.5
 		|| proj > origin_proj + cyl->height * 0.5)
