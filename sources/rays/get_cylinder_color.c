@@ -68,7 +68,6 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	double			light_coef;	
 	t_ray	proj_origin;
 
-	printf("je suis appelee...\n");
 	light_ray.origin_vect.axis[0] = ((t_cylinder *) params->mesh)->intersec_point.axis[0];
 	light_ray.origin_vect.axis[1] = ((t_cylinder *) params->mesh)->intersec_point.axis[1];
 	light_ray.origin_vect.axis[2] = ((t_cylinder *) params->mesh)->intersec_point.axis[2];
