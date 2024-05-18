@@ -118,6 +118,10 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 		&(double){0.0}, &(double){0.0}});
 }
 
+/**========================================================================
+ *                           get_cylinder_color
+ * ! symmetrise normal discs vector vector? which one? 
+ *========================================================================**/
 void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj, t_color	*color)
 {
 	t_cylinder *cyl = (t_cylinder *)obj->ref;
@@ -132,11 +136,6 @@ void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj, t_color	*color)
 	}
 	if (cyl->cyl_or_discs == discs)
 	{
-		color->rgb[0] = 0;
-		color->rgb[1] = 255;
-		color->rgb[2] = 0;
-		
-		//symmetrize_vector(cyl->axis_vect.axis);
-		//get_cylinder_color_discs(&(t_get_color_params) {data, ray, obj->t, obj->ref, color});
+		get_cylinder_color_discs(&(t_get_color_params) {data, ray, obj->t, obj->ref, color});
 	}
 }
