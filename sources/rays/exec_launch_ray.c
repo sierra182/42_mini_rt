@@ -77,7 +77,7 @@ static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 /**========================================================================
  *                           exec_launch_rays
  *========================================================================**/
-void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)
+void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 {
 	t_ray	ray;
 	t_obj	obj;

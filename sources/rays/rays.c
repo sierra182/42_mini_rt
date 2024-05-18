@@ -9,7 +9,7 @@ double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder,
 			t_ray_vector *i);
 double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
-void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y);
+void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
 void	invert_vector(double a[], double b[], double r_a[], double r_b[]);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
@@ -36,7 +36,7 @@ static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 	return ((1 - 2 * (pixel + 0.5) / screen_size));
 }
 
-static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
+void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 {
 	double	norm_scale_x;
 	double	norm_scale_y;
@@ -281,8 +281,8 @@ void	get_plane_color(t_get_color_params *params)
 
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
-	double	x;
-	double	y;
+	int	x;
+	int	y;
 
 	y = -1;
 	while (++y < data->cam.resol[1])
