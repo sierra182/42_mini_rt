@@ -68,6 +68,7 @@ SOURCES = \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
 	$(SRC_DIR)/rays/rays.c \
+	$(SRC_DIR)/rays/get_cylinder_color.c \
 	$(SRC_DIR)/rays/is_intersect.c \
 	$(SRC_DIR)/rays/is_intersect_utils.c \
 	$(SRC_DIR)/rays/find_closest_intersection.c \

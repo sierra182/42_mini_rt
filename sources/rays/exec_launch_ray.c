@@ -22,6 +22,12 @@ void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
 void	cast_vector_mat_ray(t_matrix_vector *matrix_vect,
 			t_ray_vector *ray_vect);
 
+
+void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj, t_color	*color);
+
+
+
+
 /**========================================================================
  *                           scale_and_add_vectors
  *========================================================================**/
@@ -102,7 +108,9 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 	}
 	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref)
 	{
-		rgb = get_color(0, 255, 255);
+		get_cylinder_color(data, ray, obj, &color);
+		//rgb = get_color(0, 255, 255);
+		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref)
 	{

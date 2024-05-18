@@ -5,6 +5,7 @@
 # define HEIGHT 600
 # define AXIS 3
 # define MTX 4 
+# define BIG_VALUE 100000000
 # include <stdio.h>
 
 typedef	struct s_img
@@ -81,9 +82,16 @@ typedef struct	s_ambiant_light
 	t_color			color;
 }	t_ambiant_light;
 
+typedef enum e_cyl_or_discs
+{
+	cylinder,
+	discs
+} t_cyl_or_discs;
+
 typedef struct s_cylinder
 {
 	t_matrix_vector	origin_vect;
+	double	proj;
 	t_matrix_vector	axis_vect;
 	float			diameter;
 	float			square_radius;
@@ -91,6 +99,11 @@ typedef struct s_cylinder
 	float			height;
 	t_color			color;
 	int				which_t;
+	t_cyl_or_discs	cyl_or_discs;
+	t_ray_vector	intersec_point;
+	t_ray_vector	origin_proj;
+	double			t1;
+	double			t2;
 }	t_cylinder;
 
 typedef struct s_plane
