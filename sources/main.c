@@ -9,7 +9,7 @@
 int		init_data(char *map_path, t_data *data);
 int		update_cam(t_cam *cam);
 int		key_event(int keycode, void *param);
-int		scroll_event(int button, int x, int y, void *param);
+int		mouse_event(int button, int x, int y, void *param);
 void	display_error(char *error);
 int		parse(t_data *data, char *map_path);
 void	launch_rays(t_mlx *mlx, t_data *data);
@@ -48,7 +48,7 @@ void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 {		
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);
 	mlx_hook(mlx->window, 2, 1L << 0, key_event, (void *[]){mlx, data});
-	mlx_mouse_hook(mlx->window, scroll_event, (void *) data);
+	mlx_mouse_hook(mlx->window, mouse_event, (void *) data);
 	mlx_loop_hook(mlx->connect, frame, (void *[]){mlx, data});
 	mlx_loop(mlx->connect);
 }

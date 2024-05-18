@@ -6,6 +6,11 @@ void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
 void	update_cam(t_cam *cam);
 
+void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
+void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
+void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
+void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
+
 static void cam_event_rotate(int keycode, t_cam *cam)
 {
     double  r;
@@ -63,6 +68,22 @@ static void	event_translate(int keycode, t_matrix_vector *vector)
 		trsl_mesh(vector, (double []){0.0, 0.0, -20 * t});
 } 	
 
+void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vector **dir_vect)
+{
+	static t_obj	actual_mesh;
+	
+	if (mesh)
+		actual_mesh = *mesh;
+	else 
+	{
+		if (actual_mesh.type == O_SP)
+		{
+			*origin_vect = &((t_sphere *) actual_mesh.ref)->origin_vect;
+			*dir_vect = NULL;
+		}
+	}
+}
+
 int	key_event(int keycode, void *param)
 {
 	t_mlx						*mlx;
@@ -79,49 +100,70 @@ int	key_event(int keycode, void *param)
 		mesh_enum = (mesh_enum + 1) % E_MESH_END;
 		printf("%d\n", mesh_enum);
 	}
-	if (mesh_enum == E_PLN)
-	{
-		rotate_vect = &data->planes[0].norm_vect;
-		transl_vect = &data->planes[0].origin_vect;
-	}
-	else if (mesh_enum == E_CAM)
+	if (mesh_enum == E_CAM)
 		transl_vect = &data->cam.origin_vect;	
-	else if (mesh_enum == E_SPH)	
-		transl_vect = &data->spheres[0].origin_vect;
-	else if (mesh_enum == E_CYL)
-	{
-		rotate_vect = &data->cylinders[0].axis_vect;
-		transl_vect = &data->cylinders[0].origin_vect;
-	}
 	else if (mesh_enum == E_SPOTL)	
 		transl_vect = &data->spotlight.origin_vect;
+	actual_mesh_handle(NULL, &transl_vect, &rotate_vect);
+	// if (mesh_enum == E_PLN)
+	// {
+	// 	rotate_vect = &data->planes[0].norm_vect;
+	// 	transl_vect = &data->planes[0].origin_vect;
+	// }
+	// else if (mesh_enum == E_SPH)	
+	// 	transl_vect = &data->spheres[0].origin_vect;
+	// else if (mesh_enum == E_CYL)
+	// {
+	// 	rotate_vect = &data->cylinders[0].axis_vect;
+	// 	transl_vect = &data->cylinders[0].origin_vect;
+	// }
 	event_translate(keycode, transl_vect);
-	if (mesh_enum == E_SPOTL)
-	{
-		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
-		if (keycode == PLUS && data->spotlight.intensity <= 0.9)
-			data->spotlight.intensity += 0.1;
-		else if (keycode == MINUS && data->spotlight.intensity >= 0.1)
-			data->spotlight.intensity -= 0.1;		
-	}
-	if (mesh_enum == E_CAM)
-   		cam_event_rotate(keycode, &data->cam);
-	else
+	// if (mesh_enum == E_SPOTL)
+	// {
+	// 	data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
+	// 	if (keycode == PLUS && data->spotlight.intensity <= 0.9)
+	// 		data->spotlight.intensity += 0.1;
+	// 	else if (keycode == MINUS && data->spotlight.intensity >= 0.1)
+	// 		data->spotlight.intensity -= 0.1;		
+	// }
+	// if (mesh_enum == E_CAM)
+   	// 	cam_event_rotate(keycode, &data->cam);
+	// else
 		event_rotate(keycode, rotate_vect);
 	if (keycode == ESC)
 		mlx_loop_end(mlx->connect);
 	return (0);
 }
 
-int    scroll_event(int button, int x, int y, void *param)
+void	event_launch_rays(t_data *data, int x, int y)
+{
+	t_ray	ray;
+	t_obj	obj;
+
+	new_ray(&data->cam, &ray, x, y);
+	obj.t = 100000000;
+	obj.ref = NULL;
+	get_closest_intersection_sp(data, &ray, &obj);
+	get_closest_intersection_cy(data, &ray, &obj);
+	get_closest_intersection_pl(data, &ray, &obj);
+	actual_mesh_handle(&obj, NULL, NULL);
+	printf("objet: type: %d, x:%d, y:%d\n", obj.type, x, y);
+}
+
+int    mouse_event(int button, int x, int y, void *param)
 {
     t_data	*data;
 
     data = (t_data *) param;
-    if (button == 5)
+	if (button == 1)
+	{
+		event_launch_rays(data, x, y);
+		return (0);
+	}
+    else if (button == 5)
         data->cam.fov_deg++;
     else if (button == 4)
         data->cam.fov_deg--;
-    update_cam(&data->cam);
+    update_cam(&data->cam);	
 	return (0);
 }
