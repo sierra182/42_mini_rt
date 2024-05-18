@@ -73,23 +73,37 @@ void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vec
 	static t_obj	actual_mesh;
 	
 	if (mesh)
+	{
+
 		actual_mesh = *mesh;
+			// ((t_sphere *) actual_mesh.ref)->color.rgb[0] += 100;
+			// if (((t_sphere *) actual_mesh.ref)->color.rgb[0] >= 255)
+			// 	((t_sphere *) actual_mesh.ref)->color.rgb[0] = 255;
+			
+	}
 	else 
 	{
-		if (actual_mesh.type == O_SP)
-		{
-			*origin_vect = &((t_sphere *) actual_mesh.ref)->origin_vect;
-			*dir_vect = NULL;
-		}
-		if (actual_mesh.type == O_PL)
-		{
-			*origin_vect = &((t_plane *) actual_mesh.ref)->origin_vect;
-			*dir_vect = &((t_plane *) actual_mesh.ref)->norm_vect;
-		}
-		if (actual_mesh.type == O_CY)
-		{
-			*origin_vect = &((t_cylinder *) actual_mesh.ref)->origin_vect;
-			*dir_vect = &((t_cylinder *) actual_mesh.ref)->axis_vect;
+	
+		if ((t_sphere *) actual_mesh.ref)
+		{		
+			// 	((t_sphere *) actual_mesh.ref)->color.rgb[0] -= 100;
+			// if (((t_sphere *) actual_mesh.ref)->color.rgb[0] >= 255)
+			// 	((t_sphere *) actual_mesh.ref)->color.rgb[0] = 255;
+			if (actual_mesh.type == O_SP)
+			{
+				*origin_vect = &((t_sphere *) actual_mesh.ref)->origin_vect;
+				*dir_vect = NULL;
+			}
+			if (actual_mesh.type == O_PL)
+			{
+				*origin_vect = &((t_plane *) actual_mesh.ref)->origin_vect;
+				*dir_vect = &((t_plane *) actual_mesh.ref)->norm_vect;
+			}
+			if (actual_mesh.type == O_CY)
+			{
+				*origin_vect = &((t_cylinder *) actual_mesh.ref)->origin_vect;
+				*dir_vect = &((t_cylinder *) actual_mesh.ref)->axis_vect;
+			}
 		}
 	}
 }
