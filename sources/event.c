@@ -81,6 +81,16 @@ void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vec
 			*origin_vect = &((t_sphere *) actual_mesh.ref)->origin_vect;
 			*dir_vect = NULL;
 		}
+		if (actual_mesh.type == O_PL)
+		{
+			*origin_vect = &((t_plane *) actual_mesh.ref)->origin_vect;
+			*dir_vect = &((t_plane *) actual_mesh.ref)->norm_vect;
+		}
+		if (actual_mesh.type == O_CY)
+		{
+			*origin_vect = &((t_cylinder *) actual_mesh.ref)->origin_vect;
+			*dir_vect = &((t_cylinder *) actual_mesh.ref)->axis_vect;
+		}
 	}
 }
 
@@ -88,48 +98,62 @@ int	key_event(int keycode, void *param)
 {
 	t_mlx						*mlx;
 	t_data						*data;
-	static t_enum_event_mesh	mesh_enum;
+	static t_event_mesh			mesh_enum;
 	t_matrix_vector 			*rotate_vect;
 	t_matrix_vector 			*transl_vect;
 
 	mlx = (t_mlx *) ((void **) param)[0];
 	data = (t_data *) ((void **) param)[1];
-	  printf("keycode: %d\n", keycode);
-	if (keycode == MESH)
-	{
-		mesh_enum = (mesh_enum + 1) % E_MESH_END;
-		printf("%d\n", mesh_enum);
-	}
+	rotate_vect = NULL;
+	transl_vect = NULL;
+	printf("keycode: %d\n", keycode);
+	if (keycode == MESH)	
+		mesh_enum = E_MESH;
+	if (keycode == CAM)	
+		mesh_enum = E_CAM;
+	if (keycode == LIGHT)	
+		mesh_enum = E_SPOTL;	
 	if (mesh_enum == E_CAM)
-		transl_vect = &data->cam.origin_vect;	
+	{
+		event_translate(keycode, &data->cam.origin_vect);
+		cam_event_rotate(keycode, &data->cam);
+	}
 	else if (mesh_enum == E_SPOTL)	
-		transl_vect = &data->spotlight.origin_vect;
-	actual_mesh_handle(NULL, &transl_vect, &rotate_vect);
+		event_translate(keycode, &data->spotlight.origin_vect);
+	else 
+	{
+		actual_mesh_handle(NULL, &transl_vect, &rotate_vect);
+		if (transl_vect)
+			event_translate(keycode, transl_vect);
+		if (rotate_vect)
+			event_rotate(keycode, rotate_vect);
+	}
+	
 	// if (mesh_enum == E_PLN)
 	// {
 	// 	rotate_vect = &data->planes[0].norm_vect;
 	// 	transl_vect = &data->planes[0].origin_vect;
 	// }
 	// else if (mesh_enum == E_SPH)	
-	// 	transl_vect = &data->spheres[0].origin_vect;
+	// 	transl_vect = &data->spheres[0].origin_vect;8
 	// else if (mesh_enum == E_CYL)
 	// {
 	// 	rotate_vect = &data->cylinders[0].axis_vect;
 	// 	transl_vect = &data->cylinders[0].origin_vect;
 	// }
-	event_translate(keycode, transl_vect);
-	// if (mesh_enum == E_SPOTL)
-	// {
-	// 	data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
-	// 	if (keycode == PLUS && data->spotlight.intensity <= 0.9)
-	// 		data->spotlight.intensity += 0.1;
-	// 	else if (keycode == MINUS && data->spotlight.intensity >= 0.1)
-	// 		data->spotlight.intensity -= 0.1;		
-	// }
+	
+	if (mesh_enum == E_SPOTL)
+	{
+		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
+		if (keycode == PLUS && data->spotlight.intensity <= 0.9)
+			data->spotlight.intensity += 0.1;
+		else if (keycode == MINUS && data->spotlight.intensity >= 0.1)
+			data->spotlight.intensity -= 0.1;		
+	}
 	// if (mesh_enum == E_CAM)
    	// 	cam_event_rotate(keycode, &data->cam);
 	// else
-		event_rotate(keycode, rotate_vect);
+	
 	if (keycode == ESC)
 		mlx_loop_end(mlx->connect);
 	return (0);

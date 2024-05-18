@@ -130,18 +130,17 @@ typedef enum e_event
 	S_RGHT = 65429,
 	PLUS = 65451,
 	MINUS = 65453,
+	CAM = 99,
+	LIGHT = 108, 
 	MESH = 111
 }	t_enum_event;
 
 typedef enum e_event_mesh
 {		
-	E_CAM,
-	E_PLN,
-	E_SPH,
-	E_CYL,
+	E_CAM,	
 	E_SPOTL,
-	E_MESH_END
-}	t_enum_event_mesh;
+	E_MESH
+}	t_event_mesh;
 
 typedef enum e_obj_type
 {
