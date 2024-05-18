@@ -1,8 +1,8 @@
 #ifndef X_MINI_STRUCT_H
 # define X_MINI_STRUCT_H
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 600
+# define HEIGHT 600
 # define AXIS 3
 # define MTX 4 
 # include <stdio.h>
@@ -127,27 +127,31 @@ typedef struct s_data
 typedef enum e_event
 {
 	ESC = 65307,
-	UP = 65362,
-	DWN = 65364,
-	LFT = 65361,
-	RGHT = 65363,
-	FWRD = 65436,
-	BACK = 65438,
+	UP = 65434,
+	DWN = 65435,
+	LFT = 65363,
+	RGHT = 65361,
+	FWRD = 65362,
+	BACK = 65364,
 	R_UP = 65431,
-	R_DWN = 65434,
-	R_LFT = 65437,
+	R_DWN = 65433,
+	R_LFT = 65430,
 	R_RGHT = 65432,
-	S_LFT = 65433,
-	S_RGHT = 65435,
+	S_LFT = 65436,
+	S_RGHT = 65429,
+	PLUS = 65451,
+	MINUS = 65453,
 	MESH = 111
 }	t_enum_event;
 
 typedef enum e_event_mesh
 {		
-	CAM,
-	SPH,
-	SPOTL,
-	MESH_END
+	E_CAM,
+	E_PLN,
+	E_SPH,
+	E_CYL,
+	E_SPOTL,
+	E_MESH_END
 }	t_enum_event_mesh;
 
 typedef enum e_obj_type
@@ -188,7 +192,7 @@ typedef struct s_intersection_params
 	void			*objects;
 	int				obj_nbr;
 	double			(*intersect_func)(t_ray *, void *, t_ray_vector *);
-	t_obj	*obj;
+	t_obj			*obj;
 	int				obj_type;
 	t_ray_vector	*i;
 }	t_intersection_params;
