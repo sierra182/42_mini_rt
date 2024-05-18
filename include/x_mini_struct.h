@@ -101,7 +101,8 @@ typedef struct s_cylinder
 	t_cyl_or_discs	cyl_or_discs;
 	t_ray_vector	intersec_point;
 	t_ray_vector	origin_proj;
-
+	double			t1;
+	double			t2;
 }	t_cylinder;
 
 typedef struct s_plane

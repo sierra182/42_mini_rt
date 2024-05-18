@@ -90,7 +90,7 @@ double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 /**========================================================================
  *                           intersect_disc_plans
  *========================================================================**/
-int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
+double	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
 {
 	t_plane			plane_1;
 	t_plane			plane_2;
@@ -108,8 +108,6 @@ int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
 	
 	scale_vector(cyl->axis_vect.axis, cyl->height * -0.5, scaled_v.axis);
 	add_vector(scaled_v.axis, cyl->origin_vect.axis, plane_2.origin_vect.axis);
-	
-	//symmetrize_vector(plane_2.origin_vect.axis);
 
 	if ((is_intersect_plane(ray, &plane_1, i) && distance_between_points(i, &plane_1.origin_vect) <= cyl->radius))
 	{
@@ -125,12 +123,11 @@ int	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
 			return (tmp1);
 		return (tmp2);
 	}
-	else if (tmp1)
+	if (tmp1)
 		return (tmp1);
-	else if (tmp2)
+	if (tmp2)
 		return (tmp2);
-	else
-		return (0);
+	return (0);
 }
 
 /**========================================================================
@@ -140,6 +137,7 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
 {
 	double			discrim;
 	double			t1;
+	double			t2;
 	t_ray_vector	i;
 	double			origin_proj;
 	double			proj;
@@ -159,19 +157,15 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
 	origin_proj = scalar_product(cyl->origin_vect.axis, cyl->axis_vect.axis);
 	
 	
-	
-	if (intersect_disc_plans(ray, cyl, &i))
-		return (cyl->cyl_or_discs = discs, get_t_from_point(ray, &i));
-	
-	
-	
-	if (proj < origin_proj - cyl->height * 0.5
+	t2 = intersect_disc_plans(ray, cyl, &i);
+	if (t2 && t2 < cyl->t2 && t2 > cyl->t1)
+		return (cyl->cyl_or_discs = discs, t2);
+	else if (proj < origin_proj - cyl->height * 0.5
 		|| proj > origin_proj + cyl->height * 0.5)
 		return (0.0);
-	
-	
-	
-	return (cyl->cyl_or_discs = cylinder, t1);
+	else
+		return (cyl->cyl_or_discs = cylinder, t1);
+
 }
 
 /**========================================================================
@@ -184,6 +178,7 @@ double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim)
 	double			b;
 	double			c;	
 	double			t1;
+	double			t2;
 
 	normalize_vector(cyl->axis_vect.axis);
 	subtract_vector(ray->origin_vect.axis, cyl->origin_vect.axis, cr.axis);
@@ -195,6 +190,7 @@ double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim)
 	c = scalar_product(cr.axis, cr.axis) - pow(scalar_product(cr.axis,
 				cyl->axis_vect.axis), 2) - cyl->square_radius;
 	*discrim = b * b - 4 * a * c;
-	t1 = (-b - sqrt(*discrim)) / (2 * a);
-	return (t1);
+	cyl->t1 = (-b - sqrt(*discrim)) / (2 * a);
+	cyl->t2 = (-b + sqrt(*discrim)) / (2 * a);
+	return (cyl->t1);
 }
