@@ -12,13 +12,13 @@ static void cam_event_rotate(int keycode, t_cam *cam)
 
     r = 1.0;
     if (keycode == R_LFT)	
-		rotate_cam(cam, r, (int []){1, 0, 0});
-    else if (keycode == R_RGHT)	
-		rotate_cam(cam, -r, (int []){1, 0, 0});
-    else if (keycode == R_UP)	
 		rotate_cam(cam, r, (int []){0, 1, 0});
-    else if (keycode == R_DWN)	
+    else if (keycode == R_RGHT)	
 		rotate_cam(cam, -r, (int []){0, 1, 0});
+    else if (keycode == R_UP)	
+		rotate_cam(cam, r, (int []){1, 0, 0});
+    else if (keycode == R_DWN)	
+		rotate_cam(cam, -r, (int []){1, 0, 0});
     else if (keycode == S_LFT)	
 		rotate_cam(cam, 50 * r, (int []){0, 0, 1});
     else if (keycode == S_RGHT)	
@@ -50,9 +50,9 @@ static void	event_translate(int keycode, t_matrix_vector *vector)
 
     t = 0.1;
 	if (keycode == UP)	
-		trsl_mesh(vector, (double []){0.0, -t, 0.0});		
+		trsl_mesh(vector, (double []){0.0, t, 0.0});		
 	else if (keycode == DWN)
-		trsl_mesh(vector, (double []){0.0, t, 0.0});	
+		trsl_mesh(vector, (double []){0.0, -t, 0.0});	
 	else if (keycode == LFT)
 		trsl_mesh(vector, (double []){t, 0.0, 0.0});	
 	else if (keycode == RGHT)
@@ -73,7 +73,7 @@ int	key_event(int keycode, void *param)
 
 	mlx = (t_mlx *) ((void **) param)[0];
 	data = (t_data *) ((void **) param)[1];
-	//  printf("keycode: %d\n", keycode);
+	  printf("keycode: %d\n", keycode);
 	if (keycode == MESH)
 	{
 		mesh_enum = (mesh_enum + 1) % E_MESH_END;
