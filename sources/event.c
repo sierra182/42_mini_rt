@@ -1,7 +1,8 @@
 # include "x_mini_struct.h"
 # include "mlx.h"
 
-void	trsl_mesh(t_matrix_vector *vect, double values[]);
+void	trsl_mesh(void *vect, double values[]);
+void	trsl_cam(void *cam_void, double values[]);
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
 void	update_cam(t_cam *cam);
@@ -49,7 +50,8 @@ static void event_rotate(int keycode, t_matrix_vector *vector)
 		rotate_mesh(vector, -r, (int []){0, 0, 1});
 }
 
-static void	event_translate(int keycode, t_matrix_vector *vector)
+static void	event_translate(int keycode,
+	void (*trsl_mesh)(void *vector, double values[]), void *vector)
 {
     double t;
 
@@ -120,7 +122,7 @@ int	key_event(int keycode, void *param)
 	data = (t_data *) ((void **) param)[1];
 	rotate_vect = NULL;
 	transl_vect = NULL;
-	printf("keycode: %d\n", keycode);
+	// printf("keycode: %d\n", keycode);
 	if (keycode == MESH)	
 		mesh_enum = E_MESH;
 	if (keycode == CAM)	
@@ -129,16 +131,16 @@ int	key_event(int keycode, void *param)
 		mesh_enum = E_SPOTL;	
 	if (mesh_enum == E_CAM)
 	{
-		event_translate(keycode, &data->cam.origin_vect);
+		event_translate(keycode, trsl_cam, &data->cam);
 		cam_event_rotate(keycode, &data->cam);
 	}
 	else if (mesh_enum == E_SPOTL)	
-		event_translate(keycode, &data->spotlight.origin_vect);
+		event_translate(keycode, trsl_mesh, &data->spotlight.origin_vect);
 	else 
 	{
 		actual_mesh_handle(NULL, &transl_vect, &rotate_vect);
 		if (transl_vect)
-			event_translate(keycode, transl_vect);
+			event_translate(keycode, trsl_mesh, transl_vect);
 		if (rotate_vect)
 			event_rotate(keycode, rotate_vect);
 	}	
@@ -160,9 +162,9 @@ void	event_launch_rays(t_data *data, int x, int y)
 	t_ray	ray;
 	t_obj	obj;
 
-	new_ray(&data->cam, &ray, x, y);
-	obj.t = 100000000;
 	obj.ref = NULL;
+	obj.t = 100000000;
+	new_ray(&data->cam, &ray, x, y);
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
