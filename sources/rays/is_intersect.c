@@ -27,7 +27,12 @@ double	which_t(double a, double b, double discrim, int *which_t)
 	else
 		return (*which_t = 0, 0.0);
 }
-
+/**========================================================================
+ *                             IS_INTERSECT
+ *  How to solve the cylinder/discs display order problem?
+ *  => refactor and treat discs just as another type of objects, just as
+ *  spheres, planes and cylinders, so that they are treated independantly.
+ *========================================================================**/
 /**========================================================================
  *                           is_intersect_sphere
  *========================================================================**/
