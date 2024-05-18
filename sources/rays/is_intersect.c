@@ -109,7 +109,6 @@ double	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
 	scale_vector(cyl->axis_vect.axis, cyl->height * -0.5, scaled_v.axis);
 	add_vector(scaled_v.axis, cyl->origin_vect.axis, plane_2.origin_vect.axis);
 
-	symmetrize_vector(plane_2.norm_vect.axis);
 	if ((is_intersect_plane(ray, &plane_1, i) && distance_between_points(i, &plane_1.origin_vect) <= cyl->radius))
 	{
 		tmp1 = get_t_from_point(ray, i);
