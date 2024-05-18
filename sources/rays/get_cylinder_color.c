@@ -125,11 +125,18 @@ void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj, t_color	*color)
 	
 	if (cyl->cyl_or_discs == cylinder)
 	{
-		get_cylinder_color_cyl(&(t_get_color_params) {data, ray, obj->t, obj->ref, color});
+		color->rgb[0] = 255;
+		color->rgb[1] = 0;
+		color->rgb[2] = 0;
+		//get_cylinder_color_cyl(&(t_get_color_params) {data, ray, obj->t, obj->ref, color});
 	}
-	else if (cyl->cyl_or_discs == discs)
+	if (cyl->cyl_or_discs == discs)
 	{
+		color->rgb[0] = 0;
+		color->rgb[1] = 255;
+		color->rgb[2] = 0;
+		
 		//symmetrize_vector(cyl->axis_vect.axis);
-		get_cylinder_color_discs(&(t_get_color_params) {data, ray, obj->t, obj->ref, color});
+		//get_cylinder_color_discs(&(t_get_color_params) {data, ray, obj->t, obj->ref, color});
 	}
 }
