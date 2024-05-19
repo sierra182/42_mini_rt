@@ -1,5 +1,6 @@
 # include "x_mini_struct.h"
 # include "mlx.h"
+# include "libft.h"
 
 void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
 void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
@@ -118,8 +119,17 @@ void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vec
 
 void	reset(t_data *data)
 {
+	t_data	*tmp_data;
+
+	tmp_data = data->data_cpy;
 	*data = *data->data_cpy;
-	// init_data(data->map_path, data);
+	ft_memcpy(data->cylinders, tmp_data->cylinders, data->cy_nbr *
+		sizeof(t_cylinder));
+	ft_memcpy(data->spheres, tmp_data->spheres, data->sp_nbr *
+		sizeof(t_sphere));
+	ft_memcpy(data->planes, tmp_data->planes, data->pl_nbr *
+		sizeof(t_plane));
+	data->data_cpy = tmp_data;	
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
 }
