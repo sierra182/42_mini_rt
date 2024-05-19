@@ -118,10 +118,10 @@ void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vec
 
 void	reset(t_data *data)
 {
-	printf("handle reset\n");
+	*data = *data->data_cpy;
 	// init_data(data->map_path, data);
-	// post_init_cam(&data->cam);
-	// update_cam(&data->cam);
+	post_init_cam(&data->cam);
+	update_cam(&data->cam);
 }
 
 int	key_event(int keycode, void *param)

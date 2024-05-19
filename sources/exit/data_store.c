@@ -47,6 +47,23 @@ void	store_and_free_planes(t_exit *exit, void *planes)
 	}
 }
 
+void	store_and_free_data_copy(t_exit *exit, void *data_cpy)
+{
+	if (exit && data_cpy)
+		exit->data_cpy = (t_data *) data_cpy;
+	else if (exit && exit->data_cpy)
+	{
+		free(exit->data_cpy->spheres);
+		exit->data_cpy->spheres = NULL;
+		free(exit->data_cpy->cylinders);
+		exit->data_cpy->cylinders = NULL;
+		free(exit->data_cpy->planes);
+		exit->data_cpy->planes = NULL;
+		free(exit->data_cpy);
+		exit->data_cpy = NULL;
+	}
+}
+
 t_mlx	*get_mlx(void)
 {
 	return (get_exit_struct()->mlx);

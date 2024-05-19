@@ -125,6 +125,7 @@ typedef struct s_data
 	t_plane			*planes;
 	t_spotlight		spotlight;
 	t_ambiant_light	ambiant_light;
+	struct s_data	*data_cpy;
 }	t_data;
 
 typedef enum e_event
@@ -177,6 +178,7 @@ typedef struct s_exit
 	t_cylinder	*cylinders;
 	t_plane		*planes;
 	t_mlx		*mlx;
+	t_data		*data_cpy;
 }	t_exit;
 
 typedef enum e_exit
@@ -186,6 +188,7 @@ typedef enum e_exit
 	SP,
 	CY,
 	PL,
+	DATA,
 	END
 }	t_enum_exit;
 
