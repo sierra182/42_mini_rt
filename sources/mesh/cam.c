@@ -3,6 +3,8 @@
 # include "x_matrix.h"
 # include "x_linear_algebra.h"
 
+void	trsl_mesh(void *vect_void, double values[]);
+
 void	update_cam(t_cam *cam)
 {	
 	cam->resol[0] = WIDTH;
@@ -65,4 +67,20 @@ void	rotate_cam(t_cam *cam, double angle, int axe[])
 	set_matrix_rotation(trsf_matrix, angle, axe);
 	multiply_matrix(trsf_matrix, *cam->cam_matrix, mult_matrix);
 	cast_matrix_cam(cam, mult_matrix);
+}
+
+void	trsl_cam(void *cam_void, double values[])
+{
+	t_matrix_vector scaled_vect;
+	double			value;
+	t_cam			*cam;
+
+	cam = (t_cam *) cam_void;
+	if (values[0])
+		scale_vector(cam->right_vect.axis, values[0], scaled_vect.axis);
+	else if (values[1])
+		trsl_mesh(&cam->origin_vect, values);
+	else if (values[2])
+		scale_vector(cam->forward_vect.axis, values[2], scaled_vect.axis);
+	add_vector(scaled_vect.axis, cam->origin_vect.axis, cam->origin_vect.axis);
 }

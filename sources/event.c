@@ -1,7 +1,8 @@
 # include "x_mini_struct.h"
 # include "mlx.h"
 
-void	trsl_mesh(t_matrix_vector *vect, double values[]);
+void	trsl_mesh(void *vect, double values[]);
+void	trsl_cam(void *cam_void, double values[]);
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
 void	update_cam(t_cam *cam);
@@ -25,9 +26,9 @@ static void cam_event_rotate(int keycode, t_cam *cam)
     else if (keycode == R_DWN)	
 		rotate_cam(cam, -r, (int []){1, 0, 0});
     else if (keycode == S_LFT)	
-		rotate_cam(cam, 50 * r, (int []){0, 0, 1});
+		rotate_cam(cam, r, (int []){0, 0, 1});
     else if (keycode == S_RGHT)	
-		rotate_cam(cam, -50 * r, (int []){0, 0, 1});
+		rotate_cam(cam, -r, (int []){0, 0, 1});
 }
 
 static void event_rotate(int keycode, t_matrix_vector *vector)
@@ -44,16 +45,17 @@ static void event_rotate(int keycode, t_matrix_vector *vector)
     else if (keycode == R_DWN)	
 		rotate_mesh(vector, -r, (int []){0, 1, 0});
     else if (keycode == S_LFT)	
-		rotate_mesh(vector, 50 * r, (int []){0, 0, 1});
+		rotate_mesh(vector, r, (int []){0, 0, 1});
     else if (keycode == S_RGHT)	
-		rotate_mesh(vector, -50 * r, (int []){0, 0, 1});
+		rotate_mesh(vector, -r, (int []){0, 0, 1});
 }
 
-static void	event_translate(int keycode, t_matrix_vector *vector)
+static void	event_translate(int keycode,
+	void (*trsl_mesh)(void *vector, double values[]), void *vector)
 {
     double t;
 
-    t = 0.1;
+    t = 1;
 	if (keycode == UP)	
 		trsl_mesh(vector, (double []){0.0, t, 0.0});		
 	else if (keycode == DWN)
@@ -63,9 +65,9 @@ static void	event_translate(int keycode, t_matrix_vector *vector)
 	else if (keycode == RGHT)
 		trsl_mesh(vector, (double []){-t, 0.0, 0.0});
 	else if (keycode == FWRD)
-		trsl_mesh(vector, (double []){0.0, 0.0, 20 * t});
+		trsl_mesh(vector, (double []){0.0, 0.0, t});
 	else if (keycode == BACK)
-		trsl_mesh(vector, (double []){0.0, 0.0, -20 * t});
+		trsl_mesh(vector, (double []){0.0, 0.0, -t});
 } 	
 
 void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vector **dir_vect)
@@ -120,7 +122,7 @@ int	key_event(int keycode, void *param)
 	data = (t_data *) ((void **) param)[1];
 	rotate_vect = NULL;
 	transl_vect = NULL;
-	printf("keycode: %d\n", keycode);
+	// printf("keycode: %d\n", keycode);
 	if (keycode == MESH)	
 		mesh_enum = E_MESH;
 	if (keycode == CAM)	
@@ -129,33 +131,19 @@ int	key_event(int keycode, void *param)
 		mesh_enum = E_SPOTL;	
 	if (mesh_enum == E_CAM)
 	{
-		event_translate(keycode, &data->cam.origin_vect);
+		event_translate(keycode, trsl_cam, &data->cam);
 		cam_event_rotate(keycode, &data->cam);
 	}
 	else if (mesh_enum == E_SPOTL)	
-		event_translate(keycode, &data->spotlight.origin_vect);
+		event_translate(keycode, trsl_mesh, &data->spotlight.origin_vect);
 	else 
 	{
 		actual_mesh_handle(NULL, &transl_vect, &rotate_vect);
 		if (transl_vect)
-			event_translate(keycode, transl_vect);
+			event_translate(keycode, trsl_mesh, transl_vect);
 		if (rotate_vect)
 			event_rotate(keycode, rotate_vect);
-	}
-	
-	// if (mesh_enum == E_PLN)
-	// {
-	// 	rotate_vect = &data->planes[0].norm_vect;
-	// 	transl_vect = &data->planes[0].origin_vect;
-	// }
-	// else if (mesh_enum == E_SPH)	
-	// 	transl_vect = &data->spheres[0].origin_vect;8
-	// else if (mesh_enum == E_CYL)
-	// {
-	// 	rotate_vect = &data->cylinders[0].axis_vect;
-	// 	transl_vect = &data->cylinders[0].origin_vect;
-	// }
-	
+	}	
 	if (mesh_enum == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
@@ -164,10 +152,6 @@ int	key_event(int keycode, void *param)
 		else if (keycode == MINUS && data->spotlight.intensity >= 0.1)
 			data->spotlight.intensity -= 0.1;		
 	}
-	// if (mesh_enum == E_CAM)
-   	// 	cam_event_rotate(keycode, &data->cam);
-	// else
-	
 	if (keycode == ESC)
 		mlx_loop_end(mlx->connect);
 	return (0);
@@ -178,14 +162,13 @@ void	event_launch_rays(t_data *data, int x, int y)
 	t_ray	ray;
 	t_obj	obj;
 
-	new_ray(&data->cam, &ray, x, y);
-	obj.t = 100000000;
 	obj.ref = NULL;
+	obj.t = 100000000;
+	new_ray(&data->cam, &ray, x, y);
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
-	actual_mesh_handle(&obj, NULL, NULL);
-	printf("objet: type: %d, x:%d, y:%d\n", obj.type, x, y);
+	actual_mesh_handle(&obj, NULL, NULL);	
 }
 
 int    mouse_event(int button, int x, int y, void *param)
@@ -198,9 +181,9 @@ int    mouse_event(int button, int x, int y, void *param)
 		event_launch_rays(data, x, y);
 		return (0);
 	}
-    else if (button == 5)
+    else if (button == 5 && data->cam.fov_deg < 180)
         data->cam.fov_deg++;
-    else if (button == 4)
+    else if (button == 4 && data->cam.fov_deg > 0)
         data->cam.fov_deg--;
     update_cam(&data->cam);	
 	return (0);
