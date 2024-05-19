@@ -222,4 +222,15 @@ typedef struct s_add_shading_params
 	double 			*light_coef;
 }	t_add_shading_params;
 
+typedef struct s_reset_tmps
+{
+	t_plane 	*planes;
+	t_sphere	*spheres;
+	t_cylinder	*cylinders;
+	t_data		*data_cpy;
+	t_plane 	*planes_cpy;
+	t_sphere	*spheres_cpy;
+	t_cylinder	*cylinders_cpy;
+}	t_reset_tmps;
+
 #endif
