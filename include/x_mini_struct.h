@@ -1,7 +1,7 @@
 #ifndef X_MINI_STRUCT_H
 # define X_MINI_STRUCT_H
 
-# define WIDTH 600
+# define WIDTH 800
 # define HEIGHT 600
 # define AXIS 3
 # define MTX 4 

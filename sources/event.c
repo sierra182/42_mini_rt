@@ -1,8 +1,10 @@
 # include "x_mini_struct.h"
 # include "mlx.h"
 
-void	trsl_mesh(void *vect, double values[]);
-void	trsl_cam(void *cam_void, double values[]);
+void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
+void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
+void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
+
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
 void	update_cam(t_cam *cam);
@@ -51,23 +53,24 @@ static void event_rotate(int keycode, t_matrix_vector *vector)
 }
 
 static void	event_translate(int keycode,
-	void (*trsl_mesh)(void *vector, double values[]), void *vector)
+	void (*trsl_mesh)(t_cam *cam, t_matrix_vector *vect, double values[]),
+		t_cam *cam, t_matrix_vector *vect)
 {
     double t;
 
     t = 1;
 	if (keycode == UP)	
-		trsl_mesh(vector, (double []){0.0, t, 0.0});		
+		trsl_mesh(cam, vect, (double []){0.0, t, 0.0});		
 	else if (keycode == DWN)
-		trsl_mesh(vector, (double []){0.0, -t, 0.0});	
+		trsl_mesh(cam, vect, (double []){0.0, -t, 0.0});	
 	else if (keycode == LFT)
-		trsl_mesh(vector, (double []){t, 0.0, 0.0});	
+		trsl_mesh(cam, vect, (double []){t, 0.0, 0.0});	
 	else if (keycode == RGHT)
-		trsl_mesh(vector, (double []){-t, 0.0, 0.0});
+		trsl_mesh(cam, vect, (double []){-t, 0.0, 0.0});
 	else if (keycode == FWRD)
-		trsl_mesh(vector, (double []){0.0, 0.0, t});
+		trsl_mesh(cam, vect, (double []){0.0, 0.0, t});
 	else if (keycode == BACK)
-		trsl_mesh(vector, (double []){0.0, 0.0, -t});
+		trsl_mesh(cam, vect, (double []){0.0, 0.0, -t});
 } 	
 
 void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vector **dir_vect)
@@ -131,16 +134,16 @@ int	key_event(int keycode, void *param)
 		mesh_enum = E_SPOTL;	
 	if (mesh_enum == E_CAM)
 	{
-		event_translate(keycode, trsl_cam, &data->cam);
+		event_translate(keycode, trsl_cam, &data->cam, NULL);
 		cam_event_rotate(keycode, &data->cam);
 	}
 	else if (mesh_enum == E_SPOTL)	
-		event_translate(keycode, trsl_mesh, &data->spotlight.origin_vect);
+		event_translate(keycode, trsl_about_cam, &data->cam, &data->spotlight.origin_vect);
 	else 
 	{
 		actual_mesh_handle(NULL, &transl_vect, &rotate_vect);
 		if (transl_vect)
-			event_translate(keycode, trsl_mesh, transl_vect);
+			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
 		if (rotate_vect)
 			event_rotate(keycode, rotate_vect);
 	}	
