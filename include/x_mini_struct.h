@@ -59,7 +59,6 @@ typedef struct	s_color
 	int	rgb[AXIS];
 }	t_color;
 
-
 typedef struct s_sphere
 {
 	t_matrix_vector	origin_vect;
@@ -90,8 +89,8 @@ typedef enum e_cyl_or_discs
 
 typedef struct s_cylinder
 {
+	double			proj;
 	t_matrix_vector	origin_vect;
-	double	proj;
 	t_matrix_vector	axis_vect;
 	float			diameter;
 	float			square_radius;

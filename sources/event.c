@@ -119,17 +119,37 @@ void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vec
 
 void	reset(t_data *data)
 {
-	t_data	*tmp_data;
+	t_data		*tmp_data_cpy;
+	t_plane 	*tmp_planes;
+	t_sphere	*tmp_spheres;
+	t_cylinder	*tmp_cylinders;
 
-	tmp_data = data->data_cpy;
+	t_plane 	*tmp_planes_cpy;
+	t_sphere	*tmp_spheres_cpy;
+	t_cylinder	*tmp_cylinders_cpy;
+
+	tmp_data_cpy = data->data_cpy;
+	tmp_planes = data->planes;
+	tmp_spheres = data->spheres;
+	tmp_cylinders = data->cylinders;
+
+	tmp_planes_cpy = data->data_cpy->planes;
+	tmp_spheres_cpy = data->data_cpy->spheres;
+	tmp_cylinders_cpy = data->data_cpy->cylinders;
+
 	*data = *data->data_cpy;
-	ft_memcpy(data->cylinders, tmp_data->cylinders, data->cy_nbr *
-		sizeof(t_cylinder));
-	ft_memcpy(data->spheres, tmp_data->spheres, data->sp_nbr *
-		sizeof(t_sphere));
-	ft_memcpy(data->planes, tmp_data->planes, data->pl_nbr *
+
+	data->planes = tmp_planes;
+	data->spheres = tmp_spheres;
+	data->cylinders = tmp_cylinders;
+
+	ft_memcpy(data->planes, tmp_planes_cpy, data->pl_nbr *
 		sizeof(t_plane));
-	data->data_cpy = tmp_data;	
+	ft_memcpy(data->spheres, tmp_spheres_cpy, data->sp_nbr *
+		sizeof(t_sphere));
+	ft_memcpy(data->cylinders, tmp_cylinders_cpy, data->cy_nbr *
+		sizeof(t_cylinder));
+	data->data_cpy = tmp_data_cpy;	
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
 }
