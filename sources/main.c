@@ -27,20 +27,14 @@ int	frame(void *param)
 {
 	t_mlx	*mlx;
 	t_data	*data;
-
+			
 	mlx = (t_mlx *) ((void **) param)[0];
 	data = (t_data *) ((void **) param)[1];
-	usleep(100);
-	// static int	refresh;
-	//(void) param;
-	// refresh = (refresh + 1) % 100;	
-	// if (!event->flag && refresh)
-	// 	return (0);
-	// frame();
-	// event->flag = 0;
-
+	if (!data->refresh)
+		return (0);	
+	data->refresh = 0;
 	launch_rays(mlx, data);
-	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);	
+	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
 	return (0);
 }
 

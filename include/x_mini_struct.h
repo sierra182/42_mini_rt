@@ -115,6 +115,7 @@ typedef struct s_plane
 
 typedef struct s_data
 {
+	int				refresh;
 	int				sp_nbr;
 	int				pl_nbr;
 	int				cy_nbr;
@@ -129,6 +130,7 @@ typedef struct s_data
 typedef enum e_event
 {
 	ESC = 65307,
+	RST = 114,
 	UP = 65434,
 	DWN = 65435,
 	LFT = 65363,

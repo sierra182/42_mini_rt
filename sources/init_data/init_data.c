@@ -17,6 +17,7 @@ int	init_data(char *map_path, t_data *data)
 {
 	double	tab[20];
 
+	data->refresh = 1;
 	get_elements_number(data, map_path);
 	if (create_data_structs(data, map_path) == 0)
 		return (0);

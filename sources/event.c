@@ -7,12 +7,15 @@ void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
 
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
+void	post_init_cam(t_cam *cam);
 void	update_cam(t_cam *cam);
 
 void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
 void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
+
+int	init_data(char *map_path, t_data *data);
 
 static void cam_event_rotate(int keycode, t_cam *cam)
 {
@@ -113,6 +116,14 @@ void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vec
 	}
 }
 
+void	reset(t_data *data)
+{
+	printf("handle reset\n");
+	// init_data(data->map_path, data);
+	// post_init_cam(&data->cam);
+	// update_cam(&data->cam);
+}
+
 int	key_event(int keycode, void *param)
 {
 	t_mlx						*mlx;
@@ -125,7 +136,10 @@ int	key_event(int keycode, void *param)
 	data = (t_data *) ((void **) param)[1];
 	rotate_vect = NULL;
 	transl_vect = NULL;
+	data->refresh = 1;
 	// printf("keycode: %d\n", keycode);
+	if (keycode == RST)	
+		reset(data);		
 	if (keycode == MESH)	
 		mesh_enum = E_MESH;
 	if (keycode == CAM)	
@@ -179,6 +193,7 @@ int    mouse_event(int button, int x, int y, void *param)
     t_data	*data;
 
     data = (t_data *) param;
+	data->refresh = 1;
 	if (button == 1)
 	{
 		event_launch_rays(data, x, y);
