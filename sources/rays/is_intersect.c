@@ -83,7 +83,7 @@ double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 			}
 			return (t);
 		}
-	}
+	}  
 	return (0);
 }
 
