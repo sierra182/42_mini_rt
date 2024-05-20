@@ -9,7 +9,6 @@ void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
 void	calculate_missing_vectors(t_cam *cam);
-// void	post_init_cam(t_cam *cam);
 void	update_cam(t_cam *cam);
 
 void	new_ray(t_cam *cam, t_ray *ray, int x, int y);

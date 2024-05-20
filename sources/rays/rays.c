@@ -5,6 +5,8 @@
 # include "x_linear_algebra.h"
 # include <math.h>
 
+void	display_error(char *str);
+
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder,
 			t_ray_vector *i);
@@ -310,16 +312,50 @@ void	get_plane_color(t_get_color_params *params)
 		&(double){0.0}, &(double){0.0}});
 }
 
+void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img_ptr)
+{
+	const double	inverse_eight = 0.125;
+	int				pxl_pos;
+
+	int bpp, line_len;
+	char *img_data = mlx_get_data_addr(img_ptr, &bpp,
+		&line_len, &(int){0});
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
+		int pxl_pos2 = (x - WIDTH)  * bpp * inverse_eight + (HEIGHT - y) * line_len;
+		if (*(unsigned int *)(img_data + pxl_pos2) != alpha_color)
+		{
+
+			*(unsigned int *)(mlx->img.img_data + pxl_pos) = 
+			*(unsigned int *)(img_data + pxl_pos2);
+		}
+	}
+}
+
+void	add_xpm(t_mlx *mlx, int x, int y, void *img)
+{
+    if (!img)    
+        return (display_error("Error loading image\n"));		    
+	put_pxl_alpha(mlx, x, y, 0xFFFFFF, img);
+}
+
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	int	x;
 	int	y;
-
+	void *img = mlx_xpm_file_to_image(mlx->connect, "lorem.xpm", &(int){0}, &(int){0});
 	y = -1;
 	while (++y < data->cam.resol[1])
 	{
 		x = -1;
 		while (++x < data->cam.resol[0])
+		{			
 			exec_launch_rays(mlx, data, x, y);
+			if (x >= WIDTH - 225 && y >= HEIGHT - 225)
+				add_xpm(mlx, x, y, img);
+		}
+		
 	}
 }
