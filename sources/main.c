@@ -7,13 +7,11 @@
 # include "mlx.h"
 
 int		init_data(char *map_path, t_data *data);
-int		update_cam(t_cam *cam);
 int		key_event(int keycode, void *param);
 int		mouse_event(int button, int x, int y, void *param);
 void	display_error(char *error);
 int		parse(t_data *data, char *map_path);
 void	launch_rays(t_mlx *mlx, t_data *data);
-void	post_init_cam(t_cam *cam);
 
 /**========================================================================
  *                             COMMENTS
@@ -72,9 +70,7 @@ int	main(int argc, char **argv)
 	if (parse(&data, argv[1]) == 0)
 		return (display_error(".rt file not valid\n"), 2);
 	if (init_data(argv[1], &data) == 0)
-		return (display_error("data init. error\n"), 3);
-	post_init_cam(&data.cam);
-	update_cam(&data.cam);
+		return (display_error("data init. error\n"), 3);	
 	if (init_mlx(&mlx))
 		return (4);	
 	launch_mlx_loop(&mlx, &data);		

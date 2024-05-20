@@ -4,6 +4,8 @@
 void	print_cylinder(t_cylinder *cylinder);
 int		element_is_present(char *map_path, char *el);
 void	get_elements_number(t_data *data, char *map_path);
+int		update_cam(t_cam *cam);
+void	post_init_cam(t_cam *cam);
 
 /**========================================================================
  *                             COMMENT BLOCK
@@ -59,6 +61,8 @@ int	init_data(char *map_path, t_data *data)
 	while (get_element_data(map_path, tab, "pl") != NULL)
 		fill_struct_pl(data, tab);
 	data->refresh = 1;
+	post_init_cam(&data->cam);
+	update_cam(&data->cam);
 	save_data(data);
 	return (1);
 }

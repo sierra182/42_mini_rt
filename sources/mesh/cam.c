@@ -17,7 +17,7 @@ void	update_cam(t_cam *cam)
 		cam->focal_len = cam->resol[0] / (2.0 * cam->scale);
 }
 
-static void	calculate_missing_vectors(t_cam *cam)
+void	calculate_missing_vectors(t_cam *cam)
 {
 	normalize_vector(cam->forward_vect.axis);
 	cam->up_vect.axis[0] = 0;

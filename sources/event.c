@@ -8,7 +8,8 @@ void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
 
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
-void	post_init_cam(t_cam *cam);
+void	calculate_missing_vectors(t_cam *cam);
+// void	post_init_cam(t_cam *cam);
 void	update_cam(t_cam *cam);
 
 void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
@@ -129,25 +130,22 @@ void	reset(t_data *data)
 	tmps.spheres_cpy = data->data_cpy->spheres;
 	tmps.cylinders_cpy = data->data_cpy->cylinders;
 	*data = *data->data_cpy;
-	data->data_cpy = tmps.data_cpy;	
 	data->planes = tmps.planes;
 	data->spheres = tmps.spheres;
 	data->cylinders = tmps.cylinders;
+	data->data_cpy = tmps.data_cpy;	
 	ft_memcpy(data->planes, tmps.planes_cpy, data->pl_nbr *
 		sizeof(t_plane));
 	ft_memcpy(data->spheres, tmps.spheres_cpy, data->sp_nbr *
 		sizeof(t_sphere));
 	ft_memcpy(data->cylinders, tmps.cylinders_cpy, data->cy_nbr *
 		sizeof(t_cylinder));
-	post_init_cam(&data->cam);
-	update_cam(&data->cam);
 }
 
 void	reset_cam(t_data *data)
 {
 	data->cam.forward_vect.axis[1] = 0;
-	post_init_cam(&data->cam);
-	update_cam(&data->cam);
+	calculate_missing_vectors(&data->cam);
 }
 
 int	key_event(int keycode, void *param)
