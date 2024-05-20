@@ -131,6 +131,7 @@ typedef enum e_event
 {
 	ESC = 65307,
 	RST = 114,
+	RST_CM = 65437,
 	UP = 65434,
 	DWN = 65435,
 	LFT = 65363,

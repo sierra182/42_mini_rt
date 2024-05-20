@@ -143,6 +143,13 @@ void	reset(t_data *data)
 	update_cam(&data->cam);
 }
 
+void	reset_cam(t_data *data)
+{
+	data->cam.forward_vect.axis[1] = 0;
+	post_init_cam(&data->cam);
+	update_cam(&data->cam);
+}
+
 int	key_event(int keycode, void *param)
 {
 	t_mlx						*mlx;
@@ -158,7 +165,9 @@ int	key_event(int keycode, void *param)
 	data->refresh = 1;
 	// printf("keycode: %d\n", keycode);
 	if (keycode == RST)	
-		reset(data);		
+		reset(data);
+	if (keycode == RST_CM)	
+		reset_cam(data);		
 	if (keycode == MESH)	
 		mesh_enum = E_MESH;
 	if (keycode == CAM)	
