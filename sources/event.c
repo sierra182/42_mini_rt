@@ -176,9 +176,7 @@ int	key_event(int keycode, void *param)
 		mesh_enum = E_SPOTL;	
 	else if (mesh_enum == E_CAM)
 	{
-		event_translate(keycode, trsl_cam, &data->cam, NULL);
-		// post_init_cam(&data->cam);
-		// update_cam(&data->cam);
+		event_translate(keycode, trsl_cam, &data->cam, NULL);	
 		cam_event_rotate(keycode, &data->cam);
 	}
 	else if (mesh_enum == E_SPOTL)	
