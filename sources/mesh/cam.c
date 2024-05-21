@@ -74,10 +74,10 @@ void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[])
 	t_matrix_vector scaled_vect;
 	double			value;
 
+	if (values[1])
+		return (trsl_mesh(NULL, &cam->origin_vect, values));
 	if (values[0])
 		scale_vector(cam->right_vect.axis, values[0], scaled_vect.axis);
-	else if (values[1])
-		trsl_mesh(NULL, &cam->origin_vect, values);
 	else if (values[2])
 		scale_vector(cam->forward_vect.axis, values[2], scaled_vect.axis);
 	add_vector(scaled_vect.axis, cam->origin_vect.axis, cam->origin_vect.axis);
@@ -88,10 +88,10 @@ void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[])
 	t_matrix_vector scaled_vect;
 	double			value;
 	
+	if (values[1])
+		return (trsl_mesh(NULL, vect, values));
 	if (values[0])
 		scale_vector(cam->right_vect.axis, values[0], scaled_vect.axis);
-	else if (values[1])
-		trsl_mesh(NULL, vect, values);
 	else if (values[2])
 		scale_vector(cam->forward_vect.axis, values[2], scaled_vect.axis);
 	add_vector(scaled_vect.axis, vect->axis, vect->axis);
