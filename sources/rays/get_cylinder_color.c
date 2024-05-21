@@ -138,16 +138,17 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
-	normalize_vector(light_ray.dir_vect.axis);
+	//normalize_vector(light_ray.dir_vect.axis);
 	double	nbr = scalar_product(normal.axis, light_ray.dir_vect.axis);
 	if (nbr > 0)
 		symmetrize_vector(normal.axis);
-	normalize_vector(params->ray->dir_vect.axis);
+	//normalize_vector(params->ray->dir_vect.axis);
 	double nbr_cam = scalar_product(normal.axis, params->ray->dir_vect.axis);
 	if (nbr_cam > 0)
 		symmetrize_vector(normal.axis);
 	color_with_ambiant_light(&((t_cylinder *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
+	add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
 	if (has_shadow(params->data, params->mesh, &light_ray))
 	{
 		*params->color = ambiantly_color;
@@ -156,6 +157,7 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	add_shading(&(t_add_shading_params){&light_ray, &normal,
 		&params->data->spotlight, &ambiantly_color, params->color,
 		&(double){0.0}, &(double){0.0}});
+	//add_self_shadowing(light_coef, light_attenuat, params->color);
 }
 
 /**========================================================================
