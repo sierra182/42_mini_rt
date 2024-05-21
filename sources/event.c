@@ -10,6 +10,7 @@ void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	rotate_cam(t_cam *cam, double angle, int axe[]);
 void	calculate_missing_vectors(t_cam *cam);
 void	update_cam(t_cam *cam);
+void	post_init_cam(t_cam *cam);
 
 void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
 void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
@@ -161,19 +162,23 @@ int	key_event(int keycode, void *param)
 	transl_vect = NULL;
 	data->refresh = 1;
 	// printf("keycode: %d\n", keycode);
-	if (keycode == RST)	
+	if (keycode == ESC)
+		mlx_loop_end(mlx->connect);
+	else if (keycode == RST)	
 		reset(data);
-	if (keycode == RST_CM)	
+	else if (keycode == RST_CM)	
 		reset_cam(data);		
-	if (keycode == MESH)	
+	else if (keycode == MESH)	
 		mesh_enum = E_MESH;
-	if (keycode == CAM)	
+	else if (keycode == CAM)	
 		mesh_enum = E_CAM;
-	if (keycode == LIGHT)	
+	else if (keycode == LIGHT)	
 		mesh_enum = E_SPOTL;	
-	if (mesh_enum == E_CAM)
+	else if (mesh_enum == E_CAM)
 	{
 		event_translate(keycode, trsl_cam, &data->cam, NULL);
+		// post_init_cam(&data->cam);
+		// update_cam(&data->cam);
 		cam_event_rotate(keycode, &data->cam);
 	}
 	else if (mesh_enum == E_SPOTL)	
@@ -194,8 +199,7 @@ int	key_event(int keycode, void *param)
 		else if (keycode == MINUS && data->spotlight.intensity >= 0.1)
 			data->spotlight.intensity -= 0.1;		
 	}
-	if (keycode == ESC)
-		mlx_loop_end(mlx->connect);
+
 	return (0);
 }
 
