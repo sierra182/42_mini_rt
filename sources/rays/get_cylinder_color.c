@@ -142,6 +142,13 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	double	nbr = scalar_product(normal.axis, light_ray.dir_vect.axis);
 	if (nbr > 0)
 		symmetrize_vector(normal.axis);
+	normalize_vector(params->ray->dir_vect.axis);
+	double nbr_cam = scalar_product(normal.axis, params->ray->dir_vect.axis);
+	//printf("")
+	if (nbr_cam > 0)
+	{
+		symmetrize_vector(normal.axis);
+	}
 	color_with_ambiant_light(&((t_cylinder *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
 	if (has_shadow(params->data, params->mesh, &light_ray))
