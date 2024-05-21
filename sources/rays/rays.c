@@ -324,8 +324,8 @@ void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
 		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
-		int pxl_pos2 = (x - WIDTH)  * bpp * inverse_eight + (HEIGHT - y) * line_len;
-		if (*(unsigned int *)(img_data + pxl_pos2) != alpha_color)
+		int pxl_pos2 = (x - (WIDTH - 200))  * bpp * inverse_eight + (y - (HEIGHT - 200)) * line_len;
+		if (*(unsigned int *)(img_data + pxl_pos2) == 0x008080)
 		{
 
 			*(unsigned int *)(mlx->img.img_data + pxl_pos) = 
@@ -338,7 +338,7 @@ void	add_xpm(t_mlx *mlx, int x, int y, void *img)
 {
     if (!img)    
         return (display_error("Error loading image\n"));		    
-	put_pxl_alpha(mlx, x, y, 0xFFFFFF, img);
+	put_pxl_alpha(mlx, x, y, 0x0, img);
 }
 
 void	launch_rays(t_mlx *mlx, t_data *data)
@@ -353,7 +353,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		while (++x < data->cam.resol[0])
 		{			
 			exec_launch_rays(mlx, data, x, y);
-			if (x >= WIDTH - 225 && y >= HEIGHT - 225)
+			if (x >= WIDTH - 200 && y >= HEIGHT - 200)
 				add_xpm(mlx, x, y, img);
 		}
 		
