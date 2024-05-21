@@ -297,6 +297,22 @@ void	get_plane_color(t_get_color_params *params)
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
+	normalize_vector(light_ray.dir_vect.axis);
+	
+	double nbr_light = scalar_product(normal.axis, light_ray.dir_vect.axis);
+	if (nbr_light < 0)
+	{
+		symmetrize_vector(normal.axis);
+	}
+
+	normalize_vector(params->ray->dir_vect.axis);
+	double nbr_cam = scalar_product(normal.axis, params->ray->dir_vect.axis);
+	//printf("")
+	if (nbr_cam > 0)
+	{
+		symmetrize_vector(normal.axis);
+	}
+	
 	color_with_ambiant_light(&((t_plane *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
 	// if (((t_plane *) params->mesh)->which_t == 2)
@@ -336,8 +352,8 @@ void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img
 
 void	add_xpm(t_mlx *mlx, int x, int y, void *img)
 {
-    if (!img)    
-        return (display_error("Error loading image\n"));		    
+	if (!img)    
+		return (display_error("Error loading image\n"));		    
 	put_pxl_alpha(mlx, x, y, 0x0, img);
 }
 

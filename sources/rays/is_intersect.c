@@ -83,7 +83,7 @@ double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 			}
 			return (t);
 		}
-	}
+	}  
 	return (0);
 }
 
@@ -169,6 +169,8 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
 	else
 		return (cyl->cyl_or_discs = cylinder, t1);
 
+
+
 }
 
 /**========================================================================
@@ -193,7 +195,7 @@ double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim)
 	c = scalar_product(cr.axis, cr.axis) - pow(scalar_product(cr.axis,
 				cyl->axis_vect.axis), 2) - cyl->square_radius;
 	*discrim = b * b - 4 * a * c;
-	cyl->t1 = (-b - sqrt(*discrim)) / (2 * a);
-	cyl->t2 = (-b + sqrt(*discrim)) / (2 * a);
-	return (cyl->t1);
+	//cyl->t1 = (-b - sqrt(*discrim)) / (2 * a);
+	//cyl->t2 = (-b + sqrt(*discrim)) / (2 * a);
+	return (which_t(a, b, *discrim, &cyl->which_t));
 }
