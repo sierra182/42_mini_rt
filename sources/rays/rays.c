@@ -5,6 +5,8 @@
 # include "x_linear_algebra.h"
 # include <math.h>
 
+void	display_error(char *str);
+
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder,
 			t_ray_vector *i);
@@ -166,11 +168,40 @@ int	has_cylinder_shadow(t_data *data, void *mesh, t_ray *light_ray)
 	return (0);
 }
 
+int	has_plane_shadow(t_data *data, void *mesh, t_ray *light_ray)
+{
+	int				i;
+	double			t;
+	long double		mesh_mag;
+	long double		light_mag;
+	t_ray_vector	intersect_pt;
+
+	i = -1;
+	while (++i < data->pl_nbr)
+	{
+		if (mesh && (void *) &data->planes[i] != mesh)
+		{
+			t = is_intersect_plane(light_ray, &data->planes[i], NULL);
+			if (t)
+			{
+				get_local_intersect_point(light_ray, t, &intersect_pt);
+				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+				mesh_mag = get_vector_magnitude(intersect_pt.axis);
+				if (mesh_mag - 1e-5 < light_mag)
+					return (1);
+			}
+		}
+	}
+	return (0);
+}
+
 int	has_shadow(t_data *data, void *mesh, t_ray *light_ray)
 {
 	if (has_sphere_shadow(data, mesh, light_ray))
 		return (1);
 	if (has_cylinder_shadow(data, mesh, light_ray))
+		return (1);
+	if (has_plane_shadow(data, mesh, light_ray))
 		return (1);
 	return (0);
 }
@@ -263,7 +294,6 @@ void	get_plane_color(t_get_color_params *params)
 	t_color			ambiantly_color;
 
 	cast_vector_mat_ray(&((t_plane *) params->mesh)->norm_vect, &normal);
-	//printf("truc : %f, %f, %f\n", ((t_plane *) params->mesh)->norm_vect.axis[0], ((t_plane *) params->mesh)->norm_vect.axis[1], ((t_plane *) params->mesh)->norm_vect.axis[2]);
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
@@ -275,6 +305,9 @@ void	get_plane_color(t_get_color_params *params)
 	}
 	color_with_ambiant_light(&((t_plane *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
+	// if (((t_plane *) params->mesh)->which_t == 2)
+	//	symmetrize_vector(normal.axis);
+	add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
 	if (has_shadow(params->data, params->mesh, &light_ray))
 	{
 		*params->color = ambiantly_color;
@@ -285,16 +318,50 @@ void	get_plane_color(t_get_color_params *params)
 		&(double){0.0}, &(double){0.0}});
 }
 
+void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img_ptr)
+{
+	const double	inverse_eight = 0.125;
+	int				pxl_pos;
+
+	int bpp, line_len;
+	char *img_data = mlx_get_data_addr(img_ptr, &bpp,
+		&line_len, &(int){0});
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
+		int pxl_pos2 = (x - (WIDTH - 200))  * bpp * inverse_eight + (y - (HEIGHT - 200)) * line_len;
+		if (*(unsigned int *)(img_data + pxl_pos2) == 0x008080)
+		{
+
+			*(unsigned int *)(mlx->img.img_data + pxl_pos) = 
+			*(unsigned int *)(img_data + pxl_pos2);
+		}
+	}
+}
+
+void	add_xpm(t_mlx *mlx, int x, int y, void *img)
+{
+    if (!img)    
+        return (display_error("Error loading image\n"));		    
+	put_pxl_alpha(mlx, x, y, 0x0, img);
+}
+
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	int	x;
 	int	y;
-
+	void *img = mlx_xpm_file_to_image(mlx->connect, "lorem.xpm", &(int){0}, &(int){0});
 	y = -1;
 	while (++y < data->cam.resol[1])
 	{
 		x = -1;
 		while (++x < data->cam.resol[0])
+		{			
 			exec_launch_rays(mlx, data, x, y);
+			if (x >= WIDTH - 200 && y >= HEIGHT - 200)
+				add_xpm(mlx, x, y, img);
+		}
+		
 	}
 }

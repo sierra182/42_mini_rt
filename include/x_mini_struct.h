@@ -1,7 +1,7 @@
 #ifndef X_MINI_STRUCT_H
 # define X_MINI_STRUCT_H
 
-# define WIDTH 600
+# define WIDTH 800
 # define HEIGHT 600
 # define AXIS 3
 # define MTX 4 
@@ -59,7 +59,6 @@ typedef struct	s_color
 	int	rgb[AXIS];
 }	t_color;
 
-
 typedef struct s_sphere
 {
 	t_matrix_vector	origin_vect;
@@ -90,8 +89,8 @@ typedef enum e_cyl_or_discs
 
 typedef struct s_cylinder
 {
+	double			proj;
 	t_matrix_vector	origin_vect;
-	double	proj;
 	t_matrix_vector	axis_vect;
 	float			diameter;
 	float			square_radius;
@@ -115,6 +114,7 @@ typedef struct s_plane
 
 typedef struct s_data
 {
+	int				refresh;
 	int				sp_nbr;
 	int				pl_nbr;
 	int				cy_nbr;
@@ -124,11 +124,14 @@ typedef struct s_data
 	t_plane			*planes;
 	t_spotlight		spotlight;
 	t_ambiant_light	ambiant_light;
+	struct s_data	*data_cpy;
 }	t_data;
 
 typedef enum e_event
 {
 	ESC = 65307,
+	RST = 114,
+	RST_CM = 65437,
 	UP = 65434,
 	DWN = 65435,
 	LFT = 65363,
@@ -175,6 +178,7 @@ typedef struct s_exit
 	t_cylinder	*cylinders;
 	t_plane		*planes;
 	t_mlx		*mlx;
+	t_data		*data_cpy;
 }	t_exit;
 
 typedef enum e_exit
@@ -184,6 +188,7 @@ typedef enum e_exit
 	SP,
 	CY,
 	PL,
+	DATA,
 	END
 }	t_enum_exit;
 
@@ -217,5 +222,16 @@ typedef struct s_add_shading_params
 	double			*light_attenuat;
 	double 			*light_coef;
 }	t_add_shading_params;
+
+typedef struct s_reset_tmps
+{
+	t_plane 	*planes;
+	t_sphere	*spheres;
+	t_cylinder	*cylinders;
+	t_data		*data_cpy;
+	t_plane 	*planes_cpy;
+	t_sphere	*spheres_cpy;
+	t_cylinder	*cylinders_cpy;
+}	t_reset_tmps;
 
 #endif

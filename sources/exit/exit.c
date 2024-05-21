@@ -17,6 +17,7 @@ static t_getsaf	*get_store_and_free(void)
 		store_and_free[SP] = store_and_free_spheres;
 		store_and_free[CY] = store_and_free_cylinders;
 		store_and_free[PL] = store_and_free_planes;
+		store_and_free[DATA] = store_and_free_data_copy;
 	}
 	return (store_and_free);
 }

@@ -7,13 +7,11 @@
 # include "mlx.h"
 
 int		init_data(char *map_path, t_data *data);
-int		update_cam(t_cam *cam);
 int		key_event(int keycode, void *param);
 int		mouse_event(int button, int x, int y, void *param);
 void	display_error(char *error);
 int		parse(t_data *data, char *map_path);
 void	launch_rays(t_mlx *mlx, t_data *data);
-void	post_init_cam(t_cam *cam);
 
 /**========================================================================
  *                             COMMENTS
@@ -27,20 +25,14 @@ int	frame(void *param)
 {
 	t_mlx	*mlx;
 	t_data	*data;
-
+			
 	mlx = (t_mlx *) ((void **) param)[0];
 	data = (t_data *) ((void **) param)[1];
-	usleep(100);
-	// static int	refresh;
-	//(void) param;
-	// refresh = (refresh + 1) % 100;	
-	// if (!event->flag && refresh)
-	// 	return (0);
-	// frame();
-	// event->flag = 0;
-
+	if (!data->refresh)
+		return (0);	
+	data->refresh = 0;
 	launch_rays(mlx, data);
-	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);	
+	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
 	return (0);
 }
 
@@ -78,9 +70,7 @@ int	main(int argc, char **argv)
 	if (parse(&data, argv[1]) == 0)
 		return (display_error(".rt file not valid\n"), 2);
 	if (init_data(argv[1], &data) == 0)
-		return (display_error("data init. error\n"), 3);
-	post_init_cam(&data.cam);
-	update_cam(&data.cam);
+		return (display_error("data init. error\n"), 3);	
 	if (init_mlx(&mlx))
 		return (4);	
 	launch_mlx_loop(&mlx, &data);		

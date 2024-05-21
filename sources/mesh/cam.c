@@ -3,7 +3,7 @@
 # include "x_matrix.h"
 # include "x_linear_algebra.h"
 
-void	trsl_mesh(void *vect_void, double values[]);
+void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
 
 void	update_cam(t_cam *cam)
 {	
@@ -17,7 +17,7 @@ void	update_cam(t_cam *cam)
 		cam->focal_len = cam->resol[0] / (2.0 * cam->scale);
 }
 
-static void	calculate_missing_vectors(t_cam *cam)
+void	calculate_missing_vectors(t_cam *cam)
 {
 	normalize_vector(cam->forward_vect.axis);
 	cam->up_vect.axis[0] = 0;
@@ -69,18 +69,30 @@ void	rotate_cam(t_cam *cam, double angle, int axe[])
 	cast_matrix_cam(cam, mult_matrix);
 }
 
-void	trsl_cam(void *cam_void, double values[])
+void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[])
 {
 	t_matrix_vector scaled_vect;
 	double			value;
-	t_cam			*cam;
 
-	cam = (t_cam *) cam_void;
 	if (values[0])
 		scale_vector(cam->right_vect.axis, values[0], scaled_vect.axis);
 	else if (values[1])
-		trsl_mesh(&cam->origin_vect, values);
+		trsl_mesh(NULL, &cam->origin_vect, values);
 	else if (values[2])
 		scale_vector(cam->forward_vect.axis, values[2], scaled_vect.axis);
 	add_vector(scaled_vect.axis, cam->origin_vect.axis, cam->origin_vect.axis);
+}
+
+void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[])
+{
+	t_matrix_vector scaled_vect;
+	double			value;
+	
+	if (values[0])
+		scale_vector(cam->right_vect.axis, values[0], scaled_vect.axis);
+	else if (values[1])
+		trsl_mesh(NULL, vect, values);
+	else if (values[2])
+		scale_vector(cam->forward_vect.axis, values[2], scaled_vect.axis);
+	add_vector(scaled_vect.axis, vect->axis, vect->axis);
 }
