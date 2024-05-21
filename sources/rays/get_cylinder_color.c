@@ -55,7 +55,7 @@ typedef struct s_get_color_params
 /**========================================================================
  *                           get_cylinder_color_cyl
  *! which_t calculation to be added! 
- *========================================================================**/
+*========================================================================**/
 //int	get_cylinder_color_cyl(t_get_color_params *params)
 //{
 
@@ -95,52 +95,37 @@ typedef struct s_get_color_params
 /**========================================================================
  *                           get_cylinder_color_cyl
  *! which_t calculation to be added! 
- *========================================================================**/
+*========================================================================**/
 void	get_cylinder_color_cyl(t_get_color_params *params)
 {
 	t_ray_vector normal;
-    t_ray light_ray;
-    t_color ambiantly_color;
-    double light_attenuat;
-    double light_coef;
-    t_cylinder *cyl = (t_cylinder *)params->mesh;
-    t_ray_vector intersect_point;
+	t_ray light_ray;
+	t_color ambiantly_color;
+	double light_attenuat;
+	double light_coef;
+	t_cylinder *cyl = (t_cylinder *)params->mesh;
+	t_ray_vector intersect_point;
+	t_ray_vector cyl_to_intersect;
+	double proj;
+	t_ray_vector proj_vect;
 
-    // Get the intersection point
-    get_intersect_point(params->ray, params->t, &intersect_point);
-
-    // Calculate the normal at the intersection point
-    t_ray_vector cyl_to_intersect;
-    subtract_vector(intersect_point.axis, cyl->origin_vect.axis, cyl_to_intersect.axis);
-    double proj = scalar_product(cyl_to_intersect.axis, cyl->axis_vect.axis);
-    t_ray_vector proj_vect;
-    scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
-    subtract_vector(cyl_to_intersect.axis, proj_vect.axis, normal.axis);
-    normalize_vector(normal.axis);
-
-    // Prepare the light ray
-    light_ray.origin_vect = intersect_point;
-    subtract_vector(params->data->spotlight.origin_vect.axis, light_ray.origin_vect.axis, light_ray.dir_vect.axis);
-
-    // Calculate ambient color
-    color_with_ambiant_light(&cyl->color, &params->data->ambiant_light, &ambiantly_color);
-
-    // Add initial shading
-    add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
-
-    // Check for shadows
-    if (has_shadow(params->data, cyl, &light_ray))
-    {
-        *params->color = ambiantly_color;
-        return;
-    }
-
-    // Add shading based on the light source
-    add_shading(&(t_add_shading_params){&light_ray, &normal, &params->data->spotlight, &ambiantly_color, params->color, &light_attenuat, &light_coef});
-
-    // Add self-shadowing effects
-    add_self_shadowing(light_coef, light_attenuat, params->color);
-
+	get_intersect_point(params->ray, params->t, &intersect_point);
+	subtract_vector(intersect_point.axis, cyl->origin_vect.axis, cyl_to_intersect.axis);
+	proj = scalar_product(cyl_to_intersect.axis, cyl->axis_vect.axis);
+	scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
+	subtract_vector(cyl_to_intersect.axis, proj_vect.axis, normal.axis);
+	normalize_vector(normal.axis);
+	light_ray.origin_vect = intersect_point;
+	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray.origin_vect.axis, light_ray.dir_vect.axis);
+	color_with_ambiant_light(&cyl->color, &params->data->ambiant_light, &ambiantly_color);
+	add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
+	if (has_shadow(params->data, cyl, &light_ray))
+	{
+		*params->color = ambiantly_color;
+		return;
+	}
+	add_shading(&(t_add_shading_params){&light_ray, &normal, &params->data->spotlight, &ambiantly_color, params->color, &light_attenuat, &light_coef});
+	add_self_shadowing(light_coef, light_attenuat, params->color);
 }
 
 void	get_cylinder_color_discs(t_get_color_params *params)
@@ -153,8 +138,6 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
-
-
 	normalize_vector(light_ray.dir_vect.axis);
 	double	nbr = scalar_product(normal.axis, light_ray.dir_vect.axis);
 	if (nbr > 0)
@@ -181,9 +164,6 @@ void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj, t_color	*color)
 	
 	if (cyl->cyl_or_discs == cylinder)
 	{
-		//color->rgb[0] = 255;
-		//color->rgb[1] = 0;
-		//color->rgb[2] = 0;
 		get_cylinder_color_cyl(&(t_get_color_params) {data, ray, obj->t, obj->ref, color});
 	}
 	if (cyl->cyl_or_discs == discs)
