@@ -358,10 +358,10 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		x = -1;
 		while (++x < data->cam.resol[0])
 		{			
-			exec_launch_rays(mlx, data, x, y);
-			if (x >= WIDTH - 792 && y >= HEIGHT - 200)
+			if (data->event.legend && x >= WIDTH - 792 && y >= HEIGHT - 200)
 				add_xpm(mlx, x, y, img);
-		}
-		
+			else
+				exec_launch_rays(mlx, data, x, y);
+		}		
 	}
 }

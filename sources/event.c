@@ -223,6 +223,8 @@ void	event_launch_rays(t_data *data, int x, int y)
 	actual_mesh_handle(&obj, NULL, NULL);	
 }
 
+
+
 int    mouse_event(int button, int x, int y, void *param)
 {
     t_data	*data;
@@ -231,6 +233,8 @@ int    mouse_event(int button, int x, int y, void *param)
 	data->refresh = 1;
 	if (button == 1)
 	{
+		if (x >= 0 && x < 100 && y >= 0 && y < 100)
+			return (data->event.legend = (data->event.legend + 1) % 2, 0);		
 		event_launch_rays(data, x, y);
 		return (0);
 	}

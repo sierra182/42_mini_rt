@@ -112,12 +112,18 @@ typedef struct s_plane
 	t_color			color;
 }	t_plane;
 
+typedef struct s_event
+{
+	int	legend;
+}	t_event;
+
 typedef struct s_data
 {
 	int				refresh;
 	int				sp_nbr;
 	int				pl_nbr;
 	int				cy_nbr;
+	t_event			event;
 	t_cam			cam;
 	t_sphere		*spheres;
 	t_cylinder		*cylinders;
