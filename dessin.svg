@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.26615953"
-     inkscape:cx="819.05766"
-     inkscape:cy="373.83595"
+     inkscape:zoom="0.18820321"
+     inkscape:cx="929.84601"
+     inkscape:cy="114.23822"
      inkscape:window-width="1366"
      inkscape:window-height="745"
      inkscape:window-x="-8"
@@ -864,71 +864,74 @@
       </g>
     </g>
     <g
-       id="g65"
-       transform="translate(-76.200003)">
+       id="g9">
       <g
-         id="g57">
+         id="g65"
+         transform="translate(-76.200003)">
+        <g
+           id="g57">
+          <rect
+             style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
+             id="rect56"
+             width="35.619045"
+             height="35.619045"
+             x="-108.98808"
+             y="121.2262"
+             ry="6.5198698" />
+          <text
+             xml:space="preserve"
+             transform="matrix(0.26458333,0,0,0.26458333,-33.228955,98.726902)"
+             id="text56"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect57);display:inline"><tspan
+               x="-239.93359"
+               y="166.1113"
+               id="tspan32">C</tspan></text>
+          <text
+             xml:space="preserve"
+             transform="matrix(0.26458333,0,0,0.26458333,-259.39018,84.355132)"
+             id="text33-0"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect34-5);display:inline"><tspan
+               x="604.13281"
+               y="253.74026"
+               id="tspan33">CAM</tspan></text>
+        </g>
+      </g>
+      <g
+         id="g80"
+         transform="translate(10.583333)">
         <rect
            style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
-           id="rect56"
+           id="rect61"
            width="35.619045"
            height="35.619045"
-           x="-108.98808"
+           x="-158.72975"
            y="121.2262"
            ry="6.5198698" />
-        <text
-           xml:space="preserve"
-           transform="matrix(0.26458333,0,0,0.26458333,-33.228955,98.726902)"
-           id="text56"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect57);display:inline"><tspan
-             x="-239.93359"
-             y="166.1113"
-             id="tspan32">C</tspan></text>
-        <text
-           xml:space="preserve"
-           transform="matrix(0.26458333,0,0,0.26458333,-259.39018,84.355132)"
-           id="text33-0"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect34-5);display:inline"><tspan
-             x="604.13281"
-             y="253.74026"
-             id="tspan33">CAM</tspan></text>
-      </g>
-    </g>
-    <g
-       id="g80"
-       transform="translate(10.583333)">
-      <rect
-         style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
-         id="rect61"
-         width="35.619045"
-         height="35.619045"
-         x="-158.72975"
-         y="121.2262"
-         ry="6.5198698" />
-      <g
-         id="g79">
-        <text
-           xml:space="preserve"
-           transform="matrix(0.26458333,0,0,0.26458333,-82.97063,98.726902)"
-           id="text61"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect62);display:inline"><tspan
-             x="-239.93359"
-             y="166.1113"
-             id="tspan34">L</tspan></text>
-        <text
-           xml:space="preserve"
-           transform="matrix(0.26458333,0,0,0.26458333,-312.67169,84.355132)"
-           id="text62"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect63);display:inline"><tspan
-             x="604.13281"
-             y="253.74026"
-             id="tspan35">LIGHT</tspan></text>
+        <g
+           id="g79">
+          <text
+             xml:space="preserve"
+             transform="matrix(0.26458333,0,0,0.26458333,-82.97063,98.726902)"
+             id="text61"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect62);display:inline"><tspan
+               x="-239.93359"
+               y="166.1113"
+               id="tspan34">L</tspan></text>
+          <text
+             xml:space="preserve"
+             transform="matrix(0.26458333,0,0,0.26458333,-312.67169,84.355132)"
+             id="text62"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect63);display:inline"><tspan
+               x="604.13281"
+               y="253.74026"
+               id="tspan35">LIGHT</tspan></text>
+        </g>
       </g>
     </g>
     <path
-       d="m -164.22663,99.892323 h -3.34923 v 3.500007 h 3.34923 v -1.21084 l 0.80874,0.16906 v 0.57115 q 0,0.66711 -0.23303,0.9047 -0.23302,0.2376 -0.89099,0.2376 h -2.70496 q -0.65797,0 -0.89557,-0.2376 -0.23759,-0.24216 -0.23759,-0.9047 v -2.54504 q 0,-0.662527 0.23759,-0.900127 0.2376,-0.242167 0.89557,-0.242167 h 2.70496 q 0.65797,0 0.89099,0.237597 0.23303,0.2376 0.23303,0.904697 v 0.45692 l -0.80874,0.15078 z m 2.92885,4.171677 v -4.829634 h 0.80875 v 1.973884 h 3.80614 v -1.973884 h 0.80418 V 104.064 h -0.80418 v -2.18864 h -3.80614 v 2.18864 z m 8.73631,-1.80483 h 2.59987 l -1.30222,-2.471937 z m -1.75001,1.80483 2.63643,-4.829634 h 0.86358 l 2.68212,4.829634 h -0.88643 l -0.61684,-1.18799 h -3.26697 l -0.61685,1.18799 z m 7.7448,0 v -4.829634 h 0.50717 l 3.61424,3.230414 q 0.12337,0.10966 0.26044,0.26502 0.14165,0.15535 0.28786,0.34268 -0.0365,-0.23302 -0.0548,-0.48433 -0.0183,-0.25587 -0.0183,-0.70366 v -2.650124 h 0.74021 V 104.064 h -0.45235 l -3.71019,-3.35836 q -0.0274,-0.0228 -0.0822,-0.0731 -0.27416,-0.24674 -0.40666,-0.47063 0.0274,0.21932 0.0411,0.47063 0.0137,0.24673 0.0137,0.58485 v 2.84661 z m 12.36424,-4.171677 h -3.78329 v 3.500007 h 3.78329 v -1.41645 h -1.95562 v -0.61684 h 2.7598 v 1.56266 q 0,0.66254 -0.2376,0.9047 -0.2376,0.2376 -0.89556,0.2376 h -3.12533 q -0.66254,0 -0.90013,-0.24217 -0.23303,-0.24216 -0.23303,-0.90013 v -2.54504 q 0,-0.657957 0.23303,-0.900127 0.23759,-0.242167 0.90013,-0.242167 h 3.12533 q 0.64883,0 0.89099,0.237597 0.24217,0.23303 0.24217,0.849867 v 0.1188 l -0.80418,0.15992 z m 3.12076,4.171677 v -4.829634 h 4.65144 v 0.648827 h -3.84269 v 1.343337 h 2.34857 v 0.63969 h -2.34857 v 1.53525 h 3.87925 v 0.66253 z m 10.75589,-3.96606 q 0.0183,0.14165 0.0274,0.297 0.009,0.15535 0.009,0.41122 v 3.25784 h -0.68538 v -4.829634 h 0.65797 l 2.34856,3.143604 2.18865,-3.143604 h 0.74021 V 104.064 h -0.74021 v -3.25784 q 0,-0.064 0.0137,-0.31984 0.0183,-0.26044 0.0228,-0.38838 -0.0914,0.18734 -0.16449,0.31527 -0.0685,0.12794 -0.12337,0.20562 l -1.84595,2.68669 h -0.20562 l -1.91906,-2.61359 q -0.005,-0.005 -0.0228,-0.032 -0.21019,-0.28786 -0.30157,-0.56201 z m 8.53983,3.29439 h 3.99805 v -3.500007 h -3.99805 z m -0.80418,-3.01567 q 0,-0.657957 0.23303,-0.900127 0.2376,-0.242167 0.90013,-0.242167 h 3.34008 q 0.6534,0 0.88643,0.242167 0.2376,0.2376 0.2376,0.900127 v 2.54504 q 0,0.66711 -0.2376,0.9047 -0.23303,0.2376 -0.88643,0.2376 h -3.34008 q -0.66253,0 -0.90013,-0.24217 -0.23303,-0.24216 -0.23303,-0.90013 z m 10.5914,-0.484337 h -1.73629 v 3.500007 h 1.73629 q 1.17429,0 1.65862,-0.41123 0.484344,-0.41123 0.484344,-1.36162 0,-0.91841 -0.493484,-1.3205 -0.49347,-0.406657 -1.64948,-0.406657 z m 0.11423,-0.657957 q 0.66711,0 1.10575,0.0914 0.44321,0.0868 0.74935,0.283287 0.466054,0.30613 0.731074,0.840727 0.26958,0.53459 0.26958,1.16971 0,0.67624 -0.26501,1.21998 -0.26044,0.53916 -0.735644,0.84987 -0.297,0.1919 -0.74021,0.28329 -0.44321,0.0914 -1.11489,0.0914 h -2.65927 v -4.829634 z m 4.902754,4.829634 v -4.829634 h 4.65143 v 0.648827 h -3.84268 v 1.343337 h 2.34856 v 0.63969 h -2.34856 v 1.53525 h 3.87924 v 0.66253 z"
+       d="m -182.74746,99.892323 h -3.34923 v 3.500007 h 3.34923 v -1.21084 l 0.80874,0.16906 v 0.57115 q 0,0.66711 -0.23303,0.9047 -0.23302,0.2376 -0.89099,0.2376 h -2.70496 q -0.65797,0 -0.89557,-0.2376 -0.23759,-0.24216 -0.23759,-0.9047 v -2.54504 q 0,-0.662527 0.23759,-0.900127 0.2376,-0.242167 0.89557,-0.242167 h 2.70496 q 0.65797,0 0.89099,0.237597 0.23303,0.2376 0.23303,0.904697 v 0.45692 l -0.80874,0.15078 z m 2.92885,4.171677 v -4.829634 h 0.80875 v 1.973884 h 3.80614 v -1.973884 h 0.80418 V 104.064 h -0.80418 v -2.18864 h -3.80614 v 2.18864 z m 8.73631,-1.80483 h 2.59987 l -1.30222,-2.471937 z m -1.75001,1.80483 2.63643,-4.829634 h 0.86358 l 2.68212,4.829634 h -0.88643 l -0.61684,-1.18799 h -3.26697 l -0.61685,1.18799 z m 7.7448,0 v -4.829634 h 0.50717 l 3.61424,3.230414 q 0.12337,0.10966 0.26044,0.26502 0.14165,0.15535 0.28786,0.34268 -0.0365,-0.23302 -0.0548,-0.48433 -0.0183,-0.25587 -0.0183,-0.70366 v -2.650124 h 0.74021 V 104.064 h -0.45235 l -3.71019,-3.35836 q -0.0274,-0.0228 -0.0822,-0.0731 -0.27416,-0.24674 -0.40666,-0.47063 0.0274,0.21932 0.0411,0.47063 0.0137,0.24673 0.0137,0.58485 v 2.84661 z m 12.36424,-4.171677 h -3.78329 v 3.500007 h 3.78329 v -1.41645 h -1.95562 v -0.61684 h 2.7598 v 1.56266 q 0,0.66254 -0.2376,0.9047 -0.2376,0.2376 -0.89556,0.2376 h -3.12533 q -0.66254,0 -0.90013,-0.24217 -0.23303,-0.24216 -0.23303,-0.90013 v -2.54504 q 0,-0.657957 0.23303,-0.900127 0.23759,-0.242167 0.90013,-0.242167 h 3.12533 q 0.64883,0 0.89099,0.237597 0.24217,0.23303 0.24217,0.849867 v 0.1188 l -0.80418,0.15992 z m 3.12076,4.171677 v -4.829634 h 4.65144 v 0.648827 h -3.84269 v 1.343337 h 2.34857 v 0.63969 h -2.34857 v 1.53525 h 3.87925 v 0.66253 z m 10.75589,-3.96606 q 0.0183,0.14165 0.0274,0.297 0.009,0.15535 0.009,0.41122 v 3.25784 h -0.68538 v -4.829634 h 0.65797 l 2.34856,3.143604 2.18865,-3.143604 h 0.74021 V 104.064 h -0.74021 v -3.25784 q 0,-0.064 0.0137,-0.31984 0.0183,-0.26044 0.0228,-0.38838 -0.0914,0.18734 -0.16449,0.31527 -0.0685,0.12794 -0.12337,0.20562 l -1.84595,2.68669 h -0.20562 l -1.91906,-2.61359 q -0.005,-0.005 -0.0228,-0.032 -0.21019,-0.28786 -0.30157,-0.56201 z m 8.53983,3.29439 h 3.99805 v -3.500007 h -3.99805 z m -0.80418,-3.01567 q 0,-0.657957 0.23303,-0.900127 0.2376,-0.242167 0.90013,-0.242167 h 3.34008 q 0.6534,0 0.88643,0.242167 0.2376,0.2376 0.2376,0.900127 v 2.54504 q 0,0.66711 -0.2376,0.9047 -0.23303,0.2376 -0.88643,0.2376 h -3.34008 q -0.66253,0 -0.90013,-0.24217 -0.23303,-0.24216 -0.23303,-0.90013 z m 10.5914,-0.484337 h -1.73629 v 3.500007 h 1.73629 q 1.17429,0 1.65862,-0.41123 0.48434,-0.41123 0.48434,-1.36162 0,-0.91841 -0.49348,-1.3205 -0.49347,-0.406657 -1.64948,-0.406657 z m 0.11423,-0.657957 q 0.66711,0 1.10575,0.0914 0.44321,0.0868 0.74935,0.283287 0.46605,0.30613 0.73107,0.840727 0.26958,0.53459 0.26958,1.16971 0,0.67624 -0.26501,1.21998 -0.26044,0.53916 -0.73564,0.84987 -0.297,0.1919 -0.74021,0.28329 -0.44321,0.0914 -1.11489,0.0914 h -2.65927 v -4.829634 z m 4.90275,4.829634 v -4.829634 h 4.65143 v 0.648827 h -3.84268 v 1.343337 h 2.34856 v 0.63969 h -2.34856 v 1.53525 h 3.87924 v 0.66253 z"
        id="text65"
-       style="font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;fill:#34362e;fill-opacity:1;stroke:#34362e;stroke-width:1.32629;stroke-dasharray:none;stroke-opacity:1"
+       style="font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;fill:#ffffff;fill-opacity:1;stroke:#f3f3f3;stroke-width:1.32629;stroke-dasharray:none;stroke-opacity:1"
        aria-label="CHANGE MODE" />
     <g
        id="g73">
@@ -1064,7 +1067,7 @@
 </tspan></text>
     <g
        id="g7"
-       transform="translate(-15.875,-5.2916667)">
+       transform="translate(-15.875,-37.041668)">
       <rect
          style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
          id="rect3"
