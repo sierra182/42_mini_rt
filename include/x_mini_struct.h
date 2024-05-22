@@ -112,9 +112,18 @@ typedef struct s_plane
 	t_color			color;
 }	t_plane;
 
+typedef enum e_event_mesh
+{		
+	E_CAM,	
+	E_SPOTL,
+	E_AMBL,
+	E_MESH
+}	t_event_mesh;
+
 typedef struct s_event
 {
-	int	legend;
+	int				legend;
+	t_event_mesh	mesh;
 }	t_event;
 
 typedef struct s_data
@@ -157,14 +166,6 @@ typedef enum e_event
 	LIGHT = 108, 
 	MESH = 111
 }	t_enum_event;
-
-typedef enum e_event_mesh
-{		
-	E_CAM,	
-	E_SPOTL,
-	E_AMBL,
-	E_MESH
-}	t_event_mesh;
 
 typedef enum e_obj_type
 {

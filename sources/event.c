@@ -160,7 +160,7 @@ int	key_event(int keycode, void *param)
 {
 	t_mlx						*mlx;
 	t_data						*data;
-	static t_event_mesh			mesh_enum;
+	// static t_event_mesh			mesh_enum;
 	t_matrix_vector 			*rotate_vect;
 	t_matrix_vector 			*transl_vect;
 
@@ -177,19 +177,19 @@ int	key_event(int keycode, void *param)
 	else if (keycode == RST_CM)	
 		reset_cam(data);		
 	else if (keycode == MESH)	
-		mesh_enum = E_MESH;
+		data->event.mesh = E_MESH;
 	else if (keycode == CAM)	
-		mesh_enum = E_CAM;
+		data->event.mesh = E_CAM;
 	else if (keycode == LIGHT)	
-		mesh_enum = E_SPOTL;
+		data->event.mesh = E_SPOTL;
 	else if (keycode == AMBL)	
-		mesh_enum = E_AMBL;
-	else if (mesh_enum == E_CAM)
+		data->event.mesh = E_AMBL;
+	else if (data->event.mesh == E_CAM)
 	{
 		event_translate(keycode, trsl_cam, &data->cam, NULL);	
 		cam_event_rotate(keycode, &data->cam);
 	}
-	else if (mesh_enum == E_SPOTL)	
+	else if (data->event.mesh == E_SPOTL)	
 		event_translate(keycode, trsl_about_cam, &data->cam, &data->spotlight.origin_vect);
 	else 
 	{
@@ -199,12 +199,12 @@ int	key_event(int keycode, void *param)
 		if (rotate_vect)
 			event_rotate(keycode, rotate_vect);
 	}	
-	if (mesh_enum == E_SPOTL)
+	if (data->event.mesh == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
 		event_intensity(keycode, &data->spotlight.intensity);			
 	}
-	else if (mesh_enum == E_AMBL)
+	else if (data->event.mesh == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);			
 	return (0);
 }
