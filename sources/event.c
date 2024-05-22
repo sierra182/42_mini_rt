@@ -148,6 +148,14 @@ void	reset_cam(t_data *data)
 	calculate_missing_vectors(&data->cam);
 }
 
+void	event_intensity(int keycode, double *intensity)
+{
+	if (keycode == PLUS && *intensity <= 0.9)
+		*intensity += 0.1;
+	else if (keycode == MINUS && *intensity >= 0.1)
+		*intensity -= 0.1;
+}
+
 int	key_event(int keycode, void *param)
 {
 	t_mlx						*mlx;
@@ -173,7 +181,9 @@ int	key_event(int keycode, void *param)
 	else if (keycode == CAM)	
 		mesh_enum = E_CAM;
 	else if (keycode == LIGHT)	
-		mesh_enum = E_SPOTL;	
+		mesh_enum = E_SPOTL;
+	else if (keycode == AMBL)	
+		mesh_enum = E_AMBL;
 	else if (mesh_enum == E_CAM)
 	{
 		event_translate(keycode, trsl_cam, &data->cam, NULL);	
@@ -192,12 +202,10 @@ int	key_event(int keycode, void *param)
 	if (mesh_enum == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
-		if (keycode == PLUS && data->spotlight.intensity <= 0.9)
-			data->spotlight.intensity += 0.1;
-		else if (keycode == MINUS && data->spotlight.intensity >= 0.1)
-			data->spotlight.intensity -= 0.1;		
+		event_intensity(keycode, &data->spotlight.intensity);			
 	}
-
+	else if (mesh_enum == E_AMBL)
+		event_intensity(keycode, &data->ambiant_light.intensity);			
 	return (0);
 }
 
@@ -215,6 +223,8 @@ void	event_launch_rays(t_data *data, int x, int y)
 	actual_mesh_handle(&obj, NULL, NULL);	
 }
 
+
+
 int    mouse_event(int button, int x, int y, void *param)
 {
     t_data	*data;
@@ -223,6 +233,8 @@ int    mouse_event(int button, int x, int y, void *param)
 	data->refresh = 1;
 	if (button == 1)
 	{
+		if (x >= 0 && x < 100 && y >= 0 && y < 100)
+			return (data->event.legend = (data->event.legend + 1) % 2, 0);		
 		event_launch_rays(data, x, y);
 		return (0);
 	}
