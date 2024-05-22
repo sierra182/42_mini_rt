@@ -94,7 +94,6 @@ typedef struct s_get_color_params
 
 /**========================================================================
  *                           get_cylinder_color_cyl
- *! which_t calculation to be added! 
 *========================================================================**/
 void	get_cylinder_color_cyl(t_get_color_params *params)
 {
@@ -133,18 +132,20 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	t_ray_vector	normal;
 	t_ray			light_ray;
 	t_color			ambiantly_color;
-
+	double	light_dot_normal;
+	double view_dot_normal;
+	
 	cast_vector_mat_ray(&((t_cylinder *) params->mesh)->axis_vect, &normal);
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
 	//normalize_vector(light_ray.dir_vect.axis);
-	double	nbr = scalar_product(normal.axis, light_ray.dir_vect.axis);
-	if (nbr > 0)
+	light_dot_normal = scalar_product(normal.axis, light_ray.dir_vect.axis);
+	if (light_dot_normal > 0)
 		symmetrize_vector(normal.axis);
 	//normalize_vector(params->ray->dir_vect.axis);
-	double nbr_cam = scalar_product(normal.axis, params->ray->dir_vect.axis);
-	if (nbr_cam > 0)
+	view_dot_normal = scalar_product(normal.axis, params->ray->dir_vect.axis);
+	if (view_dot_normal > 0)
 		symmetrize_vector(normal.axis);
 	color_with_ambiant_light(&((t_cylinder *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
