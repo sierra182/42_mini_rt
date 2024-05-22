@@ -26,16 +26,23 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.0102273"
-     inkscape:cx="1046.7941"
-     inkscape:cy="332.10348"
+     inkscape:zoom="0.37640641"
+     inkscape:cx="611.04166"
+     inkscape:cy="43.835598"
      inkscape:window-width="1366"
      inkscape:window-height="745"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
-     showgrid="false" />
+     showgrid="false"
+     showguides="true">
+    <sodipodi:guide
+       position="-9.8408701,75.810793"
+       orientation="1,0"
+       id="guide7"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
   <defs
      id="defs1">
     <rect
@@ -326,6 +333,24 @@
        width="415.19"
        height="125.18291"
        id="rect83" />
+    <rect
+       x="-239.93391"
+       y="118.92377"
+       width="152.30588"
+       height="104.3191"
+       id="rect5" />
+    <rect
+       x="604.13324"
+       y="230.146"
+       width="250.80013"
+       height="115.81064"
+       id="rect6" />
+    <rect
+       x="604.13324"
+       y="230.146"
+       width="141.6283"
+       height="58.274143"
+       id="rect7" />
   </defs>
   <g
      inkscape:label="Calque 1"
@@ -419,7 +444,7 @@
        style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect17);display:inline"><tspan
          x="227.67188"
          y="239.38675"
-         id="tspan2">7
+         id="tspan1">7
 </tspan></text>
     <text
        xml:space="preserve"
@@ -428,7 +453,7 @@
        style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect19);display:inline"><tspan
          x="227.67188"
          y="239.38675"
-         id="tspan12">8
+         id="tspan2">8
 </tspan></text>
     <text
        xml:space="preserve"
@@ -437,7 +462,7 @@
        style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect20);display:inline"><tspan
          x="227.67188"
          y="239.38675"
-         id="tspan13">9
+         id="tspan6">9
 </tspan></text>
     <text
        xml:space="preserve"
@@ -446,7 +471,7 @@
        style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect21);display:inline"><tspan
          x="227.67188"
          y="239.38675"
-         id="tspan14">4
+         id="tspan7">4
 </tspan></text>
     <text
        xml:space="preserve"
@@ -455,7 +480,7 @@
        style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect22);display:inline"><tspan
          x="227.67188"
          y="239.38675"
-         id="tspan15">5
+         id="tspan8">5
 </tspan></text>
     <text
        xml:space="preserve"
@@ -464,7 +489,7 @@
        style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect24);display:inline"><tspan
          x="227.67188"
          y="239.38675"
-         id="tspan16">6
+         id="tspan9">6
 </tspan></text>
     <text
        xml:space="preserve"
@@ -473,7 +498,7 @@
        style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect25);display:inline"><tspan
          x="227.67188"
          y="239.38675"
-         id="tspan17">3
+         id="tspan10">3
 </tspan></text>
     <text
        xml:space="preserve"
@@ -482,7 +507,7 @@
        style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect26);display:inline"><tspan
          x="227.67188"
          y="239.38675"
-         id="tspan18">2
+         id="tspan11">2
 </tspan></text>
     <text
        xml:space="preserve"
@@ -491,7 +516,7 @@
        style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect27);display:inline"><tspan
          x="227.67188"
          y="239.38675"
-         id="tspan19">1
+         id="tspan12">1
 </tspan></text>
     <path
        style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.0773255px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -520,7 +545,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect2);display:inline"><tspan
          x="180.58594"
          y="215.87497"
-         id="tspan20">Rst</tspan></text>
+         id="tspan13">Rst</tspan></text>
     <g
        id="g12"
        transform="matrix(0.63876934,0,0,0.63876934,51.292309,23.697678)">
@@ -572,7 +597,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect33-4);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan21">up</tspan></text>
+         id="tspan14">up</tspan></text>
     <path
        style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.0602936px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -9.6862703,155.30024 c 1.517466,-1.82143 2.9949527,-3.64734 5.0274978,-5.41114 H -14.713758 c 2.071099,1.73027 3.499136,3.52781 5.0274877,5.41114 z"
@@ -593,7 +618,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect33);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan22">FORWARD</tspan></text>
+         id="tspan15">FORWARD</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-52.452761,90.435914)"
@@ -601,7 +626,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect33-7);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan23">BACK</tspan></text>
+         id="tspan16">BACK</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-63.598522,48.349411)"
@@ -609,7 +634,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect34);display:inline"><tspan
          x="604.13281"
          y="253.74026"
-         id="tspan24">CAM</tspan></text>
+         id="tspan17">CAM</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,56.914007,20.195575)"
@@ -617,7 +642,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect35);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan25">rotate y</tspan></text>
+         id="tspan18">rotate y</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,19.953319,20.195575)"
@@ -625,7 +650,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect36);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan26">rotate z</tspan></text>
+         id="tspan19">rotate z</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,19.953299,94.482529)"
@@ -633,7 +658,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect38);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan27">rotate z</tspan></text>
+         id="tspan20">rotate z</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,19.762096,57.440845)"
@@ -641,7 +666,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect40);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan28">rotate x</tspan></text>
+         id="tspan21">rotate x</tspan></text>
     <g
        id="g48"
        transform="translate(4.2333335)">
@@ -665,7 +690,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect43);display:inline"><tspan
            x="19.916016"
            y="390.94144"
-           id="tspan29">right</tspan></text>
+           id="tspan22">right</tspan></text>
     </g>
     <text
        xml:space="preserve"
@@ -674,7 +699,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect44);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan30">rotate Y</tspan></text>
+         id="tspan23">rotate Y</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,97.922719,94.482529)"
@@ -682,7 +707,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect45);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan31">DOWN</tspan></text>
+         id="tspan24">DOWN</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,93.845434,57.440845)"
@@ -690,7 +715,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect46);display:inline"><tspan
          x="120.48828"
          y="218.14847"
-         id="tspan32">rotate x</tspan></text>
+         id="tspan25">rotate x</tspan></text>
     <g
        id="g49">
       <rect
@@ -713,7 +738,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect47);display:inline"><tspan
            x="19.916016"
            y="390.94144"
-           id="tspan33">LEFT</tspan></text>
+           id="tspan26">LEFT</tspan></text>
     </g>
     <path
        style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.0564369px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -781,11 +806,11 @@
          y="0"><tspan
            x="157.36711"
            y="218.14847"
-           id="tspan34">SCROLL
+           id="tspan27">SCROLL
 </tspan><tspan
            x="172.85541"
            y="251.48184"
-           id="tspan35">ZOOM
+           id="tspan28">ZOOM
 </tspan></text>
       <text
          xml:space="preserve"
@@ -794,7 +819,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect52);display:inline"><tspan
            x="134.99023"
            y="70.802764"
-           id="tspan36">FOR</tspan></text>
+           id="tspan29">FOR</tspan></text>
     </g>
     <g
        id="g78"
@@ -817,7 +842,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect59);display:inline"><tspan
              x="-239.93359"
              y="166.1113"
-             id="tspan37">O</tspan></text>
+             id="tspan30">O</tspan></text>
         <text
            xml:space="preserve"
            transform="matrix(0.26458333,0,0,0.26458333,-309.04951,84.355132)"
@@ -825,76 +850,73 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect60);display:inline"><tspan
              x="604.13281"
              y="253.74026"
-             id="tspan38">OBJECT</tspan></text>
+             id="tspan31">OBJECT</tspan></text>
       </g>
     </g>
     <g
-       id="g83">
+       id="g65"
+       transform="translate(-76.200003)">
       <g
-         id="g65"
-         transform="translate(-76.200003)">
-        <g
-           id="g57">
-          <rect
-             style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
-             id="rect56"
-             width="35.619045"
-             height="35.619045"
-             x="-108.98808"
-             y="121.2262"
-             ry="6.5198698" />
-          <text
-             xml:space="preserve"
-             transform="matrix(0.26458333,0,0,0.26458333,-33.228955,98.726902)"
-             id="text56"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect57);display:inline"><tspan
-               x="-239.93359"
-               y="166.1113"
-               id="tspan39">C</tspan></text>
-          <text
-             xml:space="preserve"
-             transform="matrix(0.26458333,0,0,0.26458333,-259.39018,84.355132)"
-             id="text33-0"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect34-5);display:inline"><tspan
-               x="604.13281"
-               y="253.74026"
-               id="tspan40">CAM</tspan></text>
-        </g>
-      </g>
-      <g
-         id="g80"
-         transform="translate(10.583333)">
+         id="g57">
         <rect
            style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
-           id="rect61"
+           id="rect56"
            width="35.619045"
            height="35.619045"
-           x="-158.72975"
+           x="-108.98808"
            y="121.2262"
            ry="6.5198698" />
-        <g
-           id="g79">
-          <text
-             xml:space="preserve"
-             transform="matrix(0.26458333,0,0,0.26458333,-82.97063,98.726902)"
-             id="text61"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect62);display:inline"><tspan
-               x="-239.93359"
-               y="166.1113"
-               id="tspan41">L</tspan></text>
-          <text
-             xml:space="preserve"
-             transform="matrix(0.26458333,0,0,0.26458333,-312.67169,84.355132)"
-             id="text62"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect63);display:inline"><tspan
-               x="604.13281"
-               y="253.74026"
-               id="tspan42">LIGHT</tspan></text>
-        </g>
+        <text
+           xml:space="preserve"
+           transform="matrix(0.26458333,0,0,0.26458333,-33.228955,98.726902)"
+           id="text56"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect57);display:inline"><tspan
+             x="-239.93359"
+             y="166.1113"
+             id="tspan32">C</tspan></text>
+        <text
+           xml:space="preserve"
+           transform="matrix(0.26458333,0,0,0.26458333,-259.39018,84.355132)"
+           id="text33-0"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect34-5);display:inline"><tspan
+             x="604.13281"
+             y="253.74026"
+             id="tspan33">CAM</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g80"
+       transform="translate(10.583333)">
+      <rect
+         style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
+         id="rect61"
+         width="35.619045"
+         height="35.619045"
+         x="-158.72975"
+         y="121.2262"
+         ry="6.5198698" />
+      <g
+         id="g79">
+        <text
+           xml:space="preserve"
+           transform="matrix(0.26458333,0,0,0.26458333,-82.97063,98.726902)"
+           id="text61"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect62);display:inline"><tspan
+             x="-239.93359"
+             y="166.1113"
+             id="tspan34">L</tspan></text>
+        <text
+           xml:space="preserve"
+           transform="matrix(0.26458333,0,0,0.26458333,-312.67169,84.355132)"
+           id="text62"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect63);display:inline"><tspan
+             x="604.13281"
+             y="253.74026"
+             id="tspan35">LIGHT</tspan></text>
       </g>
     </g>
     <path
-       d="m -182.74746,107.3007 h -3.34923 v 3.50001 h 3.34923 v -1.21084 l 0.80874,0.16906 v 0.57115 q 0,0.66711 -0.23303,0.9047 -0.23302,0.2376 -0.89099,0.2376 h -2.70496 q -0.65797,0 -0.89557,-0.2376 -0.23759,-0.24216 -0.23759,-0.9047 v -2.54504 q 0,-0.66253 0.23759,-0.90013 0.2376,-0.24217 0.89557,-0.24217 h 2.70496 q 0.65797,0 0.89099,0.2376 0.23303,0.2376 0.23303,0.9047 v 0.45692 l -0.80874,0.15078 z m 2.92885,4.17168 v -4.82964 h 0.80875 v 1.97389 h 3.80614 v -1.97389 h 0.80418 v 4.82964 h -0.80418 v -2.18864 h -3.80614 v 2.18864 z m 8.73631,-1.80483 h 2.59987 l -1.30222,-2.47194 z m -1.75001,1.80483 2.63643,-4.82964 h 0.86358 l 2.68212,4.82964 h -0.88643 l -0.61684,-1.18799 h -3.26697 l -0.61685,1.18799 z m 7.7448,0 v -4.82964 h 0.50717 l 3.61424,3.23042 q 0.12337,0.10966 0.26044,0.26502 0.14165,0.15535 0.28786,0.34268 -0.0365,-0.23302 -0.0548,-0.48433 -0.0183,-0.25587 -0.0183,-0.70366 v -2.65013 h 0.74021 v 4.82964 h -0.45235 l -3.71019,-3.35836 q -0.0274,-0.0228 -0.0822,-0.0731 -0.27416,-0.24674 -0.40666,-0.47063 0.0274,0.21932 0.0411,0.47063 0.0137,0.24673 0.0137,0.58485 v 2.84661 z m 12.36424,-4.17168 h -3.78329 v 3.50001 h 3.78329 v -1.41645 h -1.95562 v -0.61684 h 2.7598 v 1.56266 q 0,0.66254 -0.2376,0.9047 -0.2376,0.2376 -0.89556,0.2376 h -3.12533 q -0.66254,0 -0.90013,-0.24217 -0.23303,-0.24216 -0.23303,-0.90013 v -2.54504 q 0,-0.65796 0.23303,-0.90013 0.23759,-0.24217 0.90013,-0.24217 h 3.12533 q 0.64883,0 0.89099,0.2376 0.24217,0.23303 0.24217,0.84987 v 0.1188 l -0.80418,0.15992 z m 3.12076,4.17168 v -4.82964 h 4.65144 v 0.64883 h -3.84269 v 1.34334 h 2.34857 v 0.63969 h -2.34857 v 1.53525 h 3.87925 v 0.66253 z m 10.75589,-3.96606 q 0.0183,0.14165 0.0274,0.297 0.009,0.15535 0.009,0.41122 v 3.25784 h -0.68538 v -4.82964 h 0.65797 l 2.34856,3.14361 2.18865,-3.14361 h 0.74021 v 4.82964 h -0.74021 v -3.25784 q 0,-0.064 0.0137,-0.31984 0.0183,-0.26044 0.0228,-0.38838 -0.0914,0.18734 -0.16449,0.31527 -0.0685,0.12794 -0.12337,0.20562 l -1.84595,2.68669 h -0.20562 l -1.91906,-2.61359 q -0.005,-0.005 -0.0228,-0.032 -0.21019,-0.28786 -0.30157,-0.56201 z m 8.53983,3.29439 h 3.99805 v -3.50001 h -3.99805 z m -0.80418,-3.01567 q 0,-0.65796 0.23303,-0.90013 0.2376,-0.24217 0.90013,-0.24217 h 3.34008 q 0.6534,0 0.88643,0.24217 0.2376,0.2376 0.2376,0.90013 v 2.54504 q 0,0.66711 -0.2376,0.9047 -0.23303,0.2376 -0.88643,0.2376 h -3.34008 q -0.66253,0 -0.90013,-0.24217 -0.23303,-0.24216 -0.23303,-0.90013 z m 10.5914,-0.48434 h -1.73629 v 3.50001 h 1.73629 q 1.17429,0 1.65862,-0.41123 0.48434,-0.41123 0.48434,-1.36162 0,-0.91841 -0.49348,-1.3205 -0.49347,-0.40666 -1.64948,-0.40666 z m 0.11423,-0.65796 q 0.66711,0 1.10575,0.0914 0.44321,0.0868 0.74935,0.28329 0.46605,0.30613 0.73107,0.84073 0.26958,0.53459 0.26958,1.16971 0,0.67624 -0.26501,1.21998 -0.26044,0.53916 -0.73564,0.84987 -0.297,0.1919 -0.74021,0.28329 -0.44321,0.0914 -1.11489,0.0914 h -2.65927 v -4.82964 z m 4.90275,4.82964 v -4.82964 h 4.65144 v 0.64883 h -3.84269 v 1.34334 h 2.34856 v 0.63969 h -2.34856 v 1.53525 h 3.87925 v 0.66253 z"
+       d="m -164.22663,99.892323 h -3.34923 v 3.500007 h 3.34923 v -1.21084 l 0.80874,0.16906 v 0.57115 q 0,0.66711 -0.23303,0.9047 -0.23302,0.2376 -0.89099,0.2376 h -2.70496 q -0.65797,0 -0.89557,-0.2376 -0.23759,-0.24216 -0.23759,-0.9047 v -2.54504 q 0,-0.662527 0.23759,-0.900127 0.2376,-0.242167 0.89557,-0.242167 h 2.70496 q 0.65797,0 0.89099,0.237597 0.23303,0.2376 0.23303,0.904697 v 0.45692 l -0.80874,0.15078 z m 2.92885,4.171677 v -4.829634 h 0.80875 v 1.973884 h 3.80614 v -1.973884 h 0.80418 V 104.064 h -0.80418 v -2.18864 h -3.80614 v 2.18864 z m 8.73631,-1.80483 h 2.59987 l -1.30222,-2.471937 z m -1.75001,1.80483 2.63643,-4.829634 h 0.86358 l 2.68212,4.829634 h -0.88643 l -0.61684,-1.18799 h -3.26697 l -0.61685,1.18799 z m 7.7448,0 v -4.829634 h 0.50717 l 3.61424,3.230414 q 0.12337,0.10966 0.26044,0.26502 0.14165,0.15535 0.28786,0.34268 -0.0365,-0.23302 -0.0548,-0.48433 -0.0183,-0.25587 -0.0183,-0.70366 v -2.650124 h 0.74021 V 104.064 h -0.45235 l -3.71019,-3.35836 q -0.0274,-0.0228 -0.0822,-0.0731 -0.27416,-0.24674 -0.40666,-0.47063 0.0274,0.21932 0.0411,0.47063 0.0137,0.24673 0.0137,0.58485 v 2.84661 z m 12.36424,-4.171677 h -3.78329 v 3.500007 h 3.78329 v -1.41645 h -1.95562 v -0.61684 h 2.7598 v 1.56266 q 0,0.66254 -0.2376,0.9047 -0.2376,0.2376 -0.89556,0.2376 h -3.12533 q -0.66254,0 -0.90013,-0.24217 -0.23303,-0.24216 -0.23303,-0.90013 v -2.54504 q 0,-0.657957 0.23303,-0.900127 0.23759,-0.242167 0.90013,-0.242167 h 3.12533 q 0.64883,0 0.89099,0.237597 0.24217,0.23303 0.24217,0.849867 v 0.1188 l -0.80418,0.15992 z m 3.12076,4.171677 v -4.829634 h 4.65144 v 0.648827 h -3.84269 v 1.343337 h 2.34857 v 0.63969 h -2.34857 v 1.53525 h 3.87925 v 0.66253 z m 10.75589,-3.96606 q 0.0183,0.14165 0.0274,0.297 0.009,0.15535 0.009,0.41122 v 3.25784 h -0.68538 v -4.829634 h 0.65797 l 2.34856,3.143604 2.18865,-3.143604 h 0.74021 V 104.064 h -0.74021 v -3.25784 q 0,-0.064 0.0137,-0.31984 0.0183,-0.26044 0.0228,-0.38838 -0.0914,0.18734 -0.16449,0.31527 -0.0685,0.12794 -0.12337,0.20562 l -1.84595,2.68669 h -0.20562 l -1.91906,-2.61359 q -0.005,-0.005 -0.0228,-0.032 -0.21019,-0.28786 -0.30157,-0.56201 z m 8.53983,3.29439 h 3.99805 v -3.500007 h -3.99805 z m -0.80418,-3.01567 q 0,-0.657957 0.23303,-0.900127 0.2376,-0.242167 0.90013,-0.242167 h 3.34008 q 0.6534,0 0.88643,0.242167 0.2376,0.2376 0.2376,0.900127 v 2.54504 q 0,0.66711 -0.2376,0.9047 -0.23303,0.2376 -0.88643,0.2376 h -3.34008 q -0.66253,0 -0.90013,-0.24217 -0.23303,-0.24216 -0.23303,-0.90013 z m 10.5914,-0.484337 h -1.73629 v 3.500007 h 1.73629 q 1.17429,0 1.65862,-0.41123 0.484344,-0.41123 0.484344,-1.36162 0,-0.91841 -0.493484,-1.3205 -0.49347,-0.406657 -1.64948,-0.406657 z m 0.11423,-0.657957 q 0.66711,0 1.10575,0.0914 0.44321,0.0868 0.74935,0.283287 0.466054,0.30613 0.731074,0.840727 0.26958,0.53459 0.26958,1.16971 0,0.67624 -0.26501,1.21998 -0.26044,0.53916 -0.735644,0.84987 -0.297,0.1919 -0.74021,0.28329 -0.44321,0.0914 -1.11489,0.0914 h -2.65927 v -4.829634 z m 4.902754,4.829634 v -4.829634 h 4.65143 v 0.648827 h -3.84268 v 1.343337 h 2.34856 v 0.63969 h -2.34856 v 1.53525 h 3.87924 v 0.66253 z"
        id="text65"
        style="font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;fill:#34362e;fill-opacity:1;stroke:#34362e;stroke-width:1.32629;stroke-dasharray:none;stroke-opacity:1"
        aria-label="CHANGE MODE" />
@@ -923,7 +945,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect63-3);display:inline"><tspan
            x="604.13281"
            y="253.74026"
-           id="tspan43">LIGHT</tspan></text>
+           id="tspan36">LIGHT</tspan></text>
       <rect
          style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0833039;stroke-linecap:round"
          id="rect11-6-1-60"
@@ -960,7 +982,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect72);display:inline"><tspan
            x="604.13281"
            y="253.74026"
-           id="tspan44">LIGHT</tspan></text>
+           id="tspan37">LIGHT</tspan></text>
       <g
          id="g71"
          transform="matrix(0.65206518,0,0,0.65206518,159.26731,16.73761)"
@@ -1002,7 +1024,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect75);display:inline"><tspan
            x="-239.93359"
            y="166.1113"
-           id="tspan45">A</tspan></text>
+           id="tspan38">A</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-418.35947,81.18013)"
@@ -1012,7 +1034,7 @@
          y="0"><tspan
            x="697.58655"
            y="253.74026"
-           id="tspan46">AMB
+           id="tspan39">AMB
 </tspan></text>
       <text
          xml:space="preserve"
@@ -1021,7 +1043,52 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect77);display:inline"><tspan
            x="604.13281"
            y="253.74026"
-           id="tspan47">LIGHT</tspan></text>
+           id="tspan40">LIGHT</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-397.1928,44.138462)"
+       id="text4"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';text-align:center;white-space:pre;shape-inside:url(#rect6);display:inline"
+       x="48.209698"
+       y="0"><tspan
+         x="729.5332"
+         y="253.74026"
+         id="tspan41">
+</tspan></text>
+    <g
+       id="g7"
+       transform="translate(0,-5.2916667)">
+      <rect
+         style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
+         id="rect3"
+         width="35.619045"
+         height="35.619045"
+         x="-222.22977"
+         y="84.184525"
+         ry="6.5198698" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-146.47064,61.685234)"
+         id="text3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect5);display:inline"><tspan
+           x="-239.93359"
+           y="166.1113"
+           id="tspan42">R
+</tspan><tspan
+           x="-239.93359"
+           y="270.42966"
+           id="tspan44"><tspan
+             dx="0 38.77602 34.817684"
+             id="tspan43">ALL</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-381.73382,47.842628)"
+         id="text5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect7);display:inline"><tspan
+           x="604.13281"
+           y="253.74026"
+           id="tspan45">RESTART</tspan></text>
     </g>
   </g>
 </svg>
