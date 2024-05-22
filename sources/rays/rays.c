@@ -326,7 +326,7 @@ void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
 		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
-		int pxl_pos2 = (x - (WIDTH - 762))  * bpp * inverse_eight + (y - (HEIGHT - 200)) * line_len;
+		int pxl_pos2 = (x - (WIDTH - 792))  * bpp * inverse_eight + (y - (HEIGHT - 200)) * line_len;
 		if (*(unsigned int *)(img_data + pxl_pos2) == 0x37A75D
 			|| *(unsigned int *)(img_data + pxl_pos2) == 0x449A61
 			|| *(unsigned int *)(img_data + pxl_pos2) == 0x6D863B
@@ -360,7 +360,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		while (++x < data->cam.resol[0])
 		{			
 			exec_launch_rays(mlx, data, x, y);
-			if (x >= WIDTH - 762 && y >= HEIGHT - 200)
+			if (x >= WIDTH - 792 && y >= HEIGHT - 200)
 				add_xpm(mlx, x, y, img);
 		}
 		

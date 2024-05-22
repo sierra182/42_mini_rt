@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="418.93576mm"
+   width="434.81076mm"
    height="109.90238mm"
-   viewBox="0 0 418.93576 109.90238"
+   viewBox="0 0 434.81076 109.90238"
    version="1.1"
    id="svg1"
    inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.37640641"
-     inkscape:cx="611.04166"
-     inkscape:cy="43.835598"
+     inkscape:zoom="0.26615953"
+     inkscape:cx="819.05766"
+     inkscape:cy="373.83595"
      inkscape:window-width="1366"
      inkscape:window-height="745"
      inkscape:window-x="-8"
@@ -38,9 +38,19 @@
      showgrid="false"
      showguides="true">
     <sodipodi:guide
-       position="-9.8408701,75.810793"
+       position="-121.30776,80.080039"
        orientation="1,0"
        id="guide7"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="78.50191,134.75433"
+       orientation="0,-1"
+       id="guide8"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="121.74431,136.74248"
+       orientation="0,-1"
+       id="guide9"
        inkscape:locked="false" />
   </sodipodi:namedview>
   <defs
@@ -336,8 +346,8 @@
     <rect
        x="-239.93391"
        y="118.92377"
-       width="152.30588"
-       height="104.3191"
+       width="223.69164"
+       height="228.30489"
        id="rect5" />
     <rect
        x="604.13324"
@@ -348,15 +358,15 @@
     <rect
        x="604.13324"
        y="230.146"
-       width="141.6283"
-       height="58.274143"
+       width="391.47845"
+       height="236.73854"
        id="rect7" />
   </defs>
   <g
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(222.32977,-47.042857)">
+     transform="translate(238.20477,-47.042857)">
     <rect
        style="fill:#34362e;fill-opacity:1;fill-rule:nonzero;stroke:#cf0000;stroke-width:0.135289;stroke-linecap:round"
        id="rect84"
@@ -1006,45 +1016,41 @@
            transform="rotate(90)" />
       </g>
     </g>
-    <g
-       id="g81"
-       transform="translate(21.166667)">
-      <rect
-         style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
-         id="rect73"
-         width="35.619045"
-         height="35.619045"
-         x="-243.39644"
-         y="121.2262"
-         ry="6.5198698" />
-      <text
-         xml:space="preserve"
-         transform="matrix(0.26458333,0,0,0.26458333,-167.63731,98.726902)"
-         id="text73"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect75);display:inline"><tspan
-           x="-239.93359"
-           y="166.1113"
-           id="tspan38">A</tspan></text>
-      <text
-         xml:space="preserve"
-         transform="matrix(0.26458333,0,0,0.26458333,-418.35947,81.18013)"
-         id="text74"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';text-align:center;white-space:pre;shape-inside:url(#rect76);display:inline"
-         x="48.209698"
-         y="0"><tspan
-           x="697.58655"
-           y="253.74026"
-           id="tspan39">AMB
+    <rect
+       style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
+       id="rect73"
+       width="35.619045"
+       height="35.619045"
+       x="-222.22977"
+       y="121.2262"
+       ry="6.5198698" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-146.47064,98.726902)"
+       id="text73"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect75);display:inline"><tspan
+         x="-239.93359"
+         y="166.1113"
+         id="tspan38">A</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-397.1928,81.18013)"
+       id="text74"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';text-align:center;white-space:pre;shape-inside:url(#rect76);display:inline"
+       x="48.209698"
+       y="0"><tspan
+         x="697.58655"
+         y="253.74026"
+         id="tspan39">AMB
 </tspan></text>
-      <text
-         xml:space="preserve"
-         transform="matrix(0.26458333,0,0,0.26458333,-397.33841,86.471797)"
-         id="text76"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect77);display:inline"><tspan
-           x="604.13281"
-           y="253.74026"
-           id="tspan40">LIGHT</tspan></text>
-    </g>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-376.17174,86.471797)"
+       id="text76"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect77);display:inline"><tspan
+         x="604.13281"
+         y="253.74026"
+         id="tspan40">LIGHT</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-397.1928,44.138462)"
@@ -1058,7 +1064,7 @@
 </tspan></text>
     <g
        id="g7"
-       transform="translate(0,-5.2916667)">
+       transform="translate(-15.875,-5.2916667)">
       <rect
          style="fill:#37a75d;fill-opacity:1;stroke:#449a61;stroke-width:0.2;stroke-linecap:round;stroke-opacity:1"
          id="rect3"
@@ -1075,12 +1081,7 @@
            x="-239.93359"
            y="166.1113"
            id="tspan42">R
-</tspan><tspan
-           x="-239.93359"
-           y="270.42966"
-           id="tspan44"><tspan
-             dx="0 38.77602 34.817684"
-             id="tspan43">ALL</tspan></tspan></text>
+</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,-381.73382,47.842628)"
@@ -1088,7 +1089,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect7);display:inline"><tspan
            x="604.13281"
            y="253.74026"
-           id="tspan45">RESTART</tspan></text>
+           id="tspan43">RESTART</tspan></text>
     </g>
   </g>
 </svg>
