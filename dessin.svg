@@ -26,9 +26,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.53231905"
-     inkscape:cx="819.05766"
-     inkscape:cy="384.1681"
+     inkscape:zoom="1.5056256"
+     inkscape:cx="864.09261"
+     inkscape:cy="239.43535"
      inkscape:window-width="1366"
      inkscape:window-height="745"
      inkscape:window-x="-8"
@@ -804,33 +804,21 @@
        transform="matrix(0.19402997,0,0,0.19402997,11.467094,98.818133)"
        inkscape:transform-center-x="0.025425505"
        inkscape:transform-center-y="-0.14619167" />
-    <g
-       id="g53"
-       transform="translate(-7.6285346e-8,2.1166667)">
-      <text
-         xml:space="preserve"
-         transform="matrix(0.26458333,0,0,0.26458333,-33.837049,41.686607)"
-         id="text36-7"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';text-align:center;white-space:pre;shape-inside:url(#rect36-8);display:inline"
-         x="81.093857"
-         y="0"><tspan
-           x="157.36711"
-           y="218.14847"
-           id="tspan27">SCROLL
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-33.837049,43.803274)"
+       id="text36-7"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';text-align:center;white-space:pre;shape-inside:url(#rect36-8);display:inline"
+       x="81.093857"
+       y="0"><tspan
+         x="157.36711"
+         y="218.14847"
+         id="tspan27">SCROLL
 </tspan><tspan
-           x="172.85541"
-           y="251.48184"
-           id="tspan28">ZOOM
+         x="172.85541"
+         y="251.48184"
+         id="tspan28">ZOOM
 </tspan></text>
-      <text
-         xml:space="preserve"
-         transform="matrix(0.26458333,0,0,0.26458333,-20.199476,85.081551)"
-         id="text52"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect52);display:inline"><tspan
-           x="134.99023"
-           y="70.802764"
-           id="tspan29">FOR</tspan></text>
-    </g>
     <g
        id="g78"
        transform="translate(5.2916663)">
@@ -852,7 +840,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect59);display:inline"><tspan
              x="-239.93359"
              y="166.1113"
-             id="tspan30">O</tspan></text>
+             id="tspan29">O</tspan></text>
         <text
            xml:space="preserve"
            transform="matrix(0.26458333,0,0,0.26458333,-309.04951,84.355132)"
@@ -860,7 +848,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect60);display:inline"><tspan
              x="604.13281"
              y="253.74026"
-             id="tspan31">OBJECT</tspan></text>
+             id="tspan30">OBJECT</tspan></text>
       </g>
     </g>
     <g
@@ -885,7 +873,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect57);display:inline"><tspan
                x="-239.93359"
                y="166.1113"
-               id="tspan32">C</tspan></text>
+               id="tspan31">C</tspan></text>
           <text
              xml:space="preserve"
              transform="matrix(0.26458333,0,0,0.26458333,-259.39018,84.355132)"
@@ -893,7 +881,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect34-5);display:inline"><tspan
                x="604.13281"
                y="253.74026"
-               id="tspan33">CAM</tspan></text>
+               id="tspan32">CAM</tspan></text>
         </g>
       </g>
       <g
@@ -916,7 +904,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect62);display:inline"><tspan
                x="-239.93359"
                y="166.1113"
-               id="tspan34">L</tspan></text>
+               id="tspan33">L</tspan></text>
           <text
              xml:space="preserve"
              transform="matrix(0.26458333,0,0,0.26458333,-312.67169,84.355132)"
@@ -924,7 +912,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect63);display:inline"><tspan
                x="604.13281"
                y="253.74026"
-               id="tspan35">LIGHT</tspan></text>
+               id="tspan34">LIGHT</tspan></text>
         </g>
       </g>
     </g>
@@ -958,7 +946,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect63-3);display:inline"><tspan
            x="604.13281"
            y="253.74026"
-           id="tspan36">LIGHT</tspan></text>
+           id="tspan35">LIGHT</tspan></text>
       <rect
          style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0833039;stroke-linecap:round"
          id="rect11-6-1-60"
@@ -995,7 +983,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect72);display:inline"><tspan
            x="604.13281"
            y="253.74026"
-           id="tspan37">LIGHT</tspan></text>
+           id="tspan36">LIGHT</tspan></text>
       <g
          id="g71"
          transform="matrix(0.65206518,0,0,0.65206518,159.26731,16.73761)"
@@ -1034,7 +1022,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect75);display:inline"><tspan
          x="-239.93359"
          y="166.1113"
-         id="tspan38">A</tspan></text>
+         id="tspan37">A</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-397.1928,81.18013)"
@@ -1044,7 +1032,7 @@
        y="0"><tspan
          x="697.58655"
          y="253.74026"
-         id="tspan39">AMB
+         id="tspan38">AMB
 </tspan></text>
     <text
        xml:space="preserve"
@@ -1053,7 +1041,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect77);display:inline"><tspan
          x="604.13281"
          y="253.74026"
-         id="tspan40">LIGHT</tspan></text>
+         id="tspan39">LIGHT</tspan></text>
     <text
        xml:space="preserve"
        transform="matrix(0.26458333,0,0,0.26458333,-397.1928,44.138462)"
@@ -1063,7 +1051,7 @@
        y="0"><tspan
          x="729.5332"
          y="253.74026"
-         id="tspan41">
+         id="tspan40">
 </tspan></text>
     <g
        id="g7"
@@ -1083,7 +1071,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.3333px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect5);display:inline"><tspan
            x="-239.93359"
            y="166.1113"
-           id="tspan42">R
+           id="tspan41">R
 </tspan></text>
       <text
          xml:space="preserve"
@@ -1092,7 +1080,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.6667px;line-height:1.25;font-family:'BankGothic Lt BT';-inkscape-font-specification:'BankGothic Lt BT';white-space:pre;shape-inside:url(#rect7);display:inline"><tspan
            x="604.13281"
            y="253.74026"
-           id="tspan43">RESTART</tspan></text>
+           id="tspan42">RESTART</tspan></text>
     </g>
   </g>
 </svg>
