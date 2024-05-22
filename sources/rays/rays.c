@@ -332,7 +332,7 @@ void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img
 			|| *(unsigned int *)(img_data + pxl_pos2) == 0x6D863B
 			|| *(unsigned int *)(img_data + pxl_pos2) == 0x4A9463
 			|| *(unsigned int *)(img_data + pxl_pos2) == 0x34362E
-		 || *(unsigned int *)(img_data + pxl_pos2) == 0xF3F3F3)			
+		 || *(unsigned int *)(img_data + pxl_pos2) == 0x67754)			
 		{			
 			*(unsigned int *)(mlx->img.img_data + pxl_pos) = 
 			*(unsigned int *)(img_data + pxl_pos2);
