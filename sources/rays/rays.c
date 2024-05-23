@@ -411,13 +411,13 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 				add_xpm_logo(mlx, x, y, logo);
 			if (x >= WIDTH - 100 && y >= 0 && y < 100)
 			{
-				if (data->event.mesh == E_CAM)
+				if (data->event.type_mesh == E_CAM)
 					add_xpm_sph(mlx, x, y, cam);
-				else if (data->event.mesh == E_SPOTL)
+				else if (data->event.type_mesh == E_SPOTL)
 					add_xpm_sph(mlx, x, y, bulb);
-				else if (data->event.mesh == E_AMBL)
+				else if (data->event.type_mesh == E_AMBL)
 					add_xpm_sph(mlx, x, y, amb);
-				else if (data->event.mesh == E_MESH)
+				else if (data->event.type_mesh == E_MESH)
 					add_xpm_sph(mlx, x, y, sph);			 
 			}					
 			if (data->event.legend && x >= WIDTH - 792 && y >= HEIGHT - 200)

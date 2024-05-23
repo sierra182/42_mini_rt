@@ -78,46 +78,47 @@ static void	event_translate(int keycode,
 		trsl_mesh(cam, vect, (double []){0.0, 0.0, -t});
 } 	
 
-void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vector **dir_vect)
+void	actual_mesh_handle(t_data *data, t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vector **dir_vect)
 {
-	static t_obj	actual_mesh;
+	//static t_obj	actual_mesh;
+	
 	
 	if (mesh)
 	{
 
-		actual_mesh = *mesh;
-		// ((t_sphere *) actual_mesh.ref)->color.rgb[0] += 100;
-		// 	if (((t_sphere *) actual_mesh.ref)->color.rgb[0] >= 255)
-		// 		((t_sphere *) actual_mesh.ref)->color.rgb[0] = 255;
-		// ((t_sphere *) actual_mesh.ref)->color.rgb[1] += 100;
-		// 	if (((t_sphere *) actual_mesh.ref)->color.rgb[1] >= 255)
-		// 		((t_sphere *) actual_mesh.ref)->color.rgb[1] = 255;
-		// ((t_sphere *) actual_mesh.ref)->color.rgb[2] += 100;
-		// 	if (((t_sphere *) actual_mesh.ref)->color.rgb[2] >= 255)
-		// 		((t_sphere *) actual_mesh.ref)->color.rgb[2] = 255;
-			
+		((t_sphere *) mesh->ref)->color.rgb[0] = 100;
+			if (((t_sphere *) mesh->ref)->color.rgb[0] >= 255)
+				((t_sphere *) mesh->ref)->color.rgb[0] = 255;
+		((t_sphere *) mesh->ref)->color.rgb[1] = 100;
+			if (((t_sphere *) mesh->ref)->color.rgb[1] >= 255)
+				((t_sphere *) mesh->ref)->color.rgb[1] = 255;
+		((t_sphere *) mesh->ref)->color.rgb[2] = 100;
+			if (((t_sphere *) mesh->ref)->color.rgb[2] >= 255)
+				((t_sphere *) mesh->ref)->color.rgb[2] = 255;
+		data->event.actual_mesh = *mesh;			
 	}
 	else 
 	{	
-		if ((t_sphere *) actual_mesh.ref)
+		if ((t_sphere *) data->event.actual_mesh.ref)
 		{		
-			// 	((t_sphere *) actual_mesh.ref)->color.rgb[0] -= 100;
-			// if (((t_sphere *) actual_mesh.ref)->color.rgb[0] >= 255)
-			// 	((t_sphere *) actual_mesh.ref)->color.rgb[0] = 255;
-			if (actual_mesh.type == O_SP)
+			// ((t_sphere *) data->event.actual_mesh.ref)->color.rgb[0] = data->data_cpy->spheres[2].color.rgb[0];
+			// ((t_sphere *) data->event.actual_mesh.ref)->color.rgb[1] = data->data_cpy->spheres[2].color.rgb[1];
+			// ((t_sphere *) data->event.actual_mesh.ref)->color.rgb[2] = data->data_cpy->spheres[2].color.rgb[2];
+
+			if (data->event.actual_mesh.type == O_SP)
 			{
-				*origin_vect = &((t_sphere *) actual_mesh.ref)->origin_vect;
+				*origin_vect = &((t_sphere *) data->event.actual_mesh.ref)->origin_vect;
 				*dir_vect = NULL;
 			}
-			if (actual_mesh.type == O_PL)
+			if (data->event.actual_mesh.type == O_PL)
 			{
-				*origin_vect = &((t_plane *) actual_mesh.ref)->origin_vect;
-				*dir_vect = &((t_plane *) actual_mesh.ref)->norm_vect;
+				*origin_vect = &((t_plane *) data->event.actual_mesh.ref)->origin_vect;
+				*dir_vect = &((t_plane *) data->event.actual_mesh.ref)->norm_vect;
 			}
-			if (actual_mesh.type == O_CY)
+			if (data->event.actual_mesh.type == O_CY)
 			{
-				*origin_vect = &((t_cylinder *) actual_mesh.ref)->origin_vect;
-				*dir_vect = &((t_cylinder *) actual_mesh.ref)->axis_vect;
+				*origin_vect = &((t_cylinder *) data->event.actual_mesh.ref)->origin_vect;
+				*dir_vect = &((t_cylinder *) data->event.actual_mesh.ref)->axis_vect;
 			}
 		}
 	}
@@ -182,34 +183,34 @@ int	key_event(int keycode, void *param)
 	else if (keycode == RST_CM)	
 		reset_cam(data);		
 	else if (keycode == MESH)	
-		data->event.mesh = E_MESH;
+		data->event.type_mesh = E_MESH;
 	else if (keycode == CAM)	
-		data->event.mesh = E_CAM;
+		data->event.type_mesh = E_CAM;
 	else if (keycode == LIGHT)	
-		data->event.mesh = E_SPOTL;
+		data->event.type_mesh = E_SPOTL;
 	else if (keycode == AMBL)	
-		data->event.mesh = E_AMBL;
-	else if (data->event.mesh == E_CAM)
+		data->event.type_mesh = E_AMBL;
+	else if (data->event.type_mesh == E_CAM)
 	{
 		event_translate(keycode, trsl_cam, &data->cam, NULL);	
 		cam_event_rotate(keycode, &data->cam);
 	}
-	else if (data->event.mesh == E_SPOTL)	
+	else if (data->event.type_mesh == E_SPOTL)	
 		event_translate(keycode, trsl_about_cam, &data->cam, &data->spotlight.origin_vect);
 	else 
 	{
-		actual_mesh_handle(NULL, &transl_vect, &rotate_vect);
+		actual_mesh_handle(data, NULL, &transl_vect, &rotate_vect);
 		if (transl_vect)
 			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
 		if (rotate_vect)
 			event_rotate(keycode, rotate_vect);
 	}	
-	if (data->event.mesh == E_SPOTL)
+	if (data->event.type_mesh == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
 		event_intensity(keycode, &data->spotlight.intensity);			
 	}
-	else if (data->event.mesh == E_AMBL)
+	else if (data->event.type_mesh == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);			
 	return (0);
 }
@@ -225,7 +226,7 @@ void	event_launch_rays(t_data *data, int x, int y)
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
-	actual_mesh_handle(&obj, NULL, NULL);	
+	actual_mesh_handle(data, &obj, NULL, NULL);	
 }
 
 
