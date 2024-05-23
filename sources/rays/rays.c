@@ -397,6 +397,8 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	void *logo = mlx_xpm_file_to_image(mlx->connect, "logo.xpm", &(int){0}, &(int){0});
 	void *sph = mlx_xpm_file_to_image(mlx->connect, "sph.xpm", &(int){0}, &(int){0});
 	void *cam = mlx_xpm_file_to_image(mlx->connect, "cam.xpm", &(int){0}, &(int){0});
+	void *bulb = mlx_xpm_file_to_image(mlx->connect, "bulb.xpm", &(int){0}, &(int){0});
+	void *amb = mlx_xpm_file_to_image(mlx->connect, "amb.xpm", &(int){0}, &(int){0});
 
 	y = -1;
 	while (++y < data->cam.resol[1])
@@ -411,11 +413,11 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			{
 				if (data->event.mesh == E_CAM)
 					add_xpm_sph(mlx, x, y, cam);
-				// else if (data->event.mesh == E_SPOTL)
-				// 	add_xpm_sph(mlx, x, y, spot);
-				// else if (data->event.mesh == E_AMBL)
-				// 	add_xpm_sph(mlx, x, y, amb);else
-				if (data->event.mesh == E_MESH)
+				else if (data->event.mesh == E_SPOTL)
+					add_xpm_sph(mlx, x, y, bulb);
+				else if (data->event.mesh == E_AMBL)
+					add_xpm_sph(mlx, x, y, amb);
+				else if (data->event.mesh == E_MESH)
 					add_xpm_sph(mlx, x, y, sph);			 
 			}					
 			if (data->event.legend && x >= WIDTH - 792 && y >= HEIGHT - 200)
