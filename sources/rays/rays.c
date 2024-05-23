@@ -373,7 +373,7 @@ void	add_xpm_sph(t_mlx *mlx, int x, int y, void *img_ptr)
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
 		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
-		int pxl_pos2 = (x - 100) * bpp * inverse_eight + y * line_len;
+		int pxl_pos2 = (x - (WIDTH - 100)) * bpp * inverse_eight + y * line_len;
 		if (*(unsigned int *)(img_data + pxl_pos2) != 0xFF0000)			
 		{			
 			*(unsigned int *)(mlx->img.img_data + pxl_pos) = 
@@ -396,6 +396,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	void *img = mlx_xpm_file_to_image(mlx->connect, "lorem.xpm", &(int){0}, &(int){0});
 	void *logo = mlx_xpm_file_to_image(mlx->connect, "logo.xpm", &(int){0}, &(int){0});
 	void *sph = mlx_xpm_file_to_image(mlx->connect, "sph.xpm", &(int){0}, &(int){0});
+	void *cam = mlx_xpm_file_to_image(mlx->connect, "cam.xpm", &(int){0}, &(int){0});
 
 	y = -1;
 	while (++y < data->cam.resol[1])
@@ -406,10 +407,10 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			exec_launch_rays(mlx, data, x, y);
 			if (x >= 0 && x <= 100 && y >= 0 && y < 100)
 				add_xpm_logo(mlx, x, y, logo);
-			if (x >= 100 && x <= 200 && y >= 0 && y < 100)
+			if (x >= WIDTH - 100 && y >= 0 && y < 100)
 			{
-				// if (data->event.mesh == E_CAM)
-				// 	add_xpm_sph(mlx, x, y, cam);
+				if (data->event.mesh == E_CAM)
+					add_xpm_sph(mlx, x, y, cam);
 				// else if (data->event.mesh == E_SPOTL)
 				// 	add_xpm_sph(mlx, x, y, spot);
 				// else if (data->event.mesh == E_AMBL)
