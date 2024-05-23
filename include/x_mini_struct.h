@@ -139,6 +139,7 @@ typedef struct s_event
 	int				legend;
 	t_event_mesh	type_mesh;
 	t_obj			actual_mesh;
+	t_color			color_sav;
 }	t_event;
 
 typedef struct s_data

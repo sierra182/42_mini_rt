@@ -37,23 +37,26 @@ int	frame(void *param)
 }
 
 int	mouse_release(int button, int x, int y, void *param)
-{
-	// t_mlx	*mlx;
-	// t_data	*data;
-			
-	printf("je me relache\n");
-	// mlx = (t_mlx *) ((void **) param)[0];
-	// data = (t_data *) ((void **) param)[1];
+{	
+	t_data	*data;
+	
+	data = (t_data *) param;
+	if (data->event.actual_mesh.ref)
+	{
+
+
+	data->refresh = 1;
+	((t_sphere *) data->event.actual_mesh.ref)->color = data->event.color_sav;
+	}
 	return (0);
 }
 
 void	launch_mlx_loop(t_mlx *mlx, t_data *data)
-{	
-	// mlx_hook(mlx->window, 5, 0, mouse_release, (void *) data);	
-	 mlx_hook(mlx->window, 5, 0, mouse_release, NULL);
+{			
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);
 	mlx_hook(mlx->window, 2, 1L << 0, key_event, (void *[]){mlx, data});
 	mlx_mouse_hook(mlx->window, mouse_event, (void *) data);
+	mlx_hook(mlx->window, 5, 1L << 3, mouse_release, (void *) data);
 	mlx_loop_hook(mlx->connect, frame, (void *[]){mlx, data});
 	mlx_loop(mlx->connect);
 }
