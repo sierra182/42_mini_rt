@@ -86,15 +86,15 @@ void	actual_mesh_handle(t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vec
 	{
 
 		actual_mesh = *mesh;
-		((t_sphere *) actual_mesh.ref)->color.rgb[0] += 100;
-			if (((t_sphere *) actual_mesh.ref)->color.rgb[0] >= 255)
-				((t_sphere *) actual_mesh.ref)->color.rgb[0] = 255;
-		((t_sphere *) actual_mesh.ref)->color.rgb[1] += 100;
-			if (((t_sphere *) actual_mesh.ref)->color.rgb[1] >= 255)
-				((t_sphere *) actual_mesh.ref)->color.rgb[1] = 255;
-		((t_sphere *) actual_mesh.ref)->color.rgb[2] += 100;
-			if (((t_sphere *) actual_mesh.ref)->color.rgb[2] >= 255)
-				((t_sphere *) actual_mesh.ref)->color.rgb[2] = 255;
+		// ((t_sphere *) actual_mesh.ref)->color.rgb[0] += 100;
+		// 	if (((t_sphere *) actual_mesh.ref)->color.rgb[0] >= 255)
+		// 		((t_sphere *) actual_mesh.ref)->color.rgb[0] = 255;
+		// ((t_sphere *) actual_mesh.ref)->color.rgb[1] += 100;
+		// 	if (((t_sphere *) actual_mesh.ref)->color.rgb[1] >= 255)
+		// 		((t_sphere *) actual_mesh.ref)->color.rgb[1] = 255;
+		// ((t_sphere *) actual_mesh.ref)->color.rgb[2] += 100;
+		// 	if (((t_sphere *) actual_mesh.ref)->color.rgb[2] >= 255)
+		// 		((t_sphere *) actual_mesh.ref)->color.rgb[2] = 255;
 			
 	}
 	else 
