@@ -138,12 +138,15 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
 	double			discrim;
 	double			t1;
 	double			t2;
+	double			t3;
 	t_ray_vector	i;
 	double			origin_proj;
 	double			proj;
 
 	t_cylinder *cyl = (t_cylinder *)input_cyl;
 	t1 = solve_quadratic_equation(ray, cyl, &discrim);
+	t2 = cyl->t2;
+	//printf("t1: %f, t2: %f\n", t1, t2);
 	if (discrim < 0)
 		return (0.0);
 	get_intersect_point(ray, t1, &i);
@@ -160,9 +163,9 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
 		|| proj > origin_proj + cyl->height * 0.5)
 		t1 = BIG_VALUE;
 	
-	t2 = intersect_disc_plans(ray, cyl, &i);
-	if (t2 && t2 < t1)
-		return (cyl->cyl_or_discs = discs, t2);
+	t3 = intersect_disc_plans(ray, cyl, &i);
+	if (t3 && t3 < t1)
+		return (cyl->cyl_or_discs = discs, t3);
 	else if (proj < origin_proj - cyl->height * 0.5
 		|| proj > origin_proj + cyl->height * 0.5)
 		return (0.0);

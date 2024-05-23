@@ -292,14 +292,15 @@ void	get_plane_color(t_get_color_params *params)
 	t_ray_vector	normal;
 	t_ray			light_ray;
 	t_color			ambiantly_color;
+	double view_dot_normal;
 
 	cast_vector_mat_ray(&((t_plane *) params->mesh)->norm_vect, &normal);
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
 	normalize_vector(params->ray->dir_vect.axis);
-	double nbr_cam = scalar_product(normal.axis, params->ray->dir_vect.axis);
-	if (nbr_cam > 0)
+	view_dot_normal = scalar_product(normal.axis, params->ray->dir_vect.axis);
+	if (view_dot_normal > 0)
 		symmetrize_vector(normal.axis);
 	color_with_ambiant_light(&((t_plane *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
