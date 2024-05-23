@@ -78,51 +78,59 @@ static void	event_translate(int keycode,
 		trsl_mesh(cam, vect, (double []){0.0, 0.0, -t});
 } 	
 
-void	actual_mesh_handle(t_data *data, t_obj *mesh, t_matrix_vector **origin_vect, t_matrix_vector **dir_vect)
+void	assign_vector(t_matrix_vector *origin_vect, t_matrix_vector *dir_vect,
+	t_matrix_vector **new_origin_vect, t_matrix_vector **new_dir_vect)
 {
-	//static t_obj	actual_mesh;
-	
-	
-	if (mesh)
-	{
-		data->event.color_sav = ((t_sphere *) mesh->ref)->color;
-		((t_sphere *) mesh->ref)->color.rgb[0] = 100;
-			if (((t_sphere *) mesh->ref)->color.rgb[0] >= 255)
-				((t_sphere *) mesh->ref)->color.rgb[0] = 255;
-		((t_sphere *) mesh->ref)->color.rgb[1] = 100;
-			if (((t_sphere *) mesh->ref)->color.rgb[1] >= 255)
-				((t_sphere *) mesh->ref)->color.rgb[1] = 255;
-		((t_sphere *) mesh->ref)->color.rgb[2] = 100;
-			if (((t_sphere *) mesh->ref)->color.rgb[2] >= 255)
-				((t_sphere *) mesh->ref)->color.rgb[2] = 255;
-		data->event.actual_mesh = *mesh;			
-	}
-	else 
-	{	
-		if ((t_sphere *) data->event.actual_mesh.ref)
-		{		
-			// ((t_sphere *) data->event.actual_mesh.ref)->color.rgb[0] = data->data_cpy->spheres[2].color.rgb[0];
-			// ((t_sphere *) data->event.actual_mesh.ref)->color.rgb[1] = data->data_cpy->spheres[2].color.rgb[1];
-			// ((t_sphere *) data->event.actual_mesh.ref)->color.rgb[2] = data->data_cpy->spheres[2].color.rgb[2];
+	*new_origin_vect = origin_vect;
+	*new_dir_vect = dir_vect;
+}
 
-			if (data->event.actual_mesh.type == O_SP)
-			{
-				*origin_vect = &((t_sphere *) data->event.actual_mesh.ref)->origin_vect;
-				*dir_vect = NULL;
-			}
-			if (data->event.actual_mesh.type == O_PL)
-			{
-				*origin_vect = &((t_plane *) data->event.actual_mesh.ref)->origin_vect;
-				*dir_vect = &((t_plane *) data->event.actual_mesh.ref)->norm_vect;
-			}
-			if (data->event.actual_mesh.type == O_CY)
-			{
-				*origin_vect = &((t_cylinder *) data->event.actual_mesh.ref)->origin_vect;
-				*dir_vect = &((t_cylinder *) data->event.actual_mesh.ref)->axis_vect;
-			}
-		}
+void	be_highlight(t_color *color)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+	{
+		color->rgb[i] += 100;
+		if (color->rgb[i] > 255)
+			color->rgb[i] = 255;
 	}
 }
+
+void	actual_mesh_handle(t_data *data, t_obj *mesh,
+	t_matrix_vector **origin_vect, t_matrix_vector **dir_vect)
+{
+	t_color			*color;
+
+	if (mesh)
+	{
+		if (mesh->type == O_SP)
+			color = &((t_sphere *) mesh->ref)->color;
+		else if (mesh->type == O_CY)
+			color = &((t_cylinder *) mesh->ref)->color;
+		else if (mesh->type == O_PL)
+			color = &((t_plane *) mesh->ref)->color;
+		data->event.color_sav = *color;
+		be_highlight(color);		
+		data->event.actual_mesh = *mesh;			
+	}
+	else if (data->event.actual_mesh.ref)
+	{			
+		if (data->event.actual_mesh.type == O_SP)			
+			assign_vector(&((t_sphere *) data->event.actual_mesh.ref)
+				->origin_vect, NULL, origin_vect, dir_vect);			
+		else if (data->event.actual_mesh.type == O_PL)			
+			assign_vector(&((t_plane *) data->event.actual_mesh.ref)
+				->origin_vect, &((t_plane *) data->event.actual_mesh.ref)
+				->norm_vect, origin_vect, dir_vect);			
+		else if (data->event.actual_mesh.type == O_CY)			
+			assign_vector(&((t_cylinder *) data->event.actual_mesh.ref)
+				->origin_vect, &((t_cylinder *)data->event.actual_mesh.ref)
+				->axis_vect, origin_vect, dir_vect);		
+	}
+}
+
 
 void	reset(t_data *data)
 {
