@@ -24,7 +24,7 @@ void	chang_mech_size(t_data *data, int keycode)
 			printf("cylinder PLUS: %f\n", (((t_cylinder *) mesh->actual_mesh.ref)->diameter));
 			((t_cylinder *) mesh->actual_mesh.ref)->height += 1;
 		}
-		else if (mesh->actual_mesh.type == O_CY)
+		else if (mesh->actual_mesh.type == O_CY && !mesh->ctrl_ispressed)
 		{
 			printf("cylinder PLUS: %f\n", (((t_cylinder *)  mesh->actual_mesh.ref)->diameter));
 			((t_cylinder *) mesh->actual_mesh.ref)->diameter += 1;
@@ -46,7 +46,7 @@ void	chang_mech_size(t_data *data, int keycode)
 			printf("cylinder MINUS + CTRL: %f\n", (((t_cylinder *)  mesh->actual_mesh.ref)->diameter));
 			((t_cylinder *) mesh->actual_mesh.ref)->height -= 1;
 		}
-		else if (mesh->actual_mesh.type == O_CY && ((t_cylinder *) mesh->actual_mesh.ref)->diameter > 1)
+		else if (mesh->actual_mesh.type == O_CY && !mesh->ctrl_ispressed && ((t_cylinder *) mesh->actual_mesh.ref)->diameter > 1)
 		{
 			printf("cylinder MINUS: %f\n", (((t_cylinder *)  mesh->actual_mesh.ref)->diameter));
 			((t_cylinder *) mesh->actual_mesh.ref)->diameter -= 1;
