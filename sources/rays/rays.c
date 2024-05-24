@@ -277,13 +277,14 @@ int	get_sphere_color(t_get_color_params *params)
 		&params->data->ambiant_light, &ambiantly_color);
 	if (((t_sphere *) params->mesh)->which_t == 2)
 		symmetrize_vector(normal.axis);
-	add_shading(params->ray, &normal, &ambiantly_color, params->color);
-	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
-		return (*params->color = ambiantly_color, 0);
-	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
-		&params->data->spotlight, &ambiantly_color, params->color,
-		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, params->color);
+	add_shading(params->ray, &normal, &((t_sphere *) params->mesh)->color, params->color);
+	// if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
+	// 	return (*params->color = ambiantly_color, 0);
+	// add_lightening(&(t_add_lightening_params){&light_ray, &normal,
+	// 	&params->data->spotlight, &((t_sphere *) params->mesh)->color, params->color,
+	// 	&light_attenuat, &light_coef});
+	// add_color(params->color, &params->data->ambiant_light.color , params->color);
+	// add_self_shadowing(light_coef, light_attenuat, params->color);
 	return (0);
 } 
 
