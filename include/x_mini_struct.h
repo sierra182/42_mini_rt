@@ -224,7 +224,7 @@ typedef struct s_get_color_params
 	t_color *color;
 }	t_get_color_params;
 
-typedef struct s_add_shading_params
+typedef struct s_add_lightening_params
 {
 	t_ray 			*light_ray;
 	t_ray_vector	*normal;
@@ -233,7 +233,7 @@ typedef struct s_add_shading_params
 	t_color			*color;
 	double			*light_attenuat;
 	double 			*light_coef;
-}	t_add_shading_params;
+}	t_add_lightening_params;
 
 typedef struct s_reset_tmps
 {

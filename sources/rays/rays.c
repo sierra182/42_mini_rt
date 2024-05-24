@@ -230,7 +230,7 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 	}
 }
 
-void	add_initial_shading( t_ray *ray, t_ray_vector *normal,
+void	add_shading( t_ray *ray, t_ray_vector *normal,
 	t_color *ambiantly_color, t_color *color)
 {
 	double	light_coef;
@@ -241,7 +241,7 @@ void	add_initial_shading( t_ray *ray, t_ray_vector *normal,
 	subtract_color(ambiantly_color, color, ambiantly_color);
 }
 
-void	add_shading(t_add_shading_params *params)
+void	add_lightening(t_add_lightening_params *params)
 {
 	t_color	subt_color;
 	t_ray	light_ray_sav;
@@ -277,10 +277,10 @@ int	get_sphere_color(t_get_color_params *params)
 		&params->data->ambiant_light, &ambiantly_color);
 	if (((t_sphere *) params->mesh)->which_t == 2)
 		symmetrize_vector(normal.axis);
-	add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
+	add_shading(params->ray, &normal, &ambiantly_color, params->color);
 	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
 		return (*params->color = ambiantly_color, 0);
-	add_shading(&(t_add_shading_params){&light_ray, &normal,
+	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
 		&params->data->spotlight, &ambiantly_color, params->color,
 		&light_attenuat, &light_coef});
 	add_self_shadowing(light_coef, light_attenuat, params->color);
@@ -303,13 +303,13 @@ void	get_plane_color(t_get_color_params *params)
 		symmetrize_vector(normal.axis);
 	color_with_ambiant_light(&((t_plane *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
-	add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
+	add_shading(params->ray, &normal, &ambiantly_color, params->color);
 	if (has_shadow(params->data, params->mesh, &light_ray))
 	{
 		*params->color = ambiantly_color;
 		return ;
 	}
-	add_shading(&(t_add_shading_params){&light_ray, &normal,
+	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
 		&params->data->spotlight, &ambiantly_color, params->color,
 		&(double){0.0}, &(double){0.0}});
 }
