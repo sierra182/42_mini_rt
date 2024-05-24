@@ -112,9 +112,34 @@ typedef struct s_plane
 	t_color			color;
 }	t_plane;
 
+typedef enum e_event_mesh
+{		
+	E_CAM,	
+	E_SPOTL,
+	E_AMBL,
+	E_MESH
+}	t_event_mesh;
+
+typedef enum e_obj_type
+{
+	O_SP,
+	O_CY,
+	O_PL
+} t_obj_type;
+
+typedef	struct s_obj_intersect
+{
+	double			t;
+	enum e_obj_type	type;
+	void			*ref;
+}	t_obj;
+
 typedef struct s_event
 {
-	int	legend;
+	int				legend;
+	t_event_mesh	type_mesh;
+	t_obj			actual_mesh;
+	t_color			color_sav;
 }	t_event;
 
 typedef struct s_data
@@ -158,27 +183,6 @@ typedef enum e_event
 	MESH = 111
 }	t_enum_event;
 
-typedef enum e_event_mesh
-{		
-	E_CAM,	
-	E_SPOTL,
-	E_AMBL,
-	E_MESH
-}	t_event_mesh;
-
-typedef enum e_obj_type
-{
-	O_SP,
-	O_CY,
-	O_PL
-} t_obj_type;
-
-typedef	struct s_obj_intersect
-{
-	double			t;
-	enum e_obj_type	type;
-	void			*ref;
-}	t_obj;
 
 typedef struct s_exit
 {

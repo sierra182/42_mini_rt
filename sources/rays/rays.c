@@ -328,12 +328,14 @@ void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img
 	{
 		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
 		int pxl_pos2 = (x - (WIDTH - 792))  * bpp * inverse_eight + (y - (HEIGHT - 200)) * line_len;
-		if (*(unsigned int *)(img_data + pxl_pos2) == 0x37A75D
-			|| *(unsigned int *)(img_data + pxl_pos2) == 0x449A61
-			|| *(unsigned int *)(img_data + pxl_pos2) == 0x6D863B
-			|| *(unsigned int *)(img_data + pxl_pos2) == 0x4A9463
-			|| *(unsigned int *)(img_data + pxl_pos2) == 0x34362E
-		 || *(unsigned int *)(img_data + pxl_pos2) == 0x67754)			
+		// if (*(unsigned int *)(img_data + pxl_pos2) == 0x37A75D
+		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x449A61
+		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x6D863B
+		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x4A9463
+		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x34362E
+		//  || *(unsigned int *)(img_data + pxl_pos2) == 0x67754)	
+		if (*(unsigned int *)(img_data + pxl_pos2) != 0x0
+		&& *(unsigned int *)(img_data + pxl_pos2) != get_color(0, 0, 0))		
 		{			
 			*(unsigned int *)(mlx->img.img_data + pxl_pos) = 
 			*(unsigned int *)(img_data + pxl_pos2);
@@ -362,6 +364,27 @@ void	add_xpm_logo(t_mlx *mlx, int x, int y, void *img_ptr)
 	}
 }
 
+void	add_xpm_sph(t_mlx *mlx, int x, int y, void *img_ptr)
+{
+	const double	inverse_eight = 0.125;
+	int				pxl_pos;
+
+	int bpp, line_len;
+	char *img_data = mlx_get_data_addr(img_ptr, &bpp,
+		&line_len, &(int){0});
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
+		int pxl_pos2 = (x - (WIDTH - 100)) * bpp * inverse_eight + y * line_len;
+		if (*(unsigned int *)(img_data + pxl_pos2) != 0xFF0000)			
+		{			
+			*(unsigned int *)(mlx->img.img_data + pxl_pos) = 
+			*(unsigned int *)(img_data + pxl_pos2);
+		}
+	}
+}
+
 void	add_xpm(t_mlx *mlx, int x, int y, void *img)
 {
 	if (!img)    
@@ -375,6 +398,10 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	int	y;
 	void *img = mlx_xpm_file_to_image(mlx->connect, "lorem.xpm", &(int){0}, &(int){0});
 	void *logo = mlx_xpm_file_to_image(mlx->connect, "logo.xpm", &(int){0}, &(int){0});
+	void *sph = mlx_xpm_file_to_image(mlx->connect, "sph.xpm", &(int){0}, &(int){0});
+	void *cam = mlx_xpm_file_to_image(mlx->connect, "cam.xpm", &(int){0}, &(int){0});
+	void *bulb = mlx_xpm_file_to_image(mlx->connect, "bulb.xpm", &(int){0}, &(int){0});
+	void *amb = mlx_xpm_file_to_image(mlx->connect, "amb.xpm", &(int){0}, &(int){0});
 
 	y = -1;
 	while (++y < data->cam.resol[1])
@@ -384,7 +411,18 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		{	
 			exec_launch_rays(mlx, data, x, y);
 			if (x >= 0 && x <= 100 && y >= 0 && y < 100)
-				add_xpm_logo(mlx, x, y, logo);		
+				add_xpm_logo(mlx, x, y, logo);
+			if (x >= WIDTH - 100 && y >= 0 && y < 100)
+			{
+				if (data->event.type_mesh == E_CAM)
+					add_xpm_sph(mlx, x, y, cam);
+				else if (data->event.type_mesh == E_SPOTL)
+					add_xpm_sph(mlx, x, y, bulb);
+				else if (data->event.type_mesh == E_AMBL)
+					add_xpm_sph(mlx, x, y, amb);
+				else if (data->event.type_mesh == E_MESH)
+					add_xpm_sph(mlx, x, y, sph);			 
+			}					
 			if (data->event.legend && x >= WIDTH - 792 && y >= HEIGHT - 200)
 				add_xpm(mlx, x, y, img);			
 		}		
