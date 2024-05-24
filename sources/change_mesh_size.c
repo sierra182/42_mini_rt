@@ -20,12 +20,16 @@ void	chang_mech_size(t_data *data, int keycode)
 		}
 		else if (mesh->actual_mesh.type == O_CY && mesh->ctrl_ispressed)
 		{
-			printf("cylinder PLUS: %f\n", (((t_cylinder *) mesh->actual_mesh.ref)->diameter));
 
+			printf("cylinder PLUS: %f\n", (((t_cylinder *) mesh->actual_mesh.ref)->diameter));
+			((t_cylinder *) mesh->actual_mesh.ref)->height += 1;
 		}
 		else if (mesh->actual_mesh.type == O_CY)
 		{
 			printf("cylinder PLUS: %f\n", (((t_cylinder *)  mesh->actual_mesh.ref)->diameter));
+			((t_cylinder *) mesh->actual_mesh.ref)->diameter += 1;
+			((t_cylinder *) mesh->actual_mesh.ref)->square_radius = ((t_cylinder *) mesh->actual_mesh.ref)->diameter / 2 * ((t_cylinder *) mesh->actual_mesh.ref)->diameter / 2;
+			((t_cylinder *) mesh->actual_mesh.ref)->radius = ((t_cylinder *) mesh->actual_mesh.ref)->diameter / 2;
 
 		}
 	}
@@ -37,14 +41,17 @@ void	chang_mech_size(t_data *data, int keycode)
 			((t_sphere *) mesh->actual_mesh.ref)->diameter -= 1;
 			((t_sphere *) mesh->actual_mesh.ref)->square_radius = ((t_sphere *) mesh->actual_mesh.ref)->diameter / 2 * ((t_sphere *) mesh->actual_mesh.ref)->diameter / 2;
 		}
-		else if (mesh->actual_mesh.type == O_CY && mesh->ctrl_ispressed)
+		else if (mesh->actual_mesh.type == O_CY && mesh->ctrl_ispressed && ((t_cylinder *) mesh->actual_mesh.ref)->height > 1)
 		{
 			printf("cylinder MINUS + CTRL: %f\n", (((t_cylinder *)  mesh->actual_mesh.ref)->diameter));
-
+			((t_cylinder *) mesh->actual_mesh.ref)->height -= 1;
 		}
-		else if (mesh->actual_mesh.type == O_CY)
+		else if (mesh->actual_mesh.type == O_CY && ((t_cylinder *) mesh->actual_mesh.ref)->diameter > 1)
 		{
 			printf("cylinder MINUS: %f\n", (((t_cylinder *)  mesh->actual_mesh.ref)->diameter));
+			((t_cylinder *) mesh->actual_mesh.ref)->diameter -= 1;
+			((t_cylinder *) mesh->actual_mesh.ref)->square_radius = ((t_cylinder *) mesh->actual_mesh.ref)->diameter / 2 * ((t_cylinder *) mesh->actual_mesh.ref)->diameter / 2;
+			((t_cylinder *) mesh->actual_mesh.ref)->radius = ((t_cylinder *) mesh->actual_mesh.ref)->diameter / 2;
 
 		}
 	}
