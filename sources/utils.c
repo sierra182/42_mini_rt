@@ -7,6 +7,7 @@
  *========================================================================**/
 void	display_error(char *str)
 {
+	printf("Error\n");
 	if (write (2, str, ft_strlen(str)) == -1)
 		perror("display_error");
 }
