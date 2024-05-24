@@ -252,11 +252,11 @@ void	add_lightening(t_add_lightening_params *params)
 			params->normal->axis);
 	normalize_zero_one(params->light_coef);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
-		params->ambiently_color, &subt_color);
+		params->color, &subt_color);
 	*params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
 			*params->light_coef * params->spotlight->intensity);
-	scale_color(&subt_color, *params->light_attenuat, params->color);
-	add_color(params->color, params->ambiently_color, params->color);
+	scale_color(&subt_color, *params->light_attenuat, params->res_color);
+	add_color(params->res_color, params->color, params->res_color);
 }
 
 int	get_sphere_color(t_get_color_params *params)
@@ -280,10 +280,10 @@ int	get_sphere_color(t_get_color_params *params)
 	add_shading(params->ray, &normal, &((t_sphere *) params->mesh)->color, params->color);
 	// if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
 	// 	return (*params->color = ambiantly_color, 0);
-	// add_lightening(&(t_add_lightening_params){&light_ray, &normal,
-	// 	&params->data->spotlight, &((t_sphere *) params->mesh)->color, params->color,
-	// 	&light_attenuat, &light_coef});
-	// add_color(params->color, &params->data->ambiant_light.color , params->color);
+	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
+		&params->data->spotlight, &((t_sphere *) params->mesh)->color, params->color,
+		&light_attenuat, &light_coef});
+	add_color(params->color, &ambiantly_color , params->color);
 	// add_self_shadowing(light_coef, light_attenuat, params->color);
 	return (0);
 } 
