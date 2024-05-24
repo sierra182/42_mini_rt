@@ -91,6 +91,15 @@ int	is_behind_cam(double t)
 }
 //!rename typemesh
 
+void	get_average_color(t_color *a, t_color *b, t_color *average)
+{
+	int i;
+
+	i = -1;
+	while (++i < AXIS)	
+		average->rgb[i] = (a->rgb[i] + b->rgb[i]) * 0.5;	
+}
+
 void	color_with_ambiant_light(t_color *mesh_color,
 	t_ambiant_light *ambiant_light, t_color *new_color)
 {
@@ -100,12 +109,14 @@ void	color_with_ambiant_light(t_color *mesh_color,
 
 	scale_color(&ambiant_light->color, ambiant_light->intensity,
 		&ambiant_scaled_color);
-	i = -1;
-	while (++i < AXIS) //!scale
-	{
-		tmp_color = ambiant_scaled_color.rgb[i] / 255.0;
-		new_color->rgb[i] = tmp_color * mesh_color->rgb[i];
-	}
+	get_average_color(&ambiant_scaled_color, mesh_color, new_color);
+	scale_color(new_color, ambiant_light->intensity, new_color);
+	// i = -1;
+	// while (++i < AXIS) //!scale
+	// {
+	// 	tmp_color = ambiant_scaled_color.rgb[i] / 255.0;
+	// 	new_color->rgb[i] = tmp_color * mesh_color->rgb[i];
+	// }
 }
 
 void	color_with_spotlight(t_color *mesh_color,
@@ -117,12 +128,15 @@ void	color_with_spotlight(t_color *mesh_color,
 
 	scale_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, spotlight->intensity,
 		&light_scaled_color);
-	i = -1;
-	while (++i < AXIS) //!scale
-	{
-		tmp_color = light_scaled_color.rgb[i] / 255.0;
-		new_color->rgb[i] = tmp_color * mesh_color->rgb[i];
-	}
+	get_average_color(&light_scaled_color, mesh_color, new_color);
+	scale_color(new_color, spotlight->intensity, new_color);
+
+	// i = -1;
+	// while (++i < AXIS) //!scale
+	// {
+	// 	tmp_color = light_scaled_color.rgb[i] / 255.0;
+	// 	new_color->rgb[i] = tmp_color * mesh_color->rgb[i];
+	// }
 }
 
 void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
@@ -229,7 +243,7 @@ double	calculate_light_attenuation(t_ray *light_ray, double intensity)
 	double			light_mag;
 	const double	kc = 1.0;
 	const double	kl = 45e-4;
-	const double	kq = 75e-50;
+	const double	kq = 75e-25;
 
 	light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
 	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
@@ -243,10 +257,10 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 	
 	// if (light_coef < 0.5)
 	// {
-		scale_color(color, 1 - light_attenuation, &scaled_color);
+		scale_color(color, 1 - light_attenuation * 4, &scaled_color);
 	
-		subtract_color(color, &scaled_color, color);
-	//}
+	 	subtract_color(color, &scaled_color, color);
+	// }
 }
 
 void	add_shading( t_ray *ray, t_ray_vector *normal,
@@ -276,7 +290,7 @@ void	add_lightening(t_add_lightening_params *params)
 		params->color, &subt_color);
 	*params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
 			*params->light_coef * params->spotlight->intensity);
-	scale_color(&subt_color, *params->light_attenuat, &scaled_color);
+	scale_color(&subt_color, *params->light_attenuat * .0125, &scaled_color);
 	add_color(&scaled_color, params->color, params->res_color);
 }
 
