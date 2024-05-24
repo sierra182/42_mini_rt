@@ -94,6 +94,7 @@ double	*get_element_data(char *map_path, double tab[], char *el)
 {
 	static int	map_fd = -1;
 	char		*str;
+	int			i;
 
 	if (map_fd == -1)
 		map_fd = open(map_path, O_RDONLY);
@@ -102,7 +103,10 @@ double	*get_element_data(char *map_path, double tab[], char *el)
 		str = get_next_line(map_fd);
 		if (str == NULL)
 			break ;
-		if (ft_strnstr(str, el, ft_strlen(el)))
+		i = 0;
+		while (ft_isspace(str[i]))
+			i++;
+		if (ft_strnstr(&str[i], el, ft_strlen(el)))
 		{
 			tab = fill_tab(str, tab);
 			free (str);
@@ -138,4 +142,14 @@ double	*fill_tab(char *str, double tab[])
 		i++;
 	}
 	return (tab);
+}
+
+/**========================================================================
+ *                           initialize_tab
+ *========================================================================**/
+void	initialize_tab(double tab[])
+{
+	int	i;
+
+	
 }

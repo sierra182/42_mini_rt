@@ -51,6 +51,7 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 		->data->spotlight, &ambiantly_color, params->color,
 		&light_attenuat, &light_coef});
 	add_self_shadowing(light_coef, light_attenuat, params->color);
+	return (0);
 }
 
 /**========================================================================
@@ -82,6 +83,7 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	add_shading(&(t_add_shading_params){&light_ray, &normal,
 		&params->data->spotlight, &ambiantly_color, params->color,
 		&(double){0.0}, &(double){0.0}});
+	return (0);
 }
 
 /**========================================================================

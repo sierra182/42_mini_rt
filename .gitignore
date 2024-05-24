@@ -57,3 +57,7 @@ dkms.conf
 # suppression file
 *.supp
 miniRT
+testfile.rt
+chatgpt_1.rt
+testfile.rt
+*.rt
