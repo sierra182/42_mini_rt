@@ -60,6 +60,7 @@ int	init_data(char *map_path, t_data *data)
 	while (get_element_data(map_path, tab, "pl") != NULL)
 		fill_struct_pl(data, tab);
 	data->refresh = 1;
+	data->event.ctrl_ispressed = 0;
 	data->event.legend = 0;
 	data->event.type_mesh = 0;
 	post_init_cam(&data->cam);

@@ -17,7 +17,8 @@ void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
 
-int	init_data(char *map_path, t_data *data);
+int		init_data(char *map_path, t_data *data);
+void	chang_mech_size(t_data *data, int keycode);
 
 static void cam_event_rotate(int keycode, t_cam *cam)
 {
@@ -205,14 +206,20 @@ int	key_event(int keycode, void *param)
 	}
 	else if (data->event.type_mesh == E_SPOTL)	
 		event_translate(keycode, trsl_about_cam, &data->cam, &data->spotlight.origin_vect);
-	else 
+	else if (data->event.type_mesh == E_MESH)
 	{
 		actual_mesh_handle(data, NULL, &transl_vect, &rotate_vect);
 		if (transl_vect)
 			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
 		if (rotate_vect)
 			event_rotate(keycode, rotate_vect);
-	}	
+	}
+	if (keycode == CTRL || keycode == CTRL_2)
+	{
+		data->event.ctrl_ispressed = 1;
+	}
+	if (data->event.type_mesh == E_MESH && (keycode == PLUS || keycode == MINUS))
+		chang_mech_size(data, keycode);
 	if (data->event.type_mesh == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
@@ -221,6 +228,18 @@ int	key_event(int keycode, void *param)
 	else if (data->event.type_mesh == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);			
 	return (0);
+}
+
+int	key_up_event(int keycode, void *param)
+{
+	t_mlx						*mlx;
+	t_data						*data;
+
+	data = (t_data *) ((void **) param)[1];
+	if (keycode == CTRL || keycode == CTRL_2)
+	{
+		data->event.ctrl_ispressed = 0;
+	} 
 }
 
 void	event_launch_rays(t_data *data, int x, int y)

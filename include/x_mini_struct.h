@@ -136,6 +136,7 @@ typedef	struct s_obj_intersect
 
 typedef struct s_event
 {
+	int				ctrl_ispressed;
 	int				legend;
 	t_event_mesh	type_mesh;
 	t_obj			actual_mesh;
@@ -160,6 +161,7 @@ typedef struct s_data
 
 typedef enum e_event
 {
+
 	ESC = 65307,
 	RST = 114,
 	RST_CM = 65437,
@@ -180,7 +182,9 @@ typedef enum e_event
 	CAM = 99,
 	AMBL = 97,
 	LIGHT = 108, 
-	MESH = 111
+	MESH = 111,
+	CTRL = 65507,
+	CTRL_2 = 65508
 }	t_enum_event;
 
 

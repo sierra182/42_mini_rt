@@ -12,6 +12,7 @@ int		mouse_event(int button, int x, int y, void *param);
 void	display_error(char *error);
 int		parse(t_data *data, char *map_path);
 void	launch_rays(t_mlx *mlx, t_data *data);
+int	key_up_event(int keycode, void *param);
 
 /**========================================================================
  *                             COMMENTS
@@ -62,6 +63,8 @@ void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);
 	mlx_hook(mlx->window, 2, 1L << 0, key_event, (void *[]){mlx, data});
+	mlx_hook(mlx->window, 3, 1L << 1, key_up_event, (void *[]){mlx, data});
+
 	mlx_mouse_hook(mlx->window, mouse_event, (void *) data);
 	mlx_hook(mlx->window, 5, 1L << 3, mouse_release, (void *) data);
 	mlx_loop_hook(mlx->connect, frame, (void *[]){mlx, data});
