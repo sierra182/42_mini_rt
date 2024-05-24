@@ -13,29 +13,28 @@ void	post_init_cam(t_cam *cam);
  * => values of floats for coordinates should not be greater than 1024 
  *========================================================================**/
 
-
 /**========================================================================
  *                           save_data
  * for reset option
  *========================================================================**/
 
 void	save_data(t_data *data)
-{	
+{
 	data->data_cpy = (t_data *) ft_calloc(1, sizeof(t_data));
 	*data->data_cpy = *data;
 	data->data_cpy->spheres = (t_sphere *) ft_calloc(data->sp_nbr,
-		sizeof(t_sphere));
-	ft_memcpy(data->data_cpy->spheres, data->spheres, data->sp_nbr *
-		sizeof(t_sphere));
+			sizeof(t_sphere));
+	ft_memcpy(data->data_cpy->spheres, data->spheres, data->sp_nbr
+		* sizeof(t_sphere));
 	data->data_cpy->cylinders = (t_cylinder *) ft_calloc(data->cy_nbr,
-		sizeof(t_cylinder));
-	ft_memcpy(data->data_cpy->cylinders, data->cylinders, data->cy_nbr *
-		sizeof(t_cylinder));
+			sizeof(t_cylinder));
+	ft_memcpy(data->data_cpy->cylinders, data->cylinders, data->cy_nbr
+		* sizeof(t_cylinder));
 	data->data_cpy->planes = (t_plane *) ft_calloc(data->pl_nbr,
-		sizeof(t_plane));
-	ft_memcpy(data->data_cpy->planes, data->planes, data->pl_nbr *
-		sizeof(t_plane));
-	add_exit_struct(data->data_cpy, DATA);	
+			sizeof(t_plane));
+	ft_memcpy(data->data_cpy->planes, data->planes, data->pl_nbr
+		* sizeof(t_plane));
+	add_exit_struct(data->data_cpy, DATA);
 }
 
 /**========================================================================
@@ -124,7 +123,9 @@ double	*fill_tab(char *str, double tab[])
 	int		i;
 	char	*token;
 
-	initialize_tab(tab);
+	i = 0;
+	while (i < 20)
+		tab[i++] = 1024;
 	token = ft_strtok(str, ", \t\n");
 	i = 0;
 	while (token)
@@ -137,16 +138,4 @@ double	*fill_tab(char *str, double tab[])
 		i++;
 	}
 	return (tab);
-}
-
-/**========================================================================
- *                           initialize_tab
- *========================================================================**/
-void	initialize_tab(double tab[])
-{
-	int	i;
-
-	i = 0;
-	while (i < 20)
-		tab[i++] = 1024;
 }
