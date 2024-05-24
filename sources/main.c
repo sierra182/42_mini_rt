@@ -58,7 +58,8 @@ int	mouse_release(int button, int x, int y, void *param)
 }
 
 void	launch_mlx_loop(t_mlx *mlx, t_data *data)
-{			
+{		
+
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);
 	mlx_hook(mlx->window, 2, 1L << 0, key_event, (void *[]){mlx, data});
 	mlx_mouse_hook(mlx->window, mouse_event, (void *) data);

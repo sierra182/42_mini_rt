@@ -328,12 +328,14 @@ void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img
 	{
 		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
 		int pxl_pos2 = (x - (WIDTH - 792))  * bpp * inverse_eight + (y - (HEIGHT - 200)) * line_len;
-		if (*(unsigned int *)(img_data + pxl_pos2) == 0x37A75D
-			|| *(unsigned int *)(img_data + pxl_pos2) == 0x449A61
-			|| *(unsigned int *)(img_data + pxl_pos2) == 0x6D863B
-			|| *(unsigned int *)(img_data + pxl_pos2) == 0x4A9463
-			|| *(unsigned int *)(img_data + pxl_pos2) == 0x34362E
-		 || *(unsigned int *)(img_data + pxl_pos2) == 0x67754)			
+		// if (*(unsigned int *)(img_data + pxl_pos2) == 0x37A75D
+		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x449A61
+		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x6D863B
+		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x4A9463
+		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x34362E
+		//  || *(unsigned int *)(img_data + pxl_pos2) == 0x67754)	
+		if (*(unsigned int *)(img_data + pxl_pos2) != 0x0
+		&& *(unsigned int *)(img_data + pxl_pos2) != get_color(0, 0, 0))		
 		{			
 			*(unsigned int *)(mlx->img.img_data + pxl_pos) = 
 			*(unsigned int *)(img_data + pxl_pos2);
