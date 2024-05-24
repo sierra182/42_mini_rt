@@ -87,7 +87,6 @@ void	get_elements_number(t_data *data, char *map_path)
 		val = 0;
 }
 
-
 /**========================================================================
  *                           get_element_data
  *========================================================================**/
@@ -128,7 +127,9 @@ double	*fill_tab(char *str, double tab[])
 	int		i;
 	char	*token;
 
-	initialize_tab(tab);
+	i = 0;
+	while (i < 20)
+		tab[i++] = 1024;
 	token = ft_strtok(str, ", \t\n");
 	i = 0;
 	while (token)
@@ -150,7 +151,5 @@ void	initialize_tab(double tab[])
 {
 	int	i;
 
-	i = 0;
-	while (i < 20)
-		tab[i++] = 1024;
+	
 }
