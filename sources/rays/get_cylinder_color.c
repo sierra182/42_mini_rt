@@ -4,10 +4,10 @@ void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	color_with_ambiant_light(t_color *mesh_color,
 	t_ambiant_light *ambiant_light, t_color *new_color);
 int	has_shadow(t_data *data, void *mesh, t_ray *light_ray);
-void	add_lightening(t_add_lightening_params *params);
+void	add_shading(t_add_shading_params *params);
 
 void	get_plane_color(t_get_color_params *params);
-void	add_shading( t_ray *ray, t_ray_vector *normal,
+void	add_initial_shading( t_ray *ray, t_ray_vector *normal,
 	t_color *ambiantly_color, t_color *color);
 void	add_self_shadowing(double light_coef, double light_attenuation,
 	t_color *color);
@@ -118,13 +118,13 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 	light_ray.origin_vect = intersect_point;
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray.origin_vect.axis, light_ray.dir_vect.axis);
 	color_with_ambiant_light(&cyl->color, &params->data->ambiant_light, &ambiantly_color);
-	add_shading(params->ray, &normal, &ambiantly_color, params->color);
+	add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
 	if (has_shadow(params->data, cyl, &light_ray))
 	{
 		*params->color = ambiantly_color;
 		return;
 	}
-	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params->data->spotlight, &ambiantly_color, params->color, &light_attenuat, &light_coef});
+	add_shading(&(t_add_shading_params){&light_ray, &normal, &params->data->spotlight, &ambiantly_color, params->color, &light_attenuat, &light_coef});
 	add_self_shadowing(light_coef, light_attenuat, params->color);
 }
 
@@ -148,13 +148,13 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 		symmetrize_vector(normal.axis);
 	color_with_ambiant_light(&((t_cylinder *) params->mesh)->color,
 		&params->data->ambiant_light, &ambiantly_color);
-	add_shading(params->ray, &normal, &ambiantly_color, params->color);
+	add_initial_shading(params->ray, &normal, &ambiantly_color, params->color);
 	if (has_shadow(params->data, params->mesh, &light_ray))
 	{
 		*params->color = ambiantly_color;
 		return ;
 	}
-	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
+	add_shading(&(t_add_shading_params){&light_ray, &normal,
 		&params->data->spotlight, &ambiantly_color, params->color,
 		&(double){0.0}, &(double){0.0}});
 	//add_self_shadowing(light_coef, light_attenuat, params->color);
