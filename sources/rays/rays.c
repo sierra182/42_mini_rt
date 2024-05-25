@@ -100,7 +100,7 @@ void	get_average_color(t_color *a, t_color *b, t_color *average)
 		average->rgb[i] = (a->rgb[i] + b->rgb[i]) * 0.5;	
 }
 
-void	color_with_ambiant_light(t_color *mesh_color,
+void	color_with_ambiant_light(t_color *mesh_color, //!to remove
 	t_ambiant_light *ambiant_light, t_color *new_color)
 {
 	t_color	ambiant_scaled_color;
@@ -119,25 +119,36 @@ void	color_with_ambiant_light(t_color *mesh_color,
 	// }
 }
 
-void	color_with_spotlight(t_color *mesh_color,
-	t_spotlight *spotlight, t_color *new_color)
+void	color_with_light(t_color *mesh_color,
+	t_color *light_color, double intensity, t_color *new_color)
 {
-	t_color	light_scaled_color;
-	double	tmp_color;
-	int		i;
+	t_color	scaled_color;
 
-	scale_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, spotlight->intensity,
-		&light_scaled_color);
-	get_average_color(&light_scaled_color, mesh_color, new_color);
-	scale_color(new_color, spotlight->intensity, new_color);
-
-	// i = -1;
-	// while (++i < AXIS) //!scale
-	// {
-	// 	tmp_color = light_scaled_color.rgb[i] / 255.0;
-	// 	new_color->rgb[i] = tmp_color * mesh_color->rgb[i];
-	// }
+	scale_color(light_color, intensity,
+		&scaled_color);
+	get_average_color(&scaled_color, mesh_color, new_color);
+	scale_color(new_color, intensity, new_color);
 }
+
+// void	color_with_spotlight(t_color *mesh_color,
+// 	t_spotlight *spotlight, t_color *new_color)
+// {
+// 	t_color	light_scaled_color;
+// 	double	tmp_color;
+// 	int		i;
+
+// 	scale_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, spotlight->intensity,
+// 		&light_scaled_color);
+// 	get_average_color(&light_scaled_color, mesh_color, new_color);
+// 	scale_color(new_color, spotlight->intensity, new_color);
+
+// 	// i = -1;
+// 	// while (++i < AXIS) //!scale
+// 	// {
+// 	// 	tmp_color = light_scaled_color.rgb[i] / 255.0;
+// 	// 	new_color->rgb[i] = tmp_color * mesh_color->rgb[i];
+// 	// }
+// }
 
 void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 {
@@ -254,13 +265,8 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 {
 	t_color	scaled_color;
 
-	
-	// if (light_coef < 0.5)
-	// {
-		scale_color(color, 1 - light_attenuation * 4, &scaled_color);
-	
-	 	subtract_color(color, &scaled_color, color);
-	// }
+	scale_color(color, 1 - light_attenuation * 4, &scaled_color);	
+	subtract_color(color, &scaled_color, color);	
 }
 
 void	add_shading( t_ray *ray, t_ray_vector *normal,
@@ -294,6 +300,16 @@ void	add_lightening(t_add_lightening_params *params)
 	add_color(&scaled_color, params->color, params->res_color);
 }
 
+void	limit_to_255(t_color *color)
+{
+	int	i;
+
+	i = -1;
+	while (++i < AXIS)
+		if (color->rgb[i] > 255)
+			color->rgb[i] = 255;
+}
+
 int	get_sphere_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;
@@ -309,15 +325,12 @@ int	get_sphere_color(t_get_color_params *params)
 	normalize_vector(normal.axis);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
-
-	color_with_ambiant_light(&((t_sphere *) params->mesh)->color,
-		&params->data->ambiant_light, &ambiantly_color);
-	color_with_spotlight(&((t_sphere *) params->mesh)->color,
-		&params->data->spotlight, &spotlighty_color);
-
+	color_with_light(&((t_sphere *) params->mesh)->color,
+		&params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
+	color_with_light(&((t_sphere *) params->mesh)->color,
+		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, params->data->spotlight.intensity, &spotlighty_color);
 	if (((t_sphere *) params->mesh)->which_t == 2)
 		symmetrize_vector(normal.axis);
-
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
@@ -325,15 +338,9 @@ int	get_sphere_color(t_get_color_params *params)
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
 		&params->data->spotlight, &spotlighty_color,  &spotlighty_color,
 		&light_attenuat, &light_coef});
-		// printf("amb col: %i, %i, %i\n", ambiantly_color.rgb[0], ambiantly_color.rgb[1], ambiantly_color.rgb[2] );
 	add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	if (params->color->rgb[0] > 255)
-	 	params->color->rgb[0] = 255;
-	if (params->color->rgb[1] > 255)
-		params->color->rgb[1] = 255;
-	if (params->color->rgb[2] > 255)
-		params->color->rgb[2] = 255;
+	limit_to_255(params->color);
 	return (0);
 } 
 
