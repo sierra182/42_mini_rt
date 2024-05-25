@@ -22,7 +22,6 @@ void	handle_plus_key(t_data *data, int keycode)
 	cyl = ((t_cylinder *)obj.ref);
 	if (obj.type == O_SP)
 	{
-		printf("diameter: %f", sphere->diameter);
 		sphere->diameter += 1;
 		sphere->square_radius = pow(sphere->diameter * 0.5, 2);
 	}
@@ -85,12 +84,10 @@ void	chang_mesh_size(t_data *data, int keycode)
 		return ;
 	if (keycode == PLUS)
 	{
-		printf("mesh: %i\n", mesh->actual_mesh.type);
 		handle_plus_key(data, keycode);
 	}
 	else if (keycode == MINUS)
 	{
-		printf("mesh: %i\n", mesh->actual_mesh.type);
 		handle_minus_key(data, keycode);
 	}
 }

@@ -68,14 +68,35 @@ int	get_color(unsigned char r, unsigned char g, unsigned char b)
 	return (*(int *)(unsigned char []){r, g, b, 0});
 }
 
+// int	get_background_color(t_ray *ray)
+// {
+// 	double	a;
+
+// 	a = 0.5 * (ray->dir_vect.axis[1] + 10.0);
+// 	return ((1.0 - a) * get_color(255, 255, 255)
+// 		+ a * get_color(0.5 * 255, 0.7 * 255, 1.0 * 255));
+// }
+
 int	get_background_color(t_ray *ray)
 {
 	double	a;
-
-	a = 0.5 * (ray->dir_vect.axis[1] + 10.0);
-	return ((1.0 - a) * get_color(255, 255, 255)
-		+ a * get_color(0.5 * 255, 0.7 * 255, 1.0 * 255));
+	int		color_top;
+	int		color_bottom;
+	int		r, g, b;
+	double dir_y;
+	double dir_y_normalized;
+	
+	dir_y = ray->dir_vect.axis[1];
+	dir_y_normalized = (dir_y + 1.0) * 0.5;
+	color_top = get_color(255, 255, 255); // Blanc
+	color_bottom = get_color(0.5 * 255, 0.7 * 255, 1.0 * 255); // Bleu ciel
+	a = dir_y_normalized;
+	r = (int)((1.0 - a) * ((color_top >> 16) & 0xFF) + a * ((color_bottom >> 16) & 0xFF));
+	g = (int)((1.0 - a) * ((color_top >> 8) & 0xFF) + a * ((color_bottom >> 8) & 0xFF));
+	b = (int)((1.0 - a) * (color_top & 0xFF) + a * (color_bottom & 0xFF));
+	return (r << 16 | g << 8 | b);
 }
+
 
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 {
