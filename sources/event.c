@@ -85,17 +85,16 @@ void	assign_vector(t_matrix_vector *origin_vect, t_matrix_vector *dir_vect,
 	*new_dir_vect = dir_vect;
 }
 
+void	limit_to_255(t_color *color);
+
 void	be_highlight(t_color *color)
 {
 	int	i;
 
 	i = -1;
-	while (++i < AXIS)
-	{
+	while (++i < AXIS)	
 		color->rgb[i] += 100;
-		if (color->rgb[i] > 255)
-			color->rgb[i] = 255;
-	}
+	limit_to_255(color);	
 }
 
 void	actual_mesh_handle(t_data *data, t_obj *mesh,
