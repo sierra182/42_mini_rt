@@ -1,6 +1,6 @@
-# include "x_mini_struct.h"
-# include "mlx.h"
-# include "libft.h"
+#include "x_mini_struct.h"
+#include "mlx.h"
+#include "libft.h"
 
 void	handle_minus_key(t_data *data, int keycode);
 void	handle_plus_key(t_data *data, int keycode);
@@ -10,12 +10,12 @@ void	handle_plus_key(t_data *data, int keycode);
  *========================================================================**/
 void	chang_mech_size(t_data *data, int keycode)
 {
-	t_event *mesh;
-	mesh = &data->event;
+	t_event	*mesh;
 
+	mesh = &data->event;
 	if (keycode == PLUS)
 		handle_plus_key(data, keycode);
-	else if  (keycode == MINUS)
+	else if (keycode == MINUS)
 		handle_minus_key(data, keycode);
 }
 
@@ -24,14 +24,13 @@ void	chang_mech_size(t_data *data, int keycode)
  *========================================================================**/
 void	handle_plus_key(t_data *data, int keycode)
 {
-	t_event *mesh;
-	mesh = &data->event;
-	t_sphere *sphere;
-	t_cylinder *cyl;
+	t_event		*mesh;
+	t_sphere	*sphere;
+	t_cylinder	*cyl;
 	t_obj		obj;
 
 	obj = mesh->actual_mesh;
-
+	mesh = &data->event;
 	sphere = (t_sphere *)obj.ref;
 	cyl = (t_cylinder *)obj.ref;
 	if (obj.type == O_SP)
@@ -48,17 +47,18 @@ void	handle_plus_key(t_data *data, int keycode)
 		cyl->radius = cyl->diameter / 2;
 	}
 }
+
 /**========================================================================
  *                           handle_minus_key
  *========================================================================**/
 void	handle_minus_key(t_data *data, int keycode)
 {
-	t_event *mesh;
-	mesh = &data->event;
-	t_sphere *sphere;
-	t_cylinder *cyl;
+	t_event		*mesh;
+	t_sphere	*sphere;
+	t_cylinder	*cyl;
 	t_obj		obj;
 
+	mesh = &data->event;
 	obj = mesh->actual_mesh;
 	sphere = (t_sphere *)obj.ref;
 	cyl = (t_cylinder *)obj.ref;
