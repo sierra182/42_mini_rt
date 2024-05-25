@@ -92,10 +92,10 @@ typedef struct s_cylinder
 	double			proj;
 	t_matrix_vector	origin_vect;
 	t_matrix_vector	axis_vect;
-	float			diameter;
-	float			square_radius;
-	float			radius;
-	float			height;
+	double			diameter;
+	double			square_radius;
+	double			radius;
+	double			height;
 	t_color			color;
 	int				which_t;
 	t_cyl_or_discs	cyl_or_discs;
