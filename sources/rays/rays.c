@@ -206,8 +206,8 @@ int	is_same_cylinder_space(t_cylinder *a, t_cylinder *b)
 	// printf("a height:, %f, %f\n", a->height, b->height);
 	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
 		&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis)
-		&& a->diameter == b->diameter
-		&& a->height == b->height);  
+		&& a->diameter == b->diameter);
+		// && a->height == b->height);  
 }
 
 int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
