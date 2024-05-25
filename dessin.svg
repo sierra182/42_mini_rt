@@ -27,9 +27,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.42765268"
-     inkscape:cx="2427.2033"
-     inkscape:cy="181.22183"
+     inkscape:zoom="0.15119806"
+     inkscape:cx="1600.5497"
+     inkscape:cy="730.82951"
      inkscape:window-width="1350"
      inkscape:window-height="729"
      inkscape:window-x="-8"
@@ -57,6 +57,22 @@
   <defs
      id="defs1">
     <linearGradient
+       id="linearGradient89"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#008c60;stop-opacity:1;"
+         offset="0"
+         id="stop89" />
+      <stop
+         style="stop-color:#f9e8f3;stop-opacity:0.49803922;"
+         offset="0.89543128"
+         id="stop91" />
+      <stop
+         style="stop-color:#2b8c60;stop-opacity:0;"
+         offset="1"
+         id="stop90" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient87"
        inkscape:collect="always">
       <stop
@@ -76,7 +92,7 @@
          offset="0"
          id="stop85" />
       <stop
-         style="stop-color:#d5683b;stop-opacity:0;"
+         style="stop-color:#d5e23b;stop-opacity:0;"
          offset="1"
          id="stop86" />
     </linearGradient>
@@ -434,8 +450,8 @@
        id="linearGradient84"
        x1="493.98779"
        y1="62.237457"
-       x2="530.59564"
-       y2="43.831505"
+       x2="532.45172"
+       y2="26.508257"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
@@ -443,8 +459,8 @@
        id="linearGradient86"
        x1="469.85898"
        y1="134.35215"
-       x2="568.6449"
-       y2="132.49609"
+       x2="559.67395"
+       y2="117.33825"
        gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
@@ -454,6 +470,15 @@
        y1="138.16365"
        x2="260.39535"
        y2="138.16365"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient89"
+       id="linearGradient90"
+       x1="-205.94386"
+       y1="77.859322"
+       x2="-321.4826"
+       y2="39.810043"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <g
@@ -931,7 +956,7 @@
     </g>
     <path
        id="rect3"
-       style="fill:#2b8c60;stroke:#a5b3c0;stroke-width:5;stroke-linecap:round;fill-opacity:1;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:url(#linearGradient90);stroke:#a5b3c0;stroke-width:5;stroke-linecap:round;fill-opacity:1;stroke-opacity:1;stroke-dasharray:none"
        d="m -236.86767,35.58125 h 40.65871 c 6.50417,0 11.74037,5.236204 11.74037,11.740371 v 40.658705 c 0,6.504171 -5.2362,11.740373 -11.74037,11.740373 h -40.65871 c -6.50415,0 -11.74037,-5.236202 -11.74037,-11.740373 V 47.321621 c 0,-6.504167 5.23622,-11.740371 11.74037,-11.740371 z" />
     <path
        d="m -213.38689,62.79356 h -7.51877 v 4.603072 h 7.51877 q 0.81887,0 1.11664,-0.297773 0.29778,-0.297773 0.29778,-1.042201 v -1.910712 q 0,-0.744433 -0.31018,-1.042206 -0.29778,-0.31018 -1.10424,-0.31018 z m -9.71484,11.414629 V 61.093771 h 10.57094 q 1.47645,0 2.12163,0.607958 0.65758,0.595541 0.65758,1.93552 v 2.928101 q 0,1.327572 -0.65758,1.935525 -0.64518,0.595546 -2.12163,0.595546 h -1.92312 l 5.99268,5.111768 h -3.25069 l -5.3351,-5.111768 h -3.85864 v 5.111768 z"
