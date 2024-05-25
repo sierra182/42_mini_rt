@@ -157,6 +157,38 @@ void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);
 }
 
+int	is_equal_vector(double a[], double b[])
+{
+	int	i;
+
+	i = -1;
+	while (++i < MTX)
+		if (a[i] != b[i])
+			return (0);
+	return (1);
+}
+
+int	is_same_sphere_space(t_sphere *a, t_sphere *b)
+{
+	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
+		&& a->diameter == b->diameter);
+}
+
+int	is_same_plane_space(t_plane *a, t_plane *b)
+{
+	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
+		&& is_equal_vector(a->norm_vect.axis, b->norm_vect.axis));
+}
+
+int	is_same_cylinder_space(t_cylinder *a, t_cylinder *b)
+{
+	// printf("a height:, %f, %f\n", a->height, b->height);
+	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
+		&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis)
+		&& a->diameter == b->diameter
+		&& a->height == b->height);  
+}
+
 int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
 {
 	int				i;
@@ -168,7 +200,7 @@ int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
 	i = -1;
 	while (++i < data->sp_nbr)
 	{
-		if (mesh && (void *) &data->spheres[i] != mesh)
+		if (mesh && (void *) &data->spheres[i] != mesh && !is_same_sphere_space(&data->spheres[i], mesh))
 		{
 			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL);
 			if (t)
@@ -195,7 +227,7 @@ int	has_cylinder_shadow(t_data *data, void *mesh, t_ray *light_ray)
 	i = -1;
 	while (++i < data->cy_nbr)
 	{
-		if (mesh && (void *) &data->cylinders[i] != mesh)
+		if (mesh && (void *) &data->cylinders[i] != mesh && !is_same_cylinder_space(&data->cylinders[i], mesh))
 		{
 			t = is_intersect_cylinder(light_ray, &data->cylinders[i], NULL);
 			if (t)
@@ -222,7 +254,7 @@ int	has_plane_shadow(t_data *data, void *mesh, t_ray *light_ray)
 	i = -1;
 	while (++i < data->pl_nbr)
 	{
-		if (mesh && (void *) &data->planes[i] != mesh)
+		if (mesh && (void *) &data->planes[i] != mesh && !is_same_plane_space(&data->planes[i], mesh))
 		{
 			t = is_intersect_plane(light_ray, &data->planes[i], NULL);
 			if (t)
