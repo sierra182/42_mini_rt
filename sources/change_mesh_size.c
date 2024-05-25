@@ -24,15 +24,15 @@ void	handle_plus_key(t_data *data, int keycode)
 	if (obj.type == O_SP)
 	{
 		sphere->diameter += 1;
-		sphere->square_radius = pow(sphere->diameter / 2, 2);
+		sphere->square_radius = pow(sphere->diameter * 0.5, 2);
 	}
 	else if (obj.type == O_CY && mesh->ctrl_ispressed)
 		cyl->height += 1;
 	else if (obj.type == O_CY && !mesh->ctrl_ispressed)
 	{
 		cyl->diameter += 1;
-		cyl->square_radius = pow(cyl->diameter / 2, 2);
-		cyl->radius = cyl->diameter / 2;
+		cyl->square_radius = pow(cyl->diameter * 0.5, 2);
+		cyl->radius = cyl->diameter * 0.5;
 	}
 }
 
@@ -57,26 +57,26 @@ void	handle_minus_key(t_data *data, int keycode)
 	if (obj.type == O_SP && sphere->diameter > 1)
 	{
 		sphere->diameter -= 1;
-		sphere->square_radius = pow(sphere->diameter / 2, 2);
+		sphere->square_radius = pow(sphere->diameter * 0.5, 2);
 	}
 	else if (obj.type == O_CY && mesh->ctrl_ispressed && cyl->height > 1)
 		cyl->height -= 1;
 	else if (obj.type == O_CY && !mesh->ctrl_ispressed && cyl->diameter > 1)
 	{
 		cyl->diameter -= 1;
-		cyl->square_radius = pow(cyl->diameter / 2, 2);
-		cyl->radius = cyl->diameter / 2;
+		cyl->square_radius = pow(cyl->diameter * 0.5, 2);
+		cyl->radius = cyl->diameter * 0.5;
 	}
 }
 
 /**========================================================================
- *                           CHANG_MECH_SIZE
+ *                           chang_mesh_size
  * @brief 
  * 
  * @param data 
  * @param keycode 
 ========================================================================**/
-void	chang_mech_size(t_data *data, int keycode)
+void	chang_mesh_size(t_data *data, int keycode)
 {
 	if (keycode == PLUS)
 		handle_plus_key(data, keycode);

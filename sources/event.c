@@ -18,7 +18,7 @@ void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
 
 int		init_data(char *map_path, t_data *data);
-void	chang_mech_size(t_data *data, int keycode);
+void	chang_mesh_size(t_data *data, int keycode);
 
 static void cam_event_rotate(int keycode, t_cam *cam)
 {
@@ -219,7 +219,7 @@ int	key_event(int keycode, void *param)
 		data->event.ctrl_ispressed = 1;
 	}
 	if (data->event.type_mesh == E_MESH && (keycode == PLUS || keycode == MINUS))
-		chang_mech_size(data, keycode);
+		chang_mesh_size(data, keycode);
 	if (data->event.type_mesh == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
