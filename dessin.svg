@@ -28,8 +28,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="0.15119806"
-     inkscape:cx="1600.5497"
-     inkscape:cy="730.82951"
+     inkscape:cx="1078.0562"
+     inkscape:cy="-29.762288"
      inkscape:window-width="1350"
      inkscape:window-height="729"
      inkscape:window-x="-8"
@@ -88,11 +88,11 @@
        id="linearGradient85"
        inkscape:collect="always">
       <stop
-         style="stop-color:#4f863b;stop-opacity:1;"
+         style="stop-color:#4fd83b;stop-opacity:1;"
          offset="0"
          id="stop85" />
       <stop
-         style="stop-color:#d5e23b;stop-opacity:0;"
+         style="stop-color:#409f3b;stop-opacity:0;"
          offset="1"
          id="stop86" />
     </linearGradient>
@@ -100,7 +100,7 @@
        id="linearGradient83"
        inkscape:collect="always">
       <stop
-         style="stop-color:#2d863b;stop-opacity:1;"
+         style="stop-color:#15863b;stop-opacity:1;"
          offset="0.46153846"
          id="stop83" />
       <stop
@@ -475,10 +475,10 @@
        inkscape:collect="always"
        xlink:href="#linearGradient89"
        id="linearGradient90"
-       x1="-205.94386"
-       y1="77.859322"
-       x2="-321.4826"
-       y2="39.810043"
+       x1="-218.31761"
+       y1="70.125732"
+       x2="-285.2894"
+       y2="4.8542042"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <g
