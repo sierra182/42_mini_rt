@@ -87,12 +87,17 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	light_ray.origin_vect = intersect_point;
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
 		.origin_vect.axis, light_ray.dir_vect.axis);
+	
+	
+	
 	color_with_light(&cyl->color, &params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, params->color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 	if (has_shadow(params->data, cyl, &light_ray))
 		return (*params->color = ambiantly_color, 0);
+	
+	
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
 		->data->spotlight, &ambiantly_color, params->color,
 		&light_attenuat, &light_coef});
@@ -116,8 +121,13 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	t_color			ambiantly_color;
 	double			light_dot_normal;
 	double			view_dot_normal;
+	t_cylinder		*cyl;
+	t_color			spotlighty_color;
+	double			light_attenuat;
+	double			light_coef;
 
-	cast_vector_mat_ray(&((t_cylinder *) params->mesh)->axis_vect, &normal);
+	cyl = ((t_cylinder *) params->mesh);
+	cast_vector_mat_ray(&cyl->axis_vect, &normal);
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
@@ -127,14 +137,24 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	view_dot_normal = scalar_product(normal.axis, params->ray->dir_vect.axis);
 	if (view_dot_normal > 0)
 		symmetrize_vector(normal.axis);
-	color_with_ambiant_light(&((t_cylinder *) params->mesh)->color,
-		&params->data->ambiant_light, &ambiantly_color);
+
+
+	color_with_light(&cyl->color, &params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
+	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, params->data->spotlight.intensity, &spotlighty_color);
+	
+
 	add_shading(params->ray, &normal, &ambiantly_color, params->color);
+	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);	
+	
 	if (has_shadow(params->data, params->mesh, &light_ray))
 		return (*params->color = ambiantly_color, 0);
-	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
-		&params->data->spotlight, &ambiantly_color, params->color,
-		&(double){0.0}, &(double){0.0}});
+
+	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
+		->data->spotlight, &ambiantly_color, params->color,
+		&light_attenuat, &light_coef});
+	add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
+	add_color(&spotlighty_color, &ambiantly_color, params->color);
+	limit_to_255(params->color);
 	return (0);
 }
 
