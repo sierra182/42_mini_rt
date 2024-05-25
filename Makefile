@@ -77,6 +77,7 @@ SOURCES = \
 	$(SRC_DIR)/linear_algebra/color.c \
 	$(SRC_DIR)/linear_algebra/vector_utils.c \
 	$(SRC_DIR)/change_mesh_size.c \
+	$(SRC_DIR)/scening.c \
 
 HEADERS = \
 	$(HEADERS_DIR)/x_mini_struct.h \

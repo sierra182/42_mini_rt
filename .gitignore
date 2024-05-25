@@ -57,4 +57,3 @@ dkms.conf
 # suppression file
 *.supp
 miniRT
-*.rt
