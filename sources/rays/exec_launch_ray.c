@@ -9,7 +9,7 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 int		is_behind_cam(double t);
 int		get_sphere_color(t_get_color_params *params);
 void	get_plane_color(t_get_color_params *params);
-int		get_background_color(t_ray *ray);
+int	get_background_color(t_ray *ray, t_data *data);
 int		get_pixel_color(t_data *data, t_ray *ray, t_obj *obj);
 void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
 int		get_color(unsigned char r, unsigned char g, unsigned char b);
@@ -115,7 +115,7 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
 	if (obj->ref == NULL)
-		rgb = get_background_color(ray);
+		rgb = get_background_color(ray, data);
 	if (inter_bulb && !is_behind_cam(inter_bulb))
 		rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight
 				.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
