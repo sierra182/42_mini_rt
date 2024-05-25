@@ -46,13 +46,7 @@ typedef struct s_data
 // {
 // 	static int	i = 0;
 
-// 	data->cylinders[i].origin_vect.axis[0] = tab[0];
-// 	data->cylinders[i].origin_vect.axis[1] = tab[1];
-// 	data->cylinders[i].origin_vect.axis[2] = tab[2];
-// 	data->cylinders[i].origin_vect.axis[3] = 1;
-// 	data->cylinders[i].axis_vect.axis[0] = tab[3];
-// 	data->cylinders[i].axis_vect.axis[1] = tab[4];
-// 	data->cylinders[i].axis_vect.axis[2] = tab[5];
+
 // 	data->cylinders[i].diameter = tab[6];
 // 	data->cylinders[i].radius = tab[6] / 2;
 // 	data->cylinders[i].square_radius = (tab[6] / 2) * (tab[6] / 2);
@@ -97,11 +91,20 @@ void	write_vector(int fd, void *vector)
 {
 	t_ray_vector *vec = (t_ray_vector *)vector;
 
-	write_fd(fd, ft_ftoa(vec->axis[0]));
-	write_fd(fd, ", ");
-	write_fd(fd, ft_ftoa(vec->axis[1]));
-	write_fd(fd, ", ");
-	write_fd(fd, ft_ftoa(vec->axis[2]));
+	
+	dprintf(fd, "%f, ", (vec->axis[0]));
+	
+	dprintf(fd, "%f, ", (vec->axis[1]));
+	dprintf(fd, "%f, ", (vec->axis[0]));
+	write_fd(fd, "  ");
+}
+
+void	write_color(int fd, t_color *color)
+{
+	dprintf(fd, "%i, ", (color->rgb[0]));
+	dprintf(fd, "%i, ", (color->rgb[1]));
+	dprintf(fd, "%i, ", (color->rgb[0]));
+	write_fd(fd, "  ");
 }
 
 
@@ -115,9 +118,36 @@ void	make_rt_file(t_data *data)
 	i = 0;
 	while (i < data->cy_nbr)
 	{
+		dprintf(fd, "cy ");
 		write_vector(fd, &data->cylinders[i].origin_vect);
+		write_vector(fd, &data->cylinders[i].axis_vect);
+		dprintf(fd, "%f  ", data->cylinders[i].diameter);
+		dprintf(fd, "%f  ", data->cylinders[i].height);
+		write_color(fd, &data->cylinders[i].color);
 		write_fd(fd, "\n");
 		i++;
 	}
+	i = 0;
+	while (i < data->sp_nbr)
+	{
+		dprintf(fd, "sp ");
+		write_vector(fd, &data->spheres[i].origin_vect);
+		dprintf(fd, "%f  ", data->spheres[i].diameter);
+		write_color(fd, &data->spheres[i].color);
+		write_fd(fd, "\n");
+		i++;
+	}
+	i = 0;
+	while (i < data->pl_nbr)
+	{
+		dprintf(fd, "pl ");
+		write_vector(fd, &data->planes[i].origin_vect);
+		write_vector(fd, &data->planes[i].norm_vect);
+		write_color(fd, &data->planes[i].color);
+		write_fd(fd, "\n");
+		i++;
+	}
+	
+
 	close(fd);
 }
