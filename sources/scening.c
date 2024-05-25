@@ -92,22 +92,23 @@ void	write_vector(int fd, void *vector)
 	t_ray_vector *vec = (t_ray_vector *)vector;
 
 	
-	dprintf(fd, "%f, ", (vec->axis[0]));
+	dprintf(fd, "%f,", (vec->axis[0]));
 	
-	dprintf(fd, "%f, ", (vec->axis[1]));
-	dprintf(fd, "%f, ", (vec->axis[0]));
+	dprintf(fd, "%f,", (vec->axis[1]));
+	dprintf(fd, "%f", (vec->axis[2]));
 	write_fd(fd, "  ");
 }
 
 void	write_color(int fd, t_color *color)
 {
-	dprintf(fd, "%i, ", (color->rgb[0]));
-	dprintf(fd, "%i, ", (color->rgb[1]));
-	dprintf(fd, "%i, ", (color->rgb[0]));
+	dprintf(fd, "%i,", (color->rgb[0]));
+	dprintf(fd, "%i,", (color->rgb[1]));
+	dprintf(fd, "%i", (color->rgb[2]));
 	write_fd(fd, "  ");
 }
 
-
+//! il faut limiter la taille de l'input pour qu'il 
+//! n'y ait pas de variable trop longue pour mon parsing!
 void	make_rt_file(t_data *data)
 {
 	int	i;
