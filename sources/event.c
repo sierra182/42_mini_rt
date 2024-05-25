@@ -230,7 +230,7 @@ int	key_event(int keycode, void *param)
 	return (0);
 }
 
-int	key_up_event(int keycode, void *param)
+void	key_up_event(int keycode, void *param)
 {
 	t_mlx						*mlx;
 	t_data						*data;
