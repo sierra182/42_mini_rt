@@ -21,7 +21,9 @@ int	key_up_event(int keycode, void *param);
  *! parsing error : element not taken into account when line starts with ' '  
  *  
  *========================================================================**/
-#include <unistd.h> 
+
+int	get_color(unsigned char r, unsigned char g, unsigned char b);
+
 int	frame(void *param)
 {
 	t_mlx	*mlx;
@@ -33,7 +35,7 @@ int	frame(void *param)
 		return (0);	
 	data->refresh = 0;
 	launch_rays(mlx, data);
-	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);	
 	return (0);
 }
 

@@ -65,7 +65,7 @@ void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
 
 int	get_color(unsigned char r, unsigned char g, unsigned char b)
 {
-	return (*(int *)(unsigned char []){r, g, b, 0});
+	return (*(int *)(unsigned char []){b, g, r, 0});
 }
 
 // int	get_background_color(t_ray *ray)
@@ -203,11 +203,9 @@ int	is_same_plane_space(t_plane *a, t_plane *b)
 
 int	is_same_cylinder_space(t_cylinder *a, t_cylinder *b)
 {
-	// printf("a height:, %f, %f\n", a->height, b->height);
 	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
 		&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis)
-		&& a->diameter == b->diameter);
-		// && a->height == b->height);  
+		&& a->diameter == b->diameter);	 
 }
 
 int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
@@ -381,7 +379,7 @@ int	get_sphere_color(t_get_color_params *params)
 	color_with_light(&((t_sphere *) params->mesh)->color,
 		&params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
 	color_with_light(&((t_sphere *) params->mesh)->color,
-		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, params->data->spotlight.intensity, &spotlighty_color);
+		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
 	if (((t_sphere *) params->mesh)->which_t == 2)
 		symmetrize_vector(normal.axis);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
@@ -444,8 +442,7 @@ void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img
 		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x4A9463
 		// 	|| *(unsigned int *)(img_data + pxl_pos2) == 0x34362E
 		//  || *(unsigned int *)(img_data + pxl_pos2) == 0x67754)	
-		if (*(unsigned int *)(img_data + pxl_pos2) != 0x0
-		&& *(unsigned int *)(img_data + pxl_pos2) != get_color(0, 0, 0))		
+		if (*(unsigned int *)(img_data + pxl_pos2) != 0x0)		
 		{			
 			*(unsigned int *)(mlx->img.img_data + pxl_pos) = 
 			*(unsigned int *)(img_data + pxl_pos2);
