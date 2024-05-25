@@ -2,9 +2,14 @@
 #include "mlx.h"
 #include "libft.h"
 
+
 /**========================================================================
- *                           handle_plus_key
- *========================================================================**/
+ *							HANDLE_PLUS_KEY
+ * @brief 
+ * 
+ * @param data 
+ * @param keycode 
+========================================================================**/
 void	handle_plus_key(t_data *data, int keycode)
 {
 	t_event		*mesh;
@@ -32,8 +37,12 @@ void	handle_plus_key(t_data *data, int keycode)
 }
 
 /**========================================================================
- *                           handle_minus_key
- *========================================================================**/
+ * 							HANDLE_MINUS_KEY
+ * @brief 
+ * 
+ * @param data 
+ * @param keycode 
+========================================================================**/
 void	handle_minus_key(t_data *data, int keycode)
 {
 	t_event		*mesh;
@@ -61,8 +70,12 @@ void	handle_minus_key(t_data *data, int keycode)
 }
 
 /**========================================================================
- *                           chang_mech_size
- *========================================================================**/
+ *                           CHANG_MECH_SIZE
+ * @brief 
+ * 
+ * @param data 
+ * @param keycode 
+========================================================================**/
 void	chang_mech_size(t_data *data, int keycode)
 {
 	if (keycode == PLUS)
