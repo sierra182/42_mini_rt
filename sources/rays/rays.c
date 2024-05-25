@@ -384,7 +384,13 @@ int	get_sphere_color(t_get_color_params *params)
 		symmetrize_vector(normal.axis);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
+
+	t_ray tmp_ray = light_ray;	
+	normalize_vector(tmp_ray.dir_vect.axis);
+
+	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray)
+	|| ( scalar_product(normal.axis, tmp_ray.dir_vect.axis) < 0.0
+	 && ((t_sphere *) params->mesh)->which_t == 2))	
 		return (*params->color = ambiantly_color, 0);
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
 		&params->data->spotlight, &spotlighty_color,  &spotlighty_color,
@@ -423,7 +429,8 @@ void	get_plane_color(t_get_color_params *params)
 		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-	if (has_shadow(params->data, params->mesh, &light_ray))
+	light_coef = scalar_product(normal.axis, light_ray.dir_vect.axis);
+	if (has_shadow(params->data, params->mesh, &light_ray) || light_coef < 0.0)
 	{
 		*params->color = ambiantly_color;
 		return ;
