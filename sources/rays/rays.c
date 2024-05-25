@@ -73,7 +73,7 @@ int	get_background_color(t_ray *ray, t_data *data)
 	double	a;
 	int		color_top;
 	int		color_bottom;
-	int		r, g, b;
+	int		rgb[3];
 	double dir_y;
 	double dir_y_normalized;
 	
@@ -82,10 +82,10 @@ int	get_background_color(t_ray *ray, t_data *data)
 	color_bottom = get_color(255, 255, 255); // Blanc
 	color_top = get_color(data->ambiant_light.color.rgb[0], data->ambiant_light.color.rgb[1], data->ambiant_light.color.rgb[2]);
 	a = dir_y_normalized;
-	r = (int)((1.0 - a) * ((color_top >> 16) & 0xFF) + a * ((color_bottom >> 16) & 0xFF));
-	g = (int)((1.0 - a) * ((color_top >> 8) & 0xFF) + a * ((color_bottom >> 8) & 0xFF));
-	b = (int)((1.0 - a) * (color_top & 0xFF) + a * (color_bottom & 0xFF));
-	return (r << 16 | g << 8 | b);
+	rgb[0] = (int)((1.0 - a) * ((color_top >> 16) & 0xFF) + a * ((color_bottom >> 16) & 0xFF));
+	rgb[1] = (int)((1.0 - a) * ((color_top >> 8) & 0xFF) + a * ((color_bottom >> 8) & 0xFF));
+	rgb[2] = (int)((1.0 - a) * (color_top & 0xFF) + a * (color_bottom & 0xFF));
+	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 }
 
 
