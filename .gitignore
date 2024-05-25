@@ -57,3 +57,4 @@ dkms.conf
 # suppression file
 *.supp
 miniRT
+new_scene.rt
