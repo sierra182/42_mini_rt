@@ -68,23 +68,23 @@ int	get_color(unsigned char r, unsigned char g, unsigned char b)
 	return (*(int *)(unsigned char []){b, g, r, 0});
 }
 
+/**========================================================================
+ *                           get_background_color
+ *========================================================================**/
 int	get_background_color(t_ray *ray, t_data *data)
 {
-	double	a;
-	int		color_top;
-	int		color_bottom;
+	int		color[2];
 	int		rgb[3];
-	double dir_y;
-	double dir_y_normalized;
-	
-	dir_y = ray->dir_vect.axis[1];
-	dir_y_normalized = (dir_y + 1.0) * 0.5;
-	color_bottom = get_color(255, 255, 255); // Blanc
-	color_top = get_color(data->ambiant_light.color.rgb[0], data->ambiant_light.color.rgb[1], data->ambiant_light.color.rgb[2]);
-	a = dir_y_normalized;
-	rgb[0] = (int)((1.0 - a) * ((color_top >> 16) & 0xFF) + a * ((color_bottom >> 16) & 0xFF));
-	rgb[1] = (int)((1.0 - a) * ((color_top >> 8) & 0xFF) + a * ((color_bottom >> 8) & 0xFF));
-	rgb[2] = (int)((1.0 - a) * (color_top & 0xFF) + a * (color_bottom & 0xFF));
+	double	dir;
+	t_color *bg_color;
+
+	bg_color = (t_color *)&data->ambiant_light.color;
+	dir = (ray->dir_vect.axis[1] + 1.0) * 0.5;
+	color[0] = get_color(255, 255, 255);
+	color[1] = get_color(bg_color->rgb[0], bg_color->rgb[1], bg_color->rgb[2]);
+	rgb[0] = (int)((1.0 - dir) * ((color[1] >> 16) & 0xFF) + dir * ((color[0] >> 16) & 0xFF));
+	rgb[1] = (int)((1.0 - dir) * ((color[1] >> 8) & 0xFF) + dir * ((color[0] >> 8) & 0xFF));
+	rgb[2] = (int)((1.0 - dir) * (color[1] & 0xFF) + dir * (color[0] & 0xFF));
 	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 }
 
