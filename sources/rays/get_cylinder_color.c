@@ -121,10 +121,10 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	t_color			ambiantly_color;
 	double			light_dot_normal;
 	double			view_dot_normal;
-	t_cylinder		*cyl;
 	t_color			spotlighty_color;
 	double			light_attenuat;
 	double			light_coef;
+	t_cylinder		*cyl;
 
 	cyl = ((t_cylinder *) params->mesh);
 	cast_vector_mat_ray(&cyl->axis_vect, &normal);

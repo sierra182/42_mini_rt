@@ -403,8 +403,13 @@ void	get_plane_color(t_get_color_params *params)
 	t_ray			light_ray;
 	t_color			ambiantly_color;
 	double view_dot_normal;
+	t_color			spotlighty_color;
+	t_plane		*plane;
+	double			light_attenuat;
+	double			light_coef;	
+	plane = ((t_plane *) params->mesh);
 
-	cast_vector_mat_ray(&((t_plane *) params->mesh)->norm_vect, &normal);
+	cast_vector_mat_ray(&plane->norm_vect, &normal);
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
@@ -412,17 +417,25 @@ void	get_plane_color(t_get_color_params *params)
 	view_dot_normal = scalar_product(normal.axis, params->ray->dir_vect.axis);
 	if (view_dot_normal > 0)
 		symmetrize_vector(normal.axis);
-	color_with_ambiant_light(&((t_plane *) params->mesh)->color,
-		&params->data->ambiant_light, &ambiantly_color);
-	add_shading(params->ray, &normal, &ambiantly_color, params->color);
+	
+
+	color_with_light(&plane->color,
+		&params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
+	color_with_light(&plane->color,
+		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, params->data->spotlight.intensity, &spotlighty_color);
+	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
+	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 	if (has_shadow(params->data, params->mesh, &light_ray))
 	{
 		*params->color = ambiantly_color;
 		return ;
 	}
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
-		&params->data->spotlight, &ambiantly_color, params->color,
-		&(double){0.0}, &(double){0.0}});
+		&params->data->spotlight, &spotlighty_color,  &spotlighty_color,
+		&light_attenuat, &light_coef});
+	add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
+	add_color(&spotlighty_color, &ambiantly_color, params->color);
+	limit_to_255(params->color);
 }
 
 void	put_pxl_alpha(t_mlx *mlx, int x, int y, unsigned int alpha_color, void *img_ptr)
