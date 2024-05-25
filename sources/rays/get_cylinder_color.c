@@ -92,7 +92,7 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	
 	color_with_light(&cyl->color, &params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, params->data->spotlight.intensity, &spotlighty_color);
-	add_shading(params->ray, &normal, &ambiantly_color, params->color);
+	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 	if (has_shadow(params->data, cyl, &light_ray))
 		return (*params->color = ambiantly_color, 0);
@@ -143,7 +143,7 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, params->data->spotlight.intensity, &spotlighty_color);
 	
 
-	add_shading(params->ray, &normal, &ambiantly_color, params->color);
+	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);	
 	
 	if (has_shadow(params->data, params->mesh, &light_ray))
