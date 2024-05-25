@@ -14,14 +14,14 @@ void	handle_plus_key(t_data *data, int keycode)
 	if (mesh->actual_mesh.type == O_SP)
 	{
 		sphere->diameter += 1;
-		sphere->square_radius = sphere->diameter / 2 * sphere->diameter / 2;
+		sphere->square_radius = pow(sphere->diameter / 2, 2);
 	}
 	else if (mesh->actual_mesh.type == O_CY && mesh->ctrl_ispressed)
 		cyl->height += 1;
 	else if (mesh->actual_mesh.type == O_CY && !mesh->ctrl_ispressed)
 	{
 		cyl->diameter += 1;
-		cyl->square_radius = cyl->diameter / 2 * cyl->diameter / 2;
+		cyl->square_radius = pow(cyl->diameter / 2, 2);
 		cyl->radius = cyl->diameter / 2;
 	}
 }
@@ -38,14 +38,14 @@ void	handle_minus_key(t_data *data, int keycode)
 	if (mesh->actual_mesh.type == O_SP && sphere->diameter > 1)
 	{
 		sphere->diameter -= 1;
-		sphere->square_radius = sphere->diameter / 2 * sphere->diameter / 2;
+		sphere->square_radius = pow(sphere->diameter / 2, 2);
 	}
 	else if (mesh->actual_mesh.type == O_CY && mesh->ctrl_ispressed && cyl->height > 1)
 		cyl->height -= 1;
 	else if (mesh->actual_mesh.type == O_CY && !mesh->ctrl_ispressed && cyl->diameter > 1)
 	{
 		cyl->diameter -= 1;
-		cyl->square_radius = cyl->diameter / 2 * cyl->diameter / 2;
+		cyl->square_radius = pow(cyl->diameter / 2, 2);
 		cyl->radius = cyl->diameter / 2;
 	}
 }
