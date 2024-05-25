@@ -19,6 +19,7 @@ void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
 
 int		init_data(char *map_path, t_data *data);
 void	chang_mesh_size(t_data *data, int keycode);
+void	make_rt_file(t_data *data);
 
 static void cam_event_rotate(int keycode, t_cam *cam)
 {
@@ -213,6 +214,8 @@ int	key_event(int keycode, void *param)
 		if (rotate_vect)
 			event_rotate(keycode, rotate_vect);
 	}
+	if (keycode == MAKE_RT_FILE)
+		make_rt_file(data);
 	if (keycode == CTRL || keycode == CTRL_2)
 	{
 		data->event.ctrl_ispressed = 1;
