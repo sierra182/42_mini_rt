@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:15:23 by svidot            #+#    #+#             */
-/*   Updated: 2024/05/16 08:46:33 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:06:20 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+char *ft_ftoa(double value);
 double	ft_atof(char *str);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

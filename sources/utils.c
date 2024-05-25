@@ -11,3 +11,9 @@ void	display_error(char *str)
 	if (write (2, str, ft_strlen(str)) == -1)
 		perror("display_error");
 }
+
+void write_fd(int fd, char *str)
+{
+	if (write (fd, str, ft_strlen(str)) == -1)
+		perror("write_fd_error");
+}
