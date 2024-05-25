@@ -63,6 +63,7 @@ int	init_data(char *map_path, t_data *data)
 	data->event.ctrl_ispressed = 0;
 	data->event.legend = 0;
 	data->event.type_mesh = 0;
+	data->event.actual_mesh.ref = NULL;
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
 	save_data(data);
