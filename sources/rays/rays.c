@@ -352,6 +352,16 @@ void	limit_to_255(t_color *color)
 			color->rgb[i] = 255;
 }
 
+int	is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight)
+{
+	t_matrix_vector	subt_vect;
+
+	subtract_vector(spotlight->origin_vect.axis, sphere->origin_vect.axis, subt_vect.axis);	
+	return ((get_vector_magnitude(subt_vect.axis) > sphere->diameter * 0.5
+	&& sphere->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) < sphere->diameter * 0.5
+	&& sphere->which_t == 1)));
+}
+
 int	get_sphere_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;
@@ -376,13 +386,14 @@ int	get_sphere_color(t_get_color_params *params)
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 
-	t_ray tmp_ray = light_ray;	
-	normalize_vector(tmp_ray.dir_vect.axis);
 
-	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
+
+	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray)
+	|| is_sphere_surface_between(params->mesh, &params->data->spotlight))
+		
+		return (*params->color = ambiantly_color, 0);
 	//|| ( scalar_product(normal.axis, tmp_ray.dir_vect.axis) < 0.0
 	 //&& ((t_sphere *) params->mesh)->which_t == 2))	
-		return (*params->color = ambiantly_color, 0);
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
 		&params->data->spotlight, &spotlighty_color,  &spotlighty_color,
 		&light_attenuat, &light_coef});
