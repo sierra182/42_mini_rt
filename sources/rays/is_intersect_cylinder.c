@@ -69,6 +69,7 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *tt)
 	t_ray_vector	i;
 	double			proj[2];
 	t_cylinder		*cyl;
+	t_ray			tmp;	
 
 	cyl = (t_cylinder *)input_cyl;
 	t[0] = solve_quadratic_equation(ray, cyl, &discrim);
@@ -80,6 +81,10 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *tt)
 	cyl->intersec_point.axis[2] = i.axis[2];
 	proj[0] = scalar_product(i.axis, cyl->axis_vect.axis);
 	cyl->proj = proj[0];
+	// cyl->origin_proj.axis[0] = proj[0] * cyl->axis_vect.axis[0];
+	// cyl->origin_proj.axis[1] = proj[0] * cyl->axis_vect.axis[1];
+	// cyl->origin_proj.axis[2] = proj[0] * cyl->axis_vect.axis[2];
+	// add_vector(cyl->axis_vect.axis, cyl->origin_vect.axis, cyl->origin_proj.axis);
 	proj[1] = scalar_product(cyl->origin_vect.axis, cyl->axis_vect.axis);
 	if (proj[0] < proj[1] - cyl->height * 0.5
 		|| proj[0] > proj[1] + cyl->height * 0.5)

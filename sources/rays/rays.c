@@ -362,6 +362,17 @@ int	is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight)
 	&& sphere->which_t == 1)));
 }
 
+int	is_cylinder_surface_between(t_cylinder *cyl, t_spotlight *spotlight)
+{
+	t_matrix_vector	subt_vect;
+
+	// printf("which_t: %i\n", cyl->which_t);
+	subtract_vector(spotlight->origin_vect.axis, cyl->origin_proj.axis, subt_vect.axis);	
+	return ((get_vector_magnitude(subt_vect.axis) > cyl->radius
+	&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) < cyl->radius
+	&& cyl->which_t == 1)));
+}
+
 int	get_sphere_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;
