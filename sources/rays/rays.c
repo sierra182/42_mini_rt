@@ -388,9 +388,9 @@ int	get_sphere_color(t_get_color_params *params)
 	t_ray tmp_ray = light_ray;	
 	normalize_vector(tmp_ray.dir_vect.axis);
 
-	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray)
-	|| ( scalar_product(normal.axis, tmp_ray.dir_vect.axis) < 0.0
-	 && ((t_sphere *) params->mesh)->which_t == 2))	
+	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray))
+	//|| ( scalar_product(normal.axis, tmp_ray.dir_vect.axis) < 0.0
+	 //&& ((t_sphere *) params->mesh)->which_t == 2))	
 		return (*params->color = ambiantly_color, 0);
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
 		&params->data->spotlight, &spotlighty_color,  &spotlighty_color,
