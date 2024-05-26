@@ -12,7 +12,7 @@ void	display_error(char *str)
 		perror("display_error");
 }
 
-void write_fd(int fd, char *str)
+void	write_fd(int fd, char *str)
 {
 	if (write (fd, str, ft_strlen(str)) == -1)
 		perror("write_fd_error");
