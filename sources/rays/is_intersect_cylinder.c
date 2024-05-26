@@ -100,7 +100,7 @@ double	compute_return_value_is_intersect_cylinder(double t[],
 	t_cylinder *cyl, double proj[])
 {
 	if (t[1] && t[1] < t[0])
-		return (cyl->cyl_or_discs = discs, t[1]);
+		return (cyl->cyl_or_discs = discs, cyl->which_t = 1, t[1]);
 	else if (proj[0] < proj[1] - cyl->height * 0.5
 		|| proj[0] > proj[1] + cyl->height * 0.5)
 		return (0.0);

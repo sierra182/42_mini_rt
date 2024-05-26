@@ -1,5 +1,7 @@
 #include "x_mini_struct.h"
 #include "x_linear_algebra.h"
+#include <math.h>
+#include <stdlib.h>
 
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	color_with_ambiant_light(t_color *mesh_color,
@@ -85,6 +87,7 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	double			light_attenuat;
 	double			light_coef;
 	t_cylinder		*cyl;
+	double tmp[3];
 
 	cyl = ((t_cylinder *) params->mesh);
 	cast_vector_mat_ray(&cyl->axis_vect, &normal);
@@ -95,17 +98,23 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	if (view_dot_normal > 0)
 		symmetrize_vector(normal.axis);
 	light_dot_normal = scalar_product(normal.axis, light_ray.dir_vect.axis);
-	if (light_dot_normal < 0)
+	if (light_dot_normal < 0 && cyl->which_t == 2)
 		symmetrize_vector(normal.axis);
 	color_with_light(&cyl->color, &params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-		//  
 
-	if (has_shadow(params->data, params->mesh, &light_ray) ||  is_cylinder_surface_between(cyl, &params->data->spotlight) ||  (scalar_product(cyl->axis_vect.axis, params->data->spotlight.origin_vect.axis) > cyl->height / 2 && cyl->which_t == 2))
+	//calculer vecteur egale a spotlight origin vecto- cylinder origin vector
+	subtract_vector(cyl->origin_vect.axis, params->data->spotlight.origin_vect.axis, tmp);
+	// on projete le vecteur obtenu sur l'axe du cyl (produit scalaire)
+	// on peut ensuite comparer avec h/2
 
+	//
+
+	if (has_shadow(params->data, params->mesh, &light_ray) ||  (!is_cylinder_surface_between(cyl, &params->data->spotlight) && ((scalar_product(tmp, cyl->axis_vect.axis)) > cyl->height /2)))
 		return (*params->color = ambiantly_color, 0);
+
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
 		->data->spotlight, &ambiantly_color, params->color,
 		&light_attenuat, &light_coef});
