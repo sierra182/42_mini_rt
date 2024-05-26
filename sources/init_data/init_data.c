@@ -6,6 +6,7 @@ int		element_is_present(char *map_path, char *el);
 void	get_elements_number(t_data *data, char *map_path);
 int		update_cam(t_cam *cam);
 void	post_init_cam(t_cam *cam);
+void	init_vars(t_data *data);
 
 /**========================================================================
  *                             COMMENT BLOCK
@@ -17,7 +18,6 @@ void	post_init_cam(t_cam *cam);
  *                           save_data
  * for reset option
  *========================================================================**/
-
 void	save_data(t_data *data)
 {
 	data->data_cpy = (t_data *) ft_calloc(1, sizeof(t_data));
@@ -59,6 +59,15 @@ int	init_data(char *map_path, t_data *data)
 		fill_struct_cy(data, tab);
 	while (get_element_data(map_path, tab, "pl") != NULL)
 		fill_struct_pl(data, tab);
+	init_vars(data);
+	return (1);
+}
+
+/**========================================================================
+ *                           INIT_VARS
+ *========================================================================**/
+void	init_vars(t_data *data)
+{
 	data->refresh = 1;
 	data->event.ctrl_ispressed = 0;
 	data->event.legend = 0;
@@ -67,7 +76,6 @@ int	init_data(char *map_path, t_data *data)
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
 	save_data(data);
-	return (1);
 }
 
 /**========================================================================
