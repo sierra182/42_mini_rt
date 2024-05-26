@@ -401,7 +401,7 @@ void	get_plane_color(t_get_color_params *params)
 	t_color			spotlighty_color;
 	t_plane		*plane;
 	double			light_attenuat;
-	double			light_coef;	
+	double			light_coef;	 
 	plane = ((t_plane *) params->mesh);
 
 	cast_vector_mat_ray(&plane->norm_vect, &normal);
