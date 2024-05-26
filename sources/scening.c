@@ -9,9 +9,7 @@ void	write_vector(int fd, void *vector)
 {
 	t_ray_vector *vec = (t_ray_vector *)vector;
 
-	
 	dprintf(fd, "%.*f,", 2, (vec->axis[0]));
-	
 	dprintf(fd, "%.*f,", 2, (vec->axis[1]));
 	dprintf(fd, "%.*f", 2, (vec->axis[2]));
 	write_fd(fd, "  ");
@@ -23,7 +21,6 @@ void	write_color(int fd, t_color *color)
 	dprintf(fd, "%i,", (color->rgb[1]));
 	dprintf(fd, "%i", (color->rgb[2]));
 	write_fd(fd, "\n");
-
 }
 
 void	make_rt_file(t_data *data)
@@ -77,6 +74,5 @@ void	make_rt_file(t_data *data)
 		write_color(fd, &data->planes[i].color);
 		i++;
 	}
-	
 	close(fd);
 }

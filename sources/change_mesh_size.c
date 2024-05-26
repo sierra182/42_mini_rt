@@ -78,8 +78,8 @@ void	handle_minus_key(t_data *data, int keycode)
 void	chang_mesh_size(t_data *data, int keycode)
 {
 	t_event		*mesh;
-	mesh = &data->event;
 
+	mesh = &data->event;
 	if (mesh->actual_mesh.ref == NULL)
 		return ;
 	if (keycode == PLUS)
