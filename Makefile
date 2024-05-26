@@ -70,6 +70,7 @@ SOURCES = \
 	$(SRC_DIR)/rays/rays.c \
 	$(SRC_DIR)/rays/get_cylinder_color.c \
 	$(SRC_DIR)/rays/is_intersect.c \
+	$(SRC_DIR)/rays/is_intersect_cylinder.c \
 	$(SRC_DIR)/rays/is_intersect_utils.c \
 	$(SRC_DIR)/rays/find_closest_intersection.c \
 	$(SRC_DIR)/rays/exec_launch_ray.c \

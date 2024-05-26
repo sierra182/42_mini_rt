@@ -13,6 +13,10 @@ void	scale_vector(double vect[], double scaler, double scaled_vect[]);
 void	normalize_vector(double vector[]);
 double	distance_between_points(t_ray_vector *point1, t_matrix_vector *point2);
 double	get_t_from_point(t_ray *ray, t_ray_vector *point);
+double	compute_return_value_intersect_disc_plans(double tmp1, double tmp2);
+double	compute_return_value_is_intersect_cylinder(double t[],
+			t_cylinder *cyl, double proj[]);
+double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *tt);
 
 #define EPSILON 1e-6
 
@@ -34,31 +38,29 @@ double	which_t(double a, double b, double discrim, int *which_t)
  *  spheres, planes and cylinders, so that they are treated independantly.
  *========================================================================**/
 /**========================================================================
- *                           is_intersect_sphere
+ *                           IS_INTERSECT_SPHERE
  *========================================================================**/
 
 double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i)
 {
 	t_ray_vector	sphere_ray_vect;
-	double			a;
-	double			b;
-	double			c;	
+	double			num[3];
 	double			discrim;
 	t_sphere		*sphere;
 
 	sphere = (t_sphere *)input_sphere;
 	subtract_vector(ray->origin_vect.axis, sphere->origin_vect.axis,
 		sphere_ray_vect.axis);
-	a = scalar_product(ray->dir_vect.axis, ray->dir_vect.axis);
-	b = scalar_product(sphere_ray_vect.axis, ray->dir_vect.axis) * 2;
-	c = scalar_product(sphere_ray_vect.axis, sphere_ray_vect.axis)
+	num[0] = scalar_product(ray->dir_vect.axis, ray->dir_vect.axis);
+	num[1] = scalar_product(sphere_ray_vect.axis, ray->dir_vect.axis) * 2;
+	num[2] = scalar_product(sphere_ray_vect.axis, sphere_ray_vect.axis)
 		- sphere->square_radius;
-	discrim = b * b - 4 * a * c;
-	return (which_t(a, b, discrim, &sphere->which_t));
+	discrim = num[1] * num[1] - 4 * num[0] * num[2];
+	return (which_t(num[0], num[1], discrim, &sphere->which_t));
 }
 
 /**========================================================================
- *                           is_intersect_plane
+ *                           IS_INTERSECT_PLANE
  *========================================================================**/
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 {
@@ -90,82 +92,7 @@ double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 }
 
 /**========================================================================
- *                           intersect_disc_plans
- *========================================================================**/
-double	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
-{
-	t_plane			plane_1;
-	t_plane			plane_2;
-	t_matrix_vector	scaled_v;
-	double			tmp1;
-	double			tmp2;
-
-	tmp1 = 0;
-	tmp2 = 0;
-	plane_1.norm_vect = cyl->axis_vect;
-	plane_2.norm_vect = cyl->axis_vect;
-	scale_vector(cyl->axis_vect.axis, cyl->height * 0.5, scaled_v.axis);
-	add_vector(scaled_v.axis, cyl->origin_vect.axis, plane_1.origin_vect.axis);
-	scale_vector(cyl->axis_vect.axis, cyl->height * -0.5, scaled_v.axis);
-	add_vector(scaled_v.axis, cyl->origin_vect.axis, plane_2.origin_vect.axis);
-	if ((is_intersect_plane(ray, &plane_1, i) && distance_between_points
-			(i, &plane_1.origin_vect) <= cyl->radius))
-		tmp1 = get_t_from_point(ray, i);
-	if ((is_intersect_plane(ray, &plane_2, i) && distance_between_points
-			(i, &plane_2.origin_vect) <= cyl->radius))
-		tmp2 = get_t_from_point(ray, i);
-	if (tmp1 && tmp2)
-	{
-		if (tmp1 && tmp1 < tmp2)
-			return (tmp1);
-		return (tmp2);
-	}
-	if (tmp1)
-		return (tmp1);
-	if (tmp2)
-		return (tmp2);
-	return (0);
-}
-
-/**========================================================================
- *                           is_intersect_cylinder
- *========================================================================**/
-double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t)
-{
-	double			discrim;
-	double			t1;
-	double			t3;
-	t_ray_vector	i;
-	double			origin_proj;
-	double			proj;
-	t_cylinder		*cyl;
-
-	cyl = (t_cylinder *)input_cyl;
-	t1 = solve_quadratic_equation(ray, cyl, &discrim);
-	if (discrim < 0)
-		return (0.0);
-	get_intersect_point(ray, t1, &i);
-	cyl->intersec_point.axis[0] = i.axis[0];
-	cyl->intersec_point.axis[1] = i.axis[1];
-	cyl->intersec_point.axis[2] = i.axis[2];
-	proj = scalar_product(i.axis, cyl->axis_vect.axis);
-	cyl->proj = proj;
-	origin_proj = scalar_product(cyl->origin_vect.axis, cyl->axis_vect.axis);
-	if (proj < origin_proj - cyl->height * 0.5
-		|| proj > origin_proj + cyl->height * 0.5)
-		t1 = BIG_VALUE;
-	t3 = intersect_disc_plans(ray, cyl, &i);
-	if (t3 && t3 < t1)
-		return (cyl->cyl_or_discs = discs, t3);
-	else if (proj < origin_proj - cyl->height * 0.5
-		|| proj > origin_proj + cyl->height * 0.5)
-		return (0.0);
-	else
-		return (cyl->cyl_or_discs = cylinder, t1);
-}
-
-/**========================================================================
- *                           solve_quadratic_equation
+ *                           SOLVE_QUADRATIC_EQUATION
  *========================================================================**/
 double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim)
 {
