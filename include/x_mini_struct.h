@@ -280,5 +280,14 @@ typedef struct s_get_cyl_col_cyl_0_params
 }	t_get_cyl_col_cyl_0_params;
 
 
+typedef struct s_get_cylinder_color_discs_params
+{
+	t_get_color_params	*params;
+	t_ray_vector		*normal;
+	t_ray				*light_ray;
+	double				light_attenuat;
+	double				light_coef;
+}	t_get_cylinder_color_discs_params;
+
 
 #endif
