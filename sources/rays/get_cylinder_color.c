@@ -159,7 +159,8 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
 	// normalize_vector(normal.axis);
 	if (has_shadow(params->data, cyl, &light_ray) || is_cylinder_surface_between2(cyl, &normal, params->data->spotlight.origin_vect.axis)
-	|| !is_in_cyl_height(&tmp, cyl, params->data->spotlight.origin_vect.axis))
+// || !is_in_cylinder(&tmp, cyl, params->data->spotlight.origin_vect.axis));
+	|| (!is_in_cyl_height(&tmp, cyl, params->data->spotlight.origin_vect.axis) && ((t_cylinder *)params->mesh)->which_t == 2 ))
 		return (*params->color = ambiantly_color, 0);
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
 		->data->spotlight, &ambiantly_color, params->color,
