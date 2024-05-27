@@ -261,5 +261,15 @@ typedef struct s_get_pixel_color_2_params
 	t_color	*color;
 }	t_get_pixel_color_2_params;
 
+typedef struct s_get_cyl_col_cyl_2_params
+{
+	t_get_color_params	*params;
+	t_ray_vector		*normal;
+	t_ray				*light_ray;
+	t_color				*ambiantly_color;
+	double				*light_attenuat;
+	double				*light_coef;
+	t_color				*spotlighty_color;
+}	t_get_cyl_col_cyl_2_params;
 
 #endif
