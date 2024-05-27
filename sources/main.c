@@ -19,7 +19,7 @@ int	key_up_event(int keycode, void *param);
  *! taille maximal input file = 1024 chars. peut etre modifie...
  *! element count commented out (see parsing)
  *! parsing error : element not taken into account when line starts with ' '  
- *  
+ *! 2 lines commented in parsing to be taken out!  
  *========================================================================**/
 
 int	get_color(unsigned char r, unsigned char g, unsigned char b);

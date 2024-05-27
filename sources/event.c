@@ -16,6 +16,7 @@ void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
 void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
+void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
 
 int		init_data(char *map_path, t_data *data);
 void	chang_mesh_size(t_data *data, int keycode);

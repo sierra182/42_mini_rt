@@ -23,6 +23,8 @@ void	cast_vector_mat_ray(t_matrix_vector *matrix_vect,
 			t_ray_vector *ray_vect);
 void	get_cylinder_color(t_data *data, t_ray *ray,
 			t_obj *obj, t_color	*color);
+void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
+int		get_pixel_color_2(t_get_pixel_color_2_params *params);
 
 /**========================================================================
  *                           scale_and_add_vectors
@@ -43,34 +45,6 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 }
 
 /**========================================================================
- *                           normalize_pixel
- *========================================================================**/
-static double	normalize_pixel(int screen_size, int pixel, int x_flag)
-{
-	if (!screen_size)
-		return (0.0);
-	if (x_flag)
-		return (((pixel + 0.5) / screen_size) * 2 - 1);
-	return ((1 - 2 * (pixel + 0.5) / screen_size));
-}
-
-/**========================================================================
- *                           new_ray
- *========================================================================**/
-static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
-{
-	double		norm_scale_x;
-	double		norm_scale_y;
-
-	cast_vector_mat_ray(&cam->origin_vect, &ray->origin_vect);
-	norm_scale_y = normalize_pixel(cam->resol[1], y, 0) * cam->scale;
-	norm_scale_x = normalize_pixel(cam->resol[0], x, 1) * cam->scale
-		* cam->aspect;
-	scale_and_add_vectors(cam, ray, norm_scale_x, norm_scale_y);
-	normalize_vector(ray->dir_vect.axis);
-}
-
-/**========================================================================
  *                           exec_launch_rays
  *========================================================================**/
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
@@ -79,7 +53,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	t_obj	obj;
 
 	new_ray(&data->cam, &ray, x, y);
-	obj.t = 100000000;
+	obj.t = BIG_VALUE;
 	obj.ref = NULL;
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
@@ -108,16 +82,33 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 		get_cylinder_color(data, ray, obj, &color);
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
+	get_pixel_color_2(&(t_get_pixel_color_2_params){data, ray, obj, &rgb,
+		&inter_bulb, &color});
+	return (rgb);
+}
+
+int	get_pixel_color_2(t_get_pixel_color_2_params *params)
+{
+	t_obj	*obj;
+	t_data	*data;
+	t_color	*color;
+	int		*rgb;
+	double	*inter_bulb;
+
+	obj = params->obj;
+	data = params->data;
+	color = params->color;
+	rgb = params->rgb;
+	inter_bulb = params->inter_bulb;
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref)
 	{
 		get_plane_color(&(t_get_color_params)
-		{data, ray, obj->t, obj->ref, &color});
-		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
+		{data, params->ray, obj->t, obj->ref, color});
+		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
 	}
 	if (obj->ref == NULL)
-		rgb = get_background_color(ray, data);
-	if (inter_bulb && !is_behind_cam(inter_bulb))
-		rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight
+		*rgb = get_background_color(params->ray, data);
+	if (*params->inter_bulb && !is_behind_cam(*params->inter_bulb))
+		*rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight
 				.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
-	return (rgb);
 }

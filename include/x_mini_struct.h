@@ -251,4 +251,15 @@ typedef struct s_reset_tmps
 	t_cylinder	*cylinders_cpy;
 }	t_reset_tmps;
 
+typedef struct s_get_pixel_color_2_params
+{
+	t_data	*data;
+	t_ray	*ray;
+	t_obj	*obj;
+	int		*rgb;
+	double	*inter_bulb;
+	t_color	*color;
+}	t_get_pixel_color_2_params;
+
+
 #endif

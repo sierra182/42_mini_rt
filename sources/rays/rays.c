@@ -29,7 +29,7 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	add_vector(sum_vect.axis, scaled_forward.axis, ray->dir_vect.axis);
 }
 
-static double	normalize_pixel(int screen_size, int pixel, int x_flag)
+double	normalize_pixel(int screen_size, int pixel, int x_flag)
 {
 	if (!screen_size)
 		return (0.0);
@@ -571,3 +571,19 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		}		
 	}
 }
+
+// /**========================================================================
+//  *                           new_ray
+//  *========================================================================**/
+// static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
+// {
+// 	double		norm_scale_x;
+// 	double		norm_scale_y;
+
+// 	cast_vector_mat_ray(&cam->origin_vect, &ray->origin_vect);
+// 	norm_scale_y = normalize_pixel(cam->resol[1], y, 0) * cam->scale;
+// 	norm_scale_x = normalize_pixel(cam->resol[0], x, 1) * cam->scale
+// 		* cam->aspect;
+// 	scale_and_add_vectors(cam, ray, norm_scale_x, norm_scale_y);
+// 	normalize_vector(ray->dir_vect.axis);
+// }
