@@ -33,34 +33,54 @@ int	is_in_cyl_diam( t_cylinder *cyl, t_ray_vector *normal, double mesh[])
 	
 	t_ray			ray;
 
-	ray.dir_vect = *normal;
+	// ray.dir_vect = *normal;
+	cast_vector_mat_ray(&cyl->axis_vect, &ray.dir_vect);
 	cast_vector_mat_ray(&cyl->origin_vect, &ray.origin_vect);
 	subtract_vector(mesh, cyl->origin_vect.axis, subt_vect.axis);
-	get_intersect_point(&ray, scalar_product(normal->axis, subt_vect.axis), &inter_vect);
+		 normalize_vector(ray.dir_vect.axis);
+
+	//get_intersect_point(&ray, scalar_product(normal->axis, subt_vect.axis), &inter_vect);
+	 scale_vector(ray.dir_vect.axis, scalar_product(ray.dir_vect.axis, subt_vect.axis), inter_vect.axis);
 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);
 	if (get_vector_magnitude(subt_vect.axis) < cyl->diameter * 0.5)
 		return (1);
 	else
 		return (0);
 }
+
+void	print_delay(t_ray_vector *subt_vect, double diam)
+{
+	static int delay;
+
+	delay = (delay + 1) % 1800;
+	if (!delay)
+		printf("mag:%f rayon:%f\n", get_vector_magnitude(subt_vect->axis), diam * 0.5 );
+}
+
 int	is_cylinder_surface_between2( t_cylinder *cyl, t_ray_vector *normal, double mesh[])
 {
-t_ray_vector	subt_vect;
+	t_ray_vector	subt_vect;
 	t_ray_vector	inter_vect;
 	
 	t_ray			ray;
-	cast_vector_mat_ray(&cyl->axis_vect, &ray.dir_vect);
 		
 
-	// ray.dir_vect = cyl->axis_vect;//*normal;
+	//ray.dir_vect = cyl->axis_vect;//*normal;
 	//symmetrize_vector(ray.dir_vect.axis);
+	cast_vector_mat_ray(&cyl->axis_vect, &ray.dir_vect);
 	cast_vector_mat_ray(&cyl->origin_vect, &ray.origin_vect);
 	subtract_vector(mesh, cyl->origin_vect.axis, subt_vect.axis);
 	
-	get_intersect_point(&ray, -scalar_product(normal->axis, subt_vect.axis), &inter_vect);
+	normalize_vector(ray.dir_vect.axis);
+	scale_vector(ray.dir_vect.axis,  scalar_product(ray.dir_vect.axis, subt_vect.axis), inter_vect.axis);
+
+	//  get_intersect_point(&ray, scalar_product(normal->axis, subt_vect.axis), &inter_vect);
+	
 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);	
-		return ((get_vector_magnitude(subt_vect.axis) >= cyl->radius
-	&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) <= cyl->radius
+	print_delay(&subt_vect, cyl->diameter);	
+	
+		return ((get_vector_magnitude(subt_vect.axis) >= cyl->diameter * 0.5
+	&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) <= cyl->diameter * 0.5
 	&& cyl->which_t == 1)));
 }
 int is_in_cyl_height(t_ray_vector *normal, t_cylinder *cyl, double mesh[])
@@ -69,7 +89,7 @@ int is_in_cyl_height(t_ray_vector *normal, t_cylinder *cyl, double mesh[])
 
 	subtract_vector(mesh, cyl->origin_vect.axis, subt_vect.axis);
 	// normalize_vector(subt_vect.axis);
-	if (scalar_product(normal->axis, subt_vect.axis) < cyl->height * 0.5)	
+	if (fabs(scalar_product(normal->axis, subt_vect.axis)) < cyl->height * 0.5)	
 	{
 		 // printf("IN\n");
 		return (1);
@@ -135,7 +155,11 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-	if (has_shadow(params->data, cyl, &light_ray) || is_cylinder_surface_between2(cyl, &normal, params->data->spotlight.origin_vect.axis))
+	t_ray_vector tmp;
+	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
+	// normalize_vector(normal.axis);
+	if (has_shadow(params->data, cyl, &light_ray) || is_cylinder_surface_between2(cyl, &normal, params->data->spotlight.origin_vect.axis)
+	|| !is_in_cyl_height(&tmp, cyl, params->data->spotlight.origin_vect.axis))
 		return (*params->color = ambiantly_color, 0);
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
 		->data->spotlight, &ambiantly_color, params->color,
