@@ -42,7 +42,7 @@ int	is_in_cyl_diam( t_cylinder *cyl, t_ray_vector *normal, double mesh[])
 	//get_intersect_point(&ray, scalar_product(normal->axis, subt_vect.axis), &inter_vect);
 	 scale_vector(ray.dir_vect.axis, scalar_product(ray.dir_vect.axis, subt_vect.axis), inter_vect.axis);
 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);
-	if (get_vector_magnitude(subt_vect.axis) < cyl->diameter * 0.5)
+	if (get_vector_magnitude(subt_vect.axis) <= cyl->diameter * 0.5)
 		return (1);
 	else
 		return (0);
@@ -205,7 +205,7 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
 	view_dot_normal = scalar_product(normal.axis, params->ray->dir_vect.axis);
-	if (view_dot_normal > 0)
+	if (view_dot_normal > 0.0)//1e-5)
 		symmetrize_vector(normal.axis);
 	light_dot_normal = scalar_product(normal.axis, light_ray.dir_vect.axis);
 	if (light_dot_normal < 0 && cyl->which_t == 2)
