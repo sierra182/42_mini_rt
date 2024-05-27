@@ -128,28 +128,3 @@ double	*get_element_data(char *map_path, double tab[], char *el)
 	map_fd = -1;
 	return (NULL);
 }
-
-/**========================================================================
- *                           fill_tab
- *========================================================================**/
-double	*fill_tab(char *str, double tab[])
-{
-	int		i;
-	char	*token;
-
-	i = 0;
-	while (i < 20)
-		tab[i++] = 1024;
-	token = ft_strtok(str, ", \t\n");
-	i = 0;
-	while (token)
-	{
-		token = ft_strtok(NULL, ", \t\n");
-		if (token)
-		{
-			tab[i] = ft_atof(token);
-		}
-		i++;
-	}
-	return (tab);
-}

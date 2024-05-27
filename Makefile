@@ -61,6 +61,7 @@ SOURCES = \
 	$(SRC_DIR)/parsing/elements_data_are_valid.c \
 	$(SRC_DIR)/parsing/elements_data_are_valid_utils.c \
 	$(SRC_DIR)/init_data/init_data.c \
+	$(SRC_DIR)/init_data/init_data_2.c \
 	$(SRC_DIR)/init_data/fill_struct_funcs.c \
 	$(SRC_DIR)/init_data/fill_struct_funcs_2.c \
 	$(SRC_DIR)/init_data/create_data_structs.c \
