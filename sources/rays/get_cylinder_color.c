@@ -77,7 +77,7 @@ int	is_cylinder_surface_between2( t_cylinder *cyl, t_ray_vector *normal, double 
 	//  get_intersect_point(&ray, scalar_product(normal->axis, subt_vect.axis), &inter_vect);
 	
 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);	
-	print_delay(&subt_vect, cyl->diameter);	
+	//print_delay(&subt_vect, cyl->diameter);	
 	
 		return ((get_vector_magnitude(subt_vect.axis) >= cyl->diameter * 0.5
 	&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) <= cyl->diameter * 0.5
