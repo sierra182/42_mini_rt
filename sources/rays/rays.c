@@ -82,7 +82,7 @@ int	get_background_color(t_ray *ray, t_data *data)
 	intensity = data->ambiant_light.intensity;
 	bg_color = (t_color *)&data->ambiant_light.color;
 	dir = (ray->dir_vect.axis[1] + 1.0) * 0.5;
-	color[0] = get_color(255, 255, 255);
+	color[0] = get_color(intensity * 255, intensity * 255, intensity * 255);
 	color[1] = get_color(bg_color->rgb[0] * intensity, bg_color->rgb[1] * intensity, bg_color->rgb[2] * intensity);
 	rgb[0] = (int)((1.0 - dir) * ((color[1] >> 16) & 0xFF) + dir * ((color[0] >> 16) & 0xFF));
 	rgb[1] = (int)((1.0 - dir) * ((color[1] >> 8) & 0xFF) + dir * ((color[0] >> 8) & 0xFF));

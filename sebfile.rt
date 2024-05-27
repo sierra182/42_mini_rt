@@ -2,7 +2,7 @@
 # comment lines must start with a "#"
 # comments must be on their own line (comment after code not supported)
 
-A	0.5														100,100,100
+A	0.5														100,100,255
 C	0.0,50.0,300.0			0,0,1				167
 L	15.0,35,380							    0.6 			10,0,255
 
