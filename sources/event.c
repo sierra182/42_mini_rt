@@ -21,6 +21,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
 int		init_data(char *map_path, t_data *data);
 void	chang_mesh_size(t_data *data, int keycode);
 void	make_rt_file(t_data *data);
+void	video_rotate_element(t_sphere *sphere);
 
 static void cam_event_rotate(int keycode, t_cam *cam)
 {
@@ -220,6 +221,16 @@ int	key_event(int keycode, void *param)
 	}
 	if (keycode == MAKE_RT_FILE)
 		make_rt_file(data);
+	if (keycode == VIDEO_NEXT_FRAME)
+	{
+		int i = 0;
+		while (i < data->sp_nbr)
+		{
+			video_rotate_element(&data->spheres[i]);
+			printf("i: %i\n", i);
+			i++;
+		}
+	}
 	if (keycode == CTRL || keycode == CTRL_2)
 	{
 		data->event.ctrl_ispressed = 1;

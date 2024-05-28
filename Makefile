@@ -82,6 +82,7 @@ SOURCES = \
 	$(SRC_DIR)/linear_algebra/vector_utils.c \
 	$(SRC_DIR)/change_mesh_size.c \
 	$(SRC_DIR)/scening.c \
+	$(SRC_DIR)/create_video_image.c \
 
 HEADERS = \
 	$(HEADERS_DIR)/x_mini_struct.h \

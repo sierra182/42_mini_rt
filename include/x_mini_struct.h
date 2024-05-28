@@ -185,7 +185,8 @@ typedef enum e_event
 	MESH = 111,
 	CTRL = 65507,
 	CTRL_2 = 65508,
-	MAKE_RT_FILE = 109
+	MAKE_RT_FILE = 109,
+	VIDEO_NEXT_FRAME = 118
 }	t_enum_event;
 
 
