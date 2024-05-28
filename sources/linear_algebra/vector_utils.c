@@ -50,11 +50,35 @@ void	normalize_zero_one(double *scalar_product)
 	*scalar_product = (*scalar_product + 1) * 0.5;
 }
 
-int	are_collinear_vectors(t_matrix_vector *pdct_vect, double precision)
+int	are_collinear_vectors(t_matrix_vector *cross_prdct, double precision)
 {
-	return (pdct_vect->axis[0] >= -precision && pdct_vect->axis[0] <= precision
-		&& pdct_vect->axis[1] >= -precision && pdct_vect->axis[1] <= precision
-		&& pdct_vect->axis[2] >= -precision && pdct_vect->axis[2] <= precision);
+	return (cross_prdct->axis[0] >= -precision && cross_prdct->axis[0] <= precision
+		&& cross_prdct->axis[1] >= -precision && cross_prdct->axis[1] <= precision
+		&& cross_prdct->axis[2] >= -precision && cross_prdct->axis[2] <= precision);
+}
+
+int	get_axis_ratio(double a, double b, int *ratio)
+{	
+	if (b)
+		*ratio = a / b;
+	else if (!a)
+		*ratio = 1;
+	else
+		*ratio = -1;
+	return (*ratio);
+}	
+
+int	are_collinear_vectors_diff_origin(double a[], double b[])
+{
+	int k1;
+	int	k2;
+	int	k3;
+	
+	if (get_axis_ratio(a[0], b[0], &k1) == -1
+		|| get_axis_ratio(a[1], b[1], &k2) == -1
+		|| get_axis_ratio(a[2], b[2], &k3) == -1)
+		return (0);
+	return (k1 == k2 && k2 == k3);
 }
 
 void	cast_vector_mat_ray(t_matrix_vector *matrix_vect, t_ray_vector *ray_vect)

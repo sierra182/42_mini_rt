@@ -123,7 +123,7 @@ void	pre_transform(t_data *data)
 
 void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 {		
-	pre_transform(data);
+	// pre_transform(data);
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);
 	mlx_hook(mlx->window, 2, 1L << 0, key_event, (void *[]){mlx, data});
 	mlx_hook(mlx->window, 3, 1L << 1, key_up_event, (void *[]){mlx, data});

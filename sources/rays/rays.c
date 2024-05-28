@@ -197,9 +197,28 @@ int	is_same_plane_space(t_plane *a, t_plane *b)
 
 int	is_same_cylinder_space(t_cylinder *a, t_cylinder *b)
 {
-	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
-		&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis)
-		&& a->diameter == b->diameter);	 
+	// return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
+	// 	&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis)
+	// 	&& a->diameter == b->diameter);	
+	double	distance;
+	t_matrix_vector	subt_vect;
+t_matrix_vector	tmp1;
+t_matrix_vector	tmp2;
+	subtract_vector(a->origin_vect.axis, b->origin_vect.axis, subt_vect.axis);
+	distance = get_vector_magnitude(subt_vect.axis);
+	cross_product(&subt_vect, &a->axis_vect, &tmp1);
+	cross_product(&subt_vect, &b->axis_vect, &tmp2);
+	return (a->diameter == b->diameter
+		&& 
+		((is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
+	 	&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis))
+		|| ((are_collinear_vectors(&tmp1, 1e-4)
+		&& are_collinear_vectors(&tmp2, 1e-4) && distance > 0)
+		&& distance <= (a->height + b->height) * 0.5)
+		|| ((are_collinear_vectors(&a->axis_vect, 1e-4)
+		&& are_collinear_vectors(&b->axis_vect, 1e-4) && distance == 0)
+		))	
+		);
 }
 
 int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
