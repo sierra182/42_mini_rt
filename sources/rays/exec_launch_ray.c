@@ -24,7 +24,7 @@ void	cast_vector_mat_ray(t_matrix_vector *matrix_vect,
 void	get_cylinder_color(t_data *data, t_ray *ray,
 			t_obj *obj, t_color	*color);
 void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
-int		get_pixel_color_2(t_get_pixel_color_2_params *params);
+void	get_pixel_color_2(t_get_pixel_color_2_params *params);
 
 /**========================================================================
  *                           scale_and_add_vectors
@@ -87,7 +87,7 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 	return (rgb);
 }
 
-int	get_pixel_color_2(t_get_pixel_color_2_params *params)
+void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 {
 	t_obj	*obj;
 	t_data	*data;

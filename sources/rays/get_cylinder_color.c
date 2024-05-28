@@ -27,7 +27,7 @@ int		get_cylinder_color_discs(t_get_color_params *params);
 /**========================================================================
  *                           get_cyl_col_cyl_2
  *========================================================================**/
-int	get_cyl_col_cyl_2(t_get_cyl_col_cyl_2_params *p)
+void	get_cyl_col_cyl_2(t_get_cyl_col_cyl_2_params *p)
 {
 	t_ray_vector	tmp;
 	t_cylinder		*cyl;
@@ -45,7 +45,7 @@ int	get_cyl_col_cyl_2(t_get_cyl_col_cyl_2_params *p)
 			->spotlight.origin_vect.axis)
 		|| (!is_in_cyl_height(&tmp, cyl, p->params->data->spotlight.origin_vect
 				.axis) && cyl->which_t == 2))
-		return (*p->params->color = *p->ambiantly_color, 0);
+		*p->params->color = *p->ambiantly_color, 0;
 	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
 		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
 		&light_attenuat, &light_coef});
@@ -78,7 +78,7 @@ void	get_cyl_col_cyl_0(t_get_cyl_col_cyl_0_params *p)
 /**========================================================================
  *                           get_cylinder_color_cyl
  *========================================================================**/
-int	get_cylinder_color_cyl(t_get_color_params *params)
+void	get_cylinder_color_cyl(t_get_color_params *params)
 {
 	t_ray_vector	normal;
 	t_ray			light_ray;
@@ -97,7 +97,7 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 		params->data->ambiant_light.intensity, &ambiantly_color);
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255,
 		.rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
-	return (get_cyl_col_cyl_2(&(t_get_cyl_col_cyl_2_params){params, &normal,
+	(get_cyl_col_cyl_2(&(t_get_cyl_col_cyl_2_params){params, &normal,
 			&light_ray, &ambiantly_color, &spotlighty_color}));
 }
 
