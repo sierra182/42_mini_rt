@@ -287,14 +287,18 @@ int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
 	long double		mesh_mag;
 	long double		light_mag;
 	t_ray_vector	intersect_pt;
-
+		
+	
+	//double int_t = is_intersect_sphere(light_ray, mesh, NULL);
+	
 	i = -1;
 	while (++i < data->sp_nbr)
 	{
+	
 		if (mesh && (void *) &data->spheres[i] != mesh && !is_same_sphere_space(&data->spheres[i], mesh))
 		{
 			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL);
-			if (t)
+			if (t)// && int_t < t)
 			{
 				get_local_intersect_point(light_ray, t, &intersect_pt);
 				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
@@ -303,6 +307,8 @@ int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
 					return (1);
 			}
 		}
+		
+
 	}
 	return (0);
 }
