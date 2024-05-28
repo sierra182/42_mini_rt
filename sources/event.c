@@ -113,8 +113,11 @@ void	actual_mesh_handle(t_data *data, t_obj *mesh,
 			color = &((t_cylinder *) mesh->ref)->color;
 		else if (mesh->type == O_PL)
 			color = &((t_plane *) mesh->ref)->color;
-		data->event.color_sav = *color;
-		be_highlight(color);		
+		if (color)
+		{
+			data->event.color_sav = *color;
+			be_highlight(color);		
+		}
 		data->event.actual_mesh = *mesh;			
 	}
 	else if (data->event.actual_mesh.ref)
