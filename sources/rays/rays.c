@@ -194,7 +194,40 @@ int	is_same_plane_space(t_plane *a, t_plane *b)
 	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
 		&& is_equal_vector(a->norm_vect.axis, b->norm_vect.axis));
 }
+int are_collinear(double u[], double v[]) {
+    double k1, k2, k3;
 
+    // Avoid division by zero by checking each component
+    if (u[0] != 0) {
+        k1 = v[0] / u[0];
+    } else if (v[0] == 0) {
+        k1 = 1; // Both are zero, consider it collinear
+    } else {
+		printf("not col\n");
+        return 0; // One is zero, the other is not
+    }
+
+    if (u[1] != 0) {
+        k2 = v[1] / u[1];
+    } else if (v[1] == 0) {
+        k2 = 1;
+    } else {
+		printf("not col\n");
+        return 0;
+    }
+
+    if (u[2] != 0) {
+        k3 = v[2] / u[2];
+    } else if (v[2] == 0) {
+        k3 = 1;
+    } else {
+		printf("not col\n");
+        return 0;
+    }
+
+    // Check if all ratios are equal
+    return (k1 == k2) && (k2 == k3);
+}
 int	is_same_cylinder_space(t_cylinder *a, t_cylinder *b)
 {
 	// return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
@@ -212,11 +245,11 @@ int	is_same_cylinder_space(t_cylinder *a, t_cylinder *b)
 		&& 
 		((is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
 	 	&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis))
-		|| ((!are_collinear_vectors_diff_origin(subt_vect.axis, a->axis_vect.axis)
-		&& !are_collinear_vectors_diff_origin(subt_vect.axis, b->axis_vect.axis) && distance > 0)
+		|| ((!are_collinear(subt_vect.axis, a->axis_vect.axis)
+		&& !are_collinear(subt_vect.axis, b->axis_vect.axis) && distance > 0)
 		&& distance <= (a->height + b->height) * 0.5)
-		|| ((!are_collinear_vectors_diff_origin(subt_vect.axis, a->axis_vect.axis)
-		&& !are_collinear_vectors_diff_origin(subt_vect.axis, b->axis_vect.axis) && distance == 0)
+		|| ((!are_collinear(subt_vect.axis, a->axis_vect.axis)
+		&& !are_collinear(subt_vect.axis, b->axis_vect.axis) && distance == 0)
 		))
 		);
 }
