@@ -66,6 +66,8 @@ typedef struct s_sphere
 	double			square_radius;
 	t_color			color;
 	int				which_t;
+	double			t1;
+	double			t2;
 }	t_sphere;
 
 typedef struct	s_spotlight
@@ -97,7 +99,7 @@ typedef struct s_cylinder
 	double			radius;
 	double			height;
 	t_color			color;
-	int				which_t;
+	int				which_t;	
 	t_cyl_or_discs	cyl_or_discs;
 	t_ray_vector	intersec_point;
 	t_ray_vector	origin_proj;
