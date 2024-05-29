@@ -15,8 +15,11 @@ void	cam_event_rotate(int keycode, t_cam *cam);
 void	event_rotate(int keycode, t_matrix_vector *vector);
 void	event_translate(int keycode,
 			void (*trsl_mesh)(t_cam *cam, t_matrix_vector *vect,
-			double values[]), t_cam *cam, t_matrix_vector *vect);
+				double values[]), t_cam *cam, t_matrix_vector *vect);
 
+/**========================================================================
+ *                           META_KEYCODE
+ *========================================================================**/
 void	meta_keycode(int keycode, t_data *data)
 {
 	int	i;
@@ -30,22 +33,12 @@ void	meta_keycode(int keycode, t_data *data)
 			video_rotate_element(&data->spheres[i++]);
 	}
 }
-/**========================================================================
- *                           KEY_EVENT
- *========================================================================**/
-int	key_event(int keycode, void *param)
-{
-	t_mlx						*mlx;
-	t_data						*data;
-	t_matrix_vector				*rotate_vect;
-	t_matrix_vector				*transl_vect;
 
-	mlx = (t_mlx *)((void **) param)[0];
-	data = (t_data *)((void **) param)[1];
-	rotate_vect = NULL;
-	transl_vect = NULL;
-	data->refresh = 1;
-	// printf("keycode: %d\n", keycode);
+/**========================================================================
+ *                           KEY_CODE_FUNCS
+ *========================================================================**/
+void	key_code_funcs(int keycode, t_data *data, t_mlx *mlx)
+{
 	if (keycode == ESC)
 		mlx_loop_end(mlx->connect);
 	if (keycode == RST)
@@ -62,6 +55,18 @@ int	key_event(int keycode, void *param)
 		data->event.type_mesh = E_AMBL;
 	if (keycode == CTRL || keycode == CTRL_2)
 		data->event.ctrl_ispressed = 1;
+}
+
+/**========================================================================
+ *                           DATA_EVENT_FUNCS_1
+ *========================================================================**/
+void	data_event_funcs_1(t_data *data, int keycode)
+{
+	t_matrix_vector				*rotate_vect;
+	t_matrix_vector				*transl_vect;
+
+	rotate_vect = NULL;
+	transl_vect = NULL;
 	if (data->event.type_mesh == E_CAM)
 	{
 		event_translate(keycode, trsl_cam, &data->cam, NULL);
@@ -81,13 +86,37 @@ int	key_event(int keycode, void *param)
 	if (data->event.type_mesh == E_MESH && (keycode == PLUS
 			|| keycode == MINUS))
 		chang_mesh_size(data, keycode);
+}
+
+/**========================================================================
+ *                           DATA_EVENT_FUNCS_2
+ *========================================================================**/
+void	data_event_funcs_2(t_data *data, int keycode)
+{
+	if (data->event.type_mesh == E_AMBL)
+		event_intensity(keycode, &data->ambiant_light.intensity);
+	meta_keycode(keycode, data);
 	if (data->event.type_mesh == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
 		event_intensity(keycode, &data->spotlight.intensity);
 	}
-	if (data->event.type_mesh == E_AMBL)
-		event_intensity(keycode, &data->ambiant_light.intensity);
-	meta_keycode(keycode, data);
+}
+
+/**========================================================================
+ *                           KEY_EVENT
+ *========================================================================**/
+int	key_event(int keycode, void *param)
+{
+	t_mlx						*mlx;
+	t_data						*data;
+
+	mlx = (t_mlx *)((void **) param)[0];
+	data = (t_data *)((void **) param)[1];
+	data->refresh = 1;
+	// printf("keycode: %d\n", keycode);
+	key_code_funcs(keycode, data, mlx);
+	data_event_funcs_1(data, keycode);
+	data_event_funcs_2(data, keycode);
 	return (0);
 }
