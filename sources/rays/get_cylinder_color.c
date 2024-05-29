@@ -14,34 +14,62 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 void	color_with_light(t_color *mesh_color,
 			t_color *light_color, double intensity, t_color *new_color);
 void	limit_to_255(t_color *color);
-int	get_cylinder_color_discs(t_get_color_params *params);
+int		get_cylinder_color_discs(t_get_color_params *params);
+
+/**========================================================================
+ *                           ADD_SHADING_AND_LIGNTENING_EFFECTS
+ *========================================================================**/
+void	add_shading_and_ligntening_effects(t_get_color_params *params,
+	t_ray_vector *normal, t_ray *light_ray)
+{
+	t_color			spotlighty_color;
+	double			light_attenuat;
+	double			light_coef;
+	t_color			ambiantly_color;
+	t_cylinder		*cyl;
+
+	cyl = (t_cylinder *)params->mesh;
+	color_with_light(&cyl->color, &params->data->ambiant_light.color, params
+		->data->ambiant_light.intensity, &ambiantly_color);
+	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255,
+		.rgb[2] = 255}, params->data->spotlight.intensity,
+		&spotlighty_color);
+	add_shading(params->ray, normal, &ambiantly_color, &ambiantly_color);
+	add_shading(params->ray, normal, &spotlighty_color, &spotlighty_color);
+	if (has_shadow(params->data, cyl, light_ray))
+		*params->color = ambiantly_color;
+	add_lightening(&(t_add_lightening_params){light_ray, normal, &params
+		->data->spotlight, &ambiantly_color, params->color,
+		&light_attenuat, &light_coef});
+	add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
+	add_color(&spotlighty_color, &ambiantly_color, params->color);
+	limit_to_255(params->color);
+}
+
+void	handle_projection()
+{
+
+}
 
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
- *
- * @brief Get the cylinder color cyl object
- * 
- * @param params 
- * @return int 
 *========================================================================**/
-int	get_cylinder_color_cyl(t_get_color_params *params)
+void	get_cylinder_color_cyl(t_get_color_params *params)
 {
 	t_ray_vector	normal;
 	t_ray			light_ray;
-	t_color			ambiantly_color;
-	double			light_attenuat;
-	double			light_coef;
 	t_cylinder		*cyl;
 	t_ray_vector	intersect_point;
 	t_ray_vector	cyl_to_intersect;
 	double			proj;
 	t_ray_vector	proj_vect;
-	t_color			spotlighty_color;
 
 	cyl = (t_cylinder *)params->mesh;
 	get_intersect_point(params->ray, params->t, &intersect_point);
 	subtract_vector(intersect_point.axis, cyl->origin_vect.axis,
 		cyl_to_intersect.axis);
+
+	handle_projection();
 	proj = scalar_product(cyl_to_intersect.axis, cyl->axis_vect.axis);
 	scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
 	subtract_vector(cyl_to_intersect.axis, proj_vect.axis, normal.axis);
@@ -51,29 +79,11 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	light_ray.origin_vect = intersect_point;
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
 		.origin_vect.axis, light_ray.dir_vect.axis);
-	color_with_light(&cyl->color, &params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
-	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
-	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
-	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-	if (has_shadow(params->data, cyl, &light_ray))
-		return (*params->color = ambiantly_color, 0);
-	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
-		->data->spotlight, &ambiantly_color, params->color,
-		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
-	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	limit_to_255(params->color);
-	return (0);
+	add_shading_and_ligntening_effects(params, &normal, &light_ray);
 }
 
 /**========================================================================
  *                           GET_CYLINDER_COLOR
- * @brief Get the cylinder color object
- * 
- * @param data 
- * @param ray 
- * @param obj 
- * @param color 
  *========================================================================**/
 void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj,
 		t_color *color)
