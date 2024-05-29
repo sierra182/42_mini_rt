@@ -16,23 +16,7 @@ void	event_rotate(int keycode, t_matrix_vector *vector);
 void	event_translate(int keycode,
 			void (*trsl_mesh)(t_cam *cam, t_matrix_vector *vect,
 				double values[]), t_cam *cam, t_matrix_vector *vect);
-
-/**========================================================================
- *                           META_KEYCODE
- *========================================================================**/
-void	meta_keycode(int keycode, t_data *data)
-{
-	int	i;
-
-	if (keycode == MAKE_RT_FILE)
-		make_rt_file(data);
-	if (keycode == VIDEO_NEXT_FRAME)
-	{
-		i = 0;
-		while (i < data->sp_nbr)
-			video_rotate_element(&data->spheres[i++]);
-	}
-}
+void	meta_keycode(int keycode, t_data *data);
 
 /**========================================================================
  *                           KEY_CODE_FUNCS
