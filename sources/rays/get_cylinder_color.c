@@ -46,9 +46,17 @@ void	add_shading_and_ligntening_effects(t_get_color_params *params,
 	limit_to_255(params->color);
 }
 
-void	handle_projection()
+void	handle_projection(t_get_color_params *params, t_ray_vector *cyl_to_intersect, t_ray_vector *normal)
 {
+	double			proj;
+	t_ray_vector	proj_vect;
+	t_cylinder		*cyl;
 
+	cyl = (t_cylinder *)params->mesh;
+	proj = scalar_product(cyl_to_intersect->axis, cyl->axis_vect.axis);
+	scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
+	subtract_vector(cyl_to_intersect->axis, proj_vect.axis, normal->axis);
+	normalize_vector(normal->axis);
 }
 
 /**========================================================================
@@ -61,19 +69,12 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 	t_cylinder		*cyl;
 	t_ray_vector	intersect_point;
 	t_ray_vector	cyl_to_intersect;
-	double			proj;
-	t_ray_vector	proj_vect;
 
 	cyl = (t_cylinder *)params->mesh;
 	get_intersect_point(params->ray, params->t, &intersect_point);
 	subtract_vector(intersect_point.axis, cyl->origin_vect.axis,
 		cyl_to_intersect.axis);
-
-	handle_projection();
-	proj = scalar_product(cyl_to_intersect.axis, cyl->axis_vect.axis);
-	scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
-	subtract_vector(cyl_to_intersect.axis, proj_vect.axis, normal.axis);
-	normalize_vector(normal.axis);
+	handle_projection(params, &cyl_to_intersect, &normal);
 	if (((t_cylinder *)params->mesh)->which_t == 2)
 		symmetrize_vector(normal.axis);
 	light_ray.origin_vect = intersect_point;
