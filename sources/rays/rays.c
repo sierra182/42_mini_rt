@@ -280,7 +280,7 @@ t_matrix_vector	tmp2;
 		);
 }
 
-int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
+int	has_sphere_shadow(t_data *data, void *mesh, t_ray *n_light_ray)
 {
 	int				i;
 	double			t;
@@ -288,9 +288,16 @@ int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
 	long double		light_mag;
 	t_ray_vector	intersect_pt;
 		
-	t_sphere sphere = *(t_sphere *)mesh; 
+	t_sphere sphere = *(t_sphere *)mesh;
+	t_ray tmp =  *n_light_ray;
+	t_ray *light_ray = &tmp;
+	normalize_vector(light_ray->dir_vect.axis);
 	double int_t = is_intersect_sphere(light_ray, &sphere, NULL);
-	//  int_t = ((t_sphere *)mesh)->t2;
+	 // int_t = ((t_sphere *)mesh)->t2;
+	printf("int t: %f\n", int_t);
+	printf("which t: %d\n", sphere.which_t);
+	printf("t2: %f\n", sphere.t2);
+	printf("t1: %f\n\n", sphere.t1);
 	i = -1;
 	while (++i < data->sp_nbr)
 	{
@@ -298,10 +305,12 @@ int	has_sphere_shadow(t_data *data, void *mesh, t_ray *light_ray)
 		if (mesh && (void *) &data->spheres[i] != mesh && !is_same_sphere_space(&data->spheres[i], mesh))
 		{
 			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL);
-			if( (t && !int_t)||( t && int_t && int_t < data->spheres[i].t2))
+			 if( (t && !int_t)||( t && int_t && int_t < data->spheres[i].t2))
+			// if (t && sphere.which_t == 0 || t &&  sphere.which_t == 2 && int_t < data->spheres[i].t2 )
+
 			{
 				get_local_intersect_point(light_ray, t, &intersect_pt);
-				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+				light_mag = get_vector_magnitude(n_light_ray->dir_vect.axis);
 				mesh_mag = get_vector_magnitude(intersect_pt.axis);
 				if (mesh_mag - 1e-5 < light_mag)
 					return (1);

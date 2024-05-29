@@ -13,6 +13,9 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[0] = tab[4];
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
+	data->spheres[i].which_t = 0;
+	data->spheres[i].t1 = 0.0;
+	data->spheres[i].t2 = 0.0;
 	i++;
 }
 
@@ -34,6 +37,9 @@ void	fill_struct_cy(t_data *data, double tab[])
 	data->cylinders[i].color.rgb[0] = tab[8];
 	data->cylinders[i].color.rgb[1] = tab[9];
 	data->cylinders[i].color.rgb[2] = tab[10];
+	data->cylinders[i].which_t = 0;
+	data->cylinders[i].t1 = 0.0;
+	data->cylinders[i].t2 = 0.0;
 	i++;
 }
 
