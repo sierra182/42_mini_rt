@@ -1,8 +1,8 @@
 #ifndef X_MINI_STRUCT_H
 # define X_MINI_STRUCT_H
 
-# define WIDTH 1800
-# define HEIGHT 1000
+# define WIDTH 800
+# define HEIGHT 600
 # define AXIS 3
 # define MTX 4 
 # define BIG_VALUE 100000000
