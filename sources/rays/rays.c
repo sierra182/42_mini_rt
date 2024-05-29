@@ -294,10 +294,10 @@ int	has_sphere_shadow(t_data *data, void *mesh, t_ray *n_light_ray)
 	normalize_vector(light_ray->dir_vect.axis);
 	double int_t = is_intersect_sphere(light_ray, &sphere, NULL);
 	 // int_t = ((t_sphere *)mesh)->t2;
-	printf("int t: %f\n", int_t);
-	printf("which t: %d\n", sphere.which_t);
-	printf("t2: %f\n", sphere.t2);
-	printf("t1: %f\n\n", sphere.t1);
+	// printf("int t: %f\n", int_t);
+	// printf("which t: %d\n", sphere.which_t);
+	// printf("t2: %f\n", sphere.t2);
+	// printf("t1: %f\n\n", sphere.t1);
 	i = -1;
 	while (++i < data->sp_nbr)
 	{
@@ -322,7 +322,7 @@ int	has_sphere_shadow(t_data *data, void *mesh, t_ray *n_light_ray)
 	return (0);
 }
 
-int	has_cylinder_shadow(t_data *data, void *mesh, t_ray *light_ray)
+int	has_cylinder_shadow(t_data *data, void *mesh, t_ray *n_light_ray)
 {
 	int				i;
 	double			t;
@@ -330,16 +330,22 @@ int	has_cylinder_shadow(t_data *data, void *mesh, t_ray *light_ray)
 	long double		light_mag;
 	t_ray_vector	intersect_pt;
 
+	t_cylinder cylinder = *(t_cylinder *)mesh;
+	t_ray tmp =  *n_light_ray;
+	t_ray *light_ray = &tmp;
+	normalize_vector(light_ray->dir_vect.axis);
+	double int_t = is_intersect_cylinder(light_ray, &cylinder, NULL);
 	i = -1;
 	while (++i < data->cy_nbr)
 	{
 		if (mesh && (void *) &data->cylinders[i] != mesh && !is_same_cylinder_space(&data->cylinders[i], mesh))
 		{
 			t = is_intersect_cylinder(light_ray, &data->cylinders[i], NULL);
-			if (t)
+			//if (t)
+			if( (t && !int_t)||( t && int_t && int_t < data->spheres[i].t2))
 			{
 				get_local_intersect_point(light_ray, t, &intersect_pt);
-				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+				light_mag = get_vector_magnitude(n_light_ray->dir_vect.axis);
 				mesh_mag = get_vector_magnitude(intersect_pt.axis);
 				if (mesh_mag - 1e-5 < light_mag)
 					return (1);
@@ -539,7 +545,7 @@ void	get_plane_color(t_get_color_params *params)
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 	light_coef = scalar_product(normal.axis, light_ray.dir_vect.axis);
-	if (has_shadow(params->data, params->mesh, &light_ray) || light_coef < 0.0)
+	if (has_shadow(params->data, params->mesh, &light_ray) || light_coef < 1e-3)
 	{
 		*params->color = ambiantly_color;
 		return ;
