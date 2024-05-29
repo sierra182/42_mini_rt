@@ -45,3 +45,8 @@ void	limit_to_255(t_color *color)
 		if (color->rgb[i] > 255)
 			color->rgb[i] = 255;
 }
+
+int	get_color(unsigned char r, unsigned char g, unsigned char b)
+{
+	return (*(int *)(unsigned char []){b, g, r, 0});
+}

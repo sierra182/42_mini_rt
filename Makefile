@@ -73,11 +73,13 @@ SOURCES = \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
 	$(SRC_DIR)/rays/rays.c \
+	$(SRC_DIR)/rays/color_effect.c \
+	$(SRC_DIR)/rays/get_color.c \
 	$(SRC_DIR)/rays/get_cylinder_color.c \
 	$(SRC_DIR)/rays/get_cylinder_color_discs.c \
 	$(SRC_DIR)/rays/get_cylinder_color_utils.c \
 	$(SRC_DIR)/rays/is_intersect.c \
-	$(SRC_DIR)/rays/hard_shadow.c \
+	$(SRC_DIR)/rays/shadow.c \
 	$(SRC_DIR)/rays/shadow_exclusion.c \
 	$(SRC_DIR)/rays/is_intersect_cylinder.c \
 	$(SRC_DIR)/rays/is_intersect_utils.c \

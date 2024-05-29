@@ -26,5 +26,6 @@ void	invert_vector(double ori[], double dir[], double inv_ori[], double inv_dir[
 int		is_equal_vector(double a[], double b[]);
 void	get_average_color(t_color *a, t_color *b, t_color *average);
 void	limit_to_255(t_color *color);
+int		get_color(unsigned char r, unsigned char g, unsigned char b);
 
 #endif
