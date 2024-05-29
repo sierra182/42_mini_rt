@@ -273,7 +273,26 @@ void	event_launch_rays(t_data *data, int x, int y)
 	actual_mesh_handle(data, &obj, NULL, NULL);	
 }
 
-
+int	mouse_release(int button, int x, int y, void *param)
+{	
+	t_data	*data;
+	
+	data = (t_data *) param;
+	if (data->event.actual_mesh.ref)
+	{
+		data->refresh = 1;
+		if (data->event.actual_mesh.type == O_SP)
+			((t_sphere *) data->event.actual_mesh.ref)->color
+				= data->event.color_sav;
+		else if (data->event.actual_mesh.type == O_PL)	
+			((t_plane *) data->event.actual_mesh.ref)->color
+				= data->event.color_sav;
+		else if (data->event.actual_mesh.type == O_CY)			
+			((t_cylinder *) data->event.actual_mesh.ref)->color
+				= data->event.color_sav;
+	}
+	return (0);
+}
 
 int    mouse_event(int button, int x, int y, void *param)
 {

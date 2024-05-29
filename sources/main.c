@@ -12,7 +12,8 @@ int		mouse_event(int button, int x, int y, void *param);
 void	display_error(char *error);
 int		parse(t_data *data, char *map_path);
 void	launch_rays(t_mlx *mlx, t_data *data);
-int	key_up_event(int keycode, void *param);
+int		key_up_event(int keycode, void *param);
+int		mouse_release(int button, int x, int y, void *param);
 
 /**========================================================================
  *                             COMMENTS
@@ -39,26 +40,7 @@ int	frame(void *param)
 	return (0);
 }
 
-int	mouse_release(int button, int x, int y, void *param)
-{	
-	t_data	*data;
-	
-	data = (t_data *) param;
-	if (data->event.actual_mesh.ref)
-	{
-		data->refresh = 1;
-		if (data->event.actual_mesh.type == O_SP)
-			((t_sphere *) data->event.actual_mesh.ref)->color
-				= data->event.color_sav;
-		else if (data->event.actual_mesh.type == O_PL)	
-			((t_plane *) data->event.actual_mesh.ref)->color
-				= data->event.color_sav;
-		else if (data->event.actual_mesh.type == O_CY)			
-			((t_cylinder *) data->event.actual_mesh.ref)->color
-				= data->event.color_sav;
-	}
-	return (0);
-}
+
 void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
 void	pre_transform(t_data *data)
 {

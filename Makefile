@@ -46,10 +46,13 @@ LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 OBJECTS = $(SOURCES:.c=.o)
 
 SOURCES = \
+	$(SRC_DIR)/meta/create_video_image.c \
+	$(SRC_DIR)/meta/scening.c \
+	$(SRC_DIR)/meta/test_prints.c \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/mesh/cam.c \
 	$(SRC_DIR)/mesh/mesh_trsf.c \
-	$(SRC_DIR)/event.c \
+	$(SRC_DIR)/event/event.c \
 	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
@@ -81,8 +84,6 @@ SOURCES = \
 	$(SRC_DIR)/linear_algebra/color.c \
 	$(SRC_DIR)/linear_algebra/vector_utils.c \
 	$(SRC_DIR)/change_mesh_size.c \
-	$(SRC_DIR)/scening.c \
-	$(SRC_DIR)/create_video_image.c \
 
 HEADERS = \
 	$(HEADERS_DIR)/x_mini_struct.h \
