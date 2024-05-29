@@ -15,27 +15,25 @@ void	video_rotate_element(t_sphere *sphere);
 void	chang_mesh_size(t_data *data, int keycode);
 void	event_intensity(int keycode, double *intensity);
 
-
-
 /**========================================================================
  *                           CAM_EVENT_ROTATE
  *========================================================================**/
 static void cam_event_rotate(int keycode, t_cam *cam)
 {
-    double  r;
+	double  r;
 
-    r = 1.0;
-    if (keycode == R_LFT)	
+	r = 1.0;
+	if (keycode == R_LFT)	
 		rotate_cam(cam, r, (int []){0, 1, 0});
-    else if (keycode == R_RGHT)	
+	else if (keycode == R_RGHT)	
 		rotate_cam(cam, -r, (int []){0, 1, 0});
-    else if (keycode == R_UP)	
+	else if (keycode == R_UP)	
 		rotate_cam(cam, r, (int []){1, 0, 0});
-    else if (keycode == R_DWN)	
+	else if (keycode == R_DWN)	
 		rotate_cam(cam, -r, (int []){1, 0, 0});
-    else if (keycode == S_LFT)	
+	else if (keycode == S_LFT)	
 		rotate_cam(cam, r, (int []){0, 0, 1});
-    else if (keycode == S_RGHT)	
+	else if (keycode == S_RGHT)	
 		rotate_cam(cam, -r, (int []){0, 0, 1});
 }
 
@@ -44,20 +42,20 @@ static void cam_event_rotate(int keycode, t_cam *cam)
  *========================================================================**/
 static void event_rotate(int keycode, t_matrix_vector *vector)
 {
-    double  r;
+	double  r;
 
-    r = 1.0;
-    if (keycode == R_LFT)	
+	r = 1.0;
+	if (keycode == R_LFT)	
 		rotate_mesh(vector, r, (int []){1, 0, 0});
-    else if (keycode == R_RGHT)	
+	else if (keycode == R_RGHT)	
 		rotate_mesh(vector, -r, (int []){1, 0, 0});
-    else if (keycode == R_UP)	
+	else if (keycode == R_UP)	
 		rotate_mesh(vector, r, (int []){0, 1, 0});
-    else if (keycode == R_DWN)	
+	else if (keycode == R_DWN)	
 		rotate_mesh(vector, -r, (int []){0, 1, 0});
-    else if (keycode == S_LFT)	
+	else if (keycode == S_LFT)	
 		rotate_mesh(vector, r, (int []){0, 0, 1});
-    else if (keycode == S_RGHT)	
+	else if (keycode == S_RGHT)	
 		rotate_mesh(vector, -r, (int []){0, 0, 1});
 }
 
@@ -68,9 +66,9 @@ static void	event_translate(int keycode,
 	void (*trsl_mesh)(t_cam *cam, t_matrix_vector *vect, double values[]),
 		t_cam *cam, t_matrix_vector *vect)
 {
-    double t;
+	double t;
 
-    t = 1;
+	t = 1;
 	if (keycode == UP)	
 		trsl_mesh(cam, vect, (double []){0.0, t, 0.0});		
 	else if (keycode == DWN)
@@ -84,7 +82,6 @@ static void	event_translate(int keycode,
 	else if (keycode == BACK)
 		trsl_mesh(cam, vect, (double []){0.0, 0.0, -t});
 } 	
-
 
 /**========================================================================
  *                           KEY_EVENT

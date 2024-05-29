@@ -1,5 +1,5 @@
-# include "x_mini_struct.h"
-# include "libft.h"
+#include "x_mini_struct.h"
+#include "libft.h"
 
 void	calculate_missing_vectors(t_cam *cam);
 
@@ -8,7 +8,7 @@ void	calculate_missing_vectors(t_cam *cam);
  *========================================================================**/
 void	reset(t_data *data)
 {
-	t_reset_tmps tmps;
+	t_reset_tmps	tmps;
 
 	tmps.planes = data->planes;
 	tmps.spheres = data->spheres;
@@ -21,13 +21,13 @@ void	reset(t_data *data)
 	data->planes = tmps.planes;
 	data->spheres = tmps.spheres;
 	data->cylinders = tmps.cylinders;
-	data->data_cpy = tmps.data_cpy;	
-	ft_memcpy(data->planes, tmps.planes_cpy, data->pl_nbr *
-		sizeof(t_plane));
-	ft_memcpy(data->spheres, tmps.spheres_cpy, data->sp_nbr *
-		sizeof(t_sphere));
-	ft_memcpy(data->cylinders, tmps.cylinders_cpy, data->cy_nbr *
-		sizeof(t_cylinder));
+	data->data_cpy = tmps.data_cpy;
+	ft_memcpy(data->planes, tmps.planes_cpy, data->pl_nbr
+		* sizeof(t_plane));
+	ft_memcpy(data->spheres, tmps.spheres_cpy, data->sp_nbr
+		* sizeof(t_sphere));
+	ft_memcpy(data->cylinders, tmps.cylinders_cpy, data->cy_nbr
+		* sizeof(t_cylinder));
 }
 
 /**========================================================================
