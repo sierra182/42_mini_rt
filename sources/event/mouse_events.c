@@ -53,3 +53,18 @@ int	mouse_release(int button, int x, int y, void *param)
 	}
 	return (0);
 }
+
+/**========================================================================
+ *                           KEY_UP_EVENT
+ *========================================================================**/
+void	key_up_event(int keycode, void *param)
+{
+	t_mlx						*mlx;
+	t_data						*data;
+
+	data = (t_data *) ((void **) param)[1];
+	if (keycode == CTRL || keycode == CTRL_2)
+	{
+		data->event.ctrl_ispressed = 0;
+	} 
+}
