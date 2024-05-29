@@ -15,3 +15,15 @@ je n'ai pas trouve el moyen de le faire. Il semble meme qu'il y ait une fonction
 
 width: 1900
 height: 1000
+
+--- 
+Norminette report:
+
+event: file sources/event/key_event.c has one comment (printf keycode)
+exit: sources/exit/data_store.c has too many funcs
+linear algebra: to be norminated (too many functions in files)
+matrix: minor things to be norminated
+mesh: too many functions in file
+meta: to be norminated
+parsing: file_content_is_correct.c has two lines commented (for testing purposes)
+rays: to be norminated
