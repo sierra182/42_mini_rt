@@ -89,3 +89,14 @@ void	cast_vector_mat_ray(t_matrix_vector *matrix_vect, t_ray_vector *ray_vect)
 	while (++i < AXIS)
 		ray_vect->axis[i] = matrix_vect->axis[i];	
 }
+
+int	is_equal_vector(double a[], double b[])
+{
+	int	i;
+
+	i = -1;
+	while (++i < MTX)
+		if (a[i] != b[i])
+			return (0);
+	return (1);
+}

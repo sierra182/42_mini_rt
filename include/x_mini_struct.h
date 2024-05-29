@@ -140,7 +140,7 @@ typedef struct s_event
 {
 	int				ctrl_ispressed;
 	int				legend;
-	t_event_mesh	type_mesh;
+	t_event_mesh	actual_mode;
 	t_obj			actual_mesh;
 	t_color			color_sav;
 }	t_event;

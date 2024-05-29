@@ -14,6 +14,8 @@ double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
 void	invert_vector(double a[], double b[], double r_a[], double r_b[]);
 int		has_shadow(t_data *data, void *mesh, t_ray *light_ray);
+int		is_equal_vector(double a[], double b[]);
+int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
@@ -107,34 +109,6 @@ int	is_behind_cam(double t)
 }
 //!rename typemesh
 
-void	get_average_color(t_color *a, t_color *b, t_color *average)
-{
-	int i;
-
-	i = -1;
-	while (++i < AXIS)	
-		average->rgb[i] = (a->rgb[i] + b->rgb[i]) * 0.5;	
-}
-
-void	color_with_ambiant_light(t_color *mesh_color, //!to remove
-	t_ambiant_light *ambiant_light, t_color *new_color)
-{
-	t_color	ambiant_scaled_color;
-	double	tmp_color;
-	int		i;
-
-	scale_color(&ambiant_light->color, ambiant_light->intensity,
-		&ambiant_scaled_color);
-	get_average_color(&ambiant_scaled_color, mesh_color, new_color);
-	scale_color(new_color, ambiant_light->intensity, new_color);
-	// i = -1;
-	// while (++i < AXIS) //!scale
-	// {
-	// 	tmp_color = ambiant_scaled_color.rgb[i] / 255.0;
-	// 	new_color->rgb[i] = tmp_color * mesh_color->rgb[i];
-	// }
-}
-
 void	color_with_light(t_color *mesh_color,
 	t_color *light_color, double intensity, t_color *new_color)
 {
@@ -151,53 +125,6 @@ void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 	t_ray_vector	scaled_vect;
 
 	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);
-}
-
-int	is_equal_vector(double a[], double b[])
-{
-	int	i;
-
-	i = -1;
-	while (++i < MTX)
-		if (a[i] != b[i])
-			return (0);
-	return (1);
-}
-
-int	is_same_sphere_space(t_sphere *a, t_sphere *b)
-{
-	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
-		&& a->diameter == b->diameter);
-}
-
-int	is_same_plane_space(t_plane *a, t_plane *b)
-{
-	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
-		&& is_equal_vector(a->norm_vect.axis, b->norm_vect.axis));
-}
-
-
-int	is_same_cylinder_space(t_cylinder *a, t_cylinder *b)
-{	
-	double	distance;
-	t_matrix_vector	subt_vect;
-t_matrix_vector	tmp1;
-t_matrix_vector	tmp2;
-	subtract_vector(a->origin_vect.axis, b->origin_vect.axis, subt_vect.axis);
-	distance = get_vector_magnitude(subt_vect.axis);
-	cross_product(&subt_vect, &a->axis_vect, &tmp1);
-	cross_product(&subt_vect, &b->axis_vect, &tmp2);
-	return (a->diameter == b->diameter
-		&& 
-		((is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
-	 	&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis))
-		|| ((are_collinear_vectors(&tmp1, 1e-4)
-		&& are_collinear_vectors(&tmp2, 1e-4) && distance > 0)
-		&& distance <= (a->height + b->height) * 0.5)
-		|| ((are_collinear_vectors(&a->axis_vect, 1e-4)
-		&& are_collinear_vectors(&b->axis_vect, 1e-4) && distance == 0)
-		))	
-		);
 }
 
 double	calculate_light_attenuation(t_ray *light_ray, double intensity)
@@ -251,35 +178,8 @@ void	add_lightening(t_add_lightening_params *params)
 	add_color(&scaled_color, params->color, params->res_color);
 }
 
-void	limit_to_255(t_color *color)
-{
-	int	i;
 
-	i = -1;
-	while (++i < AXIS)
-		if (color->rgb[i] > 255)
-			color->rgb[i] = 255;
-}
 
-int	is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight)
-{
-	t_matrix_vector	subt_vect;
-
-	subtract_vector(spotlight->origin_vect.axis, sphere->origin_vect.axis, subt_vect.axis);	
-	return ((get_vector_magnitude(subt_vect.axis) > sphere->diameter * 0.5
-	&& sphere->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) < sphere->diameter * 0.5
-	&& sphere->which_t == 1)));
-}
-
-int	is_cylinder_surface_between(t_cylinder *cyl, t_spotlight *spotlight)
-{
-	t_matrix_vector	subt_vect;
-
-	subtract_vector(spotlight->origin_vect.axis, cyl->origin_proj.axis, subt_vect.axis);	
-	return ((get_vector_magnitude(subt_vect.axis) > cyl->radius
-	&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) < cyl->radius
-	&& cyl->which_t == 1)));
-}
 
 int	get_sphere_color(t_get_color_params *params)
 {
@@ -462,13 +362,13 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 				add_xpm_logo(mlx, x, y, logo);
 			if (x >= WIDTH - 100 && y >= 0 && y < 100)
 			{
-				if (data->event.type_mesh == E_CAM)
+				if (data->event.actual_mode == E_CAM)
 					add_xpm_sph(mlx, x, y, cam);
-				else if (data->event.type_mesh == E_SPOTL)
+				else if (data->event.actual_mode == E_SPOTL)
 					add_xpm_sph(mlx, x, y, bulb);
-				else if (data->event.type_mesh == E_AMBL)
+				else if (data->event.actual_mode == E_AMBL)
 					add_xpm_sph(mlx, x, y, amb);
-				else if (data->event.type_mesh == E_MESH)
+				else if (data->event.actual_mode == E_MESH)
 					add_xpm_sph(mlx, x, y, sph);			 
 			}					
 			if (data->event.legend && x >= WIDTH - 792 && y >= HEIGHT - 200)
@@ -477,18 +377,3 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	}
 }
 
-// /**========================================================================
-//  *                           new_ray
-//  *========================================================================**/
-// static void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
-// {
-// 	double		norm_scale_x;
-// 	double		norm_scale_y;
-
-// 	cast_vector_mat_ray(&cam->origin_vect, &ray->origin_vect);
-// 	norm_scale_y = normalize_pixel(cam->resol[1], y, 0) * cam->scale;
-// 	norm_scale_x = normalize_pixel(cam->resol[0], x, 1) * cam->scale
-// 		* cam->aspect;
-// 	scale_and_add_vectors(cam, ray, norm_scale_x, norm_scale_y);
-// 	normalize_vector(ray->dir_vect.axis);
-// }

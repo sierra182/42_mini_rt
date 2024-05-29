@@ -197,21 +197,21 @@ int	key_event(int keycode, void *param)
 	else if (keycode == RST_CM)	
 		reset_cam(data);		
 	else if (keycode == MESH)	
-		data->event.type_mesh = E_MESH;
+		data->event.actual_mode = E_MESH;
 	else if (keycode == CAM)	
-		data->event.type_mesh = E_CAM;
+		data->event.actual_mode = E_CAM;
 	else if (keycode == LIGHT)	
-		data->event.type_mesh = E_SPOTL;
+		data->event.actual_mode = E_SPOTL;
 	else if (keycode == AMBL)	
-		data->event.type_mesh = E_AMBL;
-	else if (data->event.type_mesh == E_CAM)
+		data->event.actual_mode = E_AMBL;
+	else if (data->event.actual_mode == E_CAM)
 	{
 		event_translate(keycode, trsl_cam, &data->cam, NULL);	
 		cam_event_rotate(keycode, &data->cam);
 	}
-	else if (data->event.type_mesh == E_SPOTL)	
+	else if (data->event.actual_mode == E_SPOTL)	
 		event_translate(keycode, trsl_about_cam, &data->cam, &data->spotlight.origin_vect);
-	else if (data->event.type_mesh == E_MESH)
+	else if (data->event.actual_mode == E_MESH)
 	{
 		actual_mesh_handle(data, NULL, &transl_vect, &rotate_vect);
 		if (transl_vect)
@@ -235,14 +235,14 @@ int	key_event(int keycode, void *param)
 	{
 		data->event.ctrl_ispressed = 1;
 	}
-	if (data->event.type_mesh == E_MESH && (keycode == PLUS || keycode == MINUS))
+	if (data->event.actual_mode == E_MESH && (keycode == PLUS || keycode == MINUS))
 		chang_mesh_size(data, keycode);
-	if (data->event.type_mesh == E_SPOTL)
+	if (data->event.actual_mode == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
 		event_intensity(keycode, &data->spotlight.intensity);			
 	}
-	else if (data->event.type_mesh == E_AMBL)
+	else if (data->event.actual_mode == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);			
 	return (0);
 }
@@ -304,7 +304,7 @@ int    mouse_event(int button, int x, int y, void *param)
 	{
 		if (x >= 0 && x < 100 && y >= 0 && y < 100)
 			return (data->event.legend = (data->event.legend + 1) % 2, 0);
-		if (data->event.type_mesh == E_MESH)		
+		if (data->event.actual_mode == E_MESH)		
 			event_launch_rays(data, x, y);
 		return (0);
 	}

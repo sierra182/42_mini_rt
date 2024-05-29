@@ -78,6 +78,7 @@ SOURCES = \
 	$(SRC_DIR)/rays/get_cylinder_color_utils.c \
 	$(SRC_DIR)/rays/is_intersect.c \
 	$(SRC_DIR)/rays/hard_shadow.c \
+	$(SRC_DIR)/rays/shadow_exclusion.c \
 	$(SRC_DIR)/rays/is_intersect_cylinder.c \
 	$(SRC_DIR)/rays/is_intersect_utils.c \
 	$(SRC_DIR)/rays/find_closest_intersection.c \
