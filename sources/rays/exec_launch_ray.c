@@ -27,24 +27,6 @@ void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
 void	get_pixel_color_2(t_get_pixel_color_2_params *params);
 
 /**========================================================================
- *                           scale_and_add_vectors
- *========================================================================**/
-static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
-	double norm_scale_y)
-{
-	t_matrix_vector	scaled_up;
-	t_matrix_vector	scaled_right;
-	t_matrix_vector	scaled_forward;
-	t_matrix_vector	sum_vect;
-
-	scale_vector(cam->up_vect.axis, norm_scale_y, scaled_up.axis);
-	scale_vector(cam->right_vect.axis, norm_scale_x, scaled_right.axis);
-	scale_vector(cam->forward_vect.axis, cam->focal_len, scaled_forward.axis);
-	add_vector(scaled_up.axis, scaled_right.axis, sum_vect.axis);
-	add_vector(sum_vect.axis, scaled_forward.axis, ray->dir_vect.axis);
-}
-
-/**========================================================================
  *                           exec_launch_rays
  *========================================================================**/
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)

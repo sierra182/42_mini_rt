@@ -13,6 +13,7 @@ double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder,
 double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
 void	invert_vector(double a[], double b[], double r_a[], double r_b[]);
+int		has_shadow(t_data *data, void *mesh, t_ray *light_ray);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
@@ -145,26 +146,6 @@ void	color_with_light(t_color *mesh_color,
 	scale_color(new_color, intensity, new_color);
 }
 
-// void	color_with_spotlight(t_color *mesh_color,
-// 	t_spotlight *spotlight, t_color *new_color)
-// {
-// 	t_color	light_scaled_color;
-// 	double	tmp_color;
-// 	int		i;
-
-// 	scale_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255 }, spotlight->intensity,
-// 		&light_scaled_color);
-// 	get_average_color(&light_scaled_color, mesh_color, new_color);
-// 	scale_color(new_color, spotlight->intensity, new_color);
-
-// 	// i = -1;
-// 	// while (++i < AXIS) //!scale
-// 	// {
-// 	// 	tmp_color = light_scaled_color.rgb[i] / 255.0;
-// 	// 	new_color->rgb[i] = tmp_color * mesh_color->rgb[i];
-// 	// }
-// }
-
 void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 {
 	t_ray_vector	scaled_vect;
@@ -194,71 +175,10 @@ int	is_same_plane_space(t_plane *a, t_plane *b)
 	return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
 		&& is_equal_vector(a->norm_vect.axis, b->norm_vect.axis));
 }
-int are_collinear(double u[], double v[]) {
-    double k1, k2, k3;
 
-    // Avoid division by zero by checking each component
-    if (u[0] != 0) {
-        k1 = v[0] / u[0];
-    } else if (v[0] == 0) {
-        k1 = 1; // Both are zero, consider it collinear
-    } else {
-		printf("not col\n");
-        return 0; // One is zero, the other is not
-    }
-
-    if (u[1] != 0) {
-        k2 = v[1] / u[1];
-    } else if (v[1] == 0) {
-        k2 = 1;
-    } else {
-		printf("not col\n");
-        return 0;
-    }
-
-    if (u[2] != 0) {
-        k3 = v[2] / u[2];
-    } else if (v[2] == 0) {
-        k3 = 1;
-    } else {
-		printf("not col\n");
-        return 0;
-    }
-
-    // Check if all ratios are equal
-    return (k1 == k2) && (k2 == k3);
-}
-// int	is_same_cylinder_space(t_cylinder *a, t_cylinder *b)
-// {
-// 	// return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
-// 	// 	&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis)
-// 	// 	&& a->diameter == b->diameter);	
-// 	double	distance;
-// 	t_matrix_vector	subt_vect;
-// // t_matrix_vector	tmp1;
-// // t_matrix_vector	tmp2;
-// 	subtract_vector(a->origin_vect.axis, b->origin_vect.axis, subt_vect.axis);
-// 	distance = get_vector_magnitude(subt_vect.axis);
-// 	// cross_product(&subt_vect, &a->axis_vect, &tmp1);
-// 	// cross_product(&subt_vect, &b->axis_vect, &tmp2);
-// 	return (a->diameter == b->diameter
-// 		&& 
-// 		((is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
-// 	 	&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis))
-// 		|| ((!are_collinear(subt_vect.axis, a->axis_vect.axis)
-// 		&& !are_collinear(subt_vect.axis, b->axis_vect.axis) && distance > 0)
-// 		&& distance <= (a->height + b->height) * 0.5)
-// 		|| ((!are_collinear(subt_vect.axis, a->axis_vect.axis)
-// 		&& !are_collinear(subt_vect.axis, b->axis_vect.axis) && distance == 0)
-// 		))
-// 		);
-// }
 
 int	is_same_cylinder_space(t_cylinder *a, t_cylinder *b)
-{
-	// return (is_equal_vector(a->origin_vect.axis, b->origin_vect.axis)
-	// 	&& is_equal_vector(a->axis_vect.axis, b->axis_vect.axis)
-	// 	&& a->diameter == b->diameter);	
+{	
 	double	distance;
 	t_matrix_vector	subt_vect;
 t_matrix_vector	tmp1;
@@ -278,121 +198,6 @@ t_matrix_vector	tmp2;
 		&& are_collinear_vectors(&b->axis_vect, 1e-4) && distance == 0)
 		))	
 		);
-}
-
-int	has_sphere_shadow(t_data *data, void *mesh, t_ray *n_light_ray)
-{
-	int				i;
-	double			t;
-	long double		mesh_mag;
-	long double		light_mag;
-	t_ray_vector	intersect_pt;
-		
-	t_sphere sphere = *(t_sphere *)mesh;
-	t_ray tmp =  *n_light_ray;
-	t_ray *light_ray = &tmp;
-	normalize_vector(light_ray->dir_vect.axis);
-	double int_t = is_intersect_sphere(light_ray, &sphere, NULL);
-	 // int_t = ((t_sphere *)mesh)->t2;
-	// printf("int t: %f\n", int_t);
-	// printf("which t: %d\n", sphere.which_t);
-	// printf("t2: %f\n", sphere.t2);
-	// printf("t1: %f\n\n", sphere.t1);
-	i = -1;
-	while (++i < data->sp_nbr)
-	{
-	
-		if (mesh && (void *) &data->spheres[i] != mesh && !is_same_sphere_space(&data->spheres[i], mesh))
-		{
-			t = is_intersect_sphere(light_ray, &data->spheres[i], NULL);
-			 if( (t && !int_t)||( t && int_t && int_t < data->spheres[i].t2))
-			// if (t && sphere.which_t == 0 || t &&  sphere.which_t == 2 && int_t < data->spheres[i].t2 )
-
-			{
-				get_local_intersect_point(light_ray, t, &intersect_pt);
-				light_mag = get_vector_magnitude(n_light_ray->dir_vect.axis);
-				mesh_mag = get_vector_magnitude(intersect_pt.axis);
-				if (mesh_mag - 1e-5 < light_mag)
-					return (1);
-			}
-		}
-		
-
-	}
-	return (0);
-}
-
-int	has_cylinder_shadow(t_data *data, void *mesh, t_ray *n_light_ray)
-{
-	int				i;
-	double			t;
-	long double		mesh_mag;
-	long double		light_mag;
-	t_ray_vector	intersect_pt;
-
-	t_cylinder cylinder = *(t_cylinder *)mesh;
-	t_ray tmp =  *n_light_ray;
-	t_ray *light_ray = &tmp;
-	normalize_vector(light_ray->dir_vect.axis);
-	double int_t = is_intersect_cylinder(light_ray, &cylinder, NULL);
-	i = -1;
-	while (++i < data->cy_nbr)
-	{
-		if (mesh && (void *) &data->cylinders[i] != mesh && !is_same_cylinder_space(&data->cylinders[i], mesh))
-		{
-			t = is_intersect_cylinder(light_ray, &data->cylinders[i], NULL);
-			// if (t)
-						// if( (t > 1e-3 && int_t < 1e-3)||( t > 1e-3 && int_t > 1e-3 && int_t +.1 < data->spheres[i].t2))
-
-			if( (t && int_t < 1e-3)||( t && int_t && int_t < data->spheres[i].t2))
-			{
-				get_local_intersect_point(light_ray, t, &intersect_pt);
-				light_mag = get_vector_magnitude(n_light_ray->dir_vect.axis);
-				mesh_mag = get_vector_magnitude(intersect_pt.axis);
-				if (mesh_mag - 1e-5 < light_mag)
-					return (1);
-			}
-		}
-	}
-	return (0);
-}
-
-int	has_plane_shadow(t_data *data, void *mesh, t_ray *light_ray)
-{
-	int				i;
-	double			t;
-	long double		mesh_mag;
-	long double		light_mag;
-	t_ray_vector	intersect_pt;
-
-	i = -1;
-	while (++i < data->pl_nbr)
-	{
-		if (mesh && (void *) &data->planes[i] != mesh && !is_same_plane_space(&data->planes[i], mesh))
-		{
-			t = is_intersect_plane(light_ray, &data->planes[i], NULL);
-			if (t)
-			{
-				get_local_intersect_point(light_ray, t, &intersect_pt);
-				light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
-				mesh_mag = get_vector_magnitude(intersect_pt.axis);
-				if (mesh_mag - 1e-5 < light_mag)
-					return (1);
-			}
-		}
-	}
-	return (0);
-}
-
-int	has_shadow(t_data *data, void *mesh, t_ray *light_ray)
-{
-	if (has_sphere_shadow(data, mesh, light_ray))
-		return (1);
-	if (has_cylinder_shadow(data, mesh, light_ray))
-		return (1);
-	if (has_plane_shadow(data, mesh, light_ray))
-		return (1);
-	return (0);
 }
 
 double	calculate_light_attenuation(t_ray *light_ray, double intensity)
@@ -470,7 +275,6 @@ int	is_cylinder_surface_between(t_cylinder *cyl, t_spotlight *spotlight)
 {
 	t_matrix_vector	subt_vect;
 
-	// printf("which_t: %i\n", cyl->which_t);
 	subtract_vector(spotlight->origin_vect.axis, cyl->origin_proj.axis, subt_vect.axis);	
 	return ((get_vector_magnitude(subt_vect.axis) > cyl->radius
 	&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) < cyl->radius
