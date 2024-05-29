@@ -14,12 +14,12 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 void	color_with_light(t_color *mesh_color,
 			t_color *light_color, double intensity, t_color *new_color);
 void	limit_to_255(t_color *color);
-int		get_cylinder_color_discs(t_get_color_params *params);
+void	get_cylinder_color_discs(t_get_color_params *params);
 
 /**========================================================================
  *                           ADD_SHADING_AND_LIGNTENING_EFFECTS
  *========================================================================**/
-void	add_shading_and_ligntening_effects(t_get_color_params *params,
+static void	add_shading_and_ligntening_effects(t_get_color_params *params,
 	t_ray_vector *normal, t_ray *light_ray)
 {
 	t_color			spotlighty_color;
