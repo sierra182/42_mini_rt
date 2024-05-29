@@ -85,7 +85,8 @@ SOURCES = \
 	$(SRC_DIR)/linear_algebra/vector.c \
 	$(SRC_DIR)/linear_algebra/color.c \
 	$(SRC_DIR)/linear_algebra/vector_utils.c \
-	$(SRC_DIR)/event/events_keycode.c
+	$(SRC_DIR)/event/events_keycode.c \
+	$(SRC_DIR)/event/mouse_events.c 
 	
 HEADERS = \
 	$(HEADERS_DIR)/x_mini_struct.h \
