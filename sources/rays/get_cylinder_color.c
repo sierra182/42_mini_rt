@@ -46,6 +46,9 @@ void	add_shading_and_ligntening_effects(t_get_color_params *params,
 	limit_to_255(params->color);
 }
 
+/**========================================================================
+ *                           HANDLE_PROJECTION
+ *========================================================================**/
 void	handle_projection(t_get_color_params *params, t_ray_vector
 *cyl_to_intersect, t_ray_vector *normal)
 {
