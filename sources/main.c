@@ -51,13 +51,14 @@ void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 	mlx_loop(mlx->connect);
 }
 
-void	init_img_item(t_mlx *mlx, t_img *img, char *str)
+void	init_img_item(t_mlx *mlx, t_img *img, char *str, int color)
 {
 	img->img_ptr = mlx_xpm_file_to_image(mlx->connect, str, &(int){0}, &(int){0});
 	if (!img->img_ptr)    
-		return (display_error("Error loading image\n")); //!testing leaks
+		return (display_error("Error loading image\n"), exit(1)); 
 	img->img_data = mlx_get_data_addr(img->img_ptr, &img->bpp,
 		&img->line_len, &(int){0});
+	img->alpha_color = color;
 }
 
 int	init_mlx(t_mlx *mlx)
@@ -71,18 +72,12 @@ int	init_mlx(t_mlx *mlx)
 	mlx->img.img_ptr = mlx_new_image(mlx->connect, WIDTH, HEIGHT);
 	mlx->img.img_data = mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
 	&mlx->img.line_len,	&(int){0});
-	init_img_item(mlx, &mlx->img_items.logo, "logo.xpm");
-	init_img_item(mlx, &mlx->img_items.legend, "legend.xpm");
-	init_img_item(mlx, &mlx->img_items.sph, "sph.xpm");
-	init_img_item(mlx, &mlx->img_items.cam, "cam.xpm");
-	init_img_item(mlx, &mlx->img_items.amb, "amb.xpm");
-	init_img_item(mlx, &mlx->img_items.bulb, "bulb.xpm");
-	// void *logo = mlx_xpm_file_to_image(mlx->connect, "logo.xpm", &(int){0}, &(int){0});
-	// void *img = mlx_xpm_file_to_image(mlx->connect, "legend.xpm", &(int){0}, &(int){0});
-	// void *sph = mlx_xpm_file_to_image(mlx->connect, "sph.xpm", &(int){0}, &(int){0});
-	// void *cam = mlx_xpm_file_to_image(mlx->connect, "cam.xpm", &(int){0}, &(int){0});
-	// void *bulb = mlx_xpm_file_to_image(mlx->connect, "bulb.xpm", &(int){0}, &(int){0});
-	// void *amb = mlx_xpm_file_to_image(mlx->connect, "amb.xpm", &(int){0}, &(int){0});
+	init_img_item(mlx, &mlx->img_items.logo, "logo.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.legend, "legend.xpm", 0x0);
+	init_img_item(mlx, &mlx->img_items.sph, "sph.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.cam, "cam.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.amb, "amb.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.bulb, "bulb.xpm", 0xFF0000);
 	add_exit_struct((void *) mlx, MLX);
 	return (0);
 }

@@ -8,12 +8,18 @@
 # define BIG_VALUE 100000000
 # include <stdio.h>
 
+typedef struct	s_color
+{
+	int	rgb[AXIS];
+}	t_color;
+
 typedef	struct s_img
 {
 	void	*img_ptr;
 	char	*img_data;
 	int		line_len;
 	int		bpp;
+	int		alpha_color;
 }	t_img;
 
 typedef struct s_img_items
@@ -23,7 +29,7 @@ typedef struct s_img_items
 	t_img	sph;
 	t_img	cam;
 	t_img	bulb;
-	t_img	amb;
+	t_img	amb;	
 }	t_img_items;
 
 typedef struct s_mlx
@@ -65,10 +71,7 @@ typedef struct s_cam
 	t_matrix_vector	origin_vect;
 }	t_cam;
 
-typedef struct	s_color
-{
-	int	rgb[AXIS];
-}	t_color;
+
 
 typedef struct s_sphere
 {

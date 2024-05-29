@@ -6,7 +6,20 @@ void	store_and_free_mlx(t_exit *exit, void *mlx)
 		exit->mlx = (t_mlx *) mlx;
 	else if (exit && exit->mlx)
 	{
-		mlx_destroy_image(exit->mlx->connect, exit->mlx->img.img_ptr);
+		mlx_destroy_image(exit->mlx->connect,
+			exit->mlx->img_items.amb.img_ptr);
+		mlx_destroy_image(exit->mlx->connect,
+			exit->mlx->img_items.logo.img_ptr);
+		mlx_destroy_image(exit->mlx->connect,
+			exit->mlx->img_items.bulb.img_ptr);
+		mlx_destroy_image(exit->mlx->connect,
+			exit->mlx->img_items.cam.img_ptr);
+		mlx_destroy_image(exit->mlx->connect,
+			exit->mlx->img_items.legend.img_ptr);
+		mlx_destroy_image(exit->mlx->connect,
+			exit->mlx->img_items.sph.img_ptr);
+		mlx_destroy_image(exit->mlx->connect,
+			exit->mlx->img.img_ptr);
 		mlx_destroy_window(exit->mlx->connect, exit->mlx->window);
 		mlx_destroy_display(exit->mlx->connect);
 		free(exit->mlx->connect);
