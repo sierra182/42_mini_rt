@@ -53,7 +53,8 @@ void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 
 void	init_img_item(t_mlx *mlx, t_img *img, char *str, int color)
 {
-	img->img_ptr = mlx_xpm_file_to_image(mlx->connect, str, &(int){0}, &(int){0});
+	img->img_ptr = mlx_xpm_file_to_image(mlx->connect, str,
+		&(int){0}, &(int){0});
 	if (!img->img_ptr)    
 		return (display_error("Error loading image\n"), exit(1)); 
 	img->img_data = mlx_get_data_addr(img->img_ptr, &img->bpp,

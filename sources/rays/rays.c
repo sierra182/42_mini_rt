@@ -1,21 +1,9 @@
 #include "rays.h"
 
-# include "mlx.h"
 # include "x_mini_struct.h"
 # include "x_linear_algebra.h"
-# include <math.h>
 
-void	display_error(char *str);
-
-double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
-double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder,
-			t_ray_vector *i);
-double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
-void	invert_vector(double a[], double b[], double r_a[], double r_b[]);
-int		has_shadow(t_data *data, void *mesh, t_ray *light_ray);
-int		is_equal_vector(double a[], double b[]);
-int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 void	add_xpm_items(t_mlx *mlx, t_data *data, int x, int y);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
@@ -33,7 +21,7 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	add_vector(sum_vect.axis, scaled_forward.axis, ray->dir_vect.axis);
 }
 
-double	normalize_pixel(int screen_size, int pixel, int x_flag)
+static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 {
 	if (!screen_size)
 		return (0.0);
@@ -53,26 +41,6 @@ void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 		* cam->aspect;
 	scale_and_add_vectors(cam, ray, norm_scale_x, norm_scale_y);
 	normalize_vector(ray->dir_vect.axis);
-}
-
-int	is_behind_cam(double t)
-{
-	return (t <= 0.0);
-}
-
-void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
-{
-	t_ray_vector	scaled_vect;
-
-	scale_vector(ray->dir_vect.axis, t, scaled_vect.axis);
-	add_vector(ray->origin_vect.axis, scaled_vect.axis, inter_pt->axis);
-}
-
-void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
-{
-	t_ray_vector	scaled_vect;
-
-	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);
 }
 
 void	launch_rays(t_mlx *mlx, t_data *data)
