@@ -1,3 +1,5 @@
+#include "x_mini_struct.h"
+
 void	print_matrix_vector(t_matrix_vector vector)
 {
 	int	i;
