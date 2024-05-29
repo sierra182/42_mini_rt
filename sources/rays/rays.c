@@ -341,8 +341,10 @@ int	has_cylinder_shadow(t_data *data, void *mesh, t_ray *n_light_ray)
 		if (mesh && (void *) &data->cylinders[i] != mesh && !is_same_cylinder_space(&data->cylinders[i], mesh))
 		{
 			t = is_intersect_cylinder(light_ray, &data->cylinders[i], NULL);
-			//if (t)
-			if( (t && !int_t)||( t && int_t && int_t < data->spheres[i].t2))
+			// if (t)
+						// if( (t > 1e-3 && int_t < 1e-3)||( t > 1e-3 && int_t > 1e-3 && int_t +.1 < data->spheres[i].t2))
+
+			if( (t && int_t < 1e-3)||( t && int_t && int_t < data->spheres[i].t2))
 			{
 				get_local_intersect_point(light_ray, t, &intersect_pt);
 				light_mag = get_vector_magnitude(n_light_ray->dir_vect.axis);
