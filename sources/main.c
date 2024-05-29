@@ -59,14 +59,74 @@ int	mouse_release(int button, int x, int y, void *param)
 	}
 	return (0);
 }
+void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
+void	pre_transform(t_data *data)
+{
+	int	i;
+	double offset;
+	double n_offset;
+	double space;
+
+	space = 15;
+	i = -1;
+	offset = 0;
+	while (++i < data->cy_nbr *.25)
+	{
+		trsl_mesh(NULL, &data->cylinders[i].origin_vect, (double []){0, 0, offset});
+		offset += space;
+	}
+	offset = 0;
+	while (i < data->cy_nbr * 0.50)
+	{
+		offset += space;
+		trsl_mesh(NULL, &data->cylinders[i].origin_vect, (double []){offset, 0, 0});
+		i++;
+	}
+	n_offset = 0;
+	while (i < data->cy_nbr * 0.75)
+	{
+		n_offset += space;
+		trsl_mesh(NULL, &data->cylinders[i].origin_vect, (double []){offset, 0, n_offset});
+		i++;
+	}
+	// offset = n_offset;
+	while (i < data->cy_nbr * 1)
+	{
+		offset -= space;
+		trsl_mesh(NULL, &data->cylinders[i].origin_vect, (double []){offset,  0, n_offset});
+		i++;
+	}
+}
+// void pre_transform(t_data *data)
+// {
+//     int i;
+//     int x_offset, y_offset, z_offset;
+//     int grid_size;
+//     int side_length;
+
+//     // Définir la taille de la grille (nombre de cylindres par côté)
+//     side_length = ceil(cbrt(data->cy_nbr)); // racine cubique arrondie au supérieur pour avoir une grille suffisamment grande
+
+//     i = 0;
+//     for (z_offset = 0; z_offset < side_length && i < data->cy_nbr; z_offset++)
+//     {
+//         for (y_offset = 0; y_offset < side_length && i < data->cy_nbr; y_offset++)
+//         {
+//             for (x_offset = 0; x_offset < side_length && i < data->cy_nbr; x_offset++)
+//             {
+//                 trsl_mesh(NULL, &data->cylinders[i].origin_vect, (double []){x_offset * 30, y_offset * 30, z_offset * 30});
+//                 i++;
+//             }
+//         }
+//     }
+// }
 
 void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 {		
-
+	// pre_transform(data);
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);
 	mlx_hook(mlx->window, 2, 1L << 0, key_event, (void *[]){mlx, data});
 	mlx_hook(mlx->window, 3, 1L << 1, key_up_event, (void *[]){mlx, data});
-
 	mlx_mouse_hook(mlx->window, mouse_event, (void *) data);
 	mlx_hook(mlx->window, 5, 1L << 3, mouse_release, (void *) data);
 	mlx_loop_hook(mlx->connect, frame, (void *[]){mlx, data});
