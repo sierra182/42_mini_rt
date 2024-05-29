@@ -23,6 +23,11 @@ void	chang_mesh_size(t_data *data, int keycode);
 void	make_rt_file(t_data *data);
 void	video_rotate_element(t_sphere *sphere);
 
+void	limit_to_255(t_color *color);
+
+/**========================================================================
+ *                           CAM_EVENT_ROTATE
+ *========================================================================**/
 static void cam_event_rotate(int keycode, t_cam *cam)
 {
     double  r;
@@ -42,6 +47,9 @@ static void cam_event_rotate(int keycode, t_cam *cam)
 		rotate_cam(cam, -r, (int []){0, 0, 1});
 }
 
+/**========================================================================
+ *                           EVENT_ROTATE
+ *========================================================================**/
 static void event_rotate(int keycode, t_matrix_vector *vector)
 {
     double  r;
@@ -61,6 +69,9 @@ static void event_rotate(int keycode, t_matrix_vector *vector)
 		rotate_mesh(vector, -r, (int []){0, 0, 1});
 }
 
+/**========================================================================
+ *                           EVENT_TRANSLATE
+ *========================================================================**/
 static void	event_translate(int keycode,
 	void (*trsl_mesh)(t_cam *cam, t_matrix_vector *vect, double values[]),
 		t_cam *cam, t_matrix_vector *vect)
@@ -82,6 +93,9 @@ static void	event_translate(int keycode,
 		trsl_mesh(cam, vect, (double []){0.0, 0.0, -t});
 } 	
 
+/**========================================================================
+ *                           ASSIGN_VECTOR
+ *========================================================================**/
 void	assign_vector(t_matrix_vector *origin_vect, t_matrix_vector *dir_vect,
 	t_matrix_vector **new_origin_vect, t_matrix_vector **new_dir_vect)
 {
@@ -89,8 +103,9 @@ void	assign_vector(t_matrix_vector *origin_vect, t_matrix_vector *dir_vect,
 	*new_dir_vect = dir_vect;
 }
 
-void	limit_to_255(t_color *color);
-
+/**========================================================================
+ *                           BE_HIGHLIGHT
+ *========================================================================**/
 void	be_highlight(t_color *color)
 {
 	int	i;
@@ -101,6 +116,9 @@ void	be_highlight(t_color *color)
 	limit_to_255(color);	
 }
 
+/**========================================================================
+ *                           ACTUAL_MESH_HANDLE
+ *========================================================================**/
 void	actual_mesh_handle(t_data *data, t_obj *mesh,
 	t_matrix_vector **origin_vect, t_matrix_vector **dir_vect)
 {
@@ -137,7 +155,9 @@ void	actual_mesh_handle(t_data *data, t_obj *mesh,
 	}
 }
 
-
+/**========================================================================
+ *                           RESET
+ *========================================================================**/
 void	reset(t_data *data)
 {
 	t_reset_tmps tmps;
@@ -162,12 +182,18 @@ void	reset(t_data *data)
 		sizeof(t_cylinder));
 }
 
+/**========================================================================
+ *                           RESET_CAM
+ *========================================================================**/
 void	reset_cam(t_data *data)
 {
 	data->cam.forward_vect.axis[1] = 0;
 	calculate_missing_vectors(&data->cam);
 }
 
+/**========================================================================
+ *                           EVENT_INTENSITY
+ *========================================================================**/
 void	event_intensity(int keycode, double *intensity)
 {
 	if (keycode == PLUS && *intensity <= 0.9)
@@ -176,6 +202,9 @@ void	event_intensity(int keycode, double *intensity)
 		*intensity -= 0.1;
 }
 
+/**========================================================================
+ *                           KEY_EVENT
+ *========================================================================**/
 int	key_event(int keycode, void *param)
 {
 	t_mlx						*mlx;
@@ -247,6 +276,9 @@ int	key_event(int keycode, void *param)
 	return (0);
 }
 
+/**========================================================================
+ *                           KEY_UP_EVENT
+ *========================================================================**/
 void	key_up_event(int keycode, void *param)
 {
 	t_mlx						*mlx;
@@ -259,6 +291,9 @@ void	key_up_event(int keycode, void *param)
 	} 
 }
 
+/**========================================================================
+ *                           EVENT_LAUNCH_RAYS
+ *========================================================================**/
 void	event_launch_rays(t_data *data, int x, int y)
 {
 	t_ray	ray;
@@ -273,6 +308,9 @@ void	event_launch_rays(t_data *data, int x, int y)
 	actual_mesh_handle(data, &obj, NULL, NULL);	
 }
 
+/**========================================================================
+ *                           MOUSE_RELEASE
+ *========================================================================**/
 int	mouse_release(int button, int x, int y, void *param)
 {	
 	t_data	*data;
@@ -294,6 +332,9 @@ int	mouse_release(int button, int x, int y, void *param)
 	return (0);
 }
 
+/**========================================================================
+ *                           MOUSE_EVENT
+ *========================================================================**/
 int    mouse_event(int button, int x, int y, void *param)
 {
     t_data	*data;
