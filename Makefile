@@ -52,8 +52,9 @@ SOURCES = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/mesh/cam.c \
 	$(SRC_DIR)/mesh/mesh_trsf.c \
+	$(SRC_DIR)/mesh/change_mesh_size.c \
 	$(SRC_DIR)/event/event.c \
-	$(SRC_DIR)/utils.c \
+	$(SRC_DIR)/parsing/utils.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
 	$(SRC_DIR)/matrix/matrix.c \
@@ -83,7 +84,6 @@ SOURCES = \
 	$(SRC_DIR)/linear_algebra/vector.c \
 	$(SRC_DIR)/linear_algebra/color.c \
 	$(SRC_DIR)/linear_algebra/vector_utils.c \
-	$(SRC_DIR)/change_mesh_size.c \
 
 HEADERS = \
 	$(HEADERS_DIR)/x_mini_struct.h \
