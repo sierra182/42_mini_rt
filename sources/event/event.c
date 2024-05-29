@@ -1,6 +1,6 @@
-# include "x_mini_struct.h"
-# include "mlx.h"
-# include "libft.h"
+#include "x_mini_struct.h"
+#include "mlx.h"
+#include "libft.h"
 
 void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
 void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
@@ -43,9 +43,9 @@ void	be_highlight(t_color *color)
 	int	i;
 
 	i = -1;
-	while (++i < AXIS)	
+	while (++i < AXIS)
 		color->rgb[i] += 100;
-	limit_to_255(color);	
+	limit_to_255(color);
 }
 
 /**========================================================================
@@ -67,27 +67,25 @@ void	actual_mesh_handle(t_data *data, t_obj *mesh,
 		if (color)
 		{
 			data->event.color_sav = *color;
-			be_highlight(color);		
+			be_highlight(color);
 		}
-		data->event.actual_mesh = *mesh;			
+		data->event.actual_mesh = *mesh;
 	}
 	else if (data->event.actual_mesh.ref)
-	{			
-		if (data->event.actual_mesh.type == O_SP)			
+	{
+		if (data->event.actual_mesh.type == O_SP)
 			assign_vector(&((t_sphere *) data->event.actual_mesh.ref)
-				->origin_vect, NULL, origin_vect, dir_vect);			
-		else if (data->event.actual_mesh.type == O_PL)			
+				->origin_vect, NULL, origin_vect, dir_vect);
+		else if (data->event.actual_mesh.type == O_PL)
 			assign_vector(&((t_plane *) data->event.actual_mesh.ref)
 				->origin_vect, &((t_plane *) data->event.actual_mesh.ref)
-				->norm_vect, origin_vect, dir_vect);			
-		else if (data->event.actual_mesh.type == O_CY)			
+				->norm_vect, origin_vect, dir_vect);
+		else if (data->event.actual_mesh.type == O_CY)
 			assign_vector(&((t_cylinder *) data->event.actual_mesh.ref)
 				->origin_vect, &((t_cylinder *)data->event.actual_mesh.ref)
-				->axis_vect, origin_vect, dir_vect);		
+				->axis_vect, origin_vect, dir_vect);
 	}
 }
-
-
 
 /**========================================================================
  *                           EVENT_INTENSITY
@@ -99,7 +97,6 @@ void	event_intensity(int keycode, double *intensity)
 	else if (keycode == MINUS && *intensity >= 0.1)
 		*intensity -= 0.1;
 }
-
 
 /**========================================================================
  *                           EVENT_LAUNCH_RAYS
@@ -115,6 +112,5 @@ void	event_launch_rays(t_data *data, int x, int y)
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
-	actual_mesh_handle(data, &obj, NULL, NULL);	
+	actual_mesh_handle(data, &obj, NULL, NULL);
 }
-
