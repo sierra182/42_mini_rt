@@ -16,11 +16,22 @@ typedef	struct s_img
 	int		bpp;
 }	t_img;
 
+typedef struct s_img_items
+{
+	t_img	legend; 
+	t_img	logo;
+	t_img	sph;
+	t_img	cam;
+	t_img	bulb;
+	t_img	amb;
+}	t_img_items;
+
 typedef struct s_mlx
 {
-	void	*connect;
-	void	*window;
-	t_img	img;
+	void		*connect;
+	void		*window;
+	t_img		img;
+	t_img_items	img_items;
 }	t_mlx;
 
 typedef struct s_ray_vector
