@@ -27,7 +27,7 @@ int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[], double sel
 		i = -1;
 		while (++i < data->sp_nbr)
 		{	
-			if (mesh->ref && (void *) &data->spheres[i] != mesh->ref && !is_same_sphere_space(&data->spheres[i], mesh->ref))
+			if (mesh->ref && (void *) &data->spheres[i] != mesh->ref)// && !is_same_sphere_space(&data->spheres[i], mesh->ref))
 			{
 				t = is_intersect_sphere(light_rays[1], &data->spheres[i], NULL);
 				if( (t && !self_inter)||( t && self_inter && self_inter < data->spheres[i].t2))
@@ -77,7 +77,7 @@ int	has_cylinder_shadow(t_data *data, t_obj *mesh, t_ray *n_light_ray, double se
 		i = -1;
 		while (++i < data->cy_nbr)
 		{
-			if (mesh->ref && (void *) &data->cylinders[i] != mesh->ref && !is_same_cylinder_space(&data->cylinders[i], &cylinder))
+			if (mesh->ref && (void *) &data->cylinders[i] != mesh->ref)// && !is_same_cylinder_space(&data->cylinders[i], &cylinder))
 			{
 				t = is_intersect_cylinder(light_ray, &data->cylinders[i], NULL);
 				if( (t && self_inter < 1e-3)||( t && self_inter && self_inter < data->cylinders[i].t2))
@@ -123,7 +123,7 @@ int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
 		i = -1;
 		while (++i < data->pl_nbr)
 		{
-			if (mesh->ref && (void *) &data->planes[i] != mesh->ref && !is_same_plane_space(&data->planes[i], mesh->ref))
+			if (mesh->ref && (void *) &data->planes[i] != mesh->ref)// && !is_same_plane_space(&data->planes[i], mesh->ref))
 			{
 				t = is_intersect_plane(light_ray, &data->planes[i], NULL);
 				if (t)
@@ -166,7 +166,6 @@ int	has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
 
 	light_ray_norm = *light_ray;
 	normalize_vector(light_ray_norm.dir_vect.axis);
-
 	if (mesh->type == O_SP)
 	{
 		sph_cpy = *(t_sphere *) mesh->ref;
