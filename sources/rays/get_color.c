@@ -2,7 +2,7 @@
 # include "x_linear_algebra.h"
 # include "x_color_effect.h"
 
-int		has_shadow(t_data *data, void *mesh, t_ray *light_ray);
+int		has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
@@ -17,23 +17,23 @@ int	get_sphere_color(t_get_color_params *params)
 
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(light_ray.origin_vect.axis,
-		((t_sphere *) params->mesh)->origin_vect.axis, normal.axis);
+		((t_sphere *) params->mesh->ref)->origin_vect.axis, normal.axis);
 	normalize_vector(normal.axis);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
-	color_with_light(&((t_sphere *) params->mesh)->color,
+	color_with_light(&((t_sphere *) params->mesh->ref)->color,
 		&params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
-	color_with_light(&((t_sphere *) params->mesh)->color,
+	color_with_light(&((t_sphere *) params->mesh->ref)->color,
 		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
-	if (((t_sphere *) params->mesh)->which_t == 2)
+	if (((t_sphere *) params->mesh->ref)->which_t == 2)
 		symmetrize_vector(normal.axis);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 
 
 
-	if (has_shadow(params->data, (t_sphere *) params->mesh, &light_ray)
-	|| is_sphere_surface_between(params->mesh, &params->data->spotlight))
+	if (has_shadow(params->data, params->mesh, &light_ray)
+	|| is_sphere_surface_between(params->mesh->ref, &params->data->spotlight))
 		
 		return (*params->color = ambiantly_color, 0);
 	//|| ( scalar_product(normal.axis, tmp_ray.dir_vect.axis) < 0.0
@@ -57,7 +57,7 @@ void	get_plane_color(t_get_color_params *params)
 	t_plane		*plane;
 	double			light_attenuat;
 	double			light_coef;	 
-	plane = ((t_plane *) params->mesh);
+	plane = ((t_plane *) params->mesh->ref);
 
 	cast_vector_mat_ray(&plane->norm_vect, &normal);
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);

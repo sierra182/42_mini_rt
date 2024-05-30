@@ -4,7 +4,7 @@
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	color_with_ambiant_light(t_color *mesh_color,
 			t_ambiant_light *ambiant_light, t_color *new_color);
-int		has_shadow(t_data *data, void *mesh, t_ray *light_ray);
+int		has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray);
 void	add_lightening(t_add_lightening_params *params);
 void	get_plane_color(t_get_color_params *params);
 void	add_shading( t_ray *ray, t_ray_vector *normal,
@@ -15,6 +15,7 @@ void	color_with_light(t_color *mesh_color,
 			t_color *light_color, double intensity, t_color *new_color);
 void	limit_to_255(t_color *color);
 void	get_cylinder_color_discs(t_get_color_params *params);
+int		is_cylinder_surface_between(t_cylinder *cyl, t_spotlight *spotlight);
 
 /**========================================================================
  *                           ADD_SHADING_AND_LIGNTENING_EFFECTS
@@ -28,7 +29,7 @@ static void	add_shading_and_ligntening_effects(t_get_color_params *params,
 	t_color			ambiantly_color;
 	t_cylinder		*cyl;
 
-	cyl = (t_cylinder *)params->mesh;
+	cyl = (t_cylinder *)params->mesh->ref;
 	color_with_light(&cyl->color, &params->data->ambiant_light.color, params
 		->data->ambiant_light.intensity, &ambiantly_color);
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255,
@@ -36,7 +37,7 @@ static void	add_shading_and_ligntening_effects(t_get_color_params *params,
 		&spotlighty_color);
 	add_shading(params->ray, normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, normal, &spotlighty_color, &spotlighty_color);
-	if (has_shadow(params->data, cyl, light_ray))
+	if (has_shadow(params->data, params->mesh, light_ray))
 		*params->color = ambiantly_color;
 	add_lightening(&(t_add_lightening_params){light_ray, normal, &params
 		->data->spotlight, &ambiantly_color, params->color,
@@ -56,7 +57,7 @@ void	handle_projection(t_get_color_params *params, t_ray_vector
 	t_ray_vector	proj_vect;
 	t_cylinder		*cyl;
 
-	cyl = (t_cylinder *)params->mesh;
+	cyl = (t_cylinder *)params->mesh->ref;
 	proj = scalar_product(cyl_to_intersect->axis, cyl->axis_vect.axis);
 	scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
 	subtract_vector(cyl_to_intersect->axis, proj_vect.axis, normal->axis);
@@ -74,7 +75,7 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 	t_ray_vector	intersect_point;
 	t_ray_vector	cyl_to_intersect;
 
-	cyl = (t_cylinder *)params->mesh;
+	cyl = (t_cylinder *)params->mesh->ref;
 	get_intersect_point(params->ray, params->t, &intersect_point);
 	subtract_vector(intersect_point.axis, cyl->origin_vect.axis,
 		cyl_to_intersect.axis);
@@ -99,11 +100,11 @@ void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj,
 	if (cyl->cyl_or_discs == cylinder)
 	{
 		get_cylinder_color_cyl(&(t_get_color_params)
-		{data, ray, obj->t, obj->ref, color});
+		{data, ray, obj->t, obj, color});
 	}
 	if (cyl->cyl_or_discs == discs)
 	{
 		get_cylinder_color_discs(&(t_get_color_params)
-		{data, ray, obj->t, obj->ref, color});
+		{data, ray, obj->t, obj, color});
 	}
 }
