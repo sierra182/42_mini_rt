@@ -16,10 +16,10 @@ int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[], double sel
 	double			t;
 	double		mesh_mag;
 	double		light_mag;
-	t_ray_vector	intersect_pt;
+	t_ray_vector	inter_pt;
 
-	if (mesh->type == O_SP)
-	{
+	// if (mesh->type == O_SP)
+	// {
 		// t_ray tmp =  *n_light_ray;
 		// t_ray *light_ray = &tmp;
 
@@ -32,82 +32,97 @@ int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[], double sel
 				t = is_intersect_sphere(light_rays[1], &data->spheres[i], NULL);
 				if( (t && !self_inter)||( t && self_inter && self_inter < data->spheres[i].t2))
 				{
-					get_local_intersect_point(light_rays[1], t, &intersect_pt);
+					get_local_intersect_point(light_rays[1], t, &inter_pt);
 					light_mag = get_vector_magnitude(light_rays[0]->dir_vect.axis);
-					mesh_mag = get_vector_magnitude(intersect_pt.axis);
+					mesh_mag = get_vector_magnitude(inter_pt.axis);
 					if (mesh_mag - 1e-5 < light_mag)
 						return (1);
 				}
 			}
 		}
 		return (0);
-	}	
+	// }	
 		
-		i = -1;
-		while (++i < data->sp_nbr)
-		{				
-			t = is_intersect_sphere(light_rays[1], &data->spheres[i], NULL);
-			if(t)
-			{
-				get_local_intersect_point(light_rays[1], t, &intersect_pt);
-				light_mag = get_vector_magnitude(light_rays[0]->dir_vect.axis);
-				mesh_mag = get_vector_magnitude(intersect_pt.axis);
-				if (mesh_mag - 1e-5 < light_mag)
-					return (1);
-			}			
-		}
-		return (0);
+	// 	i = -1;
+	// 	while (++i < data->sp_nbr)
+	// 	{				
+	// 		t = is_intersect_sphere(light_rays[1], &data->spheres[i], NULL);
+	// 		if(t)
+	// 		{
+	// 			get_local_intersect_point(light_rays[1], t, &inter_pt);
+	// 			light_mag = get_vector_magnitude(light_rays[0]->dir_vect.axis);
+	// 			mesh_mag = get_vector_magnitude(inter_pt.axis);
+	// 			if (mesh_mag - 1e-5 < light_mag)
+	// 				return (1);
+	// 		}			
+	// 	}
+	// 	return (0);
 }
 
-int	has_cylinder_shadow(t_data *data, t_obj *mesh, t_ray *n_light_ray, double self_inter)
+int	has_cylinder_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[], double self_inter)
 {
 	int				i;
 	double			t;
 	double		mesh_mag;
 	double		light_mag;
-	t_ray_vector	intersect_pt;
+	t_ray_vector	inter_pt;
 
-		t_ray tmp =  *n_light_ray;
-		t_ray *light_ray = &tmp;
+		// t_ray tmp =  *n_light_ray;
+		// t_ray *light_ray = &tmp;
 		//normalize_vector(light_ray->dir_vect.axis);
-	if (mesh->type == O_CY)
-	{
-		t_cylinder cylinder = *(t_cylinder *)mesh->ref;
+	// if (mesh->type == O_CY)
+	// {
+		// t_cylinder cylinder = *(t_cylinder *)mesh->ref;
 		// double int_t = is_intersect_cylinder(light_ray, &cylinder, NULL);
 		i = -1;
 		while (++i < data->cy_nbr)
 		{
-			if (mesh->ref && (void *) &data->cylinders[i] != mesh->ref)// && !is_same_cylinder_space(&data->cylinders[i], &cylinder))
+			if (mesh->ref && (void *) & data->cylinders[i] != mesh->ref)// && !is_same_cylinder_space(&data->cylinders[i], &cylinder))
 			{
-				t = is_intersect_cylinder(light_ray, &data->cylinders[i], NULL);
-				if( (t && self_inter < 1e-3)||( t && self_inter && self_inter < data->cylinders[i].t2))
-				{
-					get_local_intersect_point(light_ray, t, &intersect_pt);
-					light_mag = get_vector_magnitude(n_light_ray->dir_vect.axis);
-					mesh_mag = get_vector_magnitude(intersect_pt.axis);
-					if (mesh_mag - 1e-5 < light_mag)
-						return (1);
-				}
+				t = is_intersect_cylinder(light_rays[1], &data->cylinders[i], NULL);
+				// if (t && data->cylinders[i].cyl_or_discs == cylinder)
+				// {
+
+					if((t && self_inter < 1e-3)||( t && self_inter && self_inter < data->cylinders[i].t2))
+					{
+						get_local_intersect_point(light_rays[1], t, &inter_pt);
+						light_mag = get_vector_magnitude(light_rays[0]->dir_vect.axis);
+						mesh_mag = get_vector_magnitude(inter_pt.axis);
+						if (mesh_mag - 1e-5 < light_mag)
+							return (1);
+					}
+				//}
+				// else if (t && data->cylinders[i].cyl_or_discs == discs)
+				// {
+				// 		if((t && self_inter < 1e-3)||( t && self_inter && self_inter < t))
+				// 	{
+				// 		get_local_intersect_point(light_rays[1], t, &inter_pt);
+				// 		light_mag = get_vector_magnitude(light_rays[0]->dir_vect.axis);
+				// 		mesh_mag = get_vector_magnitude(inter_pt.axis);
+				// 		if (mesh_mag - 1e-5 < light_mag)
+				// 			return (1);
+				// 	}
+				// }
 			}
 		}
 		return (0);
-	}
-	i = -1;
-	while (++i < data->cy_nbr)
-	{		
-		t = is_intersect_cylinder(light_ray, &data->cylinders[i], NULL);
-		//if( (t && self_inter < 1e-3)||( t && self_inter && self_inter < data->cylinders[i].t2))
+	// }
+	// i = -1;
+	// while (++i < data->cy_nbr)
+	// {		
+	// 	t = is_intersect_cylinder(light_ray, &data->cylinders[i], NULL);
+	// 	//if( (t && self_inter < 1e-3)||( t && self_inter && self_inter < data->cylinders[i].t2))
 
-		if (t)
-		{
-			get_local_intersect_point(n_light_ray, t, &intersect_pt);
-			light_mag = get_vector_magnitude(n_light_ray->dir_vect.axis);
-			mesh_mag = get_vector_magnitude(intersect_pt.axis);
-			if (mesh_mag - 1e-5 < light_mag)
-				return (1);
-		}			
-	}
-	return (0);
+	// 	if (t)
+	// 	{
+	// 		get_local_intersect_point(n_light_ray, t, &intersect_pt);
+	// 		light_mag = get_vector_magnitude(n_light_ray->dir_vect.axis);
+	// 		mesh_mag = get_vector_magnitude(intersect_pt.axis);
+	// 		if (mesh_mag - 1e-5 < light_mag)
+	// 			return (1);
+	// 	}			
+	// }
+	// return (0);
 }
 
 int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
@@ -178,7 +193,7 @@ int	has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
 	}
 	if (has_sphere_shadow(data, mesh, (t_ray *[]){light_ray, &light_ray_norm}, self_inter))
 		return (1);
-	if (has_cylinder_shadow(data, mesh, light_ray, self_inter))
+	if (has_cylinder_shadow(data, mesh, (t_ray *[]){light_ray, &light_ray_norm}, self_inter))
 		return (1);
 	if (has_plane_shadow(data, mesh, light_ray))
 		return (1);
