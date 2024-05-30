@@ -6,6 +6,7 @@
 # define AXIS 3
 # define MTX 4 
 # define BIG_VALUE 100000000
+
 # include <stdio.h>
 # include "x_color_image.h"
 # include "x_ray_vector.h"

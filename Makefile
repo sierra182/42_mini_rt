@@ -34,15 +34,6 @@ CFLAGS = \
 	-I$(HEADERS_DIR)/exit \
 	-I$(HEADERS_DIR)/parsing \
 	-I$(HEADERS_DIR)/rays \
-	-I$(HEADERS_DIR)/x_color_image.h \
-	-I$(HEADERS_DIR)/x_ray_vector.h \
-	-I$(HEADERS_DIR)/x_camera.h \
-	-I$(HEADERS_DIR)/x_geometry.h \
-	-I$(HEADERS_DIR)/x_lighting.h \
-	-I$(HEADERS_DIR)/x_general.h \
-	-I$(HEADERS_DIR)/x_exit.h \
-	-I$(HEADERS_DIR)/x_events.h \
-	-I$(HEADERS_DIR)/x_funcs_params.h \
 	-I$(GNL_DIR) \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
@@ -126,6 +117,15 @@ HEADERS = \
 	$(HEADERS_DIR)/init_data/create_data_structs.h \
 	$(HEADERS_DIR)/init_data/fill_struct_funcs.h \
 	$(HEADERS_DIR)/init_data/init_data.h \
+	$(HEADERS_DIR)/x_color_image.h \
+	$(HEADERS_DIR)/x_ray_vector.h \
+	$(HEADERS_DIR)/x_camera.h \
+	$(HEADERS_DIR)/x_geometry.h \
+	$(HEADERS_DIR)/x_lighting.h \
+	$(HEADERS_DIR)/x_general.h \
+	$(HEADERS_DIR)/x_exit.h \
+	$(HEADERS_DIR)/x_events.h \
+	$(HEADERS_DIR)/x_funcs_params.h \
 	$(GNL_DIR)/get_next_line.h \
 
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
