@@ -81,7 +81,7 @@ double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 	if (fabs(den) > EPSILON)
 	{
 		t = num / den;
-		if (t >= 0.0)
+		if (t >= 1e-4)
 		{
 			if (i)
 			{

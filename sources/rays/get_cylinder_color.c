@@ -49,7 +49,7 @@ void	handle_projection(t_get_color_params *params, t_ray_vector *normal,
 /**========================================================================
  *                   ADD_SHADOW_AND_LIGHTNING_EFFECTS
  *========================================================================**/
-void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
+static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
 {
 	double			light_coef;
 	double			light_attenuat;

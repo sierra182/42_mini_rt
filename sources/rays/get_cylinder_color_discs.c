@@ -13,9 +13,29 @@ void	add_shading( t_ray *ray, t_ray_vector *normal,
 int		has_shadow(t_data *data, void *mesh, t_ray *light_ray);
 int	are_light_and_cam_in_different_cyl_space(t_ray_vector *normal, t_spotlight *light, t_cylinder *cyl, t_cam *cam);
 
+static void	add_lightning_effects(t_get_color_params *params, t_color *spotlighty_color, t_color *ambiantly_color, t_ray_vector	*normal, t_ray *light_ray)
+{
+	double			light_attenuat;
+	double			light_coef;
+	t_cylinder		*cyl;
+
+	cyl = ((t_cylinder *) params->mesh->ref);
+	light_coef = scalar_product(normal->axis, light_ray->dir_vect.axis);
+	if (has_shadow(params->data, params->mesh, light_ray) ||  light_coef < 0.0 || are_light_and_cam_in_different_cyl_space(normal, &params->data->spotlight, cyl, &params->data->cam))
+	{
+		*params->color = *ambiantly_color;
+		return ;;
+	}
+	add_lightening(&(t_add_lightening_params){light_ray, normal, &params
+		->data->spotlight, ambiantly_color, params->color,
+		&light_attenuat, &light_coef});
+	add_self_shadowing(light_coef, light_attenuat, spotlighty_color);
+	add_color(spotlighty_color, ambiantly_color, params->color);
+	limit_to_255(params->color);
+}
 
 
-int	get_cylinder_color_discs(t_get_color_params *params)
+void	get_cylinder_color_discs(t_get_color_params *params)
 {
 	t_ray_vector	normal;
 	t_ray			light_ray;
@@ -23,10 +43,7 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	double			light_dot_normal;
 	double			view_dot_normal;
 	t_color			spotlighty_color;
-	double			light_attenuat;
-	double			light_coef;
 	t_cylinder		*cyl;
-	double tmp[3];
 
 	cyl = ((t_cylinder *) params->mesh->ref);
 	cast_vector_mat_ray(&cyl->axis_vect, &normal);
@@ -43,14 +60,6 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-	light_coef = scalar_product(normal.axis, light_ray.dir_vect.axis);
-	if (has_shadow(params->data, params->mesh, &light_ray) ||  light_coef < 0.0 || are_light_and_cam_in_different_cyl_space(&normal, &params->data->spotlight, cyl, &params->data->cam))
-		return (*params->color = ambiantly_color, 0);
-	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
-		->data->spotlight, &ambiantly_color, params->color,
-		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
-	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	limit_to_255(params->color);
-	return (0);
+	
+	add_lightning_effects(params, &spotlighty_color, &ambiantly_color, &normal, &light_ray);
 }
