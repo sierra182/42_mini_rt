@@ -22,6 +22,27 @@ int is_in_cyl_height(t_ray_vector *normal, t_cylinder *cyl, double mesh[]);
 
 
 
+void	handle_projection(t_get_color_params *params, t_ray_vector *normal, t_ray *light_ray)
+{
+	t_ray_vector	intersect_point;
+	t_ray_vector	cyl_to_intersect;
+	double			proj;
+	t_ray_vector	proj_vect;
+	t_cylinder		*cyl;
+
+	cyl = (t_cylinder *)params->mesh->ref;
+	get_intersect_point(params->ray, params->t, &intersect_point);
+	subtract_vector(intersect_point.axis, cyl->origin_vect.axis,
+		cyl_to_intersect.axis);
+	proj = scalar_product(cyl_to_intersect.axis, cyl->axis_vect.axis);
+	scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
+	subtract_vector(cyl_to_intersect.axis, proj_vect.axis, normal->axis);
+	normalize_vector(normal->axis);
+	if (cyl->which_t == 2)
+		symmetrize_vector(normal->axis);
+	light_ray->origin_vect = intersect_point;
+}
+
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
  *========================================================================**/
@@ -30,33 +51,29 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	t_ray_vector	normal;
 	t_ray			light_ray;
 	t_color			ambiantly_color;
-	double			light_attenuat;
-	double			light_coef;
 	t_cylinder		*cyl;
-	t_ray_vector	intersect_point;
-	t_ray_vector	cyl_to_intersect;
-	double			proj;
-	t_ray_vector	proj_vect;
+	t_ray_vector	tmp;
 	t_color			spotlighty_color;
+	
+
+	
+	
+	double			light_coef;
+	double			light_attenuat;
 
 	cyl = (t_cylinder *)params->mesh->ref;
-	get_intersect_point(params->ray, params->t, &intersect_point);
-	subtract_vector(intersect_point.axis, cyl->origin_vect.axis,
-		cyl_to_intersect.axis);
-	proj = scalar_product(cyl_to_intersect.axis, cyl->axis_vect.axis);
-	scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
-	subtract_vector(cyl_to_intersect.axis, proj_vect.axis, normal.axis);
-	normalize_vector(normal.axis);
-	if (((t_cylinder *)params->mesh->ref)->which_t == 2)
-		symmetrize_vector(normal.axis);
-	light_ray.origin_vect = intersect_point;
+	
+	handle_projection(params, &normal, &light_ray);
+
+
+
+
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
 		.origin_vect.axis, light_ray.dir_vect.axis);
 	color_with_light(&cyl->color, &params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-	t_ray_vector tmp;
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
 	if (has_shadow(params->data, params->mesh, &light_ray) || is_cylinder_surface_between(cyl, &normal, params->data->spotlight.origin_vect.axis)
 	|| (!is_in_cyl_height(&tmp, cyl, params->data->spotlight.origin_vect.axis) && ((t_cylinder *)params->mesh->ref)->which_t == 2 ))
