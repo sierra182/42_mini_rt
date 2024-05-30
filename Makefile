@@ -67,6 +67,7 @@ SOURCES = \
 	$(SRC_DIR)/parsing/utils.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
+	$(SRC_DIR)/exit/data_store_shapes.c \
 	$(SRC_DIR)/matrix/matrix.c \
 	$(SRC_DIR)/matrix/matrix_trsf.c \
 	$(SRC_DIR)/parsing/parse.c \
