@@ -33,7 +33,10 @@ void static	add_shading_and_ligntening_effects(t_get_color_params *params,
 	add_shading(params->ray, normal, &spotlighty_color, &spotlighty_color);
 	if (has_shadow(params->data, params->mesh, light_ray)
 		|| (*light_dot_normal > 0.0))
+	{
 		*params->color = ambiantly_color;
+		return ;
+	}
 	add_lightening(&(t_add_lightening_params){light_ray, normal, &params
 		->data->spotlight, &ambiantly_color, params->color,
 		&light_attenuat, &light_coef});
