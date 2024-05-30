@@ -6,6 +6,28 @@ int		has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
+void	calculate_spotlight_effect(t_sphere *sphere, t_ray_vector *normal,
+	t_color *spotlighty_color )
+{
+	color_with_light(&sphere->color,
+		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
+			params->data->spotlight.intensity, spotlighty_color);
+	add_shading(params->ray, normal, spotlighty_color, spotlighty_color);
+	add_lightening(&(t_add_lightening_params){&light_ray, normal,
+		&params->data->spotlight, spotlighty_color,  spotlighty_color,
+		&light_attenuat, &light_coef});
+	add_self_shadowing(light_coef, light_attenuat, spotlighty_color);
+}
+
+void	calculate_ambiant_effect(t_get_color_params *params, t_sphere *sphere,
+	t_ray_vector *normal, t_color *ambiantly_color)
+{
+	color_with_light(&sphere->color,
+		&params->data->ambiant_light.color,
+			params->data->ambiant_light.intensity, ambiantly_color);
+	add_shading(params->ray, normal, ambiantly_color, ambiantly_color);
+}
+
 void	compute_normal_and_light_ray(t_get_color_params *params,
 	t_sphere *sphere,  t_ray_vector *normal, t_ray *light_ray)
 {
@@ -18,8 +40,8 @@ void	compute_normal_and_light_ray(t_get_color_params *params,
 	if (sphere->which_t == 2)
 		symmetrize_vector(normal->axis);
 }
-
-int	get_sphere_color(t_get_color_params *params)//! change proto
+//! change proto
+int	get_sphere_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;
 	t_ray			light_ray;
@@ -30,37 +52,24 @@ int	get_sphere_color(t_get_color_params *params)//! change proto
 	t_sphere 		*sphere;
 	
 	sphere = (t_sphere *) params->mesh->ref;
-	// get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
-	// subtract_vector(params->data->spotlight.origin_vect.axis,
-	// 	light_ray.origin_vect.axis, light_ray.dir_vect.axis);
-
-	// subtract_vector(light_ray.origin_vect.axis,
-	// 	((t_sphere *) params->mesh->ref)->origin_vect.axis, normal.axis);
-	// normalize_vector(normal.axis);
-
-	// if (((t_sphere *) params->mesh->ref)->which_t == 2)
-	// 	symmetrize_vector(normal.axis);
 	compute_normal_and_light_ray(params, sphere, &normal, &light_ray);
-
-	color_with_light(&((t_sphere *) params->mesh->ref)->color,
-		&params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
-	color_with_light(&((t_sphere *) params->mesh->ref)->color,
-		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
-	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
-	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-
+	calculate_ambiant_effect(params, sphere, &normal, &ambiantly_color);
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
 		|| has_shadow(params->data, params->mesh, &light_ray))
 		return (*params->color = ambiantly_color, 0);
+	// color_with_light(&((t_sphere *) params->mesh->ref)->color,
+	// 	&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
+	// add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 
-	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
-		&params->data->spotlight, &spotlighty_color,  &spotlighty_color,
-		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
+	// add_lightening(&(t_add_lightening_params){&light_ray, &normal,
+	// 	&params->data->spotlight, &spotlighty_color,  &spotlighty_color,
+	// 	&light_attenuat, &light_coef});
+	// add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
 	return (0);
 } 
+
 
 void	get_plane_color(t_get_color_params *params)
 {
@@ -108,16 +117,18 @@ int	get_background_color(t_ray *ray, t_data *data)
 	int		rgb[3];
 	double	dir;
 	t_color *bg_color;
-	double intensity;
+	double 	intensity;
 
 	intensity = data->ambiant_light.intensity;
 	bg_color = (t_color *)&data->ambiant_light.color;
 	dir = (ray->dir_vect.axis[1] + 1.0) * 0.5;
 	color[0] = get_color(intensity * 255, intensity * 255, intensity * 255);
-	color[1] = get_color(bg_color->rgb[0] * intensity, bg_color->rgb[1] * intensity, bg_color->rgb[2] * intensity);
-	rgb[0] = (int)((1.0 - dir) * ((color[1] >> 16) & 0xFF) + dir * ((color[0] >> 16) & 0xFF));
-	rgb[1] = (int)((1.0 - dir) * ((color[1] >> 8) & 0xFF) + dir * ((color[0] >> 8) & 0xFF));
-	rgb[2] = (int)((1.0 - dir) * (color[1] & 0xFF) + dir * (color[0] & 0xFF));
-	
+	color[1] = get_color(bg_color->rgb[0] * intensity, bg_color->rgb[1]
+		* intensity, bg_color->rgb[2] * intensity);
+	rgb[0] = (int)((1.0 - dir) * ((color[1] >> 16) & 0xFF) + dir
+		* ((color[0] >> 16) & 0xFF));
+	rgb[1] = (int)((1.0 - dir) * ((color[1] >> 8) & 0xFF) + dir
+		* ((color[0] >> 8) & 0xFF));
+	rgb[2] = (int)((1.0 - dir) * (color[1] & 0xFF) + dir * (color[0] & 0xFF));	
 	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 }
