@@ -30,13 +30,13 @@ void	key_code_funcs(int keycode, t_data *data, t_mlx *mlx)
 	if (keycode == RST_CM)
 		reset_cam(data);
 	if (keycode == MESH)
-		data->event.type_mesh = E_MESH;
+		data->event.actual_mode = E_MESH;
 	if (keycode == CAM)
-		data->event.type_mesh = E_CAM;
+		data->event.actual_mode = E_CAM;
 	if (keycode == LIGHT)
-		data->event.type_mesh = E_SPOTL;
+		data->event.actual_mode = E_SPOTL;
 	if (keycode == AMBL)
-		data->event.type_mesh = E_AMBL;
+		data->event.actual_mode = E_AMBL;
 	if (keycode == CTRL || keycode == CTRL_2)
 		data->event.ctrl_ispressed = 1;
 }
@@ -51,15 +51,15 @@ void	data_event_funcs_1(t_data *data, int keycode)
 
 	rotate_vect = NULL;
 	transl_vect = NULL;
-	if (data->event.type_mesh == E_CAM)
+	if (data->event.actual_mode == E_CAM)
 	{
 		event_translate(keycode, trsl_cam, &data->cam, NULL);
 		cam_event_rotate(keycode, &data->cam);
 	}
-	if (data->event.type_mesh == E_SPOTL)
+	if (data->event.actual_mode == E_SPOTL)
 		event_translate(keycode, trsl_about_cam, &data->cam,
 			&data->spotlight.origin_vect);
-	if (data->event.type_mesh == E_MESH)
+	if (data->event.actual_mode == E_MESH)
 	{
 		actual_mesh_handle(data, NULL, &transl_vect, &rotate_vect);
 		if (transl_vect)
@@ -67,7 +67,7 @@ void	data_event_funcs_1(t_data *data, int keycode)
 		if (rotate_vect)
 			event_rotate(keycode, rotate_vect);
 	}
-	if (data->event.type_mesh == E_MESH && (keycode == PLUS
+	if (data->event.actual_mode == E_MESH && (keycode == PLUS
 			|| keycode == MINUS))
 		chang_mesh_size(data, keycode);
 }
@@ -77,10 +77,10 @@ void	data_event_funcs_1(t_data *data, int keycode)
  *========================================================================**/
 void	data_event_funcs_2(t_data *data, int keycode)
 {
-	if (data->event.type_mesh == E_AMBL)
+	if (data->event.actual_mode == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);
 	meta_keycode(keycode, data);
-	if (data->event.type_mesh == E_SPOTL)
+	if (data->event.actual_mode == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
 		event_intensity(keycode, &data->spotlight.intensity);

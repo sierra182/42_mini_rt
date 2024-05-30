@@ -17,7 +17,7 @@ int	mouse_event(int button, int x, int y, void *param)
 	{
 		if (x >= 0 && x < 100 && y >= 0 && y < 100)
 			return (data->event.legend = (data->event.legend + 1) % 2, 0);
-		if (data->event.type_mesh == E_MESH)
+		if (data->event.actual_mode == E_MESH)
 			event_launch_rays(data, x, y);
 		return (0);
 	}

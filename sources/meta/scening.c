@@ -2,8 +2,10 @@
 #include "x_mini_struct.h"
 # include <fcntl.h>
 # include <unistd.h>
-void write_fd(int fd, char *str);
 #include "libft.h"
+
+void	write_fd(int fd, char *str);
+void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
 
 void	write_vector(int fd, void *vector)
 {
@@ -75,4 +77,41 @@ void	make_rt_file(t_data *data)
 		i++;
 	}
 	close(fd);
+}
+
+void	pre_transform(t_data *data)
+{
+	int	i;
+	double offset;
+	double n_offset;
+	double space;
+
+	space = 15;
+	i = -1;
+	offset = 0;
+	while (++i < data->cy_nbr *.25)
+	{
+		trsl_mesh(NULL, &data->cylinders[i].origin_vect, (double []){0, 0, offset});
+		offset += space;
+	}
+	offset = 0;
+	while (i < data->cy_nbr * 0.50)
+	{
+		offset += space;
+		trsl_mesh(NULL, &data->cylinders[i].origin_vect, (double []){offset, 0, 0});
+		i++;
+	}
+	n_offset = 0;
+	while (i < data->cy_nbr * 0.75)
+	{
+		n_offset += space;
+		trsl_mesh(NULL, &data->cylinders[i].origin_vect, (double []){offset, 0, n_offset});
+		i++;
+	}
+	while (i < data->cy_nbr * 1)
+	{
+		offset -= space;
+		trsl_mesh(NULL, &data->cylinders[i].origin_vect, (double []){offset,  0, n_offset});
+		i++;
+	}
 }

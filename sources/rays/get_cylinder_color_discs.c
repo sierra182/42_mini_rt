@@ -24,7 +24,7 @@ void static	add_shading_and_ligntening_effects(t_get_color_params *params,
 	double			light_coef;
 	t_cylinder		*cyl;
 
-	cyl = ((t_cylinder *) params->mesh);
+	cyl = ((t_cylinder *) params->mesh->ref);
 	color_with_light(&cyl->color, &params->data->ambiant_light.color, params
 		->data->ambiant_light.intensity, &ambiantly_color);
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255,
@@ -53,7 +53,7 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	double			view_dot_normal;
 	t_cylinder		*cyl;
 
-	cyl = ((t_cylinder *) params->mesh);
+	cyl = ((t_cylinder *) params->mesh->ref);
 	cast_vector_mat_ray(&cyl->axis_vect, &normal);
 	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
