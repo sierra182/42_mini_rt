@@ -1,9 +1,8 @@
 #ifndef X_EVENTS_H
 # define X_EVENTS_H
 
-
 typedef enum e_event_mesh
-{		
+{
 	E_CAM,	
 	E_SPOTL,
 	E_AMBL,
@@ -21,7 +20,6 @@ typedef struct s_event
 
 typedef enum e_event
 {
-
 	ESC = 65307,
 	RST = 114,
 	RST_CM = 65437,
@@ -41,13 +39,12 @@ typedef enum e_event
 	MINUS = 65453,
 	CAM = 99,
 	AMBL = 97,
-	LIGHT = 108, 
+	LIGHT = 108,
 	MESH = 111,
 	CTRL = 65507,
 	CTRL_2 = 65508,
 	MAKE_RT_FILE = 109,
 	VIDEO_NEXT_FRAME = 118
 }	t_enum_event;
-
 
 #endif

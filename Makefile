@@ -42,7 +42,7 @@ CFLAGS = \
 	-I$(HEADERS_DIR)/x_general.h \
 	-I$(HEADERS_DIR)/x_exit.h \
 	-I$(HEADERS_DIR)/x_events.h \
-	-I$(HEADERS_DIR)/f_funcs_params.h \
+	-I$(HEADERS_DIR)/x_funcs_params.h \
 	-I$(GNL_DIR) \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \

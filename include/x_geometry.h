@@ -5,7 +5,7 @@ typedef enum e_cyl_or_discs
 {
 	cylinder,
 	discs
-} t_cyl_or_discs;
+}	t_cyl_or_discs;
 
 typedef struct s_sphere
 {
@@ -17,7 +17,6 @@ typedef struct s_sphere
 	double			t1;
 	double			t2;
 }	t_sphere;
-
 
 typedef struct s_cylinder
 {

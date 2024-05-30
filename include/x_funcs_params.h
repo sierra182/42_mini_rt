@@ -18,18 +18,18 @@ typedef struct s_get_color_params
 	t_ray	*ray;
 	double	t;
 	t_obj	*mesh;
-	t_color *color;
+	t_color	*color;
 }	t_get_color_params;
 
 typedef struct s_add_lightening_params
 {
-	t_ray 			*light_ray;
+	t_ray			*light_ray;
 	t_ray_vector	*normal;
 	t_spotlight		*spotlight;
 	t_color			*color;
 	t_color			*res_color;
 	double			*light_attenuat;
-	double 			*light_coef;
+	double			*light_coef;
 }	t_add_lightening_params;
 
 typedef struct s_get_pixel_color_2_params
@@ -60,7 +60,6 @@ typedef struct s_get_cyl_col_cyl_0_params
 	t_color				*spotlighty_color;
 }	t_get_cyl_col_cyl_0_params;
 
-
 typedef struct s_get_cylinder_color_discs_params
 {
 	t_get_color_params	*params;
@@ -72,21 +71,21 @@ typedef struct s_get_cylinder_color_discs_params
 
 typedef struct s_add_shad_and_light_params
 {
-	t_get_color_params *params;
-	t_ray_vector *normal;
-	t_ray *light_ray;
-	t_color *ambiantly_color;
-	t_color *spotlighty_color;
+	t_get_color_params	*params;
+	t_ray_vector		*normal;
+	t_ray				*light_ray;
+	t_color				*ambiantly_color;
+	t_color				*spotlighty_color;
 
 }	t_add_shad_and_light_params;
 
 typedef struct s_reset_tmps
 {
-	t_plane 	*planes;
+	t_plane		*planes;
 	t_sphere	*spheres;
 	t_cylinder	*cylinders;
 	t_data		*data_cpy;
-	t_plane 	*planes_cpy;
+	t_plane		*planes_cpy;
 	t_sphere	*spheres_cpy;
 	t_cylinder	*cylinders_cpy;
 }	t_reset_tmps;
