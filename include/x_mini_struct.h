@@ -306,5 +306,13 @@ typedef struct s_get_cylinder_color_discs_params
 	double				light_coef;
 }	t_get_cylinder_color_discs_params;
 
+typedef struct s_add_shad_and_light_params
+{
+	t_get_color_params *params;
+	t_ray_vector *normal;
+	t_ray *light_ray;
+	t_color *ambiantly_color;
+	t_color *spotlighty_color;
 
+}	t_add_shad_and_light_params;
 #endif

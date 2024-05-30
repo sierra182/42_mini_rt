@@ -43,48 +43,49 @@ void	handle_projection(t_get_color_params *params, t_ray_vector *normal, t_ray *
 	light_ray->origin_vect = intersect_point;
 }
 
+void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
+{
+	double			light_coef;
+	double			light_attenuat;
+	t_cylinder		*cyl;
+	t_ray_vector	tmp;
+
+	cyl = (t_cylinder *)p->params->mesh->ref;
+	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
+	if (has_shadow(p->params->data, p->params->mesh, p->light_ray) || is_cylinder_surface_between(cyl, p->normal, p->params->data->spotlight.origin_vect.axis)
+	|| (!is_in_cyl_height(&tmp, cyl, p->params->data->spotlight.origin_vect.axis) && (cyl->which_t == 2 )))
+	{
+		*p->params->color = *p->ambiantly_color;
+		return ;
+	}
+	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal, &p->params
+		->data->spotlight, p->ambiantly_color, p->params->color,
+		&light_attenuat, &light_coef});
+	add_self_shadowing(light_coef, light_attenuat, p->spotlighty_color);
+	add_color(p->spotlighty_color, p->ambiantly_color, p->params->color);
+	limit_to_255(p->params->color);
+}
+
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
  *========================================================================**/
-int	get_cylinder_color_cyl(t_get_color_params *params)
+void	get_cylinder_color_cyl(t_get_color_params *params)
 {
 	t_ray_vector	normal;
 	t_ray			light_ray;
 	t_color			ambiantly_color;
 	t_cylinder		*cyl;
-	t_ray_vector	tmp;
 	t_color			spotlighty_color;
 	
-
-	
-	
-	double			light_coef;
-	double			light_attenuat;
-
 	cyl = (t_cylinder *)params->mesh->ref;
-	
 	handle_projection(params, &normal, &light_ray);
-
-
-
-
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
 		.origin_vect.axis, light_ray.dir_vect.axis);
 	color_with_light(&cyl->color, &params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
-	if (has_shadow(params->data, params->mesh, &light_ray) || is_cylinder_surface_between(cyl, &normal, params->data->spotlight.origin_vect.axis)
-	|| (!is_in_cyl_height(&tmp, cyl, params->data->spotlight.origin_vect.axis) && ((t_cylinder *)params->mesh->ref)->which_t == 2 ))
-		return (*params->color = ambiantly_color, 0);
-	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
-		->data->spotlight, &ambiantly_color, params->color,
-		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
-	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	limit_to_255(params->color);
-	return (0);
+	add_shadow_and_lightning_effects(&(t_add_shad_and_light_params){params, &normal, &light_ray, &ambiantly_color, &spotlighty_color});
 }
 
 /**========================================================================
