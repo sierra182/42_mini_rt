@@ -73,12 +73,12 @@ int	init_mlx(t_mlx *mlx)
 	mlx->img.img_ptr = mlx_new_image(mlx->connect, WIDTH, HEIGHT);
 	mlx->img.img_data = mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
 	&mlx->img.line_len,	&(int){0});
-	init_img_item(mlx, &mlx->img_items.logo, "logo.xpm", 0xFF0000);
-	init_img_item(mlx, &mlx->img_items.legend, "legend.xpm", 0x0);
-	init_img_item(mlx, &mlx->img_items.sph, "sph.xpm", 0xFF0000);
-	init_img_item(mlx, &mlx->img_items.cam, "cam.xpm", 0xFF0000);
-	init_img_item(mlx, &mlx->img_items.amb, "amb.xpm", 0xFF0000);
-	init_img_item(mlx, &mlx->img_items.bulb, "bulb.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.logo, "xpm/logo.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.legend, "xpm/legend.xpm", 0x0);
+	init_img_item(mlx, &mlx->img_items.sph, "xpm/sph.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.cam, "xpm/cam.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.amb, "xpm/amb.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.bulb, "xpm/bulb.xpm", 0xFF0000);
 	add_exit_struct((void *) mlx, MLX);
 	return (0);
 }
