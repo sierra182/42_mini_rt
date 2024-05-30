@@ -6,18 +6,17 @@ int		has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
-void	compute_light_ray_and_normal(t_ray *light_ray, t_ray_vector	*normal)
+void	compute_normal_and_light_ray(t_get_color_params *params,
+	t_sphere *sphere,  t_ray_vector *normal, t_ray *light_ray)
 {
-	get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
+	get_intersect_point(params->ray, params->t, &light_ray->origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
-		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
-
-	subtract_vector(light_ray.origin_vect.axis,
-		((t_sphere *) params->mesh->ref)->origin_vect.axis, normal.axis);
-	normalize_vector(normal.axis);
-
-	if (((t_sphere *) params->mesh->ref)->which_t == 2)
-		symmetrize_vector(normal.axis);
+		light_ray->origin_vect.axis, light_ray->dir_vect.axis);
+	subtract_vector(light_ray->origin_vect.axis,
+		sphere->origin_vect.axis, normal->axis);
+	normalize_vector(normal->axis);
+	if (sphere->which_t == 2)
+		symmetrize_vector(normal->axis);
 }
 
 int	get_sphere_color(t_get_color_params *params)//! change proto
@@ -28,7 +27,9 @@ int	get_sphere_color(t_get_color_params *params)//! change proto
 	t_color			spotlighty_color;
 	double			light_attenuat;
 	double			light_coef;	
-
+	t_sphere 		*sphere;
+	
+	sphere = (t_sphere *) params->mesh->ref;
 	// get_intersect_point(params->ray, params->t, &light_ray.origin_vect);
 	// subtract_vector(params->data->spotlight.origin_vect.axis,
 	// 	light_ray.origin_vect.axis, light_ray.dir_vect.axis);
@@ -39,7 +40,7 @@ int	get_sphere_color(t_get_color_params *params)//! change proto
 
 	// if (((t_sphere *) params->mesh->ref)->which_t == 2)
 	// 	symmetrize_vector(normal.axis);
-	compute_light_ray_and_normal();
+	compute_normal_and_light_ray(params, sphere, &normal, &light_ray);
 
 	color_with_light(&((t_sphere *) params->mesh->ref)->color,
 		&params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
