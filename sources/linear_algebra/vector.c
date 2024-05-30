@@ -1,6 +1,6 @@
-# include "x_mini_struct.h"
+#include "x_mini_struct.h"
 
-void    add_vector(double a[], double b[], double sum_vect[])
+void	add_vector(double a[], double b[], double sum_vect[])
 {
 	int	i;
 
@@ -29,8 +29,8 @@ void	scale_vector(double vect[], double scaler, double scaled_vect[])
 
 double	scalar_product(double a[], double b[])
 {
-	double scalar;	
-	int	i;
+	double	scalar;	
+	int		i;
 
 	scalar = 0.0;
 	i = -1;
@@ -39,7 +39,8 @@ double	scalar_product(double a[], double b[])
 	return (scalar);
 }
 
-void	cross_product(t_matrix_vector *a, t_matrix_vector *b, t_matrix_vector *product_vect)
+void	cross_product(t_matrix_vector *a, t_matrix_vector *b,
+	t_matrix_vector *product_vect)
 {
 	product_vect->axis[0] = a->axis[1] * b->axis[2] - a->axis[2] * b->axis[1];
 	product_vect->axis[1] = a->axis[2] * b->axis[0] - a->axis[0] * b->axis[2];
