@@ -34,7 +34,7 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
 	view_dot_normal = scalar_product(normal.axis, params->ray->dir_vect.axis);
-	if (view_dot_normal > 0.0)//1e-5)
+	if (view_dot_normal > 0.0)
 		symmetrize_vector(normal.axis);
 	light_dot_normal = scalar_product(normal.axis, light_ray.dir_vect.axis);
 	if (light_dot_normal < 0 && cyl->which_t == 2)
@@ -43,21 +43,9 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-
-	//calculer vecteur egale a spotlight origin vecto- cylinder origin vector
-	// on projete le vecteur obtenu sur l'axe du cyl (produit scalaire)
-	// on peut ensuite comparer avec h/2
-
-	//
 	light_coef = scalar_product(normal.axis, light_ray.dir_vect.axis);
-	//is_light_in_cyl_height(&normal, cyl, &params->data->spotlight);
-	//is_in_cylinder_diam(cyl, &normal, params->data->spotlight.origin_vect.axis);
-	//  || light_coef < 0.0 ||
 	if (has_shadow(params->data, params->mesh, &light_ray) ||  light_coef < 0.0 || are_light_and_cam_in_different_cyl_space(&normal, &params->data->spotlight, cyl, &params->data->cam))
-	// ( !is_in_cyl_height(&normal, cyl, params->data->spotlight.origin_vect.axis) 
-	// && || !is_in_cylinder_diam(cyl, &normal, params->data->spotlight.origin_vect.axis)))//  (!is_cylinder_surface_between(cyl, &params->data->spotlight) && ))
 		return (*params->color = ambiantly_color, 0);
-
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
 		->data->spotlight, &ambiantly_color, params->color,
 		&light_attenuat, &light_coef});
