@@ -11,8 +11,12 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 void	add_shading( t_ray *ray, t_ray_vector *normal,
 			t_color *ambiantly_color, t_color *color);
 int		has_shadow(t_data *data, void *mesh, t_ray *light_ray);
-int	are_light_and_cam_in_different_cyl_space(t_ray_vector *normal, t_spotlight *light, t_cylinder *cyl, t_cam *cam);
+int		are_light_and_cam_in_different_cyl_space(t_ray_vector *normal,
+			t_spotlight *light, t_cylinder *cyl, t_cam *cam);
 
+/**========================================================================
+ *                           ADD_LIGHTNING_EFFECTS
+ *========================================================================**/
 static void	add_lightning_effects(t_add_shad_and_light_params *p)
 {
 	double			light_attenuat;
@@ -21,20 +25,26 @@ static void	add_lightning_effects(t_add_shad_and_light_params *p)
 
 	cyl = ((t_cylinder *) p->params->mesh->ref);
 	light_coef = scalar_product(p->normal->axis, p->light_ray->dir_vect.axis);
-	if (has_shadow(p->params->data, p->params->mesh, p->light_ray) ||  light_coef < 0.0 || are_light_and_cam_in_different_cyl_space(p->normal, &p->params->data->spotlight, cyl, &p->params->data->cam))
+	if (has_shadow(p->params->data, p->params->mesh, p->light_ray)
+		|| light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
+		(p->normal, &p->params->data->spotlight, cyl, &p->params->data->cam))
 	{
 		*p->params->color = *p->ambiantly_color;
-		return ;;
+		return ;
 	}
-	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal, &p->params
-		->data->spotlight, p->ambiantly_color, p->params->color,
+	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
+		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
 		&light_attenuat, &light_coef});
 	add_self_shadowing(light_coef, light_attenuat, p->spotlighty_color);
 	add_color(p->spotlighty_color, p->ambiantly_color, p->params->color);
 	limit_to_255(p->params->color);
 }
 
-void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector *normal, t_ray *light_ray)
+/**========================================================================
+ *                           HANDLE_NORMAL_SYMMETRIZATION
+ *========================================================================**/
+void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector
+*normal, t_ray *light_ray)
 {
 	double			light_dot_normal;
 	double			view_dot_normal;
@@ -49,6 +59,9 @@ void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector *norm
 		symmetrize_vector(normal->axis);
 }
 
+/**========================================================================
+ *                           GET_CYLINDER_COLOR_DISCS
+ *========================================================================**/
 void	get_cylinder_color_discs(t_get_color_params *params)
 {
 	t_ray_vector	normal;
@@ -63,9 +76,12 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray.origin_vect.axis, light_ray.dir_vect.axis);
 	handle_normal_symmetrization(params, &normal, &light_ray);
-	color_with_light(&cyl->color, &params->data->ambiant_light.color, params->data->ambiant_light.intensity, &ambiantly_color);
-	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
+	color_with_light(&cyl->color, &params->data->ambiant_light.color,
+		params->data->ambiant_light.intensity, &ambiantly_color);
+	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255,
+		.rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
-	add_lightning_effects(&(t_add_shad_and_light_params){params, &normal, &light_ray, &ambiantly_color, &spotlighty_color});
+	add_lightning_effects(&(t_add_shad_and_light_params)
+	{params, &normal, &light_ray, &ambiantly_color, &spotlighty_color});
 }
