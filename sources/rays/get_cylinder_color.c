@@ -16,7 +16,7 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 void	color_with_light(t_color *mesh_color,
 			t_color *light_color, double intensity, t_color *new_color);
 void	limit_to_255(t_color *color);
-int		is_cylinder_surface_between(t_cylinder *cyl, t_spotlight *spotlight);
+// int		is_cylinder_surface_between(t_cylinder *cyl, t_spotlight *spotlight);
 
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
@@ -124,6 +124,9 @@ int	are_light_and_cam_in_different_cyl_space(t_ray_vector *normal, t_spotlight *
 	// if (has_shadow(params->data, cyl, &light_ray) || is_in_cyl_diam(cyl, &normal, params->data->spotlight.origin_vect.axis))
 	// if (has_shadow(params->data, cyl, &light_ray) || is_cylinder_surface_between2(cyl, &normal, params->data->spotlight.origin_vect.axis))
 
+int	is_cylinder_surface_between( t_cylinder *cyl, t_ray_vector *normal, double mesh[]);
+
+
 int	get_cylinder_color_cyl(t_get_color_params *params)
 {
 	t_ray_vector	normal;
@@ -158,7 +161,7 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	t_ray_vector tmp;
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
 	// normalize_vector(normal.axis);
-	if (has_shadow(params->data, params->mesh, &light_ray) || is_cylinder_surface_between2(cyl, &normal, params->data->spotlight.origin_vect.axis)
+	if (has_shadow(params->data, params->mesh, &light_ray) || is_cylinder_surface_between(cyl, &normal, params->data->spotlight.origin_vect.axis)
 	|| (!is_in_cyl_height(&tmp, cyl, params->data->spotlight.origin_vect.axis) && ((t_cylinder *)params->mesh->ref)->which_t == 2 ))
 		return (*params->color = ambiantly_color, 0);
 	add_lightening(&(t_add_lightening_params){&light_ray, &normal, &params
