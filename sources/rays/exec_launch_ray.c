@@ -52,6 +52,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	new_ray(&data->cam, &ray, x, y);
 	obj.t = BIG_VALUE;
 	obj.ref = NULL;
+	obj.type = 4;
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
