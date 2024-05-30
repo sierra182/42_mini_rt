@@ -34,6 +34,15 @@ CFLAGS = \
 	-I$(HEADERS_DIR)/exit \
 	-I$(HEADERS_DIR)/parsing \
 	-I$(HEADERS_DIR)/rays \
+	-I$(HEADERS_DIR)/x_color_image.h \
+	-I$(HEADERS_DIR)/x_ray_vector.h \
+	-I$(HEADERS_DIR)/x_camera.h \
+	-I$(HEADERS_DIR)/x_geometry.h \
+	-I$(HEADERS_DIR)/x_lighting.h \
+	-I$(HEADERS_DIR)/x_general.h \
+	-I$(HEADERS_DIR)/x_exit.h \
+	-I$(HEADERS_DIR)/x_events.h \
+	-I$(HEADERS_DIR)/f_funcs_params.h \
 	-I$(GNL_DIR) \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
