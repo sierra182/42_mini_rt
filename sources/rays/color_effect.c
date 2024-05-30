@@ -1,5 +1,5 @@
-# include "x_mini_struct.h"
-# include "x_linear_algebra.h"
+#include "x_mini_struct.h"
+#include "x_linear_algebra.h"
 
 double	calculate_light_attenuation(t_ray *light_ray, double intensity)
 {
@@ -17,15 +17,15 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 {
 	t_color	scaled_color;
 
-	scale_color(color, 1 - light_attenuation * 4, &scaled_color);	
-	subtract_color(color, &scaled_color, color);	
+	scale_color(color, 1 - light_attenuation * 4, &scaled_color);
+	subtract_color(color, &scaled_color, color);
 }
 
 void	add_shading( t_ray *ray, t_ray_vector *normal,
 	t_color *color, t_color *res_color)
 {
 	double	light_coef;
-	t_color scaled_color;
+	t_color	scaled_color;
 
 	light_coef = scalar_product(ray->dir_vect.axis, normal->axis);
 	normalize_zero_one(&light_coef);
@@ -37,7 +37,7 @@ void	add_lightening(t_add_lightening_params *params)
 {
 	t_ray	light_ray_sav;
 	t_color	subt_color;
-	t_color scaled_color;
+	t_color	scaled_color;
 
 	light_ray_sav = *params->light_ray;
 	normalize_vector(params->light_ray->dir_vect.axis);

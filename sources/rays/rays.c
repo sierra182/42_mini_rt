@@ -1,7 +1,7 @@
 #include "rays.h"
 
-# include "x_mini_struct.h"
-# include "x_linear_algebra.h"
+#include "x_mini_struct.h"
+#include "x_linear_algebra.h"
 
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
 void	add_xpm_items(t_mlx *mlx, t_data *data, int x, int y);
@@ -53,10 +53,9 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	{
 		x = -1;
 		while (++x < data->cam.resol[0])
-		{	
+		{
 			exec_launch_rays(mlx, data, x, y);
 			add_xpm_items(mlx, data, x, y);
-		}		
+		}
 	}
 }
-

@@ -1,5 +1,5 @@
-# include "x_mini_struct.h"
-# include "x_linear_algebra.h"
+#include "x_mini_struct.h"
+#include "x_linear_algebra.h"
 
 int	is_behind_cam(double t)
 {

@@ -26,18 +26,18 @@ int	is_in_cyl_diam( t_cylinder *cyl, t_ray_vector *normal, double mesh[])
 		return (0);
 }
 
-/**========================================================================
- *                           PRINT_DELAY
- *========================================================================**/
-void	print_delay(t_ray_vector *subt_vect, double diam)
-{
-	static int	delay;
+// /**========================================================================
+//  *                           PRINT_DELAY
+//  *========================================================================**/
+// void	print_delay(t_ray_vector *subt_vect, double diam)
+// {
+// 	static int	delay;
 
-	delay = (delay + 1) % 1800;
-	if (!delay)
-		printf("mag:%f rayon:%f\n", get_vector_magnitude(subt_vect->axis),
-			diam * 0.5);
-}
+// 	delay = (delay + 1) % 1800;
+// 	if (!delay)
+// 		printf("mag:%f rayon:%f\n", get_vector_magnitude(subt_vect->axis),
+// 			diam * 0.5);
+// }
 
 /**========================================================================
  *                           IS_CYLINDER
