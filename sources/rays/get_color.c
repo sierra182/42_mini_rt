@@ -6,18 +6,18 @@ int		has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
-void	calculate_spotlight_effect(t_sphere *sphere, t_ray_vector *normal,
-	t_color *spotlighty_color )
-{
-	color_with_light(&sphere->color,
-		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
-			params->data->spotlight.intensity, spotlighty_color);
-	add_shading(params->ray, normal, spotlighty_color, spotlighty_color);
-	add_lightening(&(t_add_lightening_params){&light_ray, normal,
-		&params->data->spotlight, spotlighty_color,  spotlighty_color,
-		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, spotlighty_color);
-}
+// void	calculate_spotlight_effect(t_sphere *sphere, t_ray_vector *normal,
+// 	t_color *spotlighty_color )
+// {
+// 	color_with_light(&sphere->color,
+// 		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
+// 			params->data->spotlight.intensity, spotlighty_color);
+// 	add_shading(params->ray, normal, spotlighty_color, spotlighty_color);
+// 	add_lightening(&(t_add_lightening_params){&light_ray, normal,
+// 		&params->data->spotlight, spotlighty_color,  spotlighty_color,
+// 		&light_attenuat, &light_coef});
+// 	add_self_shadowing(light_coef, light_attenuat, spotlighty_color);
+// }
 
 void	calculate_ambiant_effect(t_get_color_params *params, t_sphere *sphere,
 	t_ray_vector *normal, t_color *ambiantly_color)
@@ -57,14 +57,14 @@ int	get_sphere_color(t_get_color_params *params)
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
 		|| has_shadow(params->data, params->mesh, &light_ray))
 		return (*params->color = ambiantly_color, 0);
-	// color_with_light(&((t_sphere *) params->mesh->ref)->color,
-	// 	&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
-	// add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
+	color_with_light(&((t_sphere *) params->mesh->ref)->color,
+		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
+	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 
-	// add_lightening(&(t_add_lightening_params){&light_ray, &normal,
-	// 	&params->data->spotlight, &spotlighty_color,  &spotlighty_color,
-	// 	&light_attenuat, &light_coef});
-	// add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
+	add_lightening(&(t_add_lightening_params){&light_ray, &normal,
+		&params->data->spotlight, &spotlighty_color,  &spotlighty_color,
+		&light_attenuat, &light_coef});
+	add_self_shadowing(light_coef, light_attenuat, &spotlighty_color);
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
 	return (0);
