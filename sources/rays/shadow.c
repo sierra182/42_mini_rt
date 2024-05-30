@@ -19,16 +19,16 @@ int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray *n_light_ray)
 	t_ray_vector	intersect_pt;
 
 	if (mesh->type == O_SP)
-	{
-		t_sphere sphere = *(t_sphere *)mesh->ref;
+	{	
 		t_ray tmp =  *n_light_ray;
 		t_ray *light_ray = &tmp;
+
 		normalize_vector(light_ray->dir_vect.axis);
-		double int_t = is_intersect_sphere(light_ray, &sphere, NULL);	
+		double auto_intersct = is_intersect_sphere(light_ray, (t_sphere *)mesh->ref, NULL);	
 		i = -1;
 		while (++i < data->sp_nbr)
 		{	
-			if (mesh->ref && (void *) &data->spheres[i] != mesh->ref && !is_same_sphere_space(&data->spheres[i], &sphere))
+			if (mesh->ref && (void *) &data->spheres[i] != mesh->ref)// && !is_same_sphere_space(&data->spheres[i], &sphere))
 			{
 				t = is_intersect_sphere(light_ray, &data->spheres[i], NULL);
 				if( (t && !int_t)||( t && int_t && int_t < data->spheres[i].t2))

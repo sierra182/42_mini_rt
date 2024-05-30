@@ -32,8 +32,8 @@ int	get_sphere_color(t_get_color_params *params)
 
 
 
-	if (has_shadow(params->data, params->mesh, &light_ray)
-	|| is_sphere_surface_between(params->mesh->ref, &params->data->spotlight))
+	if ( is_sphere_surface_between(params->mesh->ref, &params->data->spotlight) || has_shadow(params->data, params->mesh, &light_ray)
+	)
 		
 		return (*params->color = ambiantly_color, 0);
 	//|| ( scalar_product(normal.axis, tmp_ray.dir_vect.axis) < 0.0
