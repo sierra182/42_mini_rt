@@ -49,6 +49,7 @@ SOURCES = \
 	$(SRC_DIR)/meta/create_video_image.c \
 	$(SRC_DIR)/meta/scening.c \
 	$(SRC_DIR)/meta/test_prints.c \
+	$(SRC_DIR)/meta/meta_keycode.c \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/mesh/cam.c \
 	$(SRC_DIR)/mesh/mesh_trsf.c \
@@ -90,7 +91,11 @@ SOURCES = \
 	$(SRC_DIR)/linear_algebra/vector.c \
 	$(SRC_DIR)/linear_algebra/color.c \
 	$(SRC_DIR)/linear_algebra/vector_utils.c \
-
+	$(SRC_DIR)/event/events_keycode.c \
+	$(SRC_DIR)/event/mouse_events.c \
+	$(SRC_DIR)/event/event_reset.c \
+	$(SRC_DIR)/event/key_event.c 
+	
 HEADERS = \
 	$(HEADERS_DIR)/x_mini_struct.h \
 	$(HEADERS_DIR)/x_exit.h \
