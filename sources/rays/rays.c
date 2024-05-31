@@ -6,6 +6,7 @@ void	save_image_reference(t_data *data, t_mlx *mlx);
 
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
 void	add_xpm_items(t_mlx *mlx, t_data *data, int x, int y);
+void	make_bin_file(t_data *data, t_mlx *mlx);
 
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
@@ -59,5 +60,5 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			add_xpm_items(mlx, data, x, y);
 		}
 	}
-	save_image_reference(data, mlx);
+	make_bin_file(data, mlx);
 }
