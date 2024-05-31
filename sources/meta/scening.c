@@ -6,6 +6,7 @@
 
 void	write_fd(int fd, char *str);
 void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
+void	create_filename(char *filename, int *i, char *ext);
 
 void	pre_transform(t_data *data)
 {
@@ -66,8 +67,12 @@ void	make_rt_file(t_data *data)
 {
 	int	i;
 	int	fd;
+	char filename[100];
+	static int j = 0;
 
-	fd = open("new_scene.rt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	create_filename(filename, &j, ".rt");
+
+	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 
 	dprintf(fd, "A ");
 	dprintf(fd, "%.*f  ", 2, data->ambiant_light.intensity);
