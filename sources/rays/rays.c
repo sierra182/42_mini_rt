@@ -60,5 +60,6 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			add_xpm_items(mlx, data, x, y);
 		}
 	}
-	make_bin_file(data, mlx);
+	if (data->istest == 1)
+		make_bin_file(data, mlx);
 }
