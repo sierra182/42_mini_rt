@@ -15,15 +15,18 @@ void	video_rotate_element(t_sphere *sphere)
 	int axe[3];
 	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector applied_vect;
+	double angle = 5;
 
-	axe[0] = 0;
-	axe[1] = -1;
+	axe[0] = 1;
+	axe[1] = 0;
 	axe[2] = 0;
-	
-	
-		init_matrix(trsf_matrix);
-		set_matrix_rotation(trsf_matrix, 5, axe);
-		apply_matrix(trsf_matrix, &sphere->origin_vect, &applied_vect);
-		sphere->origin_vect = applied_vect;
-
+	rotate_mesh(&sphere->origin_vect, angle, axe);
+	axe[0] = 0;
+	axe[1] = 1;
+	axe[2] = 0;
+	rotate_mesh(&sphere->origin_vect, angle, axe);
+	axe[0] = 0;
+	axe[1] = 0;
+	axe[2] = 1;
+	rotate_mesh(&sphere->origin_vect, angle, axe);
 }
