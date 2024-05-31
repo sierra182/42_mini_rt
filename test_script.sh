@@ -5,6 +5,8 @@ export AUTOMATED_TEST=true
 # Nombre total de fichiers à traiter
 total_files=$(ls tests/rt_files/*.rt | wc -l)
 
+exit_code=0
+
 # Boucle pour traiter chaque fichier
 for ((i=0; i<total_files; i++)); do
     # Chemin du fichier .rt
@@ -28,6 +30,7 @@ for ((i=0; i<total_files; i++)); do
         echo "file_$i ✅ : no difference found"
     else
         echo "file_$i ❌ : files are different"
+		exit_code=1
     fi
 
     # Nettoyer le fichier .bin généré
@@ -36,3 +39,6 @@ for ((i=0; i<total_files; i++)); do
     pkill miniRT
 
 done
+
+# Retourner le code de sortie approprié
+exit $exit_code
