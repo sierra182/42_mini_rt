@@ -32,6 +32,7 @@ typedef struct s_data
 	t_spotlight		spotlight;
 	t_ambiant_light	ambiant_light;
 	struct s_data	*data_cpy;
+	char			img_ref[20];
 }	t_data;
 
 #endif
