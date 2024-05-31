@@ -87,6 +87,7 @@ void	is_it_a_test(t_data *data, char **envp)
 {
 	int	i;
 
+	data->is_test = 0;
 	i = 0;
 	while (envp[i])
 	{
@@ -109,7 +110,7 @@ int	main(int argc, char **argv, char **envp)
 	if (parse(&data, argv[1]) == 0)
 		return (display_error(".rt file not valid\n"), 2);
 	if (init_data(argv[1], &data) == 0)
-		return (display_error("data init. error\n"), 3);		
+		return (display_error("data init. error\n"), 3);
 	is_it_a_test(&data, envp);
 	if (init_mlx(&mlx))
 		return (4);	
