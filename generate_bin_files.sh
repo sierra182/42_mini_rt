@@ -5,6 +5,20 @@ export AUTOMATED_TEST=true
 # Nombre total de fichiers à traiter
 total_files=$(ls tests/rt_files/*.rt | wc -l)
 
+if [ "$total_files" -eq 0 ]; then
+    exit 1
+fi
+
+# Demander à l'utilisateur à partir de quelle valeur commencer la numérotation des fichiers .bin
+read -p "À partir de quelle valeur voulez-vous commencer la numérotation des fichiers .bin ? " start_index
+
+# Vérifier si la valeur saisie est un nombre entier
+if ! [[ "$start_index" =~ ^[0-9]+$ ]]; then
+    echo "La valeur saisie n'est pas un nombre entier. Sortie du script."
+    exit 1
+fi
+
+
 # Boucle pour traiter chaque fichier
 for ((i=0; i<total_files; i++)); do
     # Chemin du fichier .rt
@@ -14,7 +28,7 @@ for ((i=0; i<total_files; i++)); do
 
 
 	
-	new_bin_file="file_$i.bin"
+	new_bin_file="file_$((start_index + i)).bin"
 	bin_folder="tests/new_files"
 
     # Commande pour exécuter miniRT avec le fichier .rt
@@ -35,7 +49,7 @@ for ((i=0; i<total_files; i++)); do
 
     pkill miniRT
 
-    echo "file_$i ✅ : bin file created and moved"
+    echo "$new_bin_file ✅ : bin file created and moved"
 done
 
 echo "All files processed successfully."
