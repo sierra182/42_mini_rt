@@ -48,6 +48,7 @@ OBJECTS = $(SOURCES:.c=.o)
 SOURCES = \
 	$(SRC_DIR)/meta/create_video_image.c \
 	$(SRC_DIR)/meta/scening.c \
+	$(SRC_DIR)/meta/save_image_reference.c \
 	$(SRC_DIR)/meta/test_prints.c \
 	$(SRC_DIR)/meta/meta_keycode.c \
 	$(SRC_DIR)/main.c \

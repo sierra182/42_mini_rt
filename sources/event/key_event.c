@@ -16,7 +16,7 @@ void	event_rotate(int keycode, t_matrix_vector *vector);
 void	event_translate(int keycode,
 			void (*trsl_mesh)(t_cam *cam, t_matrix_vector *vect,
 				double values[]), t_cam *cam, t_matrix_vector *vect);
-void	meta_keycode(int keycode, t_data *data);
+void	meta_keycode(int keycode, t_data *data, t_mlx *mlx);
 
 /**========================================================================
  *                           KEY_CODE_FUNCS
@@ -75,11 +75,11 @@ void	data_event_funcs_1(t_data *data, int keycode)
 /**========================================================================
  *                           DATA_EVENT_FUNCS_2
  *========================================================================**/
-void	data_event_funcs_2(t_data *data, int keycode)
+void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
 {
 	if (data->event.actual_mode == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);
-	meta_keycode(keycode, data);
+	meta_keycode(keycode, data, mlx);
 	if (data->event.actual_mode == E_SPOTL)
 	{
 		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
@@ -101,6 +101,6 @@ int	key_event(int keycode, void *param)
 	// printf("keycode: %d\n", keycode);
 	key_code_funcs(keycode, data, mlx);
 	data_event_funcs_1(data, keycode);
-	data_event_funcs_2(data, keycode);
+	data_event_funcs_2(data, keycode, mlx);
 	return (0);
 }
