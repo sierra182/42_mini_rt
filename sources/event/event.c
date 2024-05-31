@@ -21,7 +21,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
 int		init_data(char *map_path, t_data *data);
 void	chang_mesh_size(t_data *data, int keycode);
 void	make_rt_file(t_data *data);
-void	video_rotate_element(t_sphere *sphere);
+void	video_rotate_element(t_sphere *sphere, int obj_nbr);
 
 void	limit_to_255(t_color *color);
 

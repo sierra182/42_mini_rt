@@ -9,7 +9,7 @@ void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
  * for a 2 seconds video, generate 48 images
  * rotate 7.5 angle each frame
  *========================================================================**/
-void	video_rotate_element(t_sphere *sphere)
+void	video_rotate_element(t_sphere *sphere, int obj_num)
 {
 	int i = 0;
 	int axe[3];
