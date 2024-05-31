@@ -5,8 +5,6 @@ export AUTOMATED_TEST=true
 # Nombre total de fichiers à traiter
 total_files=$(ls tests/rt_files/*.rt | wc -l)
 
-exit_code=0
-
 # Boucle pour traiter chaque fichier
 for ((i=0; i<total_files; i++)); do
     # Chemin du fichier .rt
@@ -14,6 +12,10 @@ for ((i=0; i<total_files; i++)); do
     # Chemin du fichier .bin de référence
     ref_bin_file="tests/bin_files/file_$i.bin"
 
+
+	
+	new_bin_file="file_$i.bin"
+	bin_folder="tests/bin_files"
 
     # Commande pour exécuter miniRT avec le fichier .rt
     ./miniRT "$rt_file" &
@@ -26,19 +28,14 @@ for ((i=0; i<total_files; i++)); do
     done
 
     # Comparer le fichier .bin généré avec le fichier de référence
-    if cmp -s "file_0.bin" "$ref_bin_file"; then
-        echo "file_$i ✅ : no difference found"
-    else
-        echo "file_$i ❌ : files are different"
-		exit_code=1
-    fi
+    mv "file_0.bin" "$new_bin_file"
 
-    # Nettoyer le fichier .bin généré
-    rm "file_0.bin"
-	sleep 0.5
+    # Déplacer le fichier .bin renommé vers le dossier de destination
+    mv "$new_bin_file" "$bin_folder/"
+
     pkill miniRT
 
+    echo "file_$i ✅ : bin file created and moved"
 done
 
-# Retourner le code de sortie approprié
-exit $exit_code
+echo "All files processed successfully."
