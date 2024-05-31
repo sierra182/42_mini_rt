@@ -8,7 +8,7 @@ void	color_with_ambiant_light(t_color *mesh_color,
 			t_ambiant_light *ambiant_light, t_color *new_color);
 int		has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray);
 void	add_lightening(t_add_lightening_params *params);
-void	get_plane_color(t_get_color_params *params);
+int		get_plane_color(t_get_color_params *params);
 void	add_shading( t_ray *ray, t_ray_vector *normal,
 			t_color *ambiantly_color, t_color *color);
 void	add_self_shadowing(double light_coef, double light_attenuation,
