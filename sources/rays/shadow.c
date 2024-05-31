@@ -157,7 +157,8 @@ int	has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
 	{		
 		cyl_cpy = *(t_cylinder *) mesh->ref;
 		self_inter = is_intersect_cylinder(&light_ray_norm, &cyl_cpy, NULL);
-		
+		if (self_inter && ((t_cylinder *) mesh->ref)->which_t == 1)
+			get_intersect_point(&light_ray_norm, cyl_cpy.t2, &light_ray_norm.origin_vect);
 	}
 	if ((has_sphere_shadow(data, mesh,
 		(t_ray *[]){light_ray, &light_ray_norm}, self_inter))
