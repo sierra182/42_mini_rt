@@ -98,7 +98,7 @@ int	key_event(int keycode, void *param)
 	mlx = (t_mlx *)((void **) param)[0];
 	data = (t_data *)((void **) param)[1];
 	data->refresh = 1;
-	// printf("keycode: %d\n", keycode);
+	printf("keycode: %d\n", keycode);
 	key_code_funcs(keycode, data, mlx);
 	data_event_funcs_1(data, keycode);
 	data_event_funcs_2(data, keycode, mlx);

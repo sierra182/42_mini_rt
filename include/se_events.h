@@ -44,7 +44,8 @@ typedef enum e_event
 	CTRL = 65507,
 	CTRL_2 = 65508,
 	MAKE_RT_FILE = 109,
-	VIDEO_NEXT_FRAME = 118
+	VIDEO_NEXT_FRAME = 118,
+	MAKE_BIN_FILE = 98
 }	t_enum_event;
 
 #endif

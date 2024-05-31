@@ -35,3 +35,9 @@ void save_image_data_to_bin(char *filename, char *data_addr, int width, int heig
 
 
 // save_image_data_to_bin(char *filename, char *data_addr, int width, int height, int size_line)
+
+void	make_bin_file(t_data *data, t_mlx *mlx)
+{
+	printf("make_bin_file\n");
+
+}
