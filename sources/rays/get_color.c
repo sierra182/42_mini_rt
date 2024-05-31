@@ -63,8 +63,8 @@ int	get_sphere_color(t_get_color_params *params)
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
 		|| has_shadow(params->data, params->mesh, &light_ray))
 		return (*params->color = ambiantly_color, 0);
-	calculate_spotlight_effect(&(t_calc_spotlight_effect_params) {params, &sphere->color, &normal, &spotlighty_color,
-		&light_ray});
+	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+		{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
 	return (0);
@@ -99,8 +99,8 @@ int	get_plane_color(t_get_color_params *params)
 	if (has_shadow(params->data, params->mesh, &light_ray)
 		|| scalar_product(normal.axis, light_ray.dir_vect.axis) < 1e-3)
 		return (*params->color = ambiantly_color, 0);
-	calculate_spotlight_effect(&(t_calc_spotlight_effect_params) {params, &plane->color, &normal, &spotlighty_color,
-		&light_ray});
+	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+		{params, &plane->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
 	return (0);

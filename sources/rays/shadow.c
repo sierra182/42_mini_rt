@@ -150,7 +150,7 @@ int	has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
 	{
 		sph_cpy = *(t_sphere *) mesh->ref;
 		self_inter = is_intersect_sphere(&light_ray_norm, &sph_cpy, NULL);
-		if (self_inter && sph_cpy.which_t == 2)
+		if (self_inter && ((t_sphere *) mesh->ref)->which_t == 1)
 			get_intersect_point(&light_ray_norm, sph_cpy.t2, &light_ray_norm.origin_vect);
 	}
 	else if (mesh->type == O_CY)
