@@ -83,7 +83,23 @@ int	init_mlx(t_mlx *mlx)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+void	is_it_a_test(t_data *data, char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "AUTOMATED_TEST=true", 20) == 0)
+		{
+			data->is_test = 1;
+			break ;
+		}
+		i++;
+	}
+}
+
+int	main(int argc, char **argv, char **envp)
 {
 	t_mlx	mlx;
 	t_data 	data;
@@ -93,7 +109,8 @@ int	main(int argc, char **argv)
 	if (parse(&data, argv[1]) == 0)
 		return (display_error(".rt file not valid\n"), 2);
 	if (init_data(argv[1], &data) == 0)
-		return (display_error("data init. error\n"), 3);	
+		return (display_error("data init. error\n"), 3);		
+	is_it_a_test(&data, envp);
 	if (init_mlx(&mlx))
 		return (4);	
 	launch_mlx_loop(&mlx, &data);		

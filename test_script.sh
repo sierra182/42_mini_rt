@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export AUTOMATED_TEST=true
+
 # Nombre total de fichiers à traiter
 total_files=$(ls tests/rt_files/*.rt | wc -l)
 
@@ -9,6 +11,7 @@ for ((i=0; i<total_files; i++)); do
     rt_file="tests/rt_files/file_$i.rt"
     # Chemin du fichier .bin de référence
     ref_bin_file="tests/ref_files/file_$i.bin"
+
 
     # Commande pour exécuter miniRT avec le fichier .rt
     ./miniRT "$rt_file" &
@@ -22,9 +25,9 @@ for ((i=0; i<total_files; i++)); do
 
     # Comparer le fichier .bin généré avec le fichier de référence
     if cmp -s "file_0.bin" "$ref_bin_file"; then
-        echo "No difference found: file_$i"
+        echo "file_$i ✅ : no difference found"
     else
-        echo "Difference found: file_$i"
+        echo "file_$i ❌ : files are different"
     fi
 
     # Nettoyer le fichier .bin généré

@@ -1,6 +1,7 @@
 #include "se_mini_struct.h"
 #include "mlx.h"
 #include "libft.h"
+#include <stdlib.h>
 
 void	save_image_reference(t_data *data, t_mlx *mlx)
 {
@@ -43,6 +44,7 @@ void	make_bin_file(t_data *data, t_mlx *mlx)
 	ft_strlcat(filename, "file_", 10);
 	char *tmp = ft_itoa(i);
 	ft_strlcat(filename, tmp, ft_strlen(tmp) + ft_strlen(filename) + 1);
+	free(tmp);
 	ft_strlcat(filename, ".bin", ft_strlen(filename) + 5);	
 	save_image_data_to_bin(filename, mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp, &mlx->img.line_len, &(int){0}), WIDTH, HEIGHT, mlx->img.line_len);
 	i++;
