@@ -79,6 +79,15 @@ typedef struct s_add_shad_and_light_params
 
 }	t_add_shad_and_light_params;
 
+typedef struct s_calc_spotlight_effect_params
+{
+	t_get_color_params	*params;
+	t_color 			*mesh_color;
+	t_ray_vector 		*normal;
+	t_color 			*spotlighty_color;
+	t_ray 				*light_ray;
+}	t_calc_spotlight_effect_params;
+
 typedef struct s_reset_tmps
 {
 	t_plane		*planes;
