@@ -15,7 +15,7 @@ for ((i=0; i<total_files; i++)); do
 
 	
 	new_bin_file="file_$i.bin"
-	bin_folder="tests/bin_files"
+	bin_folder="tests/new_files"
 
     # Commande pour exécuter miniRT avec le fichier .rt
     ./miniRT "$rt_file" &
