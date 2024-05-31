@@ -1,5 +1,5 @@
 #include <math.h>
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 
 int	are_collinear_vectors(t_matrix_vector *cross_prdct, double precision)
 {

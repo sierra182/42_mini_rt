@@ -1,5 +1,5 @@
 # include <math.h>
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 
 void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector,
 	t_matrix_vector *applied_vect)

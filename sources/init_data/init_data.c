@@ -1,5 +1,5 @@
 #include "init_data.h"
-#include "x_exit.h"
+#include "exit.h"
 
 void	print_cylinder(t_cylinder *cylinder);
 int		element_is_present(char *map_path, char *el);

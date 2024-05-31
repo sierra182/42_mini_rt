@@ -99,43 +99,43 @@ SOURCES = \
 	$(SRC_DIR)/event/event_reset.c \
 	$(SRC_DIR)/event/key_event.c 
 	
-HEADERS = \
-	$(HEADERS_DIR)/x_mini_struct.h \
-	$(HEADERS_DIR)/x_exit.h \
-	$(HEADERS_DIR)/x_matrix.h \
-	$(HEADERS_DIR)/x_linear_algebra.h \
-	$(HEADERS_DIR)/x_color_image.h \
-	$(HEADERS_DIR)/x_ray_vector.h \
-	$(HEADERS_DIR)/x_camera.h \
-	$(HEADERS_DIR)/x_geometry.h \
-	$(HEADERS_DIR)/x_lighting.h \
-	$(HEADERS_DIR)/x_general.h \
-	$(HEADERS_DIR)/x_exit.h \
-	$(HEADERS_DIR)/x_events.h \
-	$(HEADERS_DIR)/x_funcs_params.h \
-	$(HEADERS_DIR)/main.h \
-	$(HEADERS_DIR)/exit/exit.h \
-	$(HEADERS_DIR)/exit/data_store.h \
-	$(HEADERS_DIR)/rays/rays.h \
-	$(HEADERS_DIR)/parsing/all_necessary_elements_are_present.h \
-	$(HEADERS_DIR)/parsing/check_funcs.h \
-	$(HEADERS_DIR)/parsing/elements_data_are_valid.h \
-	$(HEADERS_DIR)/parsing/elements_data_are_valid_utils.h \
-	$(HEADERS_DIR)/parsing/file_content_is_correct.h \
-	$(HEADERS_DIR)/parsing/parse.h \
-	$(HEADERS_DIR)/init_data/create_data_structs.h \
-	$(HEADERS_DIR)/init_data/fill_struct_funcs.h \
-	$(HEADERS_DIR)/init_data/init_data.h \
-	$(HEADERS_DIR)/x_color_image.h \
-	$(HEADERS_DIR)/x_ray_vector.h \
-	$(HEADERS_DIR)/x_camera.h \
-	$(HEADERS_DIR)/x_geometry.h \
-	$(HEADERS_DIR)/x_lighting.h \
-	$(HEADERS_DIR)/x_general.h \
-	$(HEADERS_DIR)/x_exit.h \
-	$(HEADERS_DIR)/x_events.h \
-	$(HEADERS_DIR)/x_funcs_params.h \
-	$(GNL_DIR)/get_next_line.h \
+# HEADERS = \
+# 	$(HEADERS_DIR)/exit/exit.h \
+# 	$(HEADERS_DIR)/exit/data_store.h \
+# 	$(HEADERS_DIR)/rays/rays.h \
+# 	$(HEADERS_DIR)/parsing/all_necessary_elements_are_present.h \
+# 	$(HEADERS_DIR)/parsing/check_funcs.h \
+# 	$(HEADERS_DIR)/parsing/elements_data_are_valid.h \
+# 	$(HEADERS_DIR)/parsing/elements_data_are_valid_utils.h \
+# 	$(HEADERS_DIR)/parsing/file_content_is_correct.h \
+# 	$(HEADERS_DIR)/parsing/parse.h \
+# 	$(HEADERS_DIR)/init_data/create_data_structs.h \
+# 	$(HEADERS_DIR)/init_data/fill_struct_funcs.h \
+# 	$(HEADERS_DIR)/init_data/init_data.h \
+# 	$(HEADERS_DIR)/se_camera.h \
+# 	$(HEADERS_DIR)/se_color_image.h \
+# 	$(HEADERS_DIR)/se_events.h \
+# 	$(HEADERS_DIR)/se_exit.h \
+# 	$(HEADERS_DIR)/se_funcs_params.h \
+# 	$(HEADERS_DIR)/se_general.h \
+# 	$(HEADERS_DIR)/se_geometry.h \
+# 	$(HEADERS_DIR)/se_lighting.h \
+# 	$(HEADERS_DIR)/se_mini_struct.h \
+# 	$(HEADERS_DIR)/se_ray_vector.h \
+# 	# $(GNL_DIR)/get_next_line.h \
+	# $(HEADERS_DIR)/x_exit.h \
+	# $(HEADERS_DIR)/x_matrix.h \
+	# $(HEADERS_DIR)/x_linear_algebra.h \
+	# $(HEADERS_DIR)/x_color_effect.h \
+	# $(HEADERS_DIR)/x_ray_vector.h \
+	# $(HEADERS_DIR)/x_camera.h \
+	# $(HEADERS_DIR)/x_geometry.h \
+	# $(HEADERS_DIR)/x_lighting.h \
+	# $(HEADERS_DIR)/x_general.h \
+	# $(HEADERS_DIR)/x_exit.h \
+	# $(HEADERS_DIR)/x_events.h \
+	# $(HEADERS_DIR)/x_funcs_params.h \
+	# $(HEADERS_DIR)/main.h \
 
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
 #bonus

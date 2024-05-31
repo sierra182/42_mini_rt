@@ -1,7 +1,7 @@
 #ifndef X_MATRIX_H
 # define X_MATRIX_H
 
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 
 void	init_matrix(t_matrix_vector matrix[]);
 void	multiply_matrix(t_matrix_vector a[], t_matrix_vector b[],

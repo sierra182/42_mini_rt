@@ -1,5 +1,5 @@
 #include "init_data.h"
-#include "x_exit.h"
+#include "exit.h"
 
 /**========================================================================
  *                           fill_tab

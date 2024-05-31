@@ -1,4 +1,4 @@
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 # include <math.h>
 
 void	set_matrix_rotation(t_matrix_vector matrix[], double angle, int axe[])

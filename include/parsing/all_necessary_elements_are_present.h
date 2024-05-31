@@ -3,7 +3,7 @@
 # define FILE_SIZE 1024
 
 # include "libft.h"
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 
 int	element_is_present(char file_content[], char *el);
 

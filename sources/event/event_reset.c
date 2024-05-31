@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 #include "libft.h"
 
 void	calculate_missing_vectors(t_cam *cam);

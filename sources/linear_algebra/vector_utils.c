@@ -1,5 +1,5 @@
 #include <math.h>
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 
 void	invert_vector(double ori[], double dir[],
 	double inv_ori[], double inv_dir[])

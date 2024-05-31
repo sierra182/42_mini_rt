@@ -1,7 +1,7 @@
 #ifndef X_EXIT_H
 # define X_EXIT_H
 
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 
 typedef struct s_exit
 {

@@ -4,7 +4,7 @@
 # include "libft.h"
 # include <fcntl.h>
 # include <unistd.h>
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 
 int	is_rt_file(char *map_path);
 int	file_exists(char *map_path);

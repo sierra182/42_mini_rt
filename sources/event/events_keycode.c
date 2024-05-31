@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 #include "mlx.h"
 
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);

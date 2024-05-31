@@ -1,7 +1,7 @@
 #ifndef INIT_DATA_H
 # define INIT_DATA_H
 
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 # include "get_next_line.h"
 # include "libft.h"
 # include <fcntl.h>

@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 
 void	add_vector(double a[], double b[], double sum_vect[])
 {

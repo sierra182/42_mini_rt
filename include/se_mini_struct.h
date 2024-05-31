@@ -1,5 +1,5 @@
-#ifndef X_MINI_STRUCT_H
-# define X_MINI_STRUCT_H
+#ifndef se_mini_struct_H
+# define se_mini_struct_H
 
 # define WIDTH 800
 # define HEIGHT 600
@@ -8,15 +8,15 @@
 # define BIG_VALUE 100000000
 
 # include <stdio.h>
-# include "x_color_image.h"
-# include "x_ray_vector.h"
-# include "x_camera.h"
-# include "x_geometry.h"
-# include "x_general.h"
-# include "x_lighting.h"
-# include "x_events.h"
-# include "x_exit.h"
-# include "x_funcs_params.h"
+# include "se_color_image.h"
+# include "se_ray_vector.h"
+# include "se_camera.h"
+# include "se_geometry.h"
+# include "se_general.h"
+# include "se_lighting.h"
+# include "se_events.h"
+# include "se_exit.h"
+# include "se_funcs_params.h"
 
 typedef struct s_data
 {

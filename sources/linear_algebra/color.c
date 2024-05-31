@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 
 void	add_color(t_color *a, t_color *b, t_color *sum_color)
 {

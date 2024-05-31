@@ -8,7 +8,7 @@
 		"elements_data_are_valid.h": "c"
 =======
 		"x_exit.h": "c",
-		"x_mini_struct.h": "c",
+		"se_mini_struct.h": "c",
 		"cmath": "c"
 >>>>>>> seb
 	},

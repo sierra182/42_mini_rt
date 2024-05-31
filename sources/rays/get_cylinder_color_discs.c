@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 #include "x_linear_algebra.h"
 
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);

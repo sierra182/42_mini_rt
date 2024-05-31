@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 
 void	limit_to_255(t_color *color)
 {

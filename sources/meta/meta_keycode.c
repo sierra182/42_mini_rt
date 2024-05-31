@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 
 void	make_rt_file(t_data *data);
 void	video_rotate_element(t_sphere *sphere, int obj_nbr);

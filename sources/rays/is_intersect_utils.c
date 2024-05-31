@@ -1,5 +1,5 @@
 #include "math.h"
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 
 void	subtract_vector(double a[], double b[], double subt_vect[]);
 

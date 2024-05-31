@@ -1,4 +1,4 @@
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 # include "x_linear_algebra.h"
 
 // int	is_same_sphere_space(t_sphere *a, t_sphere *b)

@@ -2,7 +2,7 @@
 
 # include <stdlib.h>
 # include "ft_printf.h"
-# include "x_exit.h"
+# include "exit.h"
 # include "libft.h"
 # include "mlx.h"
 

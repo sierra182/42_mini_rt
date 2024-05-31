@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 #include "mlx.h"
 
 void	reset(t_data *data);

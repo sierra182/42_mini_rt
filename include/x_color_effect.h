@@ -1,7 +1,7 @@
 #ifndef X_COLOR_EFFECT_H
 # define X_COLOR_EFFECT_H
 
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 
 double	calculate_light_attenuation(t_ray *light_ray, double intensity);
 void	add_self_shadowing(double light_coef, double light_attenuation,

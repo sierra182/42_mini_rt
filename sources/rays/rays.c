@@ -1,6 +1,6 @@
 #include "rays.h"
 
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 #include "x_linear_algebra.h"
 
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);

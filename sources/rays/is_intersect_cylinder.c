@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 #include "math.h"
 #include "x_linear_algebra.h"
 

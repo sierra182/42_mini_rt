@@ -1,4 +1,4 @@
-#include "x_mini_struct.h"
+#include "se_mini_struct.h"
 
 static void	add_xpm_item(t_mlx *mlx, int pixels[], t_img *img, int offsets[])
 {

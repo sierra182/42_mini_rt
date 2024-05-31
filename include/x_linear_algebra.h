@@ -1,6 +1,6 @@
 #ifndef X_LINEAR_ALGEBRA_H
 # define X_LINEAR_ALGEBRA_H
-# include "x_mini_struct.h"
+# include "se_mini_struct.h"
 
 void	normalize_vector(double vector[]);
 void	add_color(t_color *a, t_color *b, t_color *sum_color);
