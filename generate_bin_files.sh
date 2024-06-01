@@ -17,6 +17,7 @@ for ((i=0; i<total_files; i++)); do
     ref_bin_file="tests/bin_files/file_$i.bin"
 	new_bin_file="file_$((start_index + i)).bin"
 	bin_folder="tests/bin_files"
+	mkdir -p "$bin_folder	"
     ./miniRT "$rt_file" &
     sleep 0.5
     while [ ! -f "file_0.bin" ]; do
