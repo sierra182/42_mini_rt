@@ -22,9 +22,9 @@ for ((i=0; i<total_files; i++)); do
     echo "Dossier $bin_folder créé."
 fi
     ./miniRT "$rt_file" &
-    sleep 0.5
+    sleep 1
     while [ ! -f "file_0.bin" ]; do
-        sleep 0.5
+        sleep 1
     done
     mv "file_0.bin" "$new_bin_file"
     mv "$new_bin_file" "$bin_folder/"
