@@ -157,9 +157,14 @@ int	has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
 	{		
 		cyl_cpy = *(t_cylinder *) mesh->ref;
 		self_inter = is_intersect_cylinder(&light_ray_norm, &cyl_cpy, NULL);
-		if (self_inter && ((t_cylinder *) mesh->ref)->which_t == 1 && ((t_cylinder *) mesh->ref)->cyl_or_discs == cylinder 
-		|| (self_inter && ((t_cylinder *) mesh->ref)->which_t == 1 && ((t_cylinder *) mesh->ref)->cyl_or_discs == discs)
-		)
+		if (self_inter &&
+		 is_cylinder_surface_between (cyl_cpy, p->normal, p->params->data
+			->spotlight.origin_vect.axis) || (!is_in_cyl_height(&tmp, cyl, p
+				->params->data->spotlight.origin_vect.axis)
+			&& (cyl->which_t == 2))) is_in_cy)
+		// if (self_inter && ((t_cylinder *) mesh->ref)->which_t == 1 && ((t_cylinder *) mesh->ref)->cyl_or_discs == cylinder 
+		// || (self_inter && ((t_cylinder *) mesh->ref)->which_t == 1 && ((t_cylinder *) mesh->ref)->cyl_or_discs == discs)
+		// )
 			get_intersect_point(&light_ray_norm, cyl_cpy.t2, &light_ray_norm.origin_vect);
 	}
 	if ((has_sphere_shadow(data, mesh,
