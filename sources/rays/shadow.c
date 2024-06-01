@@ -1,16 +1,15 @@
 # include "se_mini_struct.h"
 # include "x_linear_algebra.h"
 
-int		is_same_plane_space(t_plane *a, t_plane *b);
-int		is_same_sphere_space(t_sphere *a, t_sphere *b);
-int		is_same_cylinder_space(t_cylinder *a, t_cylinder *b);
 void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double	is_intersect_cylinder(t_ray *ray, t_cylinder *cylinder,
 			t_ray_vector *i);
 double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
+int		is_in_cylinder(t_ray_vector *normal, t_cylinder *cyl, double mesh[]);
+void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 
-int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[], double self_inter)
+int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[])
 {
 	int				i;
 	double			t;
@@ -23,10 +22,8 @@ int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[], double sel
 	{	
 		if (mesh->ref && (void *) &data->spheres[i] != mesh->ref)
 		{
-			t = is_intersect_sphere(light_rays[1], &data->spheres[i], NULL);
-			// if( (t && !self_inter)
-			// 	||( t && self_inter && self_inter < data->spheres[i].t2))
-			if (t && mesh->type != O_SP || t && mesh->type == O_SP && !self_inter)
+			t = is_intersect_sphere(light_rays[1], &data->spheres[i], NULL);	
+			if (t)
 			{
 				get_local_intersect_point(light_rays[1], t, &inter_pt);
 				light_mag = get_vector_magnitude(light_rays[0]->dir_vect.axis);
@@ -34,13 +31,12 @@ int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[], double sel
 				if (mesh_mag - 1e-5 < light_mag)
 					return (1);
 			}
-		}
+		}		
 	}
 	return (0);
 }
 
-int	has_cylinder_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[],
-	double self_inter)
+int	has_cylinder_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[])
 {
 	int				i;
 	double			t;
@@ -54,17 +50,15 @@ int	has_cylinder_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[],
 		if (mesh->ref && (void *) & data->cylinders[i] != mesh->ref)
 		{
 			t = is_intersect_cylinder(light_rays[1], &data->cylinders[i],
-				NULL);
-			//if ((t && self_inter < 1e-3)
-				//|| ( t && self_inter && self_inter < data->cylinders[i].t2))
-			if (t && mesh->type != O_CY || t && mesh->type == O_CY && !self_inter)
-			{
-				get_local_intersect_point(light_rays[1], t, &inter_pt);
-				light_mag = get_vector_magnitude(light_rays[0]->dir_vect.axis);
-				mesh_mag = get_vector_magnitude(inter_pt.axis);
-				if (mesh_mag - 1e-5 < light_mag)
-					return (1);
-			}
+				NULL);	
+				if (t)
+				{
+					get_local_intersect_point(light_rays[1], t, &inter_pt);
+					light_mag = get_vector_magnitude(light_rays[0]->dir_vect.axis);
+					mesh_mag = get_vector_magnitude(inter_pt.axis);
+					if (mesh_mag - 1e-5 < light_mag)
+						return (1);		
+			 }
 		}
 	}
 	return (0);
@@ -97,29 +91,44 @@ int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
 	return (0);
 }
 
-int	has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
+void	move_light_ray_origin(t_data *data, t_ray *light_ray_norm,
+	t_ray_vector *normal, t_obj *mesh)
 {
-	double 	self_inter;
+	double 		self_inter;
 	t_sphere 	sph_cpy;
 	t_cylinder 	cyl_cpy;
-	t_ray 		light_ray_norm;
 
-	light_ray_norm = *light_ray;
-	normalize_vector(light_ray_norm.dir_vect.axis);
 	if (mesh->type == O_SP)
 	{
 		sph_cpy = *(t_sphere *) mesh->ref;
-		self_inter = is_intersect_sphere(&light_ray_norm, &sph_cpy, NULL);
+		self_inter = is_intersect_sphere(light_ray_norm, &sph_cpy, NULL);
+		if (self_inter && ((t_sphere *) mesh->ref)->which_t == 1)
+			get_intersect_point(light_ray_norm, sph_cpy.t2,
+				&light_ray_norm->origin_vect);
 	}
 	else if (mesh->type == O_CY)
 	{		
 		cyl_cpy = *(t_cylinder *) mesh->ref;
-		self_inter = is_intersect_cylinder(&light_ray_norm, &cyl_cpy, NULL);
+		self_inter = is_intersect_cylinder(light_ray_norm, &cyl_cpy, NULL);
+		if (self_inter && !is_in_cylinder(normal, &cyl_cpy,
+			data->cam.origin_vect.axis))	
+			get_intersect_point(light_ray_norm, cyl_cpy.t2,
+				&light_ray_norm->origin_vect);
 	}
+}
+
+int	has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
+	t_ray *light_ray)
+{	
+	t_ray 		light_ray_norm;
+
+	light_ray_norm = *light_ray;
+	normalize_vector(light_ray_norm.dir_vect.axis);
+	move_light_ray_origin(data, &light_ray_norm, normal, mesh);	
 	if ((has_sphere_shadow(data, mesh,
-		(t_ray *[]){light_ray, &light_ray_norm}, self_inter))
+		(t_ray *[]){light_ray, &light_ray_norm}))
 		|| (has_cylinder_shadow(data, mesh,
-		(t_ray *[]){light_ray, &light_ray_norm}, self_inter))
+		(t_ray *[]){light_ray, &light_ray_norm}))
 		|| (has_plane_shadow(data, mesh, light_ray)))
 		return (1);
 	return (0);

@@ -6,7 +6,8 @@
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	color_with_ambiant_light(t_color *mesh_color,
 			t_ambiant_light *ambiant_light, t_color *new_color);
-int		has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray);
+int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
+	t_ray *light_ray);
 void	add_lightening(t_add_lightening_params *params);
 int		get_plane_color(t_get_color_params *params);
 void	add_shading( t_ray *ray, t_ray_vector *normal,
@@ -58,7 +59,7 @@ static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
 
 	cyl = (t_cylinder *)p->params->mesh->ref;
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
-	if (has_shadow(p->params->data, p->params->mesh, p->light_ray)
+	if (has_shadow(p->params->data, p->normal, p->params->mesh, p->light_ray)
 		|| is_cylinder_surface_between (cyl, p->normal, p->params->data
 			->spotlight.origin_vect.axis) || (!is_in_cyl_height(&tmp, cyl, p
 				->params->data->spotlight.origin_vect.axis)
