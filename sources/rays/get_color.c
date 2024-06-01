@@ -2,7 +2,7 @@
 # include "x_linear_algebra.h"
 # include "x_color_effect.h"
 
-int		has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray);
+int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh, t_ray *light_ray);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
@@ -61,7 +61,7 @@ int	get_sphere_color(t_get_color_params *params)
 	calculate_ambiant_effect(params, &sphere->color, &normal,
 		&ambiantly_color);
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
-		|| has_shadow(params->data, params->mesh, &light_ray))
+		|| has_shadow(params->data, &normal, params->mesh, &light_ray))
 		return (*params->color = ambiantly_color, 0);
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 		{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
@@ -96,7 +96,7 @@ int	get_plane_color(t_get_color_params *params)
 	plane = ((t_plane *) params->mesh->ref);	
 	compute_pl_normal_and_light_ray(params, plane, &normal, &light_ray);
 	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
-	if (has_shadow(params->data, params->mesh, &light_ray)
+	if (has_shadow(params->data, &normal, params->mesh, &light_ray)
 		|| scalar_product(normal.axis, light_ray.dir_vect.axis) < 1e-3)
 		return (*params->color = ambiantly_color, 0);
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)

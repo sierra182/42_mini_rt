@@ -205,7 +205,7 @@ int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray *light_ray,
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int	is_in_cylinder(t_ray_vector *normal, t_cylinder *cyl, double mesh[]);
 
-int	has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
+int	has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh, t_ray *light_ray)
 {
 	double 	self_inter;
 	t_sphere 	sph_cpy;
@@ -226,7 +226,7 @@ int	has_shadow(t_data *data, t_obj *mesh, t_ray *light_ray)
 	{		
 		cyl_cpy = *(t_cylinder *) mesh->ref;
 		self_inter = is_intersect_cylinder(&light_ray_norm, &cyl_cpy, NULL);
-		if (self_inter && is_in_cylinder(cyl_cpy, )
+		if (self_inter && !is_in_cylinder(normal, &cyl_cpy, data->cam.origin_vect.axis))
 		 
 		// if (self_inter && ((t_cylinder *) mesh->ref)->which_t == 1 && ((t_cylinder *) mesh->ref)->cyl_or_discs == cylinder 
 		// || (self_inter && ((t_cylinder *) mesh->ref)->which_t == 1 && ((t_cylinder *) mesh->ref)->cyl_or_discs == discs)

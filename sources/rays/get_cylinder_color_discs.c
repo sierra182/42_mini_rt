@@ -10,7 +10,8 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 			t_color *color);
 void	add_shading( t_ray *ray, t_ray_vector *normal,
 			t_color *ambiantly_color, t_color *color);
-int		has_shadow(t_data *data, void *mesh, t_ray *light_ray);
+int		has_shadow(t_data *data, t_ray_vector *normal, void *mesh,
+	t_ray *light_ray);
 int		are_light_and_cam_in_different_cyl_space(t_ray_vector *normal,
 			t_spotlight *light, t_cylinder *cyl, t_cam *cam);
 
@@ -25,7 +26,7 @@ static void	add_lightning_effects(t_add_shad_and_light_params *p)
 
 	cyl = ((t_cylinder *) p->params->mesh->ref);
 	light_coef = scalar_product(p->normal->axis, p->light_ray->dir_vect.axis);
-	if (has_shadow(p->params->data, p->params->mesh, p->light_ray)
+	if (has_shadow(p->params->data, p->normal, p->params->mesh, p->light_ray)
 		|| light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
 		(p->normal, &p->params->data->spotlight, cyl, &p->params->data->cam))
 	{
