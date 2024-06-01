@@ -11,20 +11,22 @@ double	*symmetrize_vector(double vect[]);
  * for a 2 seconds video, generate 48 images
  * rotate 7.5 angle each frame
  *========================================================================**/
-void	video_rotate_element(t_sphere *sphere, int obj_num)
+void	video_rotate_spheres(t_sphere *sphere, int obj_num)
 {
 	int i = 0;
 	int axe[3];
 	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector applied_vect;
 	double angle = 5;
+	if (obj_num %2 == 0)
+		angle = -5;
 
 	t_ray_vector point;
-	t_ray_vector point2;
 
-	point.axis[0] = 10;
+
+	point.axis[0] = -45;
 	point.axis[1] = 0;
-	point.axis[2] = 0;
+	point.axis[2] = -45;
 	
 	
 	trsl_mesh(NULL, &sphere->origin_vect, point.axis);
@@ -46,4 +48,47 @@ void	video_rotate_element(t_sphere *sphere, int obj_num)
 	symmetrize_vector(point.axis);
 	trsl_mesh(NULL, &sphere->origin_vect, point.axis);
 
+}
+
+void	video_rotate_cylinders(t_cylinder *cyl, int obj_num)
+{
+	if (obj_num < 24)
+	{
+		return ;
+	}
+
+	int i = 0;
+	int axe[3];
+	t_matrix_vector	trsf_matrix[MTX];
+	t_matrix_vector applied_vect;
+	double angle = 5;
+	// if (obj_num %2 == 0)
+	// 	angle = -5;
+
+	t_ray_vector point;
+
+	point.axis[0] = -45;
+	point.axis[1] = 0;
+	point.axis[2] = -45;
+	
+	
+	trsl_mesh(NULL, &cyl->origin_vect, point.axis);
+
+
+	axe[0] = 1;
+	axe[1] = 0;
+	axe[2] = 0;
+	rotate_mesh(&cyl->origin_vect, angle, axe);
+	axe[0] = 0;
+	axe[1] = 1;
+	axe[2] = 0;
+	rotate_mesh(&cyl->origin_vect, angle, axe);
+	axe[0] = 0;
+	axe[1] = 0;
+	axe[2] = 1;
+	rotate_mesh(&cyl->origin_vect, angle, axe);
+
+	symmetrize_vector(point.axis);
+	trsl_mesh(NULL, &cyl->origin_vect, point.axis);
+	printf("rotate cylinders: %i, %i\n", obj_num, cyl->color.rgb[1]);
 }
