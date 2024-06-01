@@ -16,7 +16,11 @@ for ((i=0; i<total_files; i++)); do
     rt_file="tests/rt_files/file_$i.rt"
     ref_bin_file="tests/bin_files/file_$i.bin"
 	new_bin_file="file_$((start_index + i)).bin"
-	bin_folder="tests/bin_files"
+	bin_folder="../../goinfre/miniRT_test_files/"
+	if [ ! -d "$bin_folder" ]; then
+    mkdir -p "$bin_folder"
+    echo "Dossier $bin_folder créé."
+fi
     ./miniRT "$rt_file" &
     sleep 0.5
     while [ ! -f "file_0.bin" ]; do

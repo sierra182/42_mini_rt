@@ -13,8 +13,9 @@ for ((i=0; i<total_files; i++)); do
     sleep 0.5
 
     while true; do
-        read -p "Appuyez sur espace ou entrée pour continuer, ou 'q' pour quitter..." -n 1 key
-        if [[ "$key" == " " || "$key" == "" ]]; then
+		read -p "file_$i.rt	Appuyez sur espace ou entrée pour continuer, ou 'q' pour quitter...
+" -n 1 key
+    if [[ "$key" == " " || "$key" == "" ]]; then
             pkill miniRT
             break
         elif [ "$key" == "q" ]; then
