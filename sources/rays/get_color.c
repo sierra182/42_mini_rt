@@ -23,7 +23,7 @@ void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 		params->normal,	&params->params->data->spotlight,
 		params->spotlighty_color, params->spotlighty_color,
 		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
+	 add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
 }
 
 void	calculate_ambiant_effect(t_get_color_params *params,

@@ -47,5 +47,7 @@ void	normalize_vector(double vector[])
 
 void	normalize_zero_one(double *scalar_product)
 {
-	*scalar_product = (*scalar_product + 1) * 0.5;
+	//*scalar_product = (*scalar_product + 1) * 0.5;
+	if (*scalar_product >= -1 && *scalar_product < 0)
+		*scalar_product = 0;
 }
