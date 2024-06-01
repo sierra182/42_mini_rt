@@ -3,7 +3,7 @@
 void	make_rt_file(t_data *data);
 void	video_rotate_spheres(t_sphere *sphere, int obj_nbr);
 void	make_bin_file(t_data *data, t_mlx *mlx);
-void	video_rotate_cylinders(t_cylinder *cyl, int obj_num);
+void	video_rotate_cylinders(t_cylinder *cyl, int obj_num, int cyl_nbr);
 
 /**========================================================================
  *                           META_KEYCODE
@@ -27,7 +27,7 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 		i = 0;
 		while (i < data->cy_nbr)
 		{
-			video_rotate_cylinders(&data->cylinders[i], i);
+			video_rotate_cylinders(&data->cylinders[i], i, data->cy_nbr);
 			i++;
 		}
 	}

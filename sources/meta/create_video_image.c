@@ -13,7 +13,7 @@ double	*symmetrize_vector(double vect[]);
  *========================================================================**/
 void	video_rotate_spheres(t_sphere *sphere, int obj_num)
 {
-	int i = 0;
+
 	int axe[3];
 	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector applied_vect;
@@ -50,27 +50,32 @@ void	video_rotate_spheres(t_sphere *sphere, int obj_num)
 
 }
 
-void	video_rotate_cylinders(t_cylinder *cyl, int obj_num)
+void	video_rotate_cylinders(t_cylinder *cyl, int obj_num, int cyl_nbr)
 {
-	if (obj_num < 24)
-	{
-		return ;
-	}
+	// if (obj_num < 24)
+	// {
+	// 	return ;
+	// }
 
-	int i = 0;
+	static int i = 0;
+	static int j = 1;
+	if (i == 4 * cyl_nbr)
+	{
+		i = 0;
+		j = -j;
+	}
 	int axe[3];
 	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector applied_vect;
-	double angle = 5;
+	double angle = 3;
 	// if (obj_num %2 == 0)
-	// 	angle = -5;
+	// 	angle = -3;
 
 	t_ray_vector point;
 
 	point.axis[0] = -45;
-	point.axis[1] = 0;
+	point.axis[1] = 0;	
 	point.axis[2] = -45;
-	
 	
 	trsl_mesh(NULL, &cyl->origin_vect, point.axis);
 
@@ -78,17 +83,38 @@ void	video_rotate_cylinders(t_cylinder *cyl, int obj_num)
 	axe[0] = 1;
 	axe[1] = 0;
 	axe[2] = 0;
-	rotate_mesh(&cyl->origin_vect, angle, axe);
+	rotate_mesh(&cyl->axis_vect, angle, axe);
+	// printf("After X rotation: (%f, %f, %f)\n", cyl->origin_vect.axis[0], cyl->origin_vect.axis[1], cyl->origin_vect.axis[2]);
 	axe[0] = 0;
 	axe[1] = 1;
 	axe[2] = 0;
-	rotate_mesh(&cyl->origin_vect, angle, axe);
+	rotate_mesh(&cyl->axis_vect, angle, axe);
+    // printf("After Y rotation: (%f, %f, %f)\n", cyl->origin_vect.axis[0], cyl->origin_vect.axis[1], cyl->origin_vect.axis[2]);
 	axe[0] = 0;
 	axe[1] = 0;
 	axe[2] = 1;
-	rotate_mesh(&cyl->origin_vect, angle, axe);
+	rotate_mesh(&cyl->axis_vect, angle, axe);
+	// printf("After Z rotation: (%f, %f, %f)\n", cyl->origin_vect.axis[0], cyl->origin_vect.axis[1], cyl->origin_vect.axis[2]);
 
 	symmetrize_vector(point.axis);
 	trsl_mesh(NULL, &cyl->origin_vect, point.axis);
-	printf("rotate cylinders: %i, %i\n", obj_num, cyl->color.rgb[1]);
+	printf("%i\n", j);
+	if (obj_num % 2 == 0)
+	{
+		if (j == 1)
+		{
+			cyl->height += 1;
+			cyl->diameter -= 1;
+			cyl->radius = cyl->diameter / 2;
+			cyl->square_radius = cyl->radius * cyl->radius;
+		}
+		if (j == -1)
+		{
+			cyl->height -= 1;
+			cyl->diameter += 1;
+			cyl->radius = cyl->diameter / 2;
+			cyl->square_radius = cyl->radius * cyl->radius;
+		}
+	}
+	i++;
 }
