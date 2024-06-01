@@ -1,8 +1,13 @@
 #!/bin/bash
 
 export AUTOMATED_TEST=true
-total_files=$(ls tests/rt_files/*.rt | wc -l)
-exit_code=0
+total_files=$(ls tests/rt_files/*.rt 2>/dev/null | wc -l)
+if [ "$total_files" -eq 0 ]; then
+    echo "Aucun fichier .rt trouvé dans le répertoire tests/rt_files."
+    exit_code=0
+	exit 1
+fi
+
 for ((i=0; i<total_files; i++)); do
     rt_file="tests/rt_files/file_$i.rt"
     ref_bin_file="tests/bin_files/file_$i.bin"

@@ -2,8 +2,9 @@
 
 export AUTOMATED_TEST=true
 
-total_files=$(ls tests/rt_files/*.rt | wc -l)
+total_files=$(ls tests/rt_files/*.rt 2>/dev/null | wc -l)
 if [ "$total_files" -eq 0 ]; then
+    echo "Aucun fichier .rt trouvé dans le répertoire tests/rt_files."
     exit 1
 fi
 read -p "À partir de quelle valeur voulez-vous commencer la numérotation des fichiers .bin ? " start_index
