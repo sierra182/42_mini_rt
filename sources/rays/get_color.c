@@ -8,21 +8,19 @@ int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
 void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 {
-	t_plane	*plane;
 	double	light_attenuat;
 	double 	light_coef;
 
-	plane = (t_plane *) params->params->mesh->ref;
 	color_with_light(params->mesh_color,
 		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 			params->params->data->spotlight.intensity,
 			params->spotlighty_color);
-	add_shading(params->params->ray, params->normal, params->spotlighty_color,
+	add_shading2(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
 	add_lightening(&(t_add_lightening_params){params->light_ray,
 		params->normal,	&params->params->data->spotlight,
 		params->spotlighty_color, params->spotlighty_color,
-		&light_attenuat, &light_coef});
+		&light_attenuat, &light_coef});//!lightcoef
 	 add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
 }
 
