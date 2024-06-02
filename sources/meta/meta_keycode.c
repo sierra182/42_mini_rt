@@ -32,7 +32,7 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 			video_rotate_cylinders(&data->cylinders[i], i, data->cy_nbr);
 			i++;
 		}
-		video_rotate_cam(&data->cam);
+		// video_rotate_cam(&data->cam);
 		video_rotate_light(&data->spotlight);
 	}
 }

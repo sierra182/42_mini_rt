@@ -174,28 +174,27 @@ void	video_rotate_light(t_spotlight *light)
 	double angle = 5;
 
 	t_ray_vector point;
-	point.axis[0] = 0;
-	point.axis[1] = -8;
-	point.axis[2] = 0;
+	point.axis[0] = -45;
+	point.axis[1] = 0;
+	point.axis[2] = -45;
 	
 	trsl_mesh(NULL, &light->bulb.origin_vect, point.axis);
-	axe[0] = 1;
-	axe[1] = 0;
-	axe[2] = 0;
-	rotate_mesh(&light->bulb.origin_vect, angle, axe);
+	// axe[0] = 1;
+	// axe[1] = 0;
+	// axe[2] = 0;
+	// rotate_mesh(&light->bulb.origin_vect, angle, axe);
 	axe[0] = 0;
 	axe[1] = 1;
 	axe[2] = 0;
 	rotate_mesh(&light->bulb.origin_vect, angle, axe);
-	axe[0] = 0;
-	axe[1] = 0;
-	axe[2] = 1;
-	rotate_mesh(&light->bulb.origin_vect, angle, axe);
-	// light->bulb.origin_vect = light->origin_vect;
+	// axe[0] = 0;
+	// axe[1] = 0;
+	// axe[2] = 1;
+	// rotate_mesh(&light->bulb.origin_vect, angle, axe);
+
 
 	symmetrize_vector(point.axis);
 	trsl_mesh(NULL, &light->bulb.origin_vect, point.axis);
-	
-	light->bulb.origin_vect = light->origin_vect;
+	light->origin_vect = light->bulb.origin_vect;
 
 }
