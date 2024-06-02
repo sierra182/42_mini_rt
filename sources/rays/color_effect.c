@@ -61,7 +61,7 @@ void	add_lightening(t_add_lightening_params *params)
 		params->color, &subt_color);
 	*params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
 			*params->light_coef * params->spotlight->intensity);
-	scale_color(&subt_color, *params->light_attenuat * .0125, &scaled_color);
+	scale_color(&subt_color, *params->light_attenuat, &scaled_color);
 	add_color(&scaled_color, params->color, params->res_color);
 }
 
