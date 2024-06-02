@@ -1,9 +1,10 @@
 #include "se_mini_struct.h"
 #include <unistd.h>
 void	make_rt_file(t_data *data);
-void	video_rotate_spheres(t_sphere *sphere, int obj_nbr);
+void	video_rotate_spheres(t_sphere *sphere, int obj_nbr, int sp_nbr);
 void	make_bin_file(t_data *data, t_mlx *mlx);
 void	video_rotate_cylinders(t_cylinder *cyl, int obj_num, int cyl_nbr);
+void	video_rotate_cam(t_cam *cam);
 
 /**========================================================================
  *                           META_KEYCODE
@@ -21,7 +22,7 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 		i = 0;
 		while (i < data->sp_nbr)
 		{
-			video_rotate_spheres(&data->spheres[i], i);
+			video_rotate_spheres(&data->spheres[i], i, data->sp_nbr);
 			i++;
 		}
 		i = 0;
@@ -30,5 +31,6 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 			video_rotate_cylinders(&data->cylinders[i], i, data->cy_nbr);
 			i++;
 		}
+		video_rotate_cam(&data->cam);
 	}
 }
