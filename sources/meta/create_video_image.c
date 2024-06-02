@@ -58,18 +58,17 @@ void	video_rotate_cylinders(t_cylinder *cyl, int obj_num, int cyl_nbr)
 	// }
 
 	static int i = 0;
-	static int j = 1;
-	if (i == 4 * cyl_nbr)
+	static int j = -1;
+	if (i % 360 * cyl_nbr == 0)
 	{
-		i = 0;
 		j = -j;
 	}
 	int axe[3];
 	t_matrix_vector	trsf_matrix[MTX];
 	t_matrix_vector applied_vect;
 	double angle = 3;
-	// if (obj_num %2 == 0)
-	// 	angle = -3;
+	if (obj_num %2 == 0)
+		angle = -3;
 
 	t_ray_vector point;
 
@@ -99,22 +98,17 @@ void	video_rotate_cylinders(t_cylinder *cyl, int obj_num, int cyl_nbr)
 	symmetrize_vector(point.axis);
 	trsl_mesh(NULL, &cyl->origin_vect, point.axis);
 	printf("%i\n", j);
-	if (obj_num % 2 == 0)
+	
+	if (j == 1)
 	{
-		if (j == 1)
-		{
-			cyl->height += 1;
-			cyl->diameter -= 1;
-			cyl->radius = cyl->diameter / 2;
-			cyl->square_radius = cyl->radius * cyl->radius;
-		}
-		if (j == -1)
-		{
-			cyl->height -= 1;
-			cyl->diameter += 1;
-			cyl->radius = cyl->diameter / 2;
-			cyl->square_radius = cyl->radius * cyl->radius;
-		}
+		cyl->color.rgb[0] += 4;
+		cyl->color.rgb[1] -= 4;
 	}
+	else
+	{
+		cyl->color.rgb[0] -= 4;
+		cyl->color.rgb[1] += 4;
+	}
+	// printf("Color: %i, %i, %i\n", cyl->color.rgb[0], cyl->color.rgb[1], cyl->color.rgb[2]);
 	i++;
 }
