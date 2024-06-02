@@ -154,90 +154,48 @@ void	video_rotate_cam(t_cam *cam)
 	t_matrix_vector point;
 	point.axis[0] = 0;
 	point.axis[1] = 0;
-	point.axis[2] = 20;
+	point.axis[2] = 30;
 	
 	trsl_cam(cam, &point, point.axis);
 	axe[0] = 0;
 	axe[1] = 1;
 	axe[2] = 0;
 	rotate_cam(cam, angle, axe);
-	// axe[0] = 0;
-	// axe[1] = 1;
-	// axe[2] = 0;
-	// rotate_mesh(&sphere->origin_vect, angle, axe);
-	// axe[0] = 0;
-	// axe[1] = 0;
-	// axe[2] = 1;
-	// rotate_mesh(&sphere->origin_vect, angle, axe);
-
 	symmetrize_vector(point.axis);
 	trsl_cam(cam, &point, point.axis);
+	printf("cam position: %f %f %f\n", cam->origin_vect.axis[0], cam->origin_vect.axis[1], cam->origin_vect.axis[2]);
+
 }
 
 
-void	video_rotate_cam2(t_cam *cam)
+void	video_rotate_light(t_spotlight *light)
 {
-	t_ray_vector point;
 	int axe[3];
-	t_matrix_vector	trsf_matrix[MTX];
-	t_matrix_vector applied_vect;
-	double angle = 3;
+	double angle = 5;
 
-	point.axis[0] = 45;
-	point.axis[1] = 0;	
-	point.axis[2] = 45;
-
-	printf("rotate camera\n");
-	trsl_cam(cam, &cam->origin_vect, point.axis);
-	// axe[0] = 1;
-	// axe[1] = 0;
-	// axe[2] = 0;
-	// rotate_cam(cam, angle, axe);
+	t_ray_vector point;
+	point.axis[0] = 0;
+	point.axis[1] = -8;
+	point.axis[2] = 0;
+	
+	trsl_mesh(NULL, &light->bulb.origin_vect, point.axis);
+	axe[0] = 1;
+	axe[1] = 0;
+	axe[2] = 0;
+	rotate_mesh(&light->bulb.origin_vect, angle, axe);
 	axe[0] = 0;
 	axe[1] = 1;
 	axe[2] = 0;
-	rotate_cam(cam, angle, axe);
-	// axe[0] = 0;
-	// axe[1] = 0;
-	// axe[2] = 1;
-	// rotate_cam(cam, angle, axe);
+	rotate_mesh(&light->bulb.origin_vect, angle, axe);
+	axe[0] = 0;
+	axe[1] = 0;
+	axe[2] = 1;
+	rotate_mesh(&light->bulb.origin_vect, angle, axe);
+	// light->bulb.origin_vect = light->origin_vect;
+
 	symmetrize_vector(point.axis);
-	trsl_cam(cam, &cam->origin_vect, point.axis);
-	printf("cam position: %f %f %f\n", cam->origin_vect.axis[0], cam->origin_vect.axis[1], cam->origin_vect.axis[2]);
+	trsl_mesh(NULL, &light->bulb.origin_vect, point.axis);
+	
+	light->bulb.origin_vect = light->origin_vect;
+
 }
-
-// void video_rotate_cam(t_cam *cam)
-// {
-//     t_ray_vector point;
-//     int axe[3];
-//     double angle = 3;
-
-//     // Point central autour duquel on veut tourner
-//     point.axis[0] = 45;
-//     point.axis[1] = 0;
-//     point.axis[2] = 45;
-
-//     printf("rotate camera\n");
-
-//     // Translate la caméra pour que le point central devienne l'origine
-//     double to_origin[3] = {
-//         -point.axis[0],
-//         -point.axis[1],
-//         -point.axis[2]
-//     };
-//     trsl_mesh(NULL, &cam->origin_vect, to_origin);
-
-//     // Rotation autour de l'axe Y (axe vertical)
-//     axe[0] = 0;
-//     axe[1] = 1;
-//     axe[2] = 0;
-//     rotate_cam(cam, angle, axe);
-
-//     // Translate la caméra pour la remettre à sa position initiale
-//     double back_to_position[3] = {
-//         point.axis[0],
-//         point.axis[1],
-//         point.axis[2]
-//     };
-//     trsl_mesh(NULL, &cam->origin_vect, back_to_position);
-// }

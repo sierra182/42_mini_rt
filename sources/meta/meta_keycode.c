@@ -5,6 +5,7 @@ void	video_rotate_spheres(t_sphere *sphere, int obj_nbr, int sp_nbr);
 void	make_bin_file(t_data *data, t_mlx *mlx);
 void	video_rotate_cylinders(t_cylinder *cyl, int obj_num, int cyl_nbr);
 void	video_rotate_cam(t_cam *cam);
+void	video_rotate_light(t_spotlight *light);
 
 /**========================================================================
  *                           META_KEYCODE
@@ -32,5 +33,6 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 			i++;
 		}
 		video_rotate_cam(&data->cam);
+		video_rotate_light(&data->spotlight);
 	}
 }
