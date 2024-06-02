@@ -15,13 +15,13 @@ void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 			params->params->data->spotlight.intensity,
 			params->spotlighty_color);
-	add_shading2(params->params->ray, params->normal, params->spotlighty_color,
+	add_shading(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
 	add_lightening(&(t_add_lightening_params){params->light_ray,
 		params->normal,	&params->params->data->spotlight,
 		params->spotlighty_color, params->spotlighty_color,
 		&light_attenuat, &light_coef});//!lightcoef
-	 add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
+	add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
 }
 
 void	calculate_ambiant_effect(t_get_color_params *params,
