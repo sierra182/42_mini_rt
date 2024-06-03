@@ -134,6 +134,7 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray->origin_vect.axis, light_ray->dir_vect.axis);
 	normalize_vector(params->ray->dir_vect.axis);
+	normalize_vector(normal->axis);
 	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
 	if (view_dot_normal > 0)
 		symmetrize_vector(normal->axis);
