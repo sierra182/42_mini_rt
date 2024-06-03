@@ -6,7 +6,7 @@ int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh, t_ray *light_ra
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
-int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
+int	calculate_spotlight_effect2(t_calc_spotlight_effect_params *params)
 {
 	double	light_attenuat;
 	double 	light_coef;
@@ -31,7 +31,7 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	return (0);
 	// add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
 }
-int	calculate_spotlight_effect2(t_color *amb, t_calc_spotlight_effect_params *params)
+int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 {
 	double	light_attenuat;
 	double 	light_coef;
@@ -48,8 +48,8 @@ int	calculate_spotlight_effect2(t_color *amb, t_calc_spotlight_effect_params *pa
 		light_coef * params->params->data->spotlight.intensity);
 
 	color_with_light(params->mesh_color,
-		&(t_color){.rgb[0] = 0, .rgb[1] = 255, .rgb[2] = 0},
-			params->params->data->spotlight.intensity * light_attenuat,
+		&(t_color){.rgb[0] = 255, .rgb[1] = 0, .rgb[2] = 0},
+			params->params->data->spotlight.intensity * (light_attenuat * 4),
 			params->spotlighty_color);
 	add_shading(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
@@ -117,10 +117,8 @@ int	get_sphere_color(t_get_color_params *params)
 		&& scalar_product(light_ray.dir_vect.axis, normal.axis) > 0
 		))
 		return (*params->color = ambiantly_color, 0);
-	if (calculate_spotlight_effect2(&ambiantly_color, &(t_calc_spotlight_effect_params)
-		{params, &sphere->color, &normal, &spotlighty_color, &light_ray}))
-		return (*params->color = ambiantly_color, 0);
-	// *params->color = spotlighty_color;
+	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+		{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
 	return (0);
