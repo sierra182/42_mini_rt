@@ -40,45 +40,30 @@ int	is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight)
 {
 	t_matrix_vector	subt_vect;
 
-	subtract_vector(spotlight->origin_vect.axis, sphere->origin_vect.axis, subt_vect.axis);	
+	subtract_vector(spotlight->origin_vect.axis, sphere->origin_vect.axis,
+		subt_vect.axis);	
 	return ((get_vector_magnitude(subt_vect.axis) > sphere->diameter * 0.5
-	&& sphere->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) < sphere->diameter * 0.5
-	&& sphere->which_t == 1)));
+		&& sphere->which_t == 2)
+		|| ((get_vector_magnitude(subt_vect.axis) < sphere->diameter * 0.5
+		&& sphere->which_t == 1)));
 }
 
-// int	is_cylinder_surface_between(t_cylinder *cyl, t_spotlight *spotlight)
-// {
-// 	t_matrix_vector	subt_vect;
-
-// 	subtract_vector(spotlight->origin_vect.axis, cyl->origin_proj.axis, subt_vect.axis);	
-// 	return ((get_vector_magnitude(subt_vect.axis) > cyl->radius
-// 	&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) < cyl->radius
-// 	&& cyl->which_t == 1)));
-// }
-
-int	is_cylinder_surface_between( t_cylinder *cyl, t_ray_vector *normal, double mesh[])
+int	is_cylinder_surface_between( t_cylinder *cyl, t_ray_vector *normal,
+	double mesh[])
 {
 	t_ray_vector	subt_vect;
-	t_ray_vector	inter_vect;
-	
+	t_ray_vector	inter_vect;	
 	t_ray			ray;
-		
 
-	//ray.dir_vect = cyl->axis_vect;//*normal;
-	//symmetrize_vector(ray.dir_vect.axis);
 	cast_vector_mat_ray(&cyl->axis_vect, &ray.dir_vect);
 	cast_vector_mat_ray(&cyl->origin_vect, &ray.origin_vect);
-	subtract_vector(mesh, cyl->origin_vect.axis, subt_vect.axis);
-	
+	subtract_vector(mesh, cyl->origin_vect.axis, subt_vect.axis);	
 	normalize_vector(ray.dir_vect.axis);
-	scale_vector(ray.dir_vect.axis,  scalar_product(ray.dir_vect.axis, subt_vect.axis), inter_vect.axis);
-
-	//  get_intersect_point(&ray, scalar_product(normal->axis, subt_vect.axis), &inter_vect);
-	
+	scale_vector(ray.dir_vect.axis,  scalar_product(ray.dir_vect.axis,
+		subt_vect.axis), inter_vect.axis);
 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);	
-	//print_delay(&subt_vect, cyl->diameter);	
-	
-		return ((get_vector_magnitude(subt_vect.axis) >= cyl->diameter * 0.5
-	&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis) <= cyl->diameter * 0.5
-	&& cyl->which_t == 1)));
+	return ((get_vector_magnitude(subt_vect.axis) >= cyl->diameter * 0.5
+		&& cyl->which_t == 2)
+		|| ((get_vector_magnitude(subt_vect.axis) <= cyl->diameter * 0.5 
+		&& cyl->which_t == 1)));
 }
