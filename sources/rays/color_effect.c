@@ -45,25 +45,45 @@ void	add_shading( t_ray *ray, t_ray_vector *normal,
 	scale_color(color, light_coef, &scaled_color);
 	subtract_color(color, &scaled_color, res_color);
 }
-
-void	add_lightening(t_add_lightening_params *params)
+void	add_lightening(t_add_lightening_params *params) 
 {
-	t_ray	light_ray_sav;
+	
 	t_color	subt_color;
 	t_color	scaled_color;
 
-	light_ray_sav = *params->light_ray;
-	normalize_vector(params->light_ray->dir_vect.axis);
-	*params->light_coef = scalar_product(params->light_ray->dir_vect.axis,
+	t_ray	light_ray_cpy;
+
+	light_ray_cpy = *params->light_ray;
+	//light_ray_sav = *params->light_ray;
+	 normalize_vector(light_ray_cpy.dir_vect.axis); //!opt
+	*params->light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
 			params->normal->axis);
 	normalize_zero_one(params->light_coef);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		params->color, &subt_color);
-	*params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
-			*params->light_coef * params->spotlight->intensity);
-	scale_color(&subt_color, *params->light_attenuat, &scaled_color);
+	// *params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
+	// 		*params->light_coef * params->spotlight->intensity);
+	scale_color(&subt_color, *params->light_attenuat * 0.125, &scaled_color);
 	add_color(&scaled_color, params->color, params->res_color);
 }
+// void	add_lightening(t_add_lightening_params *params) good
+// {
+// 	t_ray	light_ray_sav;
+// 	t_color	subt_color;
+// 	t_color	scaled_color;
+
+// 	light_ray_sav = *params->light_ray;
+// 	// normalize_vector(params->light_ray->dir_vect.axis);
+// 	*params->light_coef = scalar_product(params->light_ray->dir_vect.axis,
+// 			params->normal->axis);
+// 	normalize_zero_one(params->light_coef);
+// 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
+// 		params->color, &subt_color);
+// 	// *params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
+// 	// 		*params->light_coef * params->spotlight->intensity);
+// 	scale_color(&subt_color, *params->light_attenuat, &scaled_color);
+// 	add_color(&scaled_color, params->color, params->res_color);
+// }
 
 void	color_with_light(t_color *mesh_color,
 	t_color *light_color, double intensity, t_color *new_color)

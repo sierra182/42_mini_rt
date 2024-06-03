@@ -11,11 +11,16 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	double	light_attenuat;
 	double 	light_coef;
 
-	if (scalar_product(params->light_ray->dir_vect.axis, params->normal->axis) < 0)
-		return (1);
+	normalize_vector(params->light_ray->dir_vect.axis);
+	// if (scalar_product(params->light_ray->dir_vect.axis, params->normal->axis) < 0)
+	// 	return (1);
+	light_coef = scalar_product(params->light_ray->dir_vect.axis,
+			params->normal->axis);
+		normalize_zero_one(&light_coef);
+
 	color_with_light(params->mesh_color,
 		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
-			0, //params->params->data->spotlight.intensity,
+			params->params->data->spotlight.intensity *(light_coef),
 			params->spotlighty_color);
 	add_shading(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
@@ -24,9 +29,55 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 		params->spotlighty_color, params->spotlighty_color,
 		&light_attenuat, &light_coef});//!lightcoef
 	return (0);
-	//add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
+	// add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
 }
+int	calculate_spotlight_effect2(t_color *amb, t_calc_spotlight_effect_params *params)
+{
+	double	light_attenuat;
+	double 	light_coef;
 
+	t_ray	light_ray_cpy;
+	light_ray_cpy = *params->light_ray;
+	normalize_vector(light_ray_cpy.dir_vect.axis);
+	// if (scalar_product(params->light_ray->dir_vect.axis, params->normal->axis) < 0)
+	// 	return (1);
+	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
+			params->normal->axis);
+		normalize_zero_one(&light_coef);
+	light_attenuat = calculate_light_attenuation(params->light_ray,
+		light_coef * params->params->data->spotlight.intensity);
+
+	color_with_light(params->mesh_color,
+		&(t_color){.rgb[0] = 0, .rgb[1] = 255, .rgb[2] = 0},
+			params->params->data->spotlight.intensity * light_attenuat,
+			params->spotlighty_color);
+	add_shading(params->params->ray, params->normal, params->spotlighty_color,
+		params->spotlighty_color);
+	add_lightening(&(t_add_lightening_params){params->light_ray,
+		params->normal,	&params->params->data->spotlight,
+		params->spotlighty_color, params->spotlighty_color,
+		&light_attenuat, &light_coef});//!lightcoef
+	return (0);
+	// add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
+}
+// void	add_lightening(t_add_lightening_params *params) //!supp
+// {
+// 	t_ray	light_ray_sav;
+// 	t_color	subt_color;
+// 	t_color	scaled_color;
+
+// 	//light_ray_sav = *params->light_ray;
+// 	// normalize_vector(params->light_ray->dir_vect.axis);
+// 	*params->light_coef = scalar_product(params->light_ray->dir_vect.axis,
+// 			params->normal->axis);
+// 	normalize_zero_one(params->light_coef);
+// 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
+// 		params->color, &subt_color);
+// 	// *params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
+// 	// 		*params->light_coef * params->spotlight->intensity);
+// 	scale_color(&subt_color, *params->light_attenuat, &scaled_color);
+// 	add_color(&scaled_color, params->color, params->res_color);
+// }
 void	calculate_ambiant_effect(t_get_color_params *params,
 	t_color *mesh_color, t_ray_vector *normal, t_color *ambiantly_color)
 {
@@ -66,9 +117,10 @@ int	get_sphere_color(t_get_color_params *params)
 		&& scalar_product(light_ray.dir_vect.axis, normal.axis) > 0
 		))
 		return (*params->color = ambiantly_color, 0);
-	if (calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+	if (calculate_spotlight_effect2(&ambiantly_color, &(t_calc_spotlight_effect_params)
 		{params, &sphere->color, &normal, &spotlighty_color, &light_ray}))
 		return (*params->color = ambiantly_color, 0);
+	// *params->color = spotlighty_color;
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
 	return (0);
