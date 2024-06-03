@@ -51,8 +51,7 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 		params->normal,	&params->params->data->spotlight,
 		params->spotlighty_color, params->spotlighty_color,
 		&light_attenuat, &light_coef});//!lightcoef
-	return (0);
-	// add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
+	return (0);	
 }
 // void	add_lightening(t_add_lightening_params *params) //!supp
 // {
