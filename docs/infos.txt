@@ -27,3 +27,11 @@ mesh: too many functions in file
 meta: to be norminated
 parsing: file_content_is_correct.c has two lines commented (for testing purposes)
 rays: to be norminated
+
+
+POUR LES BONUS:
+https://stock.adobe.com/fr/search?k=bump%20map
+https://en.wikipedia.org/wiki/UV_mapping
+https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/
+https://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_reflection_model
+
