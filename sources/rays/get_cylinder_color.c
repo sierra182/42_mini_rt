@@ -71,10 +71,11 @@ static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
 	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
 		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
 		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, p->spotlighty_color);
+	//add_self_shadowing(light_coef, light_attenuat, p->spotlighty_color);
 	add_color(p->spotlighty_color, p->ambiantly_color, p->params->color);
 	limit_to_255(p->params->color);
 }
+double	calculate_light_attenuation(t_ray *light_ray, double intensity);
 
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
@@ -91,10 +92,24 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 	handle_projection(params, &normal, &light_ray);
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
 		.origin_vect.axis, light_ray.dir_vect.axis);
+
+	
+	double	light_attenuat;
+	t_ray	light_ray_cpy;
+	double 	light_coef;
+
+	light_ray_cpy = light_ray;
+	normalize_vector(light_ray_cpy.dir_vect.axis);
+	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
+			normal.axis);
+	normalize_zero_one(&light_coef, 1);
+	light_attenuat = calculate_light_attenuation(&light_ray,
+		light_coef * params->data->spotlight.intensity);
+
 	color_with_light(&cyl->color, &params->data->ambiant_light.color,
 		params->data->ambiant_light.intensity, &ambiantly_color);
-	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255,
-		.rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
+	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 0,
+		.rgb[2] = 0}, params->data->spotlight.intensity * (light_attenuat * 4), &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 	add_shadow_and_lightning_effects(&(t_add_shad_and_light_params)
