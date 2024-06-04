@@ -15,6 +15,7 @@ typedef struct s_ray
 {
 	t_ray_vector	origin_vect;
 	t_ray_vector	dir_vect;
+	t_ray_vector 	norm_vect;
 }	t_ray;
 
 #endif
