@@ -1,6 +1,6 @@
 #!/bin/bash
 
-total_files=$(ls tests/rt_files/*.rt 2>/dev/null | wc -l)
+total_files=$(ls check_files/*.rt 2>/dev/null | wc -l)
 if [ "$total_files" -eq 0 ]; then
     echo "Aucun fichier .rt trouvé dans le répertoire tests/rt_files."
     exit_code=0
@@ -8,7 +8,8 @@ if [ "$total_files" -eq 0 ]; then
 fi
 
 for ((i=0; i<total_files; i++)); do
-    rt_file="tests/rt_files/file_$i.rt"
+    # rt_file="tests/rt_files/file_$i.rt"
+    rt_file="check_files/file_$i.rt"
     ./miniRT "$rt_file" &
     sleep 0.5
 
