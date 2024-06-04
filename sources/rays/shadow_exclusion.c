@@ -42,9 +42,9 @@ int	is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight)
 
 	subtract_vector(spotlight->origin_vect.axis, sphere->origin_vect.axis,
 		subt_vect.axis);	
-	return ((get_vector_magnitude(subt_vect.axis) > sphere->diameter * 0.5
+	return ((get_vector_magnitude(subt_vect.axis) > sphere->radius
 		&& sphere->which_t == 2)
-		|| ((get_vector_magnitude(subt_vect.axis) < sphere->diameter * 0.5
+		|| ((get_vector_magnitude(subt_vect.axis) < sphere->radius
 		&& sphere->which_t == 1)));
 }
 
@@ -62,8 +62,8 @@ int	is_cylinder_surface_between( t_cylinder *cyl, t_ray_vector *normal,
 	scale_vector(ray.dir_vect.axis,  scalar_product(ray.dir_vect.axis,
 		subt_vect.axis), inter_vect.axis);
 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);	
-	return ((get_vector_magnitude(subt_vect.axis) >= cyl->diameter * 0.5
+	return ((get_vector_magnitude(subt_vect.axis) >= cyl->radius
 		&& cyl->which_t == 2)
-		|| ((get_vector_magnitude(subt_vect.axis) <= cyl->diameter * 0.5 
+		|| ((get_vector_magnitude(subt_vect.axis) <= cyl->radius 
 		&& cyl->which_t == 1)));
 }

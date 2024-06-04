@@ -20,7 +20,7 @@ int	is_in_cyl_diam( t_cylinder *cyl, t_ray_vector *normal, double mesh[])
 	scale_vector(ray.dir_vect.axis, scalar_product(ray.dir_vect.axis,
 			subt_vect.axis), inter_vect.axis);
 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);
-	if (get_vector_magnitude(subt_vect.axis) <= cyl->diameter * 0.5)
+	if (get_vector_magnitude(subt_vect.axis) <= cyl->radius)
 		return (1);
 	else
 		return (0);
@@ -56,9 +56,9 @@ int	is_cylinder_surface_between2( t_cylinder *cyl, t_ray_vector *normal,
 	scale_vector(ray.dir_vect.axis, scalar_product(ray.dir_vect.axis,
 			subt_vect.axis), inter_vect.axis);
 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);
-	return ((get_vector_magnitude(subt_vect.axis) >= cyl->diameter * 0.5
+	return ((get_vector_magnitude(subt_vect.axis) >= cyl->radius
 			&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis)
-				<= cyl->diameter * 0.5 && cyl->which_t == 1)));
+				<= cyl->radius && cyl->which_t == 1)));
 }
 
 /**========================================================================
