@@ -42,7 +42,7 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	light_attenuat = calculate_light_attenuation(params->light_ray,
 		light_coef * params->params->data->spotlight.intensity);
 	color_with_light(params->mesh_color,
-		&(t_color){.rgb[0] = 255, .rgb[1] = 0, .rgb[2] = 0},
+		&params->params->data->spotlight.color,
 			params->params->data->spotlight.intensity * (light_attenuat * 4),
 			params->spotlighty_color);
 	add_shading(params->params->ray, params->normal, params->spotlighty_color,

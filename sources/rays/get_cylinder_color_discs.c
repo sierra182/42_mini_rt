@@ -79,8 +79,7 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	handle_normal_symmetrization(params, &normal, &light_ray);
 	color_with_light(&cyl->color, &params->data->ambiant_light.color,
 		params->data->ambiant_light.intensity, &ambiantly_color);
-	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 255,
-		.rgb[2] = 255}, params->data->spotlight.intensity, &spotlighty_color);
+	color_with_light(&cyl->color, &params->data->spotlight.color, params->data->spotlight.intensity, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 	add_lightning_effects(&(t_add_shad_and_light_params)

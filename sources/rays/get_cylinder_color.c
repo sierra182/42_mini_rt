@@ -108,8 +108,7 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 
 	color_with_light(&cyl->color, &params->data->ambiant_light.color,
 		params->data->ambiant_light.intensity, &ambiantly_color);
-	color_with_light(&cyl->color, &(t_color){.rgb[0] = 255, .rgb[1] = 0,
-		.rgb[2] = 0}, params->data->spotlight.intensity * (light_attenuat * 4), &spotlighty_color);
+	color_with_light(&cyl->color, &params->data->spotlight.color, params->data->spotlight.intensity * (light_attenuat * 4), &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 	add_shadow_and_lightning_effects(&(t_add_shad_and_light_params)
