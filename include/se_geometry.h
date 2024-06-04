@@ -11,8 +11,8 @@ typedef struct s_sphere
 {
 	t_matrix_vector	origin_vect;
 	double			diameter;
-	double			square_radius;
 	double			radius;
+	double			square_radius;
 	t_color			color;
 	int				which_t;
 	double			t1;
@@ -25,8 +25,8 @@ typedef struct s_cylinder
 	t_matrix_vector	origin_vect;
 	t_matrix_vector	axis_vect;
 	double			diameter;
-	double			square_radius;
 	double			radius;
+	double			square_radius;
 	double			height;
 	t_color			color;
 	int				which_t;	
