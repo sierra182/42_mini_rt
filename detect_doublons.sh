@@ -6,7 +6,7 @@ export AUTOMATED_TEST=true
 # Définir les répertoires des fichiers .rt et des fichiers .bin de référence
 rt_dir="tests/rt_files"
 bin_dir="../../goinfre/miniRT_test_files"
-dup_dir="duplicates"  # Dossier où déplacer les doublons
+dup_dir="tests/duplicates"  # Dossier où déplacer les doublons
 
 # Créer le répertoire des doublons s'il n'existe pas
 mkdir -p "$dup_dir"
