@@ -44,6 +44,8 @@ void	add_shading( t_ray *ray, t_ray_vector *normal,
 	scale_color(color, light_coef, &scaled_color);
 	subtract_color(color, &scaled_color, res_color);
 }
+double aces_tonemap(double x);
+
 void	add_lightening(t_add_lightening_params *params) 
 {	
 	t_color	subt_color;
@@ -55,6 +57,8 @@ void	add_lightening(t_add_lightening_params *params)
 	*params->light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
 			params->normal->axis);
 	normalize_zero_one(params->light_coef, 1);
+	*params->light_coef = aces_tonemap(*params->light_coef);
+
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		params->color, &subt_color);
 	*params->light_attenuat = calculate_light_attenuation(params->light_ray,

@@ -28,6 +28,16 @@ int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 // 	return (0);
 // 	// add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
 // }
+
+double aces_tonemap(double x) {
+    double a = 2.51;
+    double b = 0.03;
+    double c = 2.43;
+    double d = 0.59;
+    double e = 0.14;
+    
+    return (x * (a * x + b)) / (x * (c * x + d) + e);
+}
 int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 {
 	double	light_attenuat;
@@ -39,6 +49,7 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
 			params->normal->axis);
 	normalize_zero_one(&light_coef, 1);
+	light_coef = aces_tonemap(light_coef);
 	light_attenuat = calculate_light_attenuation(params->light_ray,
 		light_coef * params->params->data->spotlight.intensity);
 	color_with_light(params->mesh_color,
