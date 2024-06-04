@@ -6,24 +6,25 @@ int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh, t_ray *light_ra
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
-void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
+int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 {
-	t_plane	*plane;
 	double	light_attenuat;
 	double 	light_coef;
 
-	plane = (t_plane *) params->params->mesh->ref;
+	if (scalar_product(params->light_ray->dir_vect.axis, params->normal->axis) < 0)
+		return (1);
 	color_with_light(params->mesh_color,
 		&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
-			params->params->data->spotlight.intensity,
+			0, //params->params->data->spotlight.intensity,
 			params->spotlighty_color);
 	add_shading(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
 	add_lightening(&(t_add_lightening_params){params->light_ray,
 		params->normal,	&params->params->data->spotlight,
 		params->spotlighty_color, params->spotlighty_color,
-		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
+		&light_attenuat, &light_coef});//!lightcoef
+	return (0);
+	//add_self_shadowing(light_coef, light_attenuat, params->spotlighty_color);
 }
 
 void	calculate_ambiant_effect(t_get_color_params *params,
@@ -61,10 +62,13 @@ int	get_sphere_color(t_get_color_params *params)
 	calculate_ambiant_effect(params, &sphere->color, &normal,
 		&ambiantly_color);
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
-		|| has_shadow(params->data, &normal, params->mesh, &light_ray))
+		|| (has_shadow(params->data, &normal, params->mesh, &light_ray)
+		&& scalar_product(light_ray.dir_vect.axis, normal.axis) > 0
+		))
 		return (*params->color = ambiantly_color, 0);
-	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-		{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
+	if (calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+		{params, &sphere->color, &normal, &spotlighty_color, &light_ray}))
+		return (*params->color = ambiantly_color, 0);
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
 	return (0);

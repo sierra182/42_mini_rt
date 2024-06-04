@@ -21,6 +21,18 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 	subtract_color(color, &scaled_color, color);
 }
 
+void	add_shading2( t_ray *ray, t_ray_vector *normal,
+	t_color *color, t_color *res_color)
+{
+	double	light_coef;
+	t_color	scaled_color;
+
+	light_coef = scalar_product(ray->dir_vect.axis, normal->axis);
+	
+	normalize_zero_one(&light_coef);
+	scale_color(color, light_coef, &scaled_color);
+	subtract_color(color, &scaled_color, res_color);
+}
 void	add_shading( t_ray *ray, t_ray_vector *normal,
 	t_color *color, t_color *res_color)
 {
@@ -28,7 +40,8 @@ void	add_shading( t_ray *ray, t_ray_vector *normal,
 	t_color	scaled_color;
 
 	light_coef = scalar_product(ray->dir_vect.axis, normal->axis);
-	normalize_zero_one(&light_coef);
+	light_coef = (light_coef + 1) * 0.5;
+	// normalize_zero_one(&light_coef);
 	scale_color(color, light_coef, &scaled_color);
 	subtract_color(color, &scaled_color, res_color);
 }
@@ -48,7 +61,7 @@ void	add_lightening(t_add_lightening_params *params)
 		params->color, &subt_color);
 	*params->light_attenuat = calculate_light_attenuation(&light_ray_sav,
 			*params->light_coef * params->spotlight->intensity);
-	scale_color(&subt_color, *params->light_attenuat * .0125, &scaled_color);
+	scale_color(&subt_color, *params->light_attenuat, &scaled_color);
 	add_color(&scaled_color, params->color, params->res_color);
 }
 
