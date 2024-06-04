@@ -12,6 +12,7 @@ typedef struct s_sphere
 	t_matrix_vector	origin_vect;
 	double			diameter;
 	double			square_radius;
+	double			radius;
 	t_color			color;
 	int				which_t;
 	double			t1;

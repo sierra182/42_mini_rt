@@ -29,8 +29,12 @@ void	fill_struct_l(t_data *data, double tab[])
 	data->spotlight.bulb.color.rgb[0] = 255;
 	data->spotlight.bulb.color.rgb[1] = 255;
 	data->spotlight.bulb.color.rgb[2] = 255;
+	data->spotlight.color.rgb[0] = tab[4];
+	data->spotlight.color.rgb[1] = tab[5];
+	data->spotlight.color.rgb[2] = tab[6];
 	data->spotlight.bulb.diameter = 1;
-	data->spotlight.bulb.square_radius = (data->spotlight.bulb.diameter / 2)
-		* (data->spotlight.bulb.diameter / 2);
+	data->spotlight.bulb.square_radius = (data->spotlight.bulb.diameter * 0.5)
+		* (data->spotlight.bulb.diameter * 0.5);
+	data->spotlight.bulb.radius = data->spotlight.bulb.diameter * 0.5;
 	data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
 }
