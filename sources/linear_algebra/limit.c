@@ -1,6 +1,6 @@
 #include "se_mini_struct.h"
 
-void	limit_to_255(t_color *color)
+void	clamping_255(t_color *color)
 {
 	int	i;
 

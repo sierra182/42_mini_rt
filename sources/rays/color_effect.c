@@ -8,9 +8,7 @@ double	calculate_light_attenuation(t_ray *light_ray, double intensity)
 	const double	kl = 45e-4;
 	const double	kq = 75e-25;
 
-
 	light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
-	// printf("sphere intensity: %f\n", intensity);
 	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
 }
 
@@ -81,7 +79,8 @@ void	add_lightening(t_add_lightening_params *params)
 	// printf("sphere light_attenuat: %f\n", *params->light_attenuat);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		params->color, &subt_color);
-	scale_color(&subt_color, *params->light_attenuat * 1, &scaled_color);
+	//scale_color(params->color, *params->light_attenuat * 1, params->res_color);
+	scale_color(&subt_color, *params->light_attenuat * 0.125, &scaled_color);
 	add_color(&scaled_color, params->color, params->res_color);
 	// apply_aces_to_color(params->res_color);
 	

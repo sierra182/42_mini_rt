@@ -23,7 +23,7 @@ void	chang_mesh_size(t_data *data, int keycode);
 void	make_rt_file(t_data *data);
 void	video_rotate_spheres(t_sphere *sphere, int obj_nbr);
 
-void	limit_to_255(t_color *color);
+void	clamping_255(t_color *color);
 
 /**========================================================================
  *                           ASSIGN_VECTOR
@@ -54,7 +54,7 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh, t_color *color)
 		i = -1;
 		while (++i < AXIS)
 			color->rgb[i] += 100;
-		limit_to_255(color);
+		clamping_255(color);
 	}
 	data->event.actual_mesh = *mesh;
 }
