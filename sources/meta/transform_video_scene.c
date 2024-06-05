@@ -16,7 +16,7 @@ void	video_trans_mesh(void *mesh, int mesh_num, int mesh_nbr)
 
 	if (mesh_num < 24)
 		return ;
-	printf("translating cylinder %d\n", mesh_num);
-	trsl_mesh(NULL, &cyl->origin_vect, (double[3]){10.5, 0, -1});
-
+	// printf("translating cylinder %d\n", mesh_num);
+	trsl_mesh(NULL, &cyl->origin_vect, (double[3]){0, 0, -1});
+	// cyl->height -= 1;
 }
