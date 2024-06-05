@@ -27,39 +27,63 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 	int axe[3];
 	t_ray_vector point;
 	double angle = -3.33;
+	
+	static int k = 0;
+	static int j = 1;
+	if (k % 48 * cyl_nbr == 0)
+	{
+		j = -j;
+	}
 
+	// point.axis[0] = cyl->origin_vect.axis[0];
+	// point.axis[1] = cyl->origin_vect.axis[1];	
+	// point.axis[2] = cyl->origin_vect.axis[2];
+	
+	// if (i < 24)
+	// {
+	// 	angle = 2;
+	// 	axe[0] = 0;
+	// 	axe[1] = 1;
+	// 	axe[2] = 0;
+	// 	rotate_mesh(&cyl->axis_vect, angle, axe);
+	// }
+	// else if (i < 40)
+	// {
+	// 	axe[0] = 0;
+	// 	axe[1] = 1;
+	// 	axe[2] = 0;
+	// 	rotate_mesh(&cyl->axis_vect, angle, axe);
+	// }
+	// else if (i < 56)
+	// {
+	// 	axe[0] = 0;
+	// 	axe[1] = 0;
+	// 	axe[2] = 1;
+	// 	rotate_mesh(&cyl->axis_vect, angle, axe);
+	// }
+
+
+		
 	point.axis[0] = cyl->origin_vect.axis[0];
 	point.axis[1] = cyl->origin_vect.axis[1];	
 	point.axis[2] = cyl->origin_vect.axis[2];
-	
-	if (i < 24)
-	{
-		angle = 2;
-		axe[0] = 0;
-		axe[1] = 1;
-		axe[2] = 0;
-		rotate_mesh(&cyl->axis_vect, angle, axe);
-	}
-	else if (i < 40)
-	{
-		axe[0] = 0;
-		axe[1] = 1;
-		axe[2] = 0;
-		rotate_mesh(&cyl->axis_vect, angle, axe);
-	}
-	else if (i < 56)
-	{
-		axe[0] = 0;
-		axe[1] = 0;
-		axe[2] = 1;
-		rotate_mesh(&cyl->axis_vect, angle, axe);
-	}
-	
+	angle = 2;
+	printf("j: %d, k: %d, cyl_nbr: %d\n", j, k, cyl_nbr);
+	if (j == -1)
+		angle = -2;
 
+	// trsl_cam(cam, &point, point.axis);
+
+	axe[0] = 1;
+	axe[1] = 0;
+	axe[2] = 0;
+	rotate_mesh(&cyl->axis_vect, angle, axe);
+	// symmetrize_vector(point.axis);
+	// trsl_cam(cam, &point, point.axis);
 	
 
 	symmetrize_vector(point.axis);
-	
+	k++;
 
 
 }

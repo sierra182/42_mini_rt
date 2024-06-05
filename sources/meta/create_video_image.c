@@ -195,7 +195,7 @@ void	video_rotate_cam(t_cam *cam)
 	axe[2] = 0;
 	rotate_cam(cam, angle, axe);
 	symmetrize_vector(point.axis);
-	trsl_cam(cam, &point, point.axis);
+	// trsl_cam(cam, &point, point.axis);
 }
 
 
