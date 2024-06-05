@@ -9,6 +9,9 @@ void	video_rotate_light(t_spotlight *light);
 void	video_trans_mesh(void *mesh, int mesh_num, int mesh_nbr);
 void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr);
 void	rotate_pendulum(t_sphere *sphere, int i);
+void	video_move_cam(t_cam *cam);
+void	video_move_light(t_spotlight *light);
+
 
 /**========================================================================
  *                           META_KEYCODE
@@ -31,6 +34,7 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 			i++;
 		}
 		rotate_pendulum(&data->spheres[0] , j);
+		video_move_cam(&data->cam);
 		j++;
 	}
 
