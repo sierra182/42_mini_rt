@@ -18,5 +18,6 @@ void	video_trans_mesh(void *mesh, int mesh_num, int mesh_nbr)
 		return ;
 	// printf("translating cylinder %d\n", mesh_num);
 	trsl_mesh(NULL, &cyl->origin_vect, (double[3]){0, 0, -1});
+	// rotate_mesh(&cyl->origin_vect, 5, (int[3]){0, 1, 0});
 	// cyl->height -= 1;
 }
