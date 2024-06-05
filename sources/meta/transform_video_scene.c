@@ -30,10 +30,10 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 	
 	static int k = 0;
 	static int j = 1;
-	if (k % 48 * cyl_nbr == 0)
-	{
-		j = -j;
-	}
+	// if (k % 48 * cyl_nbr == 0)
+	// {
+	// 	j = -j;
+	// }
 
 	// point.axis[0] = cyl->origin_vect.axis[0];
 	// point.axis[1] = cyl->origin_vect.axis[1];	
@@ -61,20 +61,18 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 	// 	axe[2] = 1;
 	// 	rotate_mesh(&cyl->axis_vect, angle, axe);
 	// }
-
-
-	if (i % 3 == 0)
-	{
+	// else if (i % 3 == 0)
+	// {
 		point.axis[0] = 0;
 		point.axis[1] = 60;	
 		point.axis[2] = 0;
 
-		t_matrix_vector trsf_matrix[MTX];
-		trsf_matrix[0] = 0;
-		trsf_matrix[1] = 60;
-		trsf_matrix[2] = 0;
+		// t_matrix_vector trsf_matrix[MTX];
+		// trsf_matrix[0] = 0;
+		// trsf_matrix[1] = 60;
+		// trsf_matrix[2] = 0;
 
-		trsl_mesh(NULL, &trsf_matrix, point.axis);
+		// trsl_mesh(NULL, &trsf_matrix, point.axis);
 
 
 		axe[0] = 1;
@@ -90,13 +88,13 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 		axe[2] = 1;
 		rotate_mesh(&cyl->axis_vect, angle, axe);
 
-		symmetrize_vector(point.axis);
-		trsl_mesh(NULL, &trsf_matrix, point.axis);
+		// symmetrize_vector(point.axis);
+		// trsl_mesh(NULL, &trsf_matrix, point.axis);
 
 
 		printf("my color is: %d\n", cyl->color.rgb[0]);
 		return ;
-	}
+	// }
 
 		
 	
@@ -110,7 +108,7 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 	axe[0] = 1;
 	axe[1] = 0;
 	axe[2] = 0;
-	rotate_mesh(&cyl->axis_vect, angle, axe);
+	// rotate_mesh(&cyl->axis_vect, angle, axe);
 	// symmetrize_vector(point.axis);
 	// trsl_cam(cam, &point, point.axis);
 	// symmetrize_vector(point.axis);
@@ -118,6 +116,15 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 	
 	k++;
 
+
+
+}
+
+
+void	rotate_pendulum(t_sphere *sphere, int i)
+{
+	printf("i: %i\n", i);
+	
 
 
 }

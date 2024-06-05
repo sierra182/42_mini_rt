@@ -8,6 +8,7 @@ void	video_rotate_cam(t_cam *cam);
 void	video_rotate_light(t_spotlight *light);
 void	video_trans_mesh(void *mesh, int mesh_num, int mesh_nbr);
 void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr);
+void	rotate_pendulum(t_sphere *sphere, int i);
 
 /**========================================================================
  *                           META_KEYCODE
@@ -15,6 +16,7 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr);
 void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 {
 	int	i;
+	static int	j = 0;
 
 	if (keycode == MAKE_RT_FILE)
 		make_rt_file(data);
@@ -29,6 +31,8 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 			video_rotate_cogs(&data->cylinders[i], i, data->cy_nbr);
 			i++;
 		}
+		rotate_pendulum(&data->spheres[0] , j);
+		j++;
 	}
 
 	
