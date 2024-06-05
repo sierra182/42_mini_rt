@@ -63,14 +63,47 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 	// }
 
 
+	if (i % 3 == 0)
+	{
+		point.axis[0] = 0;
+		point.axis[1] = 60;	
+		point.axis[2] = 0;
+
+		t_matrix_vector trsf_matrix[MTX];
+		trsf_matrix[0] = 0;
+		trsf_matrix[1] = 60;
+		trsf_matrix[2] = 0;
+
+		trsl_mesh(NULL, &trsf_matrix, point.axis);
+
+
+		axe[0] = 1;
+		axe[1] = 0;
+		axe[2] = 0;
+		rotate_mesh(&cyl->axis_vect, angle, axe);
+		axe[0] = 0;
+		axe[1] = 1;
+		axe[2] = 0;
+		rotate_mesh(&cyl->axis_vect, angle, axe);
+		axe[0] = 0;
+		axe[1] = 0;
+		axe[2] = 1;
+		rotate_mesh(&cyl->axis_vect, angle, axe);
+
+		symmetrize_vector(point.axis);
+		trsl_mesh(NULL, &trsf_matrix, point.axis);
+
+
+		printf("my color is: %d\n", cyl->color.rgb[0]);
+		return ;
+	}
+
 		
-	point.axis[0] = cyl->origin_vect.axis[0];
-	point.axis[1] = cyl->origin_vect.axis[1];	
-	point.axis[2] = cyl->origin_vect.axis[2];
+	
 	angle = 2;
 	printf("j: %d, k: %d, cyl_nbr: %d\n", j, k, cyl_nbr);
-	if (j == -1)
-		angle = -2;
+	// if (j == -1)
+	// 	angle = -2;
 
 	// trsl_cam(cam, &point, point.axis);
 
@@ -80,10 +113,11 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 	rotate_mesh(&cyl->axis_vect, angle, axe);
 	// symmetrize_vector(point.axis);
 	// trsl_cam(cam, &point, point.axis);
-	
+	// symmetrize_vector(point.axis);
 
-	symmetrize_vector(point.axis);
+	
 	k++;
+
 
 
 }
