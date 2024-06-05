@@ -49,16 +49,16 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
 		params->normal->axis);
 	normalize_zero_one(&light_coef, 1);
-	light_coef = aces_tonemap(light_coef);
-
+	// light_coef = aces_tonemap(light_coef);
 	light_attenuat = calculate_light_attenuation(params->light_ray,
 		light_coef * params->params->data->spotlight.intensity);
+	light_attenuat = aces_tonemap(light_attenuat);
 	color_with_light(params->mesh_color,
 		&params->params->data->spotlight.color,
 			params->params->data->spotlight.intensity * light_attenuat,
 			params->spotlighty_color);
-	// add_shading(params->params->ray, params->normal, params->spotlighty_color,
-	// 	params->spotlighty_color);
+	add_shading(params->params->ray, params->normal, params->spotlighty_color,
+		params->spotlighty_color);
 	// printf("sphere light_attenuat: %f\n", light_attenuat);
 
 	add_lightening(&(t_add_lightening_params){params->light_ray,
@@ -88,10 +88,11 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 void	calculate_ambiant_effect(t_get_color_params *params,
 	t_color *mesh_color, t_ray_vector *normal, t_color *ambiantly_color)
 {
+		double light_attenuat = aces_tonemap(params->data->ambiant_light.intensity);
 	color_with_light(mesh_color,
 		&params->data->ambiant_light.color,
 			params->data->ambiant_light.intensity, ambiantly_color);
-	// add_shading(params->ray, normal, ambiantly_color, ambiantly_color);
+	add_shading(params->ray, normal, ambiantly_color, ambiantly_color);
 }
 
 void	compute_sph_normal_and_light_ray(t_get_color_params *params,
