@@ -8,10 +8,24 @@ double	calculate_light_attenuation(t_ray *light_ray, double intensity)
 	const double	kl = 45e-4;
 	const double	kq = 75e-25;
 
+
 	light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+	// printf("sphere intensity: %f\n", intensity);
 	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
 }
 
+double	calculate_light_attenuation2(t_ray *light_ray, double intensity)
+{
+	double			light_mag;
+	const double	kc = 0.5;
+	const double	kl = 45e-4;
+	const double	kq = 75e-25;
+
+
+	light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+	// printf("cylinder intensity: %f\n", intensity);
+	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
+}
 void	add_self_shadowing(double light_coef, double light_attenuation,
 	t_color *color) //! supp if unsused
 {
@@ -58,12 +72,38 @@ void	add_lightening(t_add_lightening_params *params)
 			params->normal->axis);
 	normalize_zero_one(params->light_coef, 1);
 	*params->light_coef = aces_tonemap(*params->light_coef);
+	// printf("sphere lightray : %f, %f, %f\n", params->light_ray->dir_vect.axis[0], params->light_ray->dir_vect.axis[1], params->light_ray->dir_vect.axis[2]);
 	*params->light_attenuat = calculate_light_attenuation(params->light_ray,
 			*params->light_coef * params->spotlight->intensity);
+	// printf("sphere light_attenuat: %f\n", *params->light_attenuat);
+	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
+		params->color, &subt_color);
+	scale_color(&subt_color, *params->light_attenuat * 0.825, &scaled_color);
+	add_color(&scaled_color, params->color, params->res_color);
+}
+double	calculate_light_attenuation2(t_ray *light_ray, double intensity);
+
+void	add_lightening2(t_add_lightening_params *params) 
+{	
+	t_color	subt_color;
+	t_color	scaled_color;
+	t_ray	light_ray_cpy;
+
+	light_ray_cpy = *params->light_ray;
+	normalize_vector(light_ray_cpy.dir_vect.axis); //!opt
+	*params->light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
+			params->normal->axis);
+	normalize_zero_one(params->light_coef, 1);
+	*params->light_coef = aces_tonemap(*params->light_coef);
+	// printf("cylinder lightray : %f, %f, %f\n",  params->light_ray->dir_vect.axis[0], params->light_ray->dir_vect.axis[1], params->light_ray->dir_vect.axis[2]);
+	*params->light_attenuat = calculate_light_attenuation2(params->light_ray,
+			*params->light_coef * params->spotlight->intensity);
+	if (*params->light_attenuat > 1)
+		printf("cyl light_attenuat: %f\n", *params->light_attenuat);
 
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		params->color, &subt_color);
-	scale_color(&subt_color, *params->light_attenuat * 0.125, &scaled_color);
+	scale_color(&subt_color, *params->light_attenuat * 0.825, &scaled_color);
 	add_color(&scaled_color, params->color, params->res_color);
 }
 // void	add_lightening(t_add_lightening_params *params) good

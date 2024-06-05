@@ -33,6 +33,7 @@ static void	add_lightning_effects(t_add_shad_and_light_params *p)
 		*p->params->color = *p->ambiantly_color;
 		return ;
 	}
+	// printf("light attenuat")
 	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
 		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
 		&light_attenuat, &light_coef});
