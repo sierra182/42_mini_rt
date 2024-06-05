@@ -4,7 +4,7 @@
 double	calculate_light_attenuation(t_ray *light_ray, double intensity)
 {
 	double			light_mag;
-	const double	kc = 1.0;
+	const double	kc = 0.5;
 	const double	kl = 45e-4;
 	const double	kq = 75e-25;
 
@@ -17,7 +17,7 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 {
 	t_color	scaled_color;
 
-	scale_color(color, 1 - light_attenuation * 4, &scaled_color);
+	scale_color(color, 1 - light_attenuation, &scaled_color);
 	subtract_color(color, &scaled_color, color);
 }
 
@@ -63,7 +63,7 @@ void	add_lightening(t_add_lightening_params *params)
 
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		params->color, &subt_color);
-	scale_color(&subt_color, *params->light_attenuat * 0.825, &scaled_color);
+	scale_color(&subt_color, *params->light_attenuat * 0.125, &scaled_color);
 	add_color(&scaled_color, params->color, params->res_color);
 }
 // void	add_lightening(t_add_lightening_params *params) good

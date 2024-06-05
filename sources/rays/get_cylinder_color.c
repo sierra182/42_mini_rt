@@ -76,7 +76,7 @@ static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
 	limit_to_255(p->params->color);
 }
 double	calculate_light_attenuation(t_ray *light_ray, double intensity);
-
+double aces_tonemap(double x);
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
  *========================================================================**/
@@ -103,12 +103,13 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
 			normal.axis);
 	normalize_zero_one(&light_coef, 1);
+		light_coef = aces_tonemap(light_coef);
 	light_attenuat = calculate_light_attenuation(&light_ray,
 		light_coef * params->data->spotlight.intensity);
 
 	color_with_light(&cyl->color, &params->data->ambiant_light.color,
 		params->data->ambiant_light.intensity, &ambiantly_color);
-	color_with_light(&cyl->color, &params->data->spotlight.color, params->data->spotlight.intensity * (light_attenuat * 4), &spotlighty_color);
+	color_with_light(&cyl->color, &params->data->spotlight.color, params->data->spotlight.intensity * light_attenuat, &spotlighty_color);
 	add_shading(params->ray, &normal, &ambiantly_color, &ambiantly_color);
 	add_shading(params->ray, &normal, &spotlighty_color, &spotlighty_color);
 	add_shadow_and_lightning_effects(&(t_add_shad_and_light_params)
