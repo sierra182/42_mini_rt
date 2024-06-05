@@ -11,13 +11,14 @@ void	add_self_shadowing(double light_coef, double light_attenuation,
 void	add_shading( t_ray *ray, t_ray_vector *normal,
 			t_color *ambiantly_color, t_color *color);
 int		has_shadow(t_data *data, t_ray_vector *normal, void *mesh,
-	t_ray *light_ray);
+			t_ray *light_ray);
 int		are_light_and_cam_in_different_cyl_space(t_ray_vector *normal,
 			t_spotlight *light, t_cylinder *cyl, t_cam *cam);
-int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
+int		calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
 void	calculate_ambiant_effect(t_get_color_params *params,
-	t_color *mesh_color, t_ray_vector *normal, t_color *ambiantly_color);
-	int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
+			t_color *mesh_color, t_ray_vector *normal,
+			t_color *ambiantly_color);
+int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 
 /**========================================================================
  *                           ADD_LIGHTNING_EFFECTS
@@ -37,7 +38,6 @@ static void	add_lightning_effects(t_add_shad_and_light_params *p)
 		*p->params->color = *p->ambiantly_color;
 		return ;
 	}
-	// printf("light attenuat")
 	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
 		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
 		&light_attenuat, &light_coef});
@@ -95,10 +95,7 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 		return ;
 	}
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-		{params, &cyl->color, &normal, &spotlighty_color, &light_ray});
+	{params, &cyl->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
-
-
-
 }

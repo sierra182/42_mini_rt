@@ -40,8 +40,8 @@ void	assign_vector(t_matrix_vector *origin_vect, t_matrix_vector *dir_vect,
  *========================================================================**/
 void	handle_mesh_color_update(t_data *data, t_obj *mesh)
 {
-	int	i;
-	t_color *color;
+	int		i;
+	t_color	*color;
 
 	color = NULL;
 	if (mesh->type == O_SP)
@@ -56,7 +56,7 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh)
 		i = -1;
 		while (++i < AXIS)
 			color->rgb[i] += 100;
-		limit_to_255(color);	
+		limit_to_255(color);
 	}
 	data->event.actual_mesh = *mesh;
 }
@@ -97,7 +97,8 @@ void	event_intensity(int keycode, double *intensity)
 }
 
 /**========================================================================
-o	 *========================================================================**/
+ *                           EVENT_LAUNCH_RAYS
+ *========================================================================**/
 void	event_launch_rays(t_data *data, int x, int y)
 {
 	t_ray	ray;
