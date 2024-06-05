@@ -59,4 +59,3 @@ dkms.conf
 miniRT
 new_scene.rt
 *.bin
-generate_bin_files.sh
