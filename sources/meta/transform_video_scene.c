@@ -123,8 +123,37 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 
 void	rotate_pendulum(t_sphere *sphere, int i)
 {
+	int axe[3];
+	double angle = 2;
+
 	printf("i: %i\n", i);
 	
+	t_ray_vector point;
+
+	point.axis[0] = 0;
+	point.axis[1] = -60;
+	point.axis[2] = 0;
+
+	// point.axis[0] = sphere->origin_vect.axis[0];
+	// point.axis[1] = sphere->origin_vect.axis[1] + 60;
+	// point.axis[2] = sphere->origin_vect.axis[2];
+	
+	trsl_mesh(NULL, &sphere->origin_vect, point.axis);
+	axe[0] = 1;
+	axe[1] = 0;
+	axe[2] = 0;
+	rotate_mesh(&sphere->origin_vect, angle, axe);
+	// axe[0] = 0;
+	// axe[1] = 1;
+	// axe[2] = 0;
+	// rotate_mesh(&sphere->origin_vect, angle, axe);
+	// axe[0] = 0;
+	// axe[1] = 0;
+	// axe[2] = 1;
+	// rotate_mesh(&sphere->origin_vect, angle, axe);
+
+	symmetrize_vector(point.axis);
+	trsl_mesh(NULL, &sphere->origin_vect, point.axis);
 
 
 }

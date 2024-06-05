@@ -49,9 +49,9 @@ void	video_rotate_spheres(t_sphere *sphere, int obj_num, int sp_nbr)
 	}
 
 	t_ray_vector point;
-	point.axis[0] = -45;
-	point.axis[1] = 0;
-	point.axis[2] = -45;
+	point.axis[0] = sphere->origin_vect.axis[0];
+	point.axis[1] = sphere->origin_vect.axis[1] + 60;
+	point.axis[2] = sphere->origin_vect.axis[2];
 	
 	if (obj_num != 0)
 	{
