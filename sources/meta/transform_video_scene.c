@@ -26,26 +26,35 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 {
 	int axe[3];
 	t_ray_vector point;
-	double angle = 5;
+	double angle = -3.33;
 
 	point.axis[0] = cyl->origin_vect.axis[0];
 	point.axis[1] = cyl->origin_vect.axis[1];	
 	point.axis[2] = cyl->origin_vect.axis[2];
 	
-	// if (cyl_nbr < 24)
-	// {
-	// 	axe[0] = 0;
-	// 	axe[1] = 1;
-	// 	axe[2] = 0;
-	// 	rotate_mesh(&cyl->axis_vect, angle, axe);
-	// }
-	// else if (cyl_nbr < 40)
+	if (i < 24)
+	{
+		angle = 2;
+		axe[0] = 0;
+		axe[1] = 1;
+		axe[2] = 0;
+		rotate_mesh(&cyl->axis_vect, angle, axe);
+	}
+	else if (i < 40)
 	{
 		axe[0] = 0;
 		axe[1] = 1;
 		axe[2] = 0;
 		rotate_mesh(&cyl->axis_vect, angle, axe);
 	}
+	else
+	{
+		axe[0] = 0;
+		axe[1] = 0;
+		axe[2] = 1;
+		rotate_mesh(&cyl->axis_vect, angle, axe);
+	}
+
 	
 
 	symmetrize_vector(point.axis);
