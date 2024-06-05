@@ -35,6 +35,7 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 		}
 		rotate_pendulum(&data->spheres[0] , j);
 		video_move_cam(&data->cam);
+		video_move_light(&data->spotlight);
 		j++;
 	}
 

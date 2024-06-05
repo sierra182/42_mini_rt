@@ -48,7 +48,7 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh, t_color *color)
 		color = &((t_cylinder *) mesh->ref)->color;
 	else if (mesh->type == O_PL)
 		color = &((t_plane *) mesh->ref)->color;
-	if (color)
+	if (data && color)
 	{
 		data->event.color_sav = *color;
 		i = -1;

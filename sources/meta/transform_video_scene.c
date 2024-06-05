@@ -147,22 +147,28 @@ void	video_move_light(t_spotlight *light)
 {
 	int axe[3];
 	double angle = 1;
-
+	static int i = 0;
+	static int j = 1;
+	if (i == 16)
+	{
+		j = -j;
+		i = 0;
+	}
 	t_ray_vector point;
-	point.axis[0] = -45;
+	point.axis[0] = 3;
 	point.axis[1] = 0;
-	point.axis[2] = -45;
+	point.axis[2] = 0;
 	
-	trsl_mesh(NULL, &light->bulb.origin_vect, point.axis);
+	if (j == -1)
+	{
+	point.axis[0] = -2.5;
+	point.axis[1] = 0;
+	point.axis[2] = 0;
+	}
 
-	axe[0] = 0;
-	axe[1] = 1;
-	axe[2] = 0;
-	rotate_mesh(&light->bulb.origin_vect, angle, axe);
 
-
-	symmetrize_vector(point.axis);
 	trsl_mesh(NULL, &light->bulb.origin_vect, point.axis);
 	light->origin_vect = light->bulb.origin_vect;
-
+	
+	i++;
 }
