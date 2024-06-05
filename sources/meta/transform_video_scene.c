@@ -30,7 +30,7 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 	static int l = 0;
 	static int k = 0;
 	static int j = 1;
-	if (l == 16)
+	if (l == 32)
 	{
 		l = 0;
 		j = -j;
@@ -61,12 +61,12 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 	// }
 	// else
 	// {
-		angle = -3.33;
+		angle = 3.1;
 		if (j == -1)
-			angle = 3.33;
+			angle = -3.1;
 
 		point.axis[0] = cyl->axis_vect.axis[0];
-		point.axis[1] = cyl->axis_vect.axis[1] - 60;	
+		point.axis[1] = cyl->axis_vect.axis[1] - 120;	
 		point.axis[2] = cyl->axis_vect.axis[2];
 
 		trsl_mesh(NULL, &cyl->origin_vect, point.axis);
@@ -75,14 +75,7 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 		axe[1] = 0;
 		axe[2] = 0;
 		rotate_mesh(&cyl->axis_vect, angle, axe);
-		// axe[0] = 0;
-		// axe[1] = 1;
-		// axe[2] = 0;
-		// rotate_mesh(&cyl->axis_vect, angle, axe);
-		// axe[0] = 0;
-		// axe[1] = 0;
-		// axe[2] = 1;
-		// rotate_mesh(&cyl->axis_vect, angle, axe);
+
 		symmetrize_vector(point.axis);
 		trsl_mesh(NULL, &cyl->origin_vect, point.axis);
 	// }
@@ -103,10 +96,10 @@ void	rotate_pendulum(t_sphere *sphere, int i)
 {
 	int axe[3];
 	static int j = 0;
-	static double angle = -2;
+	static double angle = 2;
 
 	printf("i: %i\n", i);
-	if (j == 8)
+	if (j == 16)
 	{
 		j = 0;
 		angle = -angle;
