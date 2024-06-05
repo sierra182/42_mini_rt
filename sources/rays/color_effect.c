@@ -58,11 +58,11 @@ void	add_lightening(t_add_lightening_params *params)
 			params->normal->axis);
 	normalize_zero_one(params->light_coef, 1);
 	*params->light_coef = aces_tonemap(*params->light_coef);
+	*params->light_attenuat = calculate_light_attenuation(params->light_ray,
+			*params->light_coef * params->spotlight->intensity);
 
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		params->color, &subt_color);
-	*params->light_attenuat = calculate_light_attenuation(params->light_ray,
-			*params->light_coef * params->spotlight->intensity);
 	scale_color(&subt_color, *params->light_attenuat * 0.825, &scaled_color);
 	add_color(&scaled_color, params->color, params->res_color);
 }

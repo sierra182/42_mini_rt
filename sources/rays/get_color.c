@@ -47,7 +47,7 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	light_ray_cpy = *params->light_ray;
 	normalize_vector(light_ray_cpy.dir_vect.axis);
 	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
-			params->normal->axis);
+		params->normal->axis);
 	normalize_zero_one(&light_coef, 1);
 	light_coef = aces_tonemap(light_coef);
 	light_attenuat = calculate_light_attenuation(params->light_ray,
