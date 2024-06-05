@@ -42,7 +42,7 @@ int	is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight)
 
 	subtract_vector(spotlight->origin_vect.axis, sphere->origin_vect.axis,
 		subt_vect.axis);	
-	return ((get_vector_magnitude(subt_vect.axis) > sphere->radius
+	return ((get_vector_magnitude(subt_vect.axis) > sphere->radius //!opti!!!
 		&& sphere->which_t == 2)
 		|| ((get_vector_magnitude(subt_vect.axis) < sphere->radius
 		&& sphere->which_t == 1)));

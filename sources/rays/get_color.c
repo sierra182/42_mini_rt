@@ -47,17 +47,20 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	light_ray_cpy = *params->light_ray;
 	normalize_vector(light_ray_cpy.dir_vect.axis);
 	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
-			params->normal->axis);
+		params->normal->axis);
 	normalize_zero_one(&light_coef, 1);
 	light_coef = aces_tonemap(light_coef);
+
 	light_attenuat = calculate_light_attenuation(params->light_ray,
 		light_coef * params->params->data->spotlight.intensity);
 	color_with_light(params->mesh_color,
 		&params->params->data->spotlight.color,
-			params->params->data->spotlight.intensity * (light_attenuat * 4),
+			params->params->data->spotlight.intensity * light_attenuat,
 			params->spotlighty_color);
-	add_shading(params->params->ray, params->normal, params->spotlighty_color,
-		params->spotlighty_color);
+	// add_shading(params->params->ray, params->normal, params->spotlighty_color,
+	// 	params->spotlighty_color);
+	// printf("sphere light_attenuat: %f\n", light_attenuat);
+
 	add_lightening(&(t_add_lightening_params){params->light_ray,
 		params->normal,	&params->params->data->spotlight,
 		params->spotlighty_color, params->spotlighty_color,
@@ -88,7 +91,7 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 	color_with_light(mesh_color,
 		&params->data->ambiant_light.color,
 			params->data->ambiant_light.intensity, ambiantly_color);
-	add_shading(params->ray, normal, ambiantly_color, ambiantly_color);
+	// add_shading(params->ray, normal, ambiantly_color, ambiantly_color);
 }
 
 void	compute_sph_normal_and_light_ray(t_get_color_params *params,
@@ -133,11 +136,10 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 	double view_dot_normal;
 
 	cast_vector_mat_ray(&plane->norm_vect, normal);
+	normalize_vector(normal->axis);
 	get_intersect_point(params->ray, params->t, &light_ray->origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray->origin_vect.axis, light_ray->dir_vect.axis);
-	normalize_vector(params->ray->dir_vect.axis);
-	normalize_vector(normal->axis);
 	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
 	if (view_dot_normal > 0)
 		symmetrize_vector(normal->axis);
