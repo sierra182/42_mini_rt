@@ -78,7 +78,7 @@ void	add_lightening(t_add_lightening_params *params)
 	// printf("sphere light_attenuat: %f\n", *params->light_attenuat);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		params->color, &subt_color);
-	scale_color(&subt_color, *params->light_attenuat * 0.825, &scaled_color);
+	scale_color(&subt_color, *params->light_attenuat * 0.125, &scaled_color);
 	add_color(&scaled_color, params->color, params->res_color);
 }
 double	calculate_light_attenuation2(t_ray *light_ray, double intensity);
