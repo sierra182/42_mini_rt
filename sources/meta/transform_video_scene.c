@@ -47,13 +47,14 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 		axe[2] = 0;
 		rotate_mesh(&cyl->axis_vect, angle, axe);
 	}
-	else
+	else if (i < 56)
 	{
 		axe[0] = 0;
 		axe[1] = 0;
 		axe[2] = 1;
 		rotate_mesh(&cyl->axis_vect, angle, axe);
 	}
+	
 
 	
 
