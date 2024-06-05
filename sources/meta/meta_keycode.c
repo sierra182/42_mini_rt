@@ -6,6 +6,7 @@ void	make_bin_file(t_data *data, t_mlx *mlx);
 void	video_rotate_cylinders(t_cylinder *cyl, int obj_num, int cyl_nbr);
 void	video_rotate_cam(t_cam *cam);
 void	video_rotate_light(t_spotlight *light);
+void	video_trans_mesh(void *mesh, int mesh_num, int mesh_nbr);
 
 /**========================================================================
  *                           META_KEYCODE
@@ -34,5 +35,14 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 		}
 		video_rotate_cam(&data->cam);
 		video_rotate_light(&data->spotlight);
+	}
+	if (keycode == TRANSFORM_MESH)
+	{
+		i = 0;
+		while (i < data->cy_nbr + data->sp_nbr)
+		{
+			video_trans_mesh(&data->cylinders[i], i, data->cy_nbr);
+			i++;
+		}
 	}
 }

@@ -51,6 +51,7 @@ SOURCES = \
 	$(SRC_DIR)/meta/save_image_reference.c \
 	$(SRC_DIR)/meta/test_prints.c \
 	$(SRC_DIR)/meta/meta_keycode.c \
+	$(SRC_DIR)/meta/transform_video_scene.c \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/mesh/cam.c \
 	$(SRC_DIR)/mesh/mesh_trsf.c \
