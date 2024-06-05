@@ -16,10 +16,8 @@ void	video_trans_mesh(void *mesh, int mesh_num, int mesh_nbr)
 
 	if (mesh_num < 24)
 		return ;
-	// printf("translating cylinder %d\n", mesh_num);
 	trsl_mesh(NULL, &cyl->origin_vect, (double[3]){0, 0, -1});
-	// rotate_mesh(&cyl->origin_vect, 5, (int[3]){0, 1, 0});
-	// cyl->height -= 1;
+
 }
 
 void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
@@ -65,7 +63,6 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 		if (j == -1)
 			angle = -3.1;
 
-		printf("cyl\n");
 		point.axis[0] = cyl->axis_vect.axis[0];
 		point.axis[1] = cyl->axis_vect.axis[1] - 120;	
 		point.axis[2] = cyl->axis_vect.axis[2];
@@ -83,7 +80,6 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 
 		
 	
-	printf("j: %d, k: %d, cyl_nbr: %d\n", j, k, cyl_nbr);
 
 	
 	k++;
@@ -99,7 +95,6 @@ void	rotate_pendulum(t_sphere *sphere, int i)
 	static int j = 0;
 	static double angle = 2;
 
-	printf("i: %i\n", i);
 	if (j == 16)
 	{
 		j = 0;

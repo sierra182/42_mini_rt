@@ -24,7 +24,6 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 		make_bin_file(data, mlx);
 	if (keycode == VIDEO_NEXT_FRAME)
 	{
-		printf("video_next_frame\n");
 		i = 0;
 		while (i < data->cy_nbr)
 		{
