@@ -1,6 +1,7 @@
 # include "se_mini_struct.h"
 # include "x_matrix.h"
 
+void	generate_video_frames(t_data *data);
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
 void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
 double	*symmetrize_vector(double vect[]);
