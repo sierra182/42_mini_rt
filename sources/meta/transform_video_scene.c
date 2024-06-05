@@ -59,7 +59,7 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 		axe[2] = 1;
 		rotate_mesh(&cyl->axis_vect, angle, axe);
 	}
-	else
+	else if (i < 58)
 	{
 		angle = 3.1;
 		if (j == -1)
