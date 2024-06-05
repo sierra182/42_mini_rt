@@ -78,9 +78,8 @@ static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
  *========================================================================**/
-void	get_cylinder_color_cyl(t_get_color_params *params)
+int	get_cylinder_color_cyl(t_get_color_params *params)
 {
-	t_ray_vector	normal;
 	t_ray			light_ray;
 	t_color			ambiantly_color;
 	t_cylinder		*cyl;
@@ -88,24 +87,21 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 	t_ray_vector	tmp;
 
 	cyl = (t_cylinder *)params->mesh->ref;
-	handle_projection(params, &normal, &light_ray);
+	handle_projection(params, params->normal, &light_ray);
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
 		.origin_vect.axis, light_ray.dir_vect.axis);
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
 	normalize_vector(tmp.axis);
-	calculate_ambiant_effect(params, &cyl->color, &normal,
+	calculate_ambiant_effect(params, &cyl->color, params->normal,
 		&ambiantly_color);
-	if (has_shadow(params->data, &normal, params->mesh, &light_ray)
-		|| is_cylinder_surface_between (cyl, &normal, params->data
+	if (has_shadow(params->data, params->normal, params->mesh, &light_ray)
+		|| is_cylinder_surface_between (cyl, params->normal, params->data
 			->spotlight.origin_vect.axis) || (!is_in_cyl_height(&tmp, cyl,
 				params->data->spotlight.origin_vect.axis)
 			&& (cyl->which_t == 2)))
-	{
-		*params->color = ambiantly_color;
-		return ;
-	}
+		return (*params->color = ambiantly_color, 0);
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-	{params, &cyl->color, &normal, &spotlighty_color, &light_ray});
+	{params, &cyl->color, params->normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
 }
@@ -116,17 +112,18 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj,
 		t_color *color)
 {
-	t_cylinder	*cyl;
+	t_ray_vector	normal;
+	t_cylinder		*cyl;
 
 	cyl = (t_cylinder *)obj->ref;
 	if (cyl->cyl_or_discs == cylinder)
 	{
 		get_cylinder_color_cyl(&(t_get_color_params)
-		{data, ray, obj->t, obj, color});
+		{data, ray, obj->t, obj, color, &normal});
 	}
 	if (cyl->cyl_or_discs == discs)
 	{
 		get_cylinder_color_discs(&(t_get_color_params)
-		{data, ray, obj->t, obj, color});
+		{data, ray, obj->t, obj, color, &normal});
 	}
 }

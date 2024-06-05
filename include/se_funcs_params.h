@@ -14,11 +14,12 @@ typedef struct s_intersection_params
 
 typedef struct s_get_color_params
 {
-	t_data	*data;
-	t_ray	*ray;
-	double	t;
-	t_obj	*mesh;
-	t_color	*color;
+	t_data			*data;
+	t_ray			*ray;
+	double			t;
+	t_obj			*mesh;
+	t_color			*color;
+	t_ray_vector	*normal;
 }	t_get_color_params;
 
 typedef struct s_add_lightening_params
