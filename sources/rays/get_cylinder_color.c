@@ -3,8 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-void	add_lightening2(t_add_lightening_params *params) ;
-
+void	add_lightening2(t_add_lightening_params *params);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	color_with_ambiant_light(t_color *mesh_color,
 			t_ambiant_light *ambiant_light, t_color *new_color);
@@ -25,7 +24,8 @@ int		is_cylinder_surface_between( t_cylinder *cyl, t_ray_vector *normal,
 int		is_in_cyl_height(t_ray_vector *normal, t_cylinder *cyl, double mesh[]);
 int		calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
 void	calculate_ambiant_effect(t_get_color_params *params,
-			t_color *mesh_color, t_ray_vector *normal, t_color *ambiantly_color);
+			t_color *mesh_color, t_ray_vector *normal,
+			t_color *ambiantly_color);
 
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 double	calculate_light_attenuation(t_ray *light_ray, double intensity);
@@ -85,19 +85,19 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 	t_color			ambiantly_color;
 	t_cylinder		*cyl;
 	t_color			spotlighty_color;
+	t_ray_vector	tmp;
 
 	cyl = (t_cylinder *)params->mesh->ref;
 	handle_projection(params, &normal, &light_ray);
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
 		.origin_vect.axis, light_ray.dir_vect.axis);
-	t_ray_vector	tmp;
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
 	normalize_vector(tmp.axis);
 	calculate_ambiant_effect(params, &cyl->color, &normal,
 		&ambiantly_color);
 	if (has_shadow(params->data, &normal, params->mesh, &light_ray)
 		|| is_cylinder_surface_between (cyl, &normal, params->data
-			->spotlight.origin_vect.axis) || (!is_in_cyl_height(&tmp, cyl, 
+			->spotlight.origin_vect.axis) || (!is_in_cyl_height(&tmp, cyl,
 				params->data->spotlight.origin_vect.axis)
 			&& (cyl->which_t == 2)))
 	{
@@ -105,7 +105,7 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 		return ;
 	}
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-		{params, &cyl->color, &normal, &spotlighty_color, &light_ray});
+	{params, &cyl->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	limit_to_255(params->color);
 }
