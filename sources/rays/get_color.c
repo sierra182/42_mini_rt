@@ -63,19 +63,19 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	// light_coef = aces_tonemap(light_coef);
 	light_attenuat = calculate_light_attenuation(params->light_ray,
 		light_coef * params->params->data->spotlight.intensity);
-	light_attenuat = aces_tonemap(light_attenuat);
+	//  light_attenuat = aces_tonemap(light_attenuat);
 	color_with_light(params->mesh_color,
 		&params->params->data->spotlight.color,
-			params->params->data->spotlight.intensity * light_attenuat * 0.8,
+			params->params->data->spotlight.intensity * light_attenuat * 1,
 			params->spotlighty_color);	
 	add_shading(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
 	// printf("sphere light_attenuat: %f\n", light_attenuat);
 
-	add_lightening(&(t_add_lightening_params){params->light_ray,
-		params->normal,	&params->params->data->spotlight,
-		params->spotlighty_color, params->spotlighty_color,
-		&light_attenuat, &light_coef});//!lightcoef
+	//  add_lightening(&(t_add_lightening_params){params->light_ray,
+	// 	params->normal,	&params->params->data->spotlight,
+	// 	params->spotlighty_color, params->spotlighty_color,
+	// 	&light_attenuat, &light_coef});//!lightcoef
 	return (0);	
 }
 // void	add_lightening(t_add_lightening_params *params) //!supp
@@ -132,7 +132,11 @@ int	get_sphere_color(t_get_color_params *params)
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
 		|| (has_shadow(params->data, &normal, params->mesh, &light_ray)
 		&& scalar_product(light_ray.dir_vect.axis, normal.axis) > 0))
-		return (*params->color = ambiantly_color, 0);
+	{
+		*params->color = ambiantly_color;
+		apply_aces_tonemap(params->color);
+		return 0;
+	}
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 		{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
@@ -167,9 +171,12 @@ int	get_plane_color(t_get_color_params *params)
 	compute_pl_normal_and_light_ray(params, plane, &normal, &light_ray);
 	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
 	if (has_shadow(params->data, &normal, params->mesh, &light_ray)
-		|| scalar_product(normal.axis, light_ray.dir_vect.axis) < 1e-3)
-		return (*params->color = ambiantly_color, 0);
-	return (*params->color = ambiantly_color, 0);
+		|| scalar_product(normal.axis, light_ray.dir_vect.axis) < 1e-3)	
+	{
+		*params->color = ambiantly_color;
+		apply_aces_tonemap(params->color);	
+		return 0;
+	}
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 		{params, &plane->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
