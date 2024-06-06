@@ -91,47 +91,6 @@ int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray *light_rays[])
 	return (0);
 }
 
-// int	move_light_ray_origin(t_data *data, t_ray *light_ray_norm,
-// 	t_ray_vector *normal, t_obj *mesh)
-// {
-// 	double 		self_inter;
-// 	t_sphere 	sph_cpy;
-// 	t_cylinder 	cyl_cpy;
-// 	t_ray_vector	local_vect;
-// 	if (mesh->type == O_SP)
-// 	{
-// 		sph_cpy = *(t_sphere *) mesh->ref;
-// 		self_inter = is_intersect_sphere(light_ray_norm, &sph_cpy, NULL);
-// 		if (self_inter && ((t_sphere *) mesh->ref)->which_t == 1)
-// 		{		
-// 			get_local_intersect_point(light_ray_norm, self_inter, &local_vect);
-// 			minus_mag = get_vector_magnitude(local_vect.axis);	
-// 			get_intersect_point(light_ray_norm, sph_cpy.t2,
-// 				&light_ray_norm->origin_vect);
-// 					return (1);
-// 		}
-	
-// 	}
-// 	else if (mesh->type == O_CY)
-// 	{		
-// 		cyl_cpy = *(t_cylinder *) mesh->ref;
-// 		self_inter = is_intersect_cylinder(light_ray_norm, &cyl_cpy, NULL);
-// 		if (self_inter && !is_in_cylinder(normal, &cyl_cpy,
-// 			data->cam.origin_vect.axis))
-// 			{
-
-// 			get_local_intersect_point(light_ray_norm, self_inter, &local_vect);
-// 			minus_mag = get_vector_magnitude(local_vect.axis);	
-// 			get_intersect_point(light_ray_norm, cyl_cpy.t2,
-// 				&light_ray_norm->origin_vect);
-// 		return (1);
-// 			}
-// 	}
-// 	return (0);
-// }
-// if (move_light_ray_origin(data, &light_ray_norm, normal, mesh))	
-// 	light_ray_cpy.origin_vect = light_ray_norm.origin_vect;
-
 int	has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
 	t_ray *light_ray)
 {	

@@ -4,7 +4,7 @@
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	color_with_light(t_color *mesh_color,
 			t_color *light_color, double intensity, t_color *new_color);
-void	clamping_255(t_color *color);
+void	clamp_255(t_color *color);
 void	add_lightening(t_add_lightening_params *params);
 void	add_self_shadowing(double light_coef, double light_attenuation,
 			t_color *color);
@@ -22,29 +22,29 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 /**========================================================================
  *                           ADD_LIGHTNING_EFFECTS
  *========================================================================**/
-static void	add_lightning_effects(t_add_shad_and_light_params *p)
-{
-	double			light_attenuat;
-	double			light_coef;
-	t_cylinder		*cyl;
+// static void	add_lightning_effects(t_add_shad_and_light_params *p)
+// {
+// 	double			light_attenuat;
+// 	double			light_coef;
+// 	t_cylinder		*cyl;
 
-	cyl = ((t_cylinder *) p->params->mesh->ref);
-	light_coef = scalar_product(p->normal->axis, p->light_ray->dir_vect.axis);
-	if (has_shadow(p->params->data, p->normal, p->params->mesh, p->light_ray)
-		|| light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
-		(p->normal, &p->params->data->spotlight, cyl, &p->params->data->cam))
-	{
-		*p->params->color = *p->ambiantly_color;
-		return ;
-	}
-	// printf("light attenuat")
-	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
-		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
-		&light_attenuat, &light_coef});
-	add_self_shadowing(light_coef, light_attenuat, p->spotlighty_color);
-	add_color(p->spotlighty_color, p->ambiantly_color, p->params->color);
-	clamping_255(p->params->color);
-}
+// 	cyl = ((t_cylinder *) p->params->mesh->ref);
+// 	light_coef = scalar_product(p->normal->axis, p->light_ray->dir_vect.axis);
+// 	if (has_shadow(p->params->data, p->normal, p->params->mesh, p->light_ray)
+// 		|| light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
+// 		(p->normal, &p->params->data->spotlight, cyl, &p->params->data->cam))
+// 	{
+// 		*p->params->color = *p->ambiantly_color;
+// 		return ;
+// 	}
+// 	// printf("light attenuat")
+// 	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
+// 		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
+// 		&light_attenuat, &light_coef});
+// 	add_self_shadowing(light_coef, light_attenuat, p->spotlighty_color);
+// 	add_color(p->spotlighty_color, p->ambiantly_color, p->params->color);
+// 	clamp_255(p->params->color);
+// }
 
 /**========================================================================
  *                           HANDLE_NORMAL_SYMMETRIZATION
@@ -96,7 +96,7 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 		{params, &cyl->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	clamping_255(params->color);
+	clamp_255(params->color);
 
 
 
