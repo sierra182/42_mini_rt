@@ -75,7 +75,7 @@ void	add_lightening(t_add_lightening_params *params)
 	// printf("sphere lightray : %f, %f, %f\n", params->light_ray->dir_vect.axis[0], params->light_ray->dir_vect.axis[1], params->light_ray->dir_vect.axis[2]);
 	*params->light_attenuat = calculate_light_attenuation(params->light_ray,
 			*params->light_coef * params->spotlight->intensity);
-	// *params->light_attenuat = aces_tonemap(*params->light_attenuat);
+	*params->light_attenuat = aces_tonemap(*params->light_attenuat);
 	// printf("sphere light_attenuat: %f\n", *params->light_attenuat);
 	subtract_color(&(t_color){.rgb[0] = 255, .rgb[1] = 255, .rgb[2] = 255},
 		params->color, &subt_color);

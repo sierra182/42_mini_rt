@@ -63,10 +63,10 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	// light_coef = aces_tonemap(light_coef);
 	light_attenuat = calculate_light_attenuation(params->light_ray,
 		light_coef * params->params->data->spotlight.intensity);
-	// light_attenuat = aces_tonemap(light_attenuat);
+	light_attenuat = aces_tonemap(light_attenuat);
 	color_with_light(params->mesh_color,
 		&params->params->data->spotlight.color,
-			params->params->data->spotlight.intensity * light_attenuat,
+			params->params->data->spotlight.intensity * light_attenuat * 0.8,
 			params->spotlighty_color);	
 	add_shading(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
