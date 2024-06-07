@@ -3,8 +3,6 @@
 #include "x_matrix.h"
 #include "x_linear_algebra.h"
 
-void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
-
 void	update_cam(t_cam *cam)
 {
 	cam->resol[0] = WIDTH;
@@ -47,13 +45,4 @@ void	post_init_cam(t_cam *cam)
 	cam->cam_matrix[1] = &cam->up_vect;
 	cam->cam_matrix[2] = &cam->forward_vect;
 	cam->cam_matrix[3] = &cam->origin_vect;
-}
-
-static void	cast_matrix_cam(t_cam *cam, t_matrix_vector mult_matrix[MTX])
-{
-	int	i;
-
-	i = -1;
-	while (++i < MTX)
-		*cam->cam_matrix[i] = mult_matrix[i];
 }

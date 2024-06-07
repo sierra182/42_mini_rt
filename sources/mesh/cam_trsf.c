@@ -2,6 +2,17 @@
 #include "x_matrix.h"
 #include "x_linear_algebra.h"
 
+void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
+
+static void	cast_matrix_cam(t_cam *cam, t_matrix_vector mult_matrix[MTX])
+{
+	int	i;
+
+	i = -1;
+	while (++i < MTX)
+		*cam->cam_matrix[i] = mult_matrix[i];
+}
+
 void	rotate_cam(t_cam *cam, double angle, int axe[])
 {
 	t_matrix_vector	mult_matrix[MTX];
