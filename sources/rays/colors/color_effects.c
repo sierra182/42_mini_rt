@@ -1,3 +1,6 @@
+#include "se_mini_struct.h"
+#include "x_linear_algebra.h"
+
 double	calculate_light_attenuation(t_ray *light_ray, double intensity)
 {
 	double			light_mag;
@@ -9,14 +12,15 @@ double	calculate_light_attenuation(t_ray *light_ray, double intensity)
 	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
 }
 
-double aces_tonemap(double x) {
-    double a = 2.51;
-    double b = 0.03;
-    double c = 2.43;
-    double d = 0.59;
-    double e = 0.14;
-    
-    return (x * (a * x + b)) / (x * (c * x + d) + e);
+double	aces_tonemap(double x)
+{
+	const double	a = 2.51;
+	const double	b = 0.03;
+	const double	c = 2.43;
+	const double	d = 0.59;
+	const double	e = 0.14;
+
+	return ((x * (a * x + b)) / (x * (c * x + d) + e));
 }
 
 void	apply_aces_tonemap(t_color *color)
