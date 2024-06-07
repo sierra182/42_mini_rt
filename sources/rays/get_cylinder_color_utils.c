@@ -42,24 +42,24 @@ int	is_in_cyl_diam( t_cylinder *cyl, t_ray_vector *normal, double mesh[])
 /**========================================================================
  *                           IS_CYLINDER
  *========================================================================**/
-int	is_cylinder_surface_between2( t_cylinder *cyl, t_ray_vector *normal,
-	double mesh[])
-{
-	t_ray_vector	subt_vect;
-	t_ray_vector	inter_vect;
-	t_ray			ray;
+// int	is_cylinder_surface_between2( t_cylinder *cyl, t_ray_vector *normal,
+// 	double mesh[])
+// {
+// 	t_ray_vector	subt_vect;
+// 	t_ray_vector	inter_vect;
+// 	t_ray			ray;
 
-	cast_vector_mat_ray(&cyl->axis_vect, &ray.dir_vect);
-	cast_vector_mat_ray(&cyl->origin_vect, &ray.origin_vect);
-	subtract_vector(mesh, cyl->origin_vect.axis, subt_vect.axis);
-	normalize_vector(ray.dir_vect.axis);
-	scale_vector(ray.dir_vect.axis, scalar_product(ray.dir_vect.axis,
-			subt_vect.axis), inter_vect.axis);
-	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);
-	return ((get_vector_magnitude(subt_vect.axis) >= cyl->radius
-			&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis)
-				<= cyl->radius && cyl->which_t == 1)));
-}
+// 	cast_vector_mat_ray(&cyl->axis_vect, &ray.dir_vect);
+// 	cast_vector_mat_ray(&cyl->origin_vect, &ray.origin_vect);
+// 	subtract_vector(mesh, cyl->origin_vect.axis, subt_vect.axis);
+// 	normalize_vector(ray.dir_vect.axis);
+// 	scale_vector(ray.dir_vect.axis, scalar_product(ray.dir_vect.axis,
+// 			subt_vect.axis), inter_vect.axis);
+// 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);
+// 	return ((get_vector_magnitude(subt_vect.axis) >= cyl->radius
+// 			&& cyl->which_t == 2) || ((get_vector_magnitude(subt_vect.axis)
+// 				<= cyl->radius && cyl->which_t == 1)));
+// }
 
 /**========================================================================
  *                           IS_IN_CYL_HEIGHT
