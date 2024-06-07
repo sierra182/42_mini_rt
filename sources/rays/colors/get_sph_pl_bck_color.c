@@ -1,10 +1,15 @@
-# include "se_mini_struct.h"
-# include "x_linear_algebra.h"
-# include "x_color_effect.h"
+#include "se_mini_struct.h"
+#include "x_linear_algebra.h"
+#include "x_color_effect.h"
 
-int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh, t_ray *light_ray);
+int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
+	t_ray *light_ray);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
+void	calculate_ambiant_effect(t_get_color_params *params,
+	t_color *mesh_color, t_ray_vector *normal, t_color *ambiantly_color);
+void	apply_aces_tonemap(t_color *color);
+int		calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
 
 void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 	t_sphere *sphere,  t_ray_vector *normal, t_ray *light_ray)
@@ -24,7 +29,7 @@ int	get_sphere_color(t_get_color_params *params)
 	t_ray_vector	normal;
 	t_ray			light_ray;
 	t_color			ambiantly_color;
-	t_color			spotlighty_color;	
+	t_color			spotlighty_color;
 	t_sphere 		*sphere;
 
 	sphere = (t_sphere *) params->mesh->ref;
@@ -42,7 +47,7 @@ int	get_sphere_color(t_get_color_params *params)
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 		{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	apply_aces_tonemap(params->color);	
+	apply_aces_tonemap(params->color);
 	return (0);
 } 
 
@@ -69,20 +74,20 @@ int	get_plane_color(t_get_color_params *params)
 	t_color			spotlighty_color;
 	t_plane			*plane;
 
-	plane = ((t_plane *) params->mesh->ref);	
+	plane = ((t_plane *) params->mesh->ref);
 	compute_pl_normal_and_light_ray(params, plane, &normal, &light_ray);
 	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
 	if (has_shadow(params->data, &normal, params->mesh, &light_ray)
-		|| scalar_product(normal.axis, light_ray.dir_vect.axis) < 1e-3)	
+		|| scalar_product(normal.axis, light_ray.dir_vect.axis) < 1e-3)
 	{
 		*params->color = ambiantly_color;
-		apply_aces_tonemap(params->color);	
+		apply_aces_tonemap(params->color);
 		return 0;
 	}
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 		{params, &plane->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	apply_aces_tonemap(params->color);	
+	apply_aces_tonemap(params->color);
 	return (0);
 }
 
