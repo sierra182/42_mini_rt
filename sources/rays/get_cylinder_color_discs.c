@@ -22,29 +22,29 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 /**========================================================================
  *                           ADD_LIGHTNING_EFFECTS
  *========================================================================**/
-// static void	add_lightning_effects(t_add_shad_and_light_params *p)
-// {
-// 	double			light_attenuat;
-// 	double			light_coef;
-// 	t_cylinder		*cyl;
+static void	add_lightning_effects(t_add_shad_and_light_params *p)
+{
+	double			light_attenuat;
+	double			light_coef;
+	t_cylinder		*cyl;
 
-// 	cyl = ((t_cylinder *) p->params->mesh->ref);
-// 	light_coef = scalar_product(p->normal->axis, p->light_ray->dir_vect.axis);
-// 	if (has_shadow(p->params->data, p->normal, p->params->mesh, p->light_ray)
-// 		|| light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
-// 		(p->normal, &p->params->data->spotlight, cyl, &p->params->data->cam))
-// 	{
-// 		*p->params->color = *p->ambiantly_color;
-// 		return ;
-// 	}
-// 	// printf("light attenuat")
-// 	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
-// 		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
-// 		&light_attenuat, &light_coef});
-// 	add_self_shadowing(light_coef, light_attenuat, p->spotlighty_color);
-// 	add_color(p->spotlighty_color, p->ambiantly_color, p->params->color);
-// 	clamp_255(p->params->color);
-// }
+	cyl = ((t_cylinder *) p->params->mesh->ref);
+	light_coef = scalar_product(p->normal->axis, p->light_ray->dir_vect.axis);
+	if (has_shadow(p->params->data, p->normal, p->params->mesh, p->light_ray)
+		|| light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
+		(p->normal, &p->params->data->spotlight, cyl, &p->params->data->cam))
+	{
+		*p->params->color = *p->ambiantly_color;
+		return ;
+	}
+	// printf("light attenuat")
+	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
+		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
+		&light_attenuat, &light_coef});
+	add_self_shadowing(light_coef, light_attenuat, p->spotlighty_color);
+	add_color(p->spotlighty_color, p->ambiantly_color, p->params->color);
+	clamp_255(p->params->color);
+}
 
 /**========================================================================
  *                           HANDLE_NORMAL_SYMMETRIZATION

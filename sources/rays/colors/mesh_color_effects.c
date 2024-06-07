@@ -1,8 +1,6 @@
 #include "se_mini_struct.h"
 #include "x_linear_algebra.h"
 
-
-
 void	add_shading( t_ray *ray, t_ray_vector *normal,
 	t_color *color, t_color *res_color)
 {
