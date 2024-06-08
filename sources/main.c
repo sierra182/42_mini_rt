@@ -14,6 +14,7 @@ int		parse(t_data *data, char *map_path);
 void	launch_rays(t_mlx *mlx, t_data *data);
 int		key_up_event(int keycode, void *param);
 int		mouse_release(int button, int x, int y, void *param);
+int		generate_video_frames(t_data *data, char **envp);
 
 /**========================================================================
  *                             COMMENTS
@@ -112,6 +113,8 @@ int	main(int argc, char **argv, char **envp)
 	if (init_data(argv[1], &data) == 0)
 		return (display_error("data init. error\n"), 3);
 	is_it_a_test(&data, envp);
+	if (generate_video_frames(&data, envp))
+		return (0);
 	if (init_mlx(&mlx))
 		return (4);	
 	launch_mlx_loop(&mlx, &data);		
