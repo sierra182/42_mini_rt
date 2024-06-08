@@ -20,6 +20,7 @@
 
 typedef struct s_data
 {
+	int				is_gen_vid;
 	int				is_test;
 	int				refresh;
 	int				sp_nbr;
