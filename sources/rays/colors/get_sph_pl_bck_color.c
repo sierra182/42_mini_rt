@@ -12,15 +12,21 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 void	apply_aces_tonemap(t_color *color);
 int		calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
 
+void	calculate_ray_pack(t_ray_pack *ray_pack)
+{
+	ray_pack->ray_norm.origin_vect = ray_pack->ray.origin_vect;
+	ray_pack->magnitude = get_vector_magnitude(ray_pack->ray.dir_vect.axis);
+	normalize_vector(ray_pack->ray.dir_vect.axis, ray_pack->magnitude,
+		ray_pack->ray_norm.dir_vect.axis);
+}
+
 void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 	t_sphere *sphere, t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);
-	light_ray->magnitude = get_vector_magnitude(light_ray->ray.dir_vect.axis);	
-	normalize_vector(light_ray->ray.dir_vect.axis, light_ray->magnitude,
-		light_ray->ray_norm.dir_vect.axis);
+	calculate_ray_pack(light_ray);
 	subtract_vector(light_ray->ray.origin_vect.axis,
 		sphere->origin_vect.axis, normal->axis);
 	self_normalize_vector(normal->axis);
@@ -49,22 +55,23 @@ int	get_sphere_color(t_get_color_params *params)
 		return (0);
 	}
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-	{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
+	{params, &sphere->color, &normal, &spotlighty_color, &light_ray.ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	apply_aces_tonemap(params->color);
 	return (0);
 }
 
 void	compute_pl_normal_and_light_ray(t_get_color_params *params,
-	t_plane *plane, t_ray_vector *normal, t_ray *light_ray)
+	t_plane *plane, t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	double	view_dot_normal;
 
 	cast_vector_mat_ray(&plane->norm_vect, normal);
 	self_normalize_vector(normal->axis);
-	get_intersect_point(params->ray, params->t, &light_ray->origin_vect);
+	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
-		light_ray->origin_vect.axis, light_ray->dir_vect.axis);
+		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);
+	calculate_ray_pack(light_ray);
 	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
 	if (view_dot_normal > 0)
 		symmetrize_vector(normal->axis);
@@ -73,7 +80,7 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 int	get_plane_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;
-	t_ray			light_ray;
+	t_ray_pack		light_ray;
 	t_color			ambiantly_color;
 	t_color			spotlighty_color;
 	t_plane			*plane;
@@ -82,14 +89,14 @@ int	get_plane_color(t_get_color_params *params)
 	compute_pl_normal_and_light_ray(params, plane, &normal, &light_ray);
 	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
 	if (has_shadow(params->data, &normal, params->mesh, &light_ray)
-		|| scalar_product(normal.axis, light_ray.dir_vect.axis) < 1e-3)
+		|| scalar_product(normal.axis, light_ray.ray.dir_vect.axis) < 1e-3)
 	{
 		*params->color = ambiantly_color;
 		apply_aces_tonemap(params->color);
 		return (0);
 	}
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-	{params, &plane->color, &normal, &spotlighty_color, &light_ray});
+	{params, &plane->color, &normal, &spotlighty_color, &light_ray.ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	apply_aces_tonemap(params->color);
 	return (0);

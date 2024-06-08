@@ -8,7 +8,7 @@ void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	color_with_ambiant_light(t_color *mesh_color,
 			t_ambiant_light *ambiant_light, t_color *new_color);
 int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
-			t_ray *light_ray);
+			t_ray_pack *light_ray);
 void	add_lightening(t_add_lightening_params *params);
 int		get_plane_color(t_get_color_params *params);
 void	add_shading( t_ray *ray, t_ray_vector *normal,
@@ -30,6 +30,8 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 double	calculate_light_attenuation(t_ray *light_ray, double intensity);
 double	aces_tonemap(double x);
+
+void	calculate_ray_pack(t_ray_pack *ray_pack);
 
 /**========================================================================
  *                           HANDLE_PROJECTION
@@ -80,16 +82,17 @@ static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
  *========================================================================**/
 int	get_cylinder_color_cyl(t_get_color_params *params)
 {
-	t_ray			light_ray;
+	t_ray_pack		light_ray;
 	t_color			ambiantly_color;
 	t_cylinder		*cyl;
 	t_color			spotlighty_color;
 	t_ray_vector	tmp;
 
 	cyl = (t_cylinder *)params->mesh->ref;
-	handle_projection(params, params->normal, &light_ray);
-	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
-		.origin_vect.axis, light_ray.dir_vect.axis);
+	handle_projection(params, params->normal, &light_ray.ray);
+	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray.
+		ray.origin_vect.axis, light_ray.ray.dir_vect.axis);
+	calculate_ray_pack(&light_ray);
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
 	self_normalize_vector(tmp.axis);
 	calculate_ambiant_effect(params, &cyl->color, params->normal,
@@ -101,7 +104,7 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 			&& (cyl->which_t == 2)))
 		return (*params->color = ambiantly_color, 0);
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-	{params, &cyl->color, params->normal, &spotlighty_color, &light_ray});
+	{params, &cyl->color, params->normal, &spotlighty_color, &light_ray.ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	clamp_255(params->color);
 	return (0);
