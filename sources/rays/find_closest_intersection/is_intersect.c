@@ -54,7 +54,7 @@ double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 	t_plane			*plane;
 
 	plane = (t_plane *)input_plane;
-	normalize_vector(plane->norm_vect.axis);
+	self_normalize_vector(plane->norm_vect.axis);
 	subtract_vector(plane->origin_vect.axis, ray->origin_vect.axis, a.axis);
 	num = scalar_product(a.axis, plane->norm_vect.axis);
 	den = scalar_product(ray->dir_vect.axis, plane->norm_vect.axis);
@@ -85,7 +85,7 @@ double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim)
 	double			c;	
 	double			t1;
 
-	normalize_vector(cyl->axis_vect.axis);
+	self_normalize_vector(cyl->axis_vect.axis);
 	subtract_vector(ray->origin_vect.axis, cyl->origin_vect.axis, cr.axis);
 	a = scalar_product(ray->dir_vect.axis, ray->dir_vect.axis)
 		- pow(scalar_product(ray->dir_vect.axis, cyl->axis_vect.axis), 2);

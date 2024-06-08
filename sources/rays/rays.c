@@ -34,7 +34,7 @@ void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 	norm_scale_x = normalize_pixel(cam->resol[0], x, 1) * cam->scale
 		* cam->aspect;
 	scale_and_add_vectors(cam, ray, norm_scale_x, norm_scale_y);
-	normalize_vector(ray->dir_vect.axis);
+	self_normalize_vector(ray->dir_vect.axis);
 }
 
 void	launch_rays(t_mlx *mlx, t_data *data)

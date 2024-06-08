@@ -29,7 +29,7 @@ double	get_vector_magnitude(double vector[])
 			+ pow(vector[2], 2)));
 }
 
-void	normalize_vector(double vector[])
+void	self_normalize_vector(double vector[])
 {
 	int		i;
 	double	magnitude;
@@ -44,10 +44,15 @@ void	normalize_vector(double vector[])
 		vector[i] *= inverse_mag;
 }
 
-void	normalize_zero_one(double *scalar_product, int clamp_flag)
+void	normalize_vector(double vector[], double magnitude, double norm_vect[])
 {
-	if (!clamp_flag)
-		*scalar_product = (*scalar_product + 1) * 0.5;
-	else if (*scalar_product >= -1 && *scalar_product < 0)
-		*scalar_product = 0;
+	int		i;
+	double	inverse_mag;
+
+	if (!magnitude)
+		return ;
+	inverse_mag = 1 / magnitude;
+	i = -1;
+	while (++i < AXIS)
+		norm_vect[i] = vector[i] * inverse_mag;
 }

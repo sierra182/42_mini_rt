@@ -14,7 +14,7 @@ void	update_cam(t_cam *cam)
 
 void	calculate_missing_vectors(t_cam *cam)
 {
-	normalize_vector(cam->forward_vect.axis);
+	self_normalize_vector(cam->forward_vect.axis);
 	cam->up_vect.axis[0] = 0;
 	cam->up_vect.axis[1] = 1;
 	cam->up_vect.axis[2] = 0;
@@ -26,9 +26,9 @@ void	calculate_missing_vectors(t_cam *cam)
 		cam->up_vect.axis[2] = 0;
 		cross_product(&cam->up_vect, &cam->forward_vect, &cam->right_vect);
 	}
-	normalize_vector(cam->right_vect.axis);
+	self_normalize_vector(cam->right_vect.axis);
 	cross_product(&cam->forward_vect, &cam->right_vect, &cam->up_vect);
-	normalize_vector(cam->up_vect.axis);
+	self_normalize_vector(cam->up_vect.axis);
 }
 
 void	post_init_cam(t_cam *cam)

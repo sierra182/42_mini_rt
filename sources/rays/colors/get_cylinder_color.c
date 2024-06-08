@@ -19,7 +19,7 @@ void	handle_projection(t_get_color_params *params, t_ray_vector *normal,
 	proj = scalar_product(cyl_to_intersect.axis, cyl->axis_vect.axis);
 	scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
 	subtract_vector(cyl_to_intersect.axis, proj_vect.axis, normal->axis);
-	normalize_vector(normal->axis);
+	self_normalize_vector(normal->axis);
 	if (cyl->which_t == 2)
 		symmetrize_vector(normal->axis);
 	light_ray->origin_vect = intersect_point;
@@ -49,18 +49,19 @@ static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
  *========================================================================**/
 int	get_cylinder_color_cyl(t_get_color_params *params)
 {
-	t_ray			light_ray;
+	t_ray_pack		light_ray;
 	t_color			ambiantly_color;
 	t_cylinder		*cyl;
 	t_color			spotlighty_color;
 	t_ray_vector	tmp;
 
 	cyl = (t_cylinder *)params->mesh->ref;
-	handle_projection(params, params->normal, &light_ray);
-	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
-		.origin_vect.axis, light_ray.dir_vect.axis);
+	handle_projection(params, params->normal, &light_ray.ray);
+	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray.
+		ray.origin_vect.axis, light_ray.ray.dir_vect.axis);
+	calculate_ray_pack(&light_ray);
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
-	normalize_vector(tmp.axis);
+	self_normalize_vector(tmp.axis);
 	calculate_ambiant_effect(params, &cyl->color, params->normal,
 		&ambiantly_color);
 	if (has_shadow(params->data, params->normal, params->mesh, &light_ray)

@@ -25,7 +25,7 @@ int	is_cylinder_surface_between( t_cylinder *cyl, t_ray_vector *normal,
 	cast_vector_mat_ray(&cyl->axis_vect, &ray.dir_vect);
 	cast_vector_mat_ray(&cyl->origin_vect, &ray.origin_vect);
 	subtract_vector(mesh, cyl->origin_vect.axis, subt_vect.axis);
-	normalize_vector(ray.dir_vect.axis);
+	self_normalize_vector(ray.dir_vect.axis);
 	scale_vector(ray.dir_vect.axis, scalar_product(ray.dir_vect.axis,
 			subt_vect.axis), inter_vect.axis);
 	subtract_vector(inter_vect.axis, subt_vect.axis, subt_vect.axis);

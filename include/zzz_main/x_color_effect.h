@@ -3,7 +3,7 @@
 
 # include "se_mini_struct.h"
 
-double	calculate_light_attenuation(t_ray *light_ray, double intensity);
+double	calculate_light_attenuation(t_ray_pack *light_ray, double intensity);
 void	add_self_shadowing(double light_coef, double light_attenuation,
 			t_color *color);
 void	add_shading( t_ray *ray, t_ray_vector *normal,
