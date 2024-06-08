@@ -25,7 +25,7 @@ int	generate_video_frames(t_data *data, char **envp)
 		i++;
 	}
 	if (data->is_gen_vid == 0)
-		return (0);
+		return (1);
 	i = 0;
 	while(i < 32)
 	{
