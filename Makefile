@@ -25,7 +25,7 @@ LIBFTPRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 FT_PRINTF_DIR = ft_printf
 SRC_DIR = sources
 HEADERS_DIR = include
-MLX_DIR = mlx_linux
+MLX_DIR = .mlx_linux
 
 CC = cc
 CFLAGS = \
