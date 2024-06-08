@@ -57,11 +57,3 @@ void	normalize_vector(double vector[], double magnitude, double norm_vect[])
 	while (++i < AXIS)
 		norm_vect[i] = vector[i] * inverse_mag;
 }
-
-void	normalize_zero_one(double *scalar_product, int clamp_flag)
-{
-	if (!clamp_flag)
-		*scalar_product = (*scalar_product + 1) * 0.5;
-	else if (*scalar_product >= -1 && *scalar_product < 0)
-		*scalar_product = 0;
-}

@@ -11,14 +11,7 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 			t_color *ambiantly_color);
 void	apply_aces_tonemap(t_color *color);
 int		calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
-
-void	calculate_ray_pack(t_ray_pack *ray_pack)
-{
-	ray_pack->ray_norm.origin_vect = ray_pack->ray.origin_vect;
-	ray_pack->magnitude = get_vector_magnitude(ray_pack->ray.dir_vect.axis);
-	normalize_vector(ray_pack->ray.dir_vect.axis, ray_pack->magnitude,
-		ray_pack->ray_norm.dir_vect.axis);
-}
+void	calculate_ray_pack(t_ray_pack *ray_pack);
 
 void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 	t_sphere *sphere, t_ray_vector *normal, t_ray_pack *light_ray)

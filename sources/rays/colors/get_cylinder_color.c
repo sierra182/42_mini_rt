@@ -30,7 +30,6 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 double	calculate_light_attenuation(t_ray *light_ray, double intensity);
 double	aces_tonemap(double x);
-
 void	calculate_ray_pack(t_ray_pack *ray_pack);
 
 /**========================================================================

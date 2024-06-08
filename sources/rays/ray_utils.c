@@ -20,3 +20,11 @@ void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 
 	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);
 }
+
+void	calculate_ray_pack(t_ray_pack *ray_pack)
+{
+	ray_pack->ray_norm.origin_vect = ray_pack->ray.origin_vect;
+	ray_pack->magnitude = get_vector_magnitude(ray_pack->ray.dir_vect.axis);
+	normalize_vector(ray_pack->ray.dir_vect.axis, ray_pack->magnitude,
+		ray_pack->ray_norm.dir_vect.axis);
+}
