@@ -83,16 +83,16 @@ SOURCES = \
 	$(SRC_DIR)/rays/colors/mesh_color_effects.c \
 	$(SRC_DIR)/rays/colors/color_effects.c \
 	$(SRC_DIR)/rays/colors/get_sph_pl_bck_color.c \
-	$(SRC_DIR)/rays/get_cylinder_color.c \
-	$(SRC_DIR)/rays/get_cylinder_color_discs.c \
-	$(SRC_DIR)/rays/get_cylinder_color_utils.c \
-	$(SRC_DIR)/rays/is_intersect.c \
+	$(SRC_DIR)/rays/colors/get_cylinder_color.c \
+	$(SRC_DIR)/rays/colors/get_cylinder_color_discs.c \
+	$(SRC_DIR)/rays/colors/get_cylinder_color_utils.c \
 	$(SRC_DIR)/rays/shadows/shadows.c \
 	$(SRC_DIR)/xpm.c \
 	$(SRC_DIR)/rays/shadows/shadows_exclusion.c \
-	$(SRC_DIR)/rays/is_intersect_cylinder.c \
-	$(SRC_DIR)/rays/is_intersect_utils.c \
-	$(SRC_DIR)/rays/find_closest_intersection.c \
+	$(SRC_DIR)/rays/find_closest_intersection/find_closest_intersection.c \
+	$(SRC_DIR)/rays/find_closest_intersection/is_intersect.c \
+	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_cylinder.c \
+	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_utils.c \
 	$(SRC_DIR)/rays/exec_launch_ray.c \
 	$(SRC_DIR)/linear_algebra/vector.c \
 	$(SRC_DIR)/linear_algebra/color.c \
