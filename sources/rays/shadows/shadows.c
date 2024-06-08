@@ -8,7 +8,6 @@ int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 	int				i;
 	double			t;
 	double			mesh_mag;
-	double			light_mag;
 	t_ray_vector	inter_pt;
 
 	i = -1;
@@ -38,7 +37,6 @@ int	has_cylinder_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 	int				i;
 	double			t;
 	double			mesh_mag;
-	double			light_mag;
 	t_ray_vector	inter_pt;
 
 	i = -1;
@@ -68,7 +66,6 @@ int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 	int				i;
 	double			t;
 	double			mesh_mag;
-	double			light_mag;
 	t_ray_vector	inter_pt;
 
 	i = -1;
@@ -93,7 +90,7 @@ int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 /**========================================================================
  *                           HAS_SHADOW
  *========================================================================**/
-int	has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
+int	has_shadow(t_data *data, t_obj *mesh,
 	t_ray_pack *light_ray)
 {
 	if (has_sphere_shadow(data, mesh, light_ray)

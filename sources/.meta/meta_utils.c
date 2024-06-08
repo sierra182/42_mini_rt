@@ -10,7 +10,6 @@ void	make_rt_file(t_data *data);
 int	generate_video_frames(t_data *data, char **envp)
 {
 	int	i;
-	static int	j = 0;
 
 	data->is_gen_vid = 0;
 	i = 0;

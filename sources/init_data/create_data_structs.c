@@ -3,11 +3,8 @@
 /**========================================================================
  *                           CREATE_DATA_STRUCTS
  *========================================================================**/
-int	create_data_structs(t_data *data, char *map_path)
+int	create_data_structs(t_data *data)
 {
-	int		nbr;
-	int		i;
-
 	data->spheres = (t_sphere *)malloc(sizeof(t_sphere) * data->sp_nbr);
 	if (data->spheres == NULL)
 		return (0);

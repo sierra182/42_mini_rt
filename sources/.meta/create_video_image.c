@@ -31,10 +31,8 @@ void update_color(t_color *color, int increment)
  *========================================================================**/
 void	video_rotate_spheres(t_sphere *sphere, int obj_num, int sp_nbr)
 {
-
 	int axe[3];
-	t_matrix_vector	trsf_matrix[MTX];
-	t_matrix_vector applied_vect;
+	
 	double angle = ANGLE;
 	if (obj_num %2 == 0)
 		angle = -ANGLE;
@@ -118,8 +116,7 @@ void	video_rotate_cylinders(t_cylinder *cyl, int obj_num, int cyl_nbr)
 		j = -j;
 	}
 	int axe[3];
-	t_matrix_vector	trsf_matrix[MTX];
-	t_matrix_vector applied_vect;
+
 	double angle = ANGLE;
 	if (obj_num %2 == 0)
 		angle = -ANGLE;
@@ -181,8 +178,7 @@ void	video_rotate_cylinders(t_cylinder *cyl, int obj_num, int cyl_nbr)
 void	video_rotate_cam(t_cam *cam)
 {
 	int axe[3];
-	t_matrix_vector	trsf_matrix[MTX];
-	t_matrix_vector applied_vect;
+
 	double angle = ANGLE;
 
 	t_matrix_vector point;

@@ -26,25 +26,6 @@ void	handle_projection(t_get_color_params *params, t_ray_vector *normal,
 }
 
 /**========================================================================
- *                   ADD_SHADOW_AND_LIGHTNING_EFFECTS
- *========================================================================**/
-static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
-{
-	double			light_coef;
-	double			light_attenuat;
-	t_cylinder		*cyl;
-	t_ray_vector	tmp;
-
-	cyl = (t_cylinder *)p->params->mesh->ref;
-	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
-	add_lightening(&(t_add_lightening_params){p->light_ray, p->normal,
-		&p->params->data->spotlight, p->ambiantly_color, p->params->color,
-		&light_attenuat, &light_coef});
-	add_color(p->spotlighty_color, p->ambiantly_color, p->params->color);
-	clamp_255(p->params->color);
-}
-
-/**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
  *========================================================================**/
 int	get_cylinder_color_cyl(t_get_color_params *params)

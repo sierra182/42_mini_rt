@@ -32,8 +32,8 @@ void	rotate_cam(t_cam *cam, double angle, int axe[])
 void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[])
 {
 	t_matrix_vector	scaled_vect;
-	double			value;
-
+	
+	(void) vect;
 	if (values[1])
 		return (trsl_mesh(NULL, &cam->origin_vect, values));
 	if (values[0])
@@ -49,7 +49,6 @@ void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[])
 void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[])
 {
 	t_matrix_vector	scaled_vect;
-	double			value;
 
 	if (values[1])
 		return (trsl_mesh(NULL, vect, values));
