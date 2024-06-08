@@ -55,7 +55,7 @@ void	normalize_vector(double vector[], double magnitude, double norm_vect[])
 	inverse_mag = 1 / magnitude;
 	i = -1;
 	while (++i < AXIS)
-		norm_vect[i] *= inverse_mag;
+		norm_vect[i] = vector[i] * inverse_mag;
 }
 
 void	normalize_zero_one(double *scalar_product, int clamp_flag)
