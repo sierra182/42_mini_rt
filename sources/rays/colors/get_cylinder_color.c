@@ -44,6 +44,20 @@ static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
 	clamp_255(p->params->color);
 }
 
+int	is_ambianced_only(t_get_color_params *params, t_ray_pack *light_ray, t_cylinder		*cyl, t_color *ambiantly_color, t_ray_vector *tmp)
+{
+	if (has_shadow(params->data, params->normal, params->mesh, light_ray)
+		|| is_cylinder_surface_between (cyl, params->normal, params->data
+			->spotlight.origin_vect.axis) || (!is_in_cyl_height(tmp, cyl,
+				params->data->spotlight.origin_vect.axis)
+			&& (cyl->which_t == 2)))
+	{
+		*params->color = *ambiantly_color, apply_aces_tonemap(params->color);
+		return (1);
+	}
+	return (0);
+}
+
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
  *========================================================================**/
@@ -57,6 +71,7 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 
 	cyl = (t_cylinder *)params->mesh->ref;
 	handle_projection(params, params->normal, &light_ray.ray);
+
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray.
 		ray.origin_vect.axis, light_ray.ray.dir_vect.axis);
 	calculate_ray_pack(&light_ray);
@@ -64,13 +79,8 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	self_normalize_vector(tmp.axis);
 	calculate_ambiant_effect(params, &cyl->color, params->normal,
 		&ambiantly_color);
-	if (has_shadow(params->data, params->normal, params->mesh, &light_ray)
-		|| is_cylinder_surface_between (cyl, params->normal, params->data
-			->spotlight.origin_vect.axis) || (!is_in_cyl_height(&tmp, cyl,
-				params->data->spotlight.origin_vect.axis)
-			&& (cyl->which_t == 2)))
-		return (*params->color = ambiantly_color,
-			apply_aces_tonemap(params->color), 0);			
+	if (is_ambianced_only(params, &light_ray, cyl, &ambiantly_color, &tmp))
+		return (0);			
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 	{params, &cyl->color, params->normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
