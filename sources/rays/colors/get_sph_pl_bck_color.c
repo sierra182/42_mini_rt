@@ -33,7 +33,7 @@ int	get_sphere_color(t_get_color_params *params)
 	calculate_ambiant_effect(params, &sphere->color, &normal,
 		&ambiantly_color);
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
-		|| (has_shadow(params->data, &normal, params->mesh, &light_ray)
+		|| (has_shadow(params->data, params->mesh, &light_ray)
 			&& scalar_product(light_ray.ray.dir_vect.axis, normal.axis) > 0))
 	{
 		*params->color = ambiantly_color;
@@ -80,7 +80,7 @@ int	get_plane_color(t_get_color_params *params)
 	plane = ((t_plane *) params->mesh->ref);
 	compute_pl_normal_and_light_ray(params, plane, &normal, &light_ray);
 	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
-	if (has_shadow(params->data, &normal, params->mesh, &light_ray)
+	if (has_shadow(params->data, params->mesh, &light_ray)
 		|| scalar_product(normal.axis, light_ray.ray.dir_vect.axis) < 1e-3)
 	{
 		*params->color = ambiantly_color;

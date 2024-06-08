@@ -30,6 +30,7 @@ double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i)
 	double			discrim;
 	t_sphere		*sphere;
 
+	(void) i;
 	sphere = (t_sphere *)input_sphere;
 	subtract_vector(ray->origin_vect.axis, sphere->origin_vect.axis,
 		sphere_ray_vect.axis);
@@ -83,7 +84,6 @@ double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim)
 	double			a;
 	double			b;
 	double			c;	
-	double			t1;
 
 	self_normalize_vector(cyl->axis_vect.axis);
 	subtract_vector(ray->origin_vect.axis, cyl->origin_vect.axis, cr.axis);

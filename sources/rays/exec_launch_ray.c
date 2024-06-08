@@ -47,7 +47,7 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 	if (obj->t && obj->type == O_SP && obj->ref)
 	{
 		get_sphere_color(&(t_get_color_params)
-		{data, ray, obj->t, obj, &color});
+		{data, ray, obj->t, obj, &color, NULL});
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
 	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref)
@@ -79,7 +79,7 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref)
 	{
 		get_plane_color(&(t_get_color_params)
-		{data, params->ray, obj->t, obj, color});
+		{data, params->ray, obj->t, obj, color, NULL});
 		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
 	}
 	if (obj->ref == NULL)

@@ -25,7 +25,7 @@ static int	is_ambianced_only(t_get_color_params *params,
 	t_cylinder		*cyl;
 
 	cyl = ((t_cylinder *) params->mesh->ref);
-	if (has_shadow(params->data, params->normal, params->mesh, light_ray)
+	if (has_shadow(params->data, params->mesh, light_ray)
 		|| *light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
 		(params->normal, &params->data->spotlight, cyl, &params->data->cam))
 	{

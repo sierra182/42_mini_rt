@@ -34,8 +34,8 @@ static int	is_ambianced_only(t_get_color_params *params, t_ray_pack *light_ray,
 	t_cylinder		*cyl;
 
 	cyl = (t_cylinder *)params->mesh->ref;
-	if (has_shadow(params->data, params->normal, params->mesh, light_ray)
-		|| is_cylinder_surface_between (cyl, params->normal, params->data
+	if (has_shadow(params->data, params->mesh, light_ray)
+		|| is_cylinder_surface_between (cyl, params->data
 			->spotlight.origin_vect.axis) || (!is_in_cyl_height(tmp, cyl,
 				params->data->spotlight.origin_vect.axis)
 			&& (cyl->which_t == 2)))

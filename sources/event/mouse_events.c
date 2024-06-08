@@ -32,6 +32,9 @@ int	mouse_release(int button, int x, int y, void *param)
 {
 	t_data	*data;
 
+	(void) button;
+	(void) x;
+	(void) y;
 	data = (t_data *) param;
 	if (data->event.actual_mesh.ref)
 	{
@@ -54,12 +57,9 @@ int	mouse_release(int button, int x, int y, void *param)
  *========================================================================**/
 void	key_up_event(int keycode, void *param)
 {
-	t_mlx						*mlx;
-	t_data						*data;
+	t_data	*data;
 
 	data = (t_data *)((void **) param)[1];
 	if (keycode == CTRL || keycode == CTRL_2)
-	{
-		data->event.ctrl_ispressed = 0;
-	}
+		data->event.ctrl_ispressed = 0;	
 }

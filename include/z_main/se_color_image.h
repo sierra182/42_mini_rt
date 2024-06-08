@@ -8,11 +8,11 @@ typedef struct s_color
 
 typedef struct s_img
 {
-	void	*img_ptr;
-	char	*img_data;
-	int		line_len;
-	int		bpp;
-	int		alpha_color;
+	void			*img_ptr;
+	char			*img_data;
+	int				line_len;
+	int				bpp;
+	unsigned int	alpha_color;
 }	t_img;
 
 typedef struct s_img_items

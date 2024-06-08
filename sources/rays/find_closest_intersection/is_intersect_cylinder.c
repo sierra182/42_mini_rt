@@ -59,6 +59,7 @@ double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *tt)
 	double			proj[2];
 	t_cylinder		*cyl;
 
+	(void) tt;
 	cyl = (t_cylinder *)input_cyl;
 	t[0] = solve_quadratic_equation(ray, cyl, &discrim);
 	if (discrim < 0)
