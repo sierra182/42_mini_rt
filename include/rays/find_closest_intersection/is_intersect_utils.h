@@ -1,8 +1,8 @@
 #ifndef IS_INTERSECT_UTILS_H
 # define IS_INTERSECT_UTILS_H
 
-#include "math.h"
-#include "se_mini_struct.h"
+# include "math.h"
+# include "se_mini_struct.h"
 
 void	subtract_vector(double a[], double b[], double subt_vect[]);
 

@@ -1,8 +1,8 @@
 #ifndef GET_SPH_PL_BCK_COLOR_H
 # define GET_SPH_PL_BCK_COLOR_H
 
-#include "se_mini_struct.h"
-#include "x_linear_algebra.h"
+# include "se_mini_struct.h"
+# include "x_linear_algebra.h"
 
 int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
 			t_ray_pack *light_ray);

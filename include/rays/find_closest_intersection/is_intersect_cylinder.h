@@ -1,8 +1,8 @@
 #ifndef IS_INTERSECT_CYLINDER_H
 # define IS_INTERSECT_CYLINDER_H
 
-#include "se_mini_struct.h"
-#include "x_linear_algebra.h"
+# include "se_mini_struct.h"
+# include "x_linear_algebra.h"
 
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double	distance_between_points(t_ray_vector *point1, t_matrix_vector *point2);

@@ -1,5 +1,5 @@
-#ifndef DATA_STORE_H
-# define DATA_STORE_H
+#ifndef DATA_STORE_SHAPES_H
+# define DATA_STORE_SHAPES_H
 
 # include <stdlib.h>
 # include "se_mini_struct.h"

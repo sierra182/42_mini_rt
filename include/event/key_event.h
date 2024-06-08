@@ -1,8 +1,8 @@
 #ifndef KEY_EVENT_H
 # define KEY_EVENT_H
 
-#include "se_mini_struct.h"
-#include "mlx.h"
+# include "se_mini_struct.h"
+# include "mlx.h"
 
 void	reset(t_data *data);
 void	reset_cam(t_data *data);

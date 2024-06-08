@@ -4,7 +4,8 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "mlx.h"
- #include "se_mini_struct.h"
+# include "se_mini_struct.h"
+
 int		init_data(char *map_path, t_data *data);
 int		key_event(int keycode, void *param);
 int		mouse_event(int button, int x, int y, void *param);

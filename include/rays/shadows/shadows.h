@@ -1,8 +1,8 @@
 #ifndef SHADOWS_H
 # define SHADOWS_H
 
-#include "se_mini_struct.h"
-#include "x_linear_algebra.h"
+# include "se_mini_struct.h"
+# include "x_linear_algebra.h"
 
 void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
