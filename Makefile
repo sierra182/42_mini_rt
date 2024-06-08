@@ -38,9 +38,9 @@ CFLAGS = \
 	-I$(HEADERS_DIR)/mesh \
 	-I$(HEADERS_DIR)/parsing \
 	-I$(HEADERS_DIR)/rays/colors \
+	-I$(HEADERS_DIR)/rays \
 	-I$(HEADERS_DIR)/rays/find_closest_intersection \
 	-I$(HEADERS_DIR)/rays/shadows \
-	-I$(HEADERS_DIR)/rays \
 	-I$(HEADERS_DIR)/zzz_main \
 	-I$(GNL_DIR) \
 	-I$(LIBFT_DIR) \

@@ -1,5 +1,4 @@
-#include "se_mini_struct.h"
-#include "x_linear_algebra.h"
+#include "shadows_exclusion.h"
 
 int	is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight)
 {

@@ -1,6 +1,7 @@
 #ifndef RAY_UTILS_H
 # define RAY_UTILS_H
 
-// Déclarations pour ray_utils.c
+#include "se_mini_struct.h"
+#include "x_linear_algebra.h"
 
 #endif

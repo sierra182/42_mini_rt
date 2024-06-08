@@ -1,6 +1,6 @@
 #ifndef XPM_H
 # define XPM_H
 
-// Déclarations pour xpm.c
+#include "se_mini_struct.h"
 
 #endif
