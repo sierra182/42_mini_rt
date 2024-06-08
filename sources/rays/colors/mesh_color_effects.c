@@ -41,7 +41,7 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	t_ray	light_ray_cpy;
 
 	light_ray_cpy = *params->light_ray;
-	normalize_vector(light_ray_cpy.dir_vect.axis);
+	self_normalize_vector(light_ray_cpy.dir_vect.axis);
 	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
 			params->normal->axis);
 	normalize_zero_one(&light_coef, 1);
@@ -63,7 +63,7 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 // 	t_ray	light_ray_cpy;
 
 // 	light_ray_cpy = *params->light_ray;
-// 	normalize_vector(light_ray_cpy.dir_vect.axis);
+// 	self_normalize_vector(light_ray_cpy.dir_vect.axis);
 // 	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
 // 		params->normal->axis);
 // 	normalize_zero_one(&light_coef, 1);
@@ -95,7 +95,7 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 // 	t_ray	light_ray_cpy;
 
 // 	light_ray_cpy = *params->light_ray;
-// 	normalize_vector(light_ray_cpy.dir_vect.axis); //!opt
+// 	self_normalize_vector(light_ray_cpy.dir_vect.axis); //!opt
 // 	*params->light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
 // 			params->normal->axis);
 // 	normalize_zero_one(params->light_coef, 1);

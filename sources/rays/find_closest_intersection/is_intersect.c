@@ -10,7 +10,7 @@ double	scalar_product(double a[], double b[]);
 void	add_vector(double a[], double b[], double sum_vect[]);
 void	subtract_vector(double a[], double b[], double subt_vect[]);
 void	scale_vector(double vect[], double scaler, double scaled_vect[]);
-void	normalize_vector(double vector[]);
+void	self_normalize_vector(double vector[]);
 double	distance_between_points(t_ray_vector *point1, t_matrix_vector *point2);
 double	get_t_from_point(t_ray *ray, t_ray_vector *point);
 double	compute_return_value_intersect_disc_plans(double tmp1, double tmp2);
@@ -74,7 +74,7 @@ double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 	t_plane			*plane;
 
 	plane = (t_plane *)input_plane;
-	normalize_vector(plane->norm_vect.axis);
+	self_normalize_vector(plane->norm_vect.axis);
 	subtract_vector(plane->origin_vect.axis, ray->origin_vect.axis, a.axis);
 	num = scalar_product(a.axis, plane->norm_vect.axis);
 	den = scalar_product(ray->dir_vect.axis, plane->norm_vect.axis);
@@ -105,7 +105,7 @@ double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim)
 	double			c;	
 	double			t1;
 
-	normalize_vector(cyl->axis_vect.axis);
+	self_normalize_vector(cyl->axis_vect.axis);
 	subtract_vector(ray->origin_vect.axis, cyl->origin_vect.axis, cr.axis);
 	a = scalar_product(ray->dir_vect.axis, ray->dir_vect.axis)
 		- pow(scalar_product(ray->dir_vect.axis, cyl->axis_vect.axis), 2);

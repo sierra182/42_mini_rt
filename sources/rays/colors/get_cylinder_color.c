@@ -50,7 +50,7 @@ void	handle_projection(t_get_color_params *params, t_ray_vector *normal,
 	proj = scalar_product(cyl_to_intersect.axis, cyl->axis_vect.axis);
 	scale_vector(cyl->axis_vect.axis, proj, proj_vect.axis);
 	subtract_vector(cyl_to_intersect.axis, proj_vect.axis, normal->axis);
-	normalize_vector(normal->axis);
+	self_normalize_vector(normal->axis);
 	if (cyl->which_t == 2)
 		symmetrize_vector(normal->axis);
 	light_ray->origin_vect = intersect_point;
@@ -91,7 +91,7 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
 		.origin_vect.axis, light_ray.dir_vect.axis);
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
-	normalize_vector(tmp.axis);
+	self_normalize_vector(tmp.axis);
 	calculate_ambiant_effect(params, &cyl->color, params->normal,
 		&ambiantly_color);
 	if (has_shadow(params->data, params->normal, params->mesh, &light_ray)

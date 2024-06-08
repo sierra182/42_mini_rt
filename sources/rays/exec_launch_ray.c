@@ -1,6 +1,7 @@
 #include "rays.h"
 #include "mlx.h"
 #include "se_mini_struct.h"
+#include "x_linear_algebra.h"
 
 double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
@@ -14,7 +15,6 @@ int		get_pixel_color(t_data *data, t_ray *ray, t_obj *obj);
 int		get_color(unsigned char r, unsigned char g, unsigned char b);
 void	scale_vector(double vect[], double scaler, double scaled_vect[]);
 void	add_vector(double a[], double b[], double sum_vect[]);
-void	normalize_vector(double vector[]);
 void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);

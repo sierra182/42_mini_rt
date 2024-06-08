@@ -3,7 +3,7 @@
 #include "x_color_effect.h"
 
 int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
-			t_ray *light_ray);
+			t_ray_pack *light_ray);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
 void	calculate_ambiant_effect(t_get_color_params *params,
@@ -13,14 +13,17 @@ void	apply_aces_tonemap(t_color *color);
 int		calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
 
 void	compute_sph_normal_and_light_ray(t_get_color_params *params,
-	t_sphere *sphere, t_ray_vector *normal, t_ray *light_ray)
+	t_sphere *sphere, t_ray_vector *normal, t_ray_pack *light_ray)
 {
-	get_intersect_point(params->ray, params->t, &light_ray->origin_vect);
+	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
-		light_ray->origin_vect.axis, light_ray->dir_vect.axis);
-	subtract_vector(light_ray->origin_vect.axis,
+		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);
+	light_ray->magnitude = get_vector_magnitude(light_ray->ray.dir_vect.axis);	
+	normalize_vector(light_ray->ray.dir_vect.axis, light_ray->magnitude,
+		light_ray->ray_norm.dir_vect.axis);
+	subtract_vector(light_ray->ray.origin_vect.axis,
 		sphere->origin_vect.axis, normal->axis);
-	normalize_vector(normal->axis);
+	self_normalize_vector(normal->axis);
 	if (sphere->which_t == 2)
 		symmetrize_vector(normal->axis);
 }
@@ -28,7 +31,7 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 int	get_sphere_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;
-	t_ray			light_ray;
+	t_ray_pack		light_ray;
 	t_color			ambiantly_color;
 	t_color			spotlighty_color;
 	t_sphere		*sphere;
@@ -39,7 +42,7 @@ int	get_sphere_color(t_get_color_params *params)
 		&ambiantly_color);
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
 		|| (has_shadow(params->data, &normal, params->mesh, &light_ray)
-			&& scalar_product(light_ray.dir_vect.axis, normal.axis) > 0))
+			&& scalar_product(light_ray.ray.dir_vect.axis, normal.axis) > 0))
 	{
 		*params->color = ambiantly_color;
 		apply_aces_tonemap(params->color);
@@ -58,7 +61,7 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 	double	view_dot_normal;
 
 	cast_vector_mat_ray(&plane->norm_vect, normal);
-	normalize_vector(normal->axis);
+	self_normalize_vector(normal->axis);
 	get_intersect_point(params->ray, params->t, &light_ray->origin_vect);
 	subtract_vector(params->data->spotlight.origin_vect.axis,
 		light_ray->origin_vect.axis, light_ray->dir_vect.axis);

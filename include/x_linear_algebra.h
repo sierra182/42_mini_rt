@@ -2,7 +2,8 @@
 # define X_LINEAR_ALGEBRA_H
 # include "se_mini_struct.h"
 
-void	normalize_vector(double vector[]);
+void	self_normalize_vector(double vector[]);
+void	normalize_vector(double vector[], double mag, double norm_vect[]);
 void	add_color(t_color *a, t_color *b, t_color *sum_color);
 void	subtract_color(t_color *a, t_color *b, t_color *subt_color);
 void	scale_color(t_color *color, double scaler, t_color *scaled_color);
@@ -17,7 +18,6 @@ void	cast_vector_mat_ray(t_matrix_vector *matrix_vect,
 int		are_collinear_vectors(t_matrix_vector *cross_prdct, double precision);
 int		are_collinear_vectors_diff_origin(double a[], double b[]);
 void	normalize_zero_one(double *scalar_product, int clamp_flag);
-void	normalize_vector(double vector[]);
 double	get_vector_magnitude(double vector[]);
 double	*symmetrize_vector(double vect[]);
 void	invert_vector(double ori[], double dir[], double inv_ori[],
