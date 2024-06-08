@@ -1,35 +1,4 @@
-#include "se_mini_struct.h"
-#include "x_linear_algebra.h"
-#include <math.h>
-#include <stdlib.h>
-
-void	add_lightening2(t_add_lightening_params *params);
-void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
-void	color_with_ambiant_light(t_color *mesh_color,
-			t_ambiant_light *ambiant_light, t_color *new_color);
-int		has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
-			t_ray *light_ray);
-void	add_lightening(t_add_lightening_params *params);
-int		get_plane_color(t_get_color_params *params);
-void	add_shading( t_ray *ray, t_ray_vector *normal,
-			t_color *ambiantly_color, t_color *color);
-void	add_self_shadowing(double light_coef, double light_attenuation,
-			t_color *color);
-void	color_with_light(t_color *mesh_color,
-			t_color *light_color, double intensity, t_color *new_color);
-void	clamp_255(t_color *color);
-int		get_cylinder_color_discs(t_get_color_params *params);
-int		is_cylinder_surface_between( t_cylinder *cyl, t_ray_vector *normal,
-			double mesh[]);
-int		is_in_cyl_height(t_ray_vector *normal, t_cylinder *cyl, double mesh[]);
-int		calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
-void	calculate_ambiant_effect(t_get_color_params *params,
-			t_color *mesh_color, t_ray_vector *normal,
-			t_color *ambiantly_color);
-
-int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
-double	calculate_light_attenuation(t_ray *light_ray, double intensity);
-double	aces_tonemap(double x);
+#include "get_cylinder_color.h"
 
 /**========================================================================
  *                           HANDLE_PROJECTION

@@ -1,5 +1,4 @@
-#include "se_mini_struct.h"
-#include "x_linear_algebra.h"
+#include "color_effects.h"
 
 double	calculate_light_attenuation(t_ray *light_ray, double intensity)
 {

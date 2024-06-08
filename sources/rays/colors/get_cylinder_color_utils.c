@@ -1,8 +1,4 @@
-#include "se_mini_struct.h"
-#include "x_linear_algebra.h"
-#include <math.h>
-
-// int	is_in_cyl_diam( t_cylinder *cyl, t_ray_vector *normal, double mesh[]);
+#include "get_cylinder_color_utils.h"
 
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL

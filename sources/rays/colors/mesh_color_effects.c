@@ -1,7 +1,4 @@
-#include "se_mini_struct.h"
-#include "x_linear_algebra.h"
-
-double	calculate_light_attenuation(t_ray *light_ray, double intensity);
+#include "mesh_color_effects.h"
 
 void	add_shading( t_ray *ray, t_ray_vector *normal,
 	t_color *color, t_color *res_color)

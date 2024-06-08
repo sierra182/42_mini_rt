@@ -1,6 +1,7 @@
 #ifndef COLOR_EFFECTS_H
 # define COLOR_EFFECTS_H
 
-// Déclarations pour color_effects.c
+#include "se_mini_struct.h"
+#include "x_linear_algebra.h"
 
 #endif
