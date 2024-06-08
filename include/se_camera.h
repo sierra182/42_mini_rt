@@ -1,5 +1,5 @@
-#ifndef X_CAMERA_H
-# define X_CAMERA_H
+#ifndef SE_CAMERA_H
+# define SE_CAMERA_H
 
 typedef struct s_cam
 {

@@ -1,5 +1,5 @@
-#ifndef se_mini_struct_H
-# define se_mini_struct_H
+#ifndef SE_MINI_STRUCT_H
+# define SE_MINI_STRUCT_H
 
 # define WIDTH 800
 # define HEIGHT 600

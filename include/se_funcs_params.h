@@ -1,5 +1,5 @@
-#ifndef X_FUNCS_PARAMS_H
-# define X_FUNCS_PARAMS_H
+#ifndef SE_FUNCS_PARAMS_H
+# define SE_FUNCS_PARAMS_H
 
 typedef struct s_intersection_params
 {
@@ -83,10 +83,10 @@ typedef struct s_add_shad_and_light_params
 typedef struct s_calc_spotlight_effect_params
 {
 	t_get_color_params	*params;
-	t_color 			*mesh_color;
-	t_ray_vector 		*normal;
-	t_color 			*spotlighty_color;
-	t_ray 				*light_ray;
+	t_color				*mesh_color;
+	t_ray_vector		*normal;
+	t_color				*spotlighty_color;
+	t_ray				*light_ray;
 }	t_calc_spotlight_effect_params;
 
 typedef struct s_reset_tmps

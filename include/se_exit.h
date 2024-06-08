@@ -1,5 +1,5 @@
-#ifndef X_EXIT_H
-# define X_EXIT_H
+#ifndef SE_EXIT_H
+# define SE_EXIT_H
 
 # include "se_mini_struct.h"
 
