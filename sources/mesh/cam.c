@@ -1,5 +1,8 @@
 #include "cam.h"
 
+/**========================================================================
+ *                           UPDATE_CAM
+ *========================================================================**/
 void	update_cam(t_cam *cam)
 {
 	cam->resol[0] = WIDTH;
@@ -12,6 +15,9 @@ void	update_cam(t_cam *cam)
 		cam->focal_len = cam->resol[0] / (2.0 * cam->scale);
 }
 
+/**========================================================================
+ *                           CALCULATE_MISSING_VECTORS
+ *========================================================================**/
 void	calculate_missing_vectors(t_cam *cam)
 {
 	self_normalize_vector(cam->forward_vect.axis);
@@ -31,6 +37,9 @@ void	calculate_missing_vectors(t_cam *cam)
 	self_normalize_vector(cam->up_vect.axis);
 }
 
+/**========================================================================
+ *                           POST_INIT_CAM
+ *========================================================================**/
 void	post_init_cam(t_cam *cam)
 {
 	calculate_missing_vectors(cam);

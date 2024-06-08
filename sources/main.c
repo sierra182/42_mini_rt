@@ -10,6 +10,9 @@
 
 int	get_color(unsigned char r, unsigned char g, unsigned char b);
 
+/**========================================================================
+ *                           FRAME
+ *========================================================================**/
 int	frame(void *param)
 {
 	t_mlx	*mlx;
@@ -25,6 +28,9 @@ int	frame(void *param)
 	return (0);
 }
 
+/**========================================================================
+ *                           LAUNCH_MLX_LOOP
+ *========================================================================**/
 void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 {	
 	mlx_hook(mlx->window, 17, 0L, mlx_loop_end, mlx->connect);
@@ -36,6 +42,9 @@ void	launch_mlx_loop(t_mlx *mlx, t_data *data)
 	mlx_loop(mlx->connect);
 }
 
+/**========================================================================
+ *                           INIT_IMG_ITEM
+ *========================================================================**/
 void	init_img_item(t_mlx *mlx, t_img *img, char *str, int color)
 {
 	img->img_ptr = mlx_xpm_file_to_image(mlx->connect, str,
@@ -47,6 +56,9 @@ void	init_img_item(t_mlx *mlx, t_img *img, char *str, int color)
 	img->alpha_color = color;
 }
 
+/**========================================================================
+ *                           INIT_MLX
+ *========================================================================**/
 int	init_mlx(t_mlx *mlx)
 {	
 	mlx->connect = mlx_init();
@@ -68,6 +80,9 @@ int	init_mlx(t_mlx *mlx)
 	return (0);
 }
 
+/**========================================================================
+ *                           IS_IT_A_TEST
+ *========================================================================**/
 void	is_it_a_test(t_data *data, char **envp)
 {
 	int	i;
@@ -85,6 +100,9 @@ void	is_it_a_test(t_data *data, char **envp)
 	}
 }
 
+/**========================================================================
+ *                           MAIN
+ *========================================================================**/
 int	main(int argc, char **argv, char **envp)
 {
 	t_mlx	mlx;

@@ -1,5 +1,8 @@
 #include "get_sph_pl_bck_color.h"
 
+/**========================================================================
+ *                           COMPUTE_SPHERE_NORMAL_AND_LIGHT_RAY
+ *========================================================================**/
 void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 	t_sphere *sphere, t_ray_vector *normal, t_ray_pack *light_ray)
 {
@@ -14,6 +17,9 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
+/**========================================================================
+ *                           GET_SPHERE_COLOR
+ *========================================================================**/
 int	get_sphere_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;
@@ -41,6 +47,9 @@ int	get_sphere_color(t_get_color_params *params)
 	return (0);
 }
 
+/**========================================================================
+ *                           COMPUTE_PL_NORMAL_AND_LIGHT_RAY
+ *========================================================================**/
 void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 	t_plane *plane, t_ray_vector *normal, t_ray_pack *light_ray)
 {
@@ -57,6 +66,9 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
+/**========================================================================
+ *                           GET_PLANE_COLOR
+ *========================================================================**/
 int	get_plane_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;

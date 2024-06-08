@@ -1,5 +1,8 @@
 #include "shadows_exclusion.h"
 
+/**========================================================================
+ *                           IS_SPHERE_SURFACE_BETWEEN
+ *========================================================================**/
 int	is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight)
 {
 	t_matrix_vector	subt_vect;
@@ -14,6 +17,9 @@ int	is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight)
 			&& sphere->which_t == 1));
 }
 
+/**========================================================================
+ *                           IS_CYLINDER_SURFACE_BETWEEN
+ *========================================================================**/
 int	is_cylinder_surface_between( t_cylinder *cyl, t_ray_vector *normal,
 	double mesh[])
 {

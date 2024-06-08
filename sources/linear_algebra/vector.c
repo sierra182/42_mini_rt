@@ -1,5 +1,8 @@
 #include "vector.h"
 
+/**========================================================================
+ *                           ADD_VECTOR
+ *========================================================================**/
 void	add_vector(double a[], double b[], double sum_vect[])
 {
 	int	i;
@@ -9,6 +12,9 @@ void	add_vector(double a[], double b[], double sum_vect[])
 		sum_vect[i] = a[i] + b[i];
 }
 
+/**========================================================================
+ *                           SUBTRACT_VECTOR
+ *========================================================================**/
 void	subtract_vector(double a[], double b[], double subt_vect[])
 {
 	int	i;
@@ -18,6 +24,9 @@ void	subtract_vector(double a[], double b[], double subt_vect[])
 		subt_vect[i] = a[i] - b[i];
 }
 
+/**========================================================================
+ *                           SCALE_VECTOR
+ *========================================================================**/
 void	scale_vector(double vect[], double scaler, double scaled_vect[])
 {
 	int	i;
@@ -27,6 +36,9 @@ void	scale_vector(double vect[], double scaler, double scaled_vect[])
 		scaled_vect[i] = vect[i] * scaler;
 }
 
+/**========================================================================
+ *                           SCALAR_PRODUCT
+ *========================================================================**/
 double	scalar_product(double a[], double b[])
 {
 	double	scalar;	
@@ -39,6 +51,9 @@ double	scalar_product(double a[], double b[])
 	return (scalar);
 }
 
+/**========================================================================
+ *                           CROSS_PRODUCT
+ *========================================================================**/
 void	cross_product(t_matrix_vector *a, t_matrix_vector *b,
 	t_matrix_vector *product_vect)
 {

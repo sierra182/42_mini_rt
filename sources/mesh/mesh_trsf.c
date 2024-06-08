@@ -1,5 +1,8 @@
 #include "mesh_trsf.h"
 
+/**========================================================================
+ *                           TRSL_MESH
+ *========================================================================**/
 void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[])
 {
 	t_matrix_vector	applied_vect;
@@ -11,6 +14,9 @@ void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[])
 	*vect = applied_vect;
 }
 
+/**========================================================================
+ *                           ROTATE_MESH
+ *========================================================================**/
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[])
 {
 	t_matrix_vector	trsf_matrix[MTX];

@@ -1,5 +1,8 @@
 #include "cam_trsf.h"
 
+/**========================================================================
+ *                           CAST_MATRIX_CAM
+ *========================================================================**/
 static void	cast_matrix_cam(t_cam *cam, t_matrix_vector mult_matrix[MTX])
 {
 	int	i;
@@ -9,6 +12,9 @@ static void	cast_matrix_cam(t_cam *cam, t_matrix_vector mult_matrix[MTX])
 		*cam->cam_matrix[i] = mult_matrix[i];
 }
 
+/**========================================================================
+ *                           ROTATE_CAM
+ *========================================================================**/
 void	rotate_cam(t_cam *cam, double angle, int axe[])
 {
 	t_matrix_vector	mult_matrix[MTX];
@@ -20,6 +26,9 @@ void	rotate_cam(t_cam *cam, double angle, int axe[])
 	cast_matrix_cam(cam, mult_matrix);
 }
 
+/**========================================================================
+ *                           TRSL_CAM
+ *========================================================================**/
 void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[])
 {
 	t_matrix_vector	scaled_vect;
@@ -34,6 +43,9 @@ void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[])
 	add_vector(scaled_vect.axis, cam->origin_vect.axis, cam->origin_vect.axis);
 }
 
+/**========================================================================
+ *                           TRSL_ABOUT_CAM
+ *========================================================================**/
 void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[])
 {
 	t_matrix_vector	scaled_vect;

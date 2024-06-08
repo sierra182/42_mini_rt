@@ -1,5 +1,8 @@
 #include "rays.h"
 
+/**========================================================================
+ *                           SCALE_AND_ADD_VECTORS
+ *========================================================================**/
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
 {
@@ -15,6 +18,9 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	add_vector(sum_vect.axis, scaled_forward.axis, ray->dir_vect.axis);
 }
 
+/**========================================================================
+ *                           NORMALIZE_PIXEL
+ *========================================================================**/
 static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 {
 	if (!screen_size)
@@ -24,6 +30,9 @@ static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 	return ((1 - 2 * (pixel + 0.5) / screen_size));
 }
 
+/**========================================================================
+ *                           NEW_RAY
+ *========================================================================**/
 void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 {
 	double	norm_scale_x;
@@ -37,6 +46,9 @@ void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 	self_normalize_vector(ray->dir_vect.axis);
 }
 
+/**========================================================================
+ *                           LAUNCH_RAYS
+ *========================================================================**/
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	int	x;

@@ -1,5 +1,8 @@
 #include "vector_utils.h"
 
+/**========================================================================
+ *                           INVERT_VECTOR
+ *========================================================================**/
 void	invert_vector(double ori[], double dir[],
 	double inv_ori[], double inv_dir[])
 {
@@ -13,6 +16,9 @@ void	invert_vector(double ori[], double dir[],
 	}
 }
 
+/**========================================================================
+ *                           SYMMETRIZE_VECTOR
+ *========================================================================**/
 double	*symmetrize_vector(double vect[])
 {
 	int	i;
@@ -23,12 +29,18 @@ double	*symmetrize_vector(double vect[])
 	return (vect);
 }
 
+/**========================================================================
+ *                           GET_VECTOR_MAGNITUDE
+ *========================================================================**/
 double	get_vector_magnitude(double vector[])
 {
 	return (sqrt(pow(vector[0], 2) + pow(vector[1], 2)
 			+ pow(vector[2], 2)));
 }
 
+/**========================================================================
+ *                           SELF_NORMALIZE_VECTOR
+ *========================================================================**/
 void	self_normalize_vector(double vector[])
 {
 	int		i;
@@ -44,6 +56,9 @@ void	self_normalize_vector(double vector[])
 		vector[i] *= inverse_mag;
 }
 
+/**========================================================================
+ *                           NORMALIZE_VECTOR
+ *========================================================================**/
 void	normalize_vector(double vector[], double magnitude, double norm_vect[])
 {
 	int		i;

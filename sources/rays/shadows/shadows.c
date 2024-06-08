@@ -1,5 +1,8 @@
 #include "shadows.h"
 
+/**========================================================================
+ *                           HAS_SPHERE_SHADOW
+ *========================================================================**/
 int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 {
 	int				i;
@@ -27,6 +30,9 @@ int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 	return (0);
 }
 
+/**========================================================================
+ *                           HAS_CYLINDER_SHADOW
+ *========================================================================**/
 int	has_cylinder_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 {
 	int				i;
@@ -54,6 +60,9 @@ int	has_cylinder_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 	return (0);
 }
 
+/**========================================================================
+ *                           HAS_PLANE_SHADOW
+ *========================================================================**/
 int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 {
 	int				i;
@@ -81,6 +90,9 @@ int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 	return (0);
 }
 
+/**========================================================================
+ *                           HAS_SHADOW
+ *========================================================================**/
 int	has_shadow(t_data *data, t_ray_vector *normal, t_obj *mesh,
 	t_ray_pack *light_ray)
 {

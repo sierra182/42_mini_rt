@@ -1,5 +1,8 @@
 #include "color_effects.h"
 
+/**========================================================================
+ *                           CALCULATE_LIGHT_ATTENUATION
+ *========================================================================**/
 double	calculate_light_attenuation(t_ray_pack *light_ray, double intensity)
 {
 	double			light_mag;
@@ -11,6 +14,9 @@ double	calculate_light_attenuation(t_ray_pack *light_ray, double intensity)
 	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
 }
 
+/**========================================================================
+ *                           ACES_TONEMAP
+ *========================================================================**/
 double	aces_tonemap(double x)
 {
 	const double	a = 2.51;
@@ -22,6 +28,9 @@ double	aces_tonemap(double x)
 	return ((x * (a * x + b)) / (x * (c * x + d) + e));
 }
 
+/**========================================================================
+ *                           APPLY_ACES_TONEMAP
+ *========================================================================**/
 void	apply_aces_tonemap(t_color *color)
 {
 	int	i;

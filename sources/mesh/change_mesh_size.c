@@ -2,10 +2,6 @@
 
 /**========================================================================
  *							HANDLE_PLUS_KEY
- * @brief 
- * 
- * @param data 
- * @param keycode 
 ========================================================================**/
 void	handle_plus_key(t_data *data, int keycode)
 {
@@ -36,10 +32,6 @@ void	handle_plus_key(t_data *data, int keycode)
 
 /**========================================================================
  * 							HANDLE_MINUS_KEY
- * @brief 
- * 
- * @param data 
- * @param keycode 
 ========================================================================**/
 void	handle_minus_key(t_data *data, int keycode)
 {
@@ -70,10 +62,6 @@ void	handle_minus_key(t_data *data, int keycode)
 
 /**========================================================================
  *                           chang_mesh_size
- * @brief 
- * 
- * @param data 
- * @param keycode 
 ========================================================================**/
 void	chang_mesh_size(t_data *data, int keycode)
 {

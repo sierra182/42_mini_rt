@@ -1,5 +1,8 @@
 #include "data_store_shapes.h"
 
+/**========================================================================
+ *                           STORE_AND_FREE_SPHERES
+ *========================================================================**/
 void	store_and_free_spheres(t_exit *exit, void *spheres)
 {
 	if (exit && spheres)
@@ -11,6 +14,9 @@ void	store_and_free_spheres(t_exit *exit, void *spheres)
 	}
 }
 
+/**========================================================================
+ *                           STORE_AND_FREE_CYLINDERS
+ *========================================================================**/
 void	store_and_free_cylinders(t_exit *exit, void *cylinders)
 {
 	if (exit && cylinders)
@@ -22,6 +28,9 @@ void	store_and_free_cylinders(t_exit *exit, void *cylinders)
 	}
 }
 
+/**========================================================================
+ *                           STORE_AND_FREE_PLANES
+ *========================================================================**/
 void	store_and_free_planes(t_exit *exit, void *planes)
 {
 	if (exit && planes)
