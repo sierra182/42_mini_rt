@@ -1,5 +1,8 @@
 #include "fill_struct_funcs.h"
 
+/**========================================================================
+ *                           FILL_STRUCT_A
+ *========================================================================**/
 void	fill_struct_a(t_data *data, double tab[])
 {
 	data->ambiant_light.intensity = tab[0];
@@ -8,6 +11,9 @@ void	fill_struct_a(t_data *data, double tab[])
 	data->ambiant_light.color.rgb[2] = tab[3];
 }
 
+/**========================================================================
+ *                           FILL_STRUCT_C
+ *========================================================================**/
 void	fill_struct_c(t_data *data, double tab[])
 {
 	data->cam.origin_vect.axis[0] = tab[0];
@@ -19,6 +25,9 @@ void	fill_struct_c(t_data *data, double tab[])
 	data->cam.fov_deg = tab[6];
 }
 
+/**========================================================================
+ *                           FILL_STRUCT_L
+ *========================================================================**/
 void	fill_struct_l(t_data *data, double tab[])
 {
 	data->spotlight.origin_vect.axis[0] = tab[0];

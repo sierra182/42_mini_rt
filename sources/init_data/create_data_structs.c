@@ -1,5 +1,8 @@
 #include "create_data_structs.h"
 
+/**========================================================================
+ *                           CREATE_DATA_STRUCTS
+ *========================================================================**/
 int	create_data_structs(t_data *data, char *map_path)
 {
 	int		nbr;

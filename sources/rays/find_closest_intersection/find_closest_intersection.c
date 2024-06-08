@@ -1,7 +1,7 @@
 #include "find_closest_intersection.h"
 
 /**========================================================================
- *                           find_closest_intersection
+ *                           FIND_CLOSEST_INTERSECTION
  *========================================================================**/
 void	find_closest_intersection(t_intersection_params params)
 {
@@ -24,7 +24,7 @@ void	find_closest_intersection(t_intersection_params params)
 }
 
 /**========================================================================
- *                           get_closest_intersection_sp
+ *                           GET_CLOSEST_INTERSECTION_SP
  *========================================================================**/
 void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj)
 {
@@ -46,7 +46,7 @@ void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj)
 }
 
 /**========================================================================
- *                           get_closest_intersection_cy
+ *                           GET_CLOSEST_INTERSECTION_CY
  *========================================================================**/
 void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj)
 {
@@ -68,7 +68,7 @@ void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj)
 }
 
 /**========================================================================
- *                           get_closest_intersection_pl
+ *                           GET_CLOSEST_INTERSECTION_PL
  *========================================================================**/
 void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj)
 {

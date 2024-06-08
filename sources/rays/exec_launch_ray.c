@@ -1,7 +1,7 @@
 #include "exec_launch_ray.h"
 
 /**========================================================================
- *                           	put_pxl
+ *                           	PUT_PXL
  *========================================================================**/
 
 static void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
@@ -17,7 +17,7 @@ static void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
 }
 
 /**========================================================================
- *                           exec_launch_rays
+ *                           EXEC_LAUNCH_RAYS
  *========================================================================**/
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 {
@@ -35,7 +35,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 }
 
 /**========================================================================
- *                           get_pixel_color
+ *                           GET_PIXEL_COLOR
  *========================================================================**/
 int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 {
@@ -60,6 +60,9 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 	return (rgb);
 }
 
+/**========================================================================
+ *                           GET_PIXEL_COLOR_2
+ *========================================================================**/
 void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 {
 	t_obj	*obj;

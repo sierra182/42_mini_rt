@@ -1,5 +1,8 @@
 #include "is_intersect_utils.h"
 
+/**========================================================================
+ *                           DISTANCE_BETWEEN_POINTS
+ *========================================================================**/
 double	distance_between_points(t_ray_vector *point1, t_matrix_vector *point2)
 {
 	double	dx;
@@ -12,6 +15,9 @@ double	distance_between_points(t_ray_vector *point1, t_matrix_vector *point2)
 	return (sqrt(dx * dx + dy * dy + dz * dz));
 }
 
+/**========================================================================
+ *                           MAGNITUDE_VECTOR
+ *========================================================================**/
 double	magnitude_vector(t_ray_vector *vector)
 {
 	double	magnitude;
@@ -21,6 +27,9 @@ double	magnitude_vector(t_ray_vector *vector)
 	return (magnitude);
 }
 
+/**========================================================================
+ *                           GET_T_FROM_POINT
+ *========================================================================**/
 double	get_t_from_point(t_ray *ray, t_ray_vector *point)
 {
 	t_ray_vector	diff;

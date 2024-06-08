@@ -1,34 +1,13 @@
 #include "init_data.h"
 
-# include "se_mini_struct.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include <fcntl.h>
-# include <unistd.h>
-
-void	fill_struct_a(t_data *data, double tab[]);
-void	fill_struct_c(t_data *data, double tab[]);
-void	fill_struct_l(t_data *data, double tab[]);
-void	fill_struct_cy(t_data *data, double tab[]);
-void	fill_struct_pl(t_data *data, double tab[]);
-void	fill_struct_sp(t_data *data, double tab[]);
-int		create_data_structs(t_data *data, char *map_path);
-double	*fill_tab(char *str, double tab[]);
-double	*get_element_data(char *map_path, double tab[], char *el);
-int		element_is_present(char *map_path, char *el);
-void	get_elements_number(t_data *data, char *map_path);
-int		update_cam(t_cam *cam);
-void	post_init_cam(t_cam *cam);
-void	init_vars(t_data *data);
-
 /**========================================================================
- *                             COMMENT BLOCK
+ *                             INIT_DATA
  * tab cells are initialized at 1024.
  * => values of floats for coordinates should not be greater than 1024 
  *========================================================================**/
 
 /**========================================================================
- *                           save_data
+ *                           SAVE_DATA
  * for reset option
  *========================================================================**/
 void	save_data(t_data *data)
@@ -51,7 +30,7 @@ void	save_data(t_data *data)
 }
 
 /**========================================================================
- *                           init_data
+ *                           INIT_DATA
  *========================================================================**/
 int	init_data(char *map_path, t_data *data)
 {
@@ -92,7 +71,7 @@ void	init_vars(t_data *data)
 }
 
 /**========================================================================
- *                           get_elements_number
+ *                           GET_ELEMENTS_NUMBER
  *========================================================================**/
 void	get_elements_number(t_data *data, char *map_path)
 {
@@ -111,7 +90,7 @@ void	get_elements_number(t_data *data, char *map_path)
 }
 
 /**========================================================================
- *                           get_element_data
+ *                           GET_ELEMENT_DATA
  *========================================================================**/
 double	*get_element_data(char *map_path, double tab[], char *el)
 {

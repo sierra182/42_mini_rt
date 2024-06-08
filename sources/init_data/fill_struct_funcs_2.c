@@ -1,5 +1,8 @@
 #include "fill_struct_funcs_2.h"
 
+/**========================================================================
+ *                           FILL_STRUCT_SP
+ *========================================================================**/
 void	fill_struct_sp(t_data *data, double tab[])
 {
 	static int	i = 0;
@@ -21,6 +24,9 @@ void	fill_struct_sp(t_data *data, double tab[])
 	i++;
 }
 
+/**========================================================================
+ *                           FILL_STRUCT_CY
+ *========================================================================**/
 void	fill_struct_cy(t_data *data, double tab[])
 {
 	static int	i = 0;
@@ -46,6 +52,9 @@ void	fill_struct_cy(t_data *data, double tab[])
 	i++;
 }
 
+/**========================================================================
+ *                           FILL_STRUCT_PL
+ *========================================================================**/
 void	fill_struct_pl(t_data *data, double tab[])
 {
 	static int	i = 0;

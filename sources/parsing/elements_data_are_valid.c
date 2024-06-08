@@ -1,7 +1,7 @@
 #include "elements_data_are_valid.h"
 
 /**========================================================================
- *                           elements_data_are_valid
+ *                           ELEMENTS_DATA_ARE_VALID
  *========================================================================**/
 int	elements_data_are_valid(char *map_path)
 {
@@ -33,7 +33,7 @@ int	elements_data_are_valid(char *map_path)
 }
 
 /**========================================================================
- *                           data_str_is_valid
+ *                           DATA_STR_IS_VALID
  *========================================================================**/
 int	data_str_is_valid(char *str)
 {
@@ -65,7 +65,7 @@ int	data_str_is_valid(char *str)
 }
 
 /**========================================================================
- *                           check_data
+ *                           CHECK_DATA
  *? added 	if (i > len_max + 2) return (0); to check arument nbr
  *? len_max => number of nbrs(double, int) in the string
  *========================================================================**/
@@ -87,7 +87,7 @@ int	check_data(char *token, char *check)
 }
 
 /**========================================================================
- *                           check_data_nbrs
+ *                           CHECK_DATA_NBRS
  *========================================================================**/
 int	check_data_nbrs(char *token, char	**num, int *i)
 {
