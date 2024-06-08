@@ -9,6 +9,7 @@
 # include <stdio.h>
 # include <stddef.h>
 # include <stdlib.h>
+# include "exit.h"
 
 void	fill_struct_a(t_data *data, double tab[]);
 void	fill_struct_c(t_data *data, double tab[]);

@@ -38,6 +38,7 @@ CFLAGS = \
 	-I$(HEADERS_DIR)/mesh \
 	-I$(HEADERS_DIR)/parsing \
 	-I$(HEADERS_DIR)/rays \
+	-I$(HEADERS_DIR)/zzz_main \
 	-I$(GNL_DIR) \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \

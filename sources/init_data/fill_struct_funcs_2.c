@@ -1,4 +1,4 @@
-#include "fill_struct_funcs.h"
+#include "fill_struct_funcs_2.h"
 
 void	fill_struct_sp(t_data *data, double tab[])
 {

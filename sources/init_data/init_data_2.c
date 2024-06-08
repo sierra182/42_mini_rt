@@ -1,5 +1,4 @@
-#include "init_data.h"
-#include "exit.h"
+# include "libft.h"
 
 /**========================================================================
  *                           fill_tab
