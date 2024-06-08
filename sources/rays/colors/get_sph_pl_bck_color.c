@@ -55,7 +55,7 @@ int	get_sphere_color(t_get_color_params *params)
 		return (0);
 	}
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-	{params, &sphere->color, &normal, &spotlighty_color, &light_ray.ray});
+	{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	apply_aces_tonemap(params->color);
 	return (0);
@@ -96,7 +96,7 @@ int	get_plane_color(t_get_color_params *params)
 		return (0);
 	}
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-	{params, &plane->color, &normal, &spotlighty_color, &light_ray.ray});
+	{params, &plane->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	apply_aces_tonemap(params->color);
 	return (0);

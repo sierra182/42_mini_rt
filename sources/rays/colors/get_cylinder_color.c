@@ -104,7 +104,7 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 			&& (cyl->which_t == 2)))
 		return (*params->color = ambiantly_color, 0);
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-	{params, &cyl->color, params->normal, &spotlighty_color, &light_ray.ray});
+	{params, &cyl->color, params->normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	clamp_255(params->color);
 	return (0);

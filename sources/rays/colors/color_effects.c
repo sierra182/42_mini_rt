@@ -1,14 +1,14 @@
 #include "se_mini_struct.h"
 #include "x_linear_algebra.h"
 
-double	calculate_light_attenuation(t_ray *light_ray, double intensity)
+double	calculate_light_attenuation(t_ray_pack *light_ray, double intensity)
 {
 	double			light_mag;
 	const double	kc = 0.5;
 	const double	kl = 45e-4;
 	const double	kq = 75e-25;
 
-	light_mag = get_vector_magnitude(light_ray->dir_vect.axis);
+	light_mag = light_ray->magnitude;
 	return (intensity / (kc + kl * light_mag + kq * light_mag * light_mag));
 }
 

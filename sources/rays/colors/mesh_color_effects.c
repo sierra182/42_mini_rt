@@ -1,7 +1,7 @@
 #include "se_mini_struct.h"
 #include "x_linear_algebra.h"
 
-double	calculate_light_attenuation(t_ray *light_ray, double intensity);
+double	calculate_light_attenuation(t_ray_pack *light_ray, double intensity);
 
 void	add_shading( t_ray *ray, t_ray_vector *normal,
 	t_color *color, t_color *res_color)
@@ -38,11 +38,11 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 {
 	double	light_attenuat;
 	double	light_coef;
-	t_ray	light_ray_cpy;
+	// t_ray	light_ray_cpy;
 
-	light_ray_cpy = *params->light_ray;
-	self_normalize_vector(light_ray_cpy.dir_vect.axis);
-	light_coef = scalar_product(light_ray_cpy.dir_vect.axis,
+	// light_ray_cpy = *params->light_ray;
+	// self_normalize_vector(light_ray_cpy.dir_vect.axis);
+	light_coef = scalar_product(params->light_ray->ray_norm.dir_vect.axis,
 			params->normal->axis);
 	normalize_zero_one(&light_coef, 1);
 	light_attenuat = calculate_light_attenuation(params->light_ray,
