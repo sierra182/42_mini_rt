@@ -47,7 +47,7 @@ static void	add_shadow_and_lightning_effects(t_add_shad_and_light_params *p)
 /**========================================================================
  *                           IS_AMBIANCED_ONLY
  *========================================================================**/
-int	is_ambianced_only(t_get_color_params *params, t_ray_pack *light_ray,
+static int	is_ambianced_only(t_get_color_params *params, t_ray_pack *light_ray,
 	t_color *ambiantly_color, t_ray_vector *tmp)
 {
 	t_cylinder		*cyl;
