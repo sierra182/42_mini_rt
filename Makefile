@@ -41,7 +41,7 @@ CFLAGS = \
 	-I$(HEADERS_DIR)/rays/find_closest_intersection \
 	-I$(HEADERS_DIR)/rays/shadows \
 	-I$(HEADERS_DIR)/rays \
-	-I$(HEADERS_DIR)/zzz_main \
+	-I$(HEADERS_DIR)/z_main \
 	-I$(GNL_DIR) \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
