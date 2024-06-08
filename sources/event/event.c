@@ -1,29 +1,4 @@
-#include "se_mini_struct.h"
-#include "mlx.h"
-#include "libft.h"
-
-void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
-void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
-void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
-
-void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
-void	rotate_cam(t_cam *cam, double angle, int axe[]);
-void	calculate_missing_vectors(t_cam *cam);
-void	update_cam(t_cam *cam);
-void	post_init_cam(t_cam *cam);
-
-void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
-void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
-void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
-void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
-void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
-
-int		init_data(char *map_path, t_data *data);
-void	chang_mesh_size(t_data *data, int keycode);
-void	make_rt_file(t_data *data);
-void	video_rotate_spheres(t_sphere *sphere, int obj_nbr);
-
-void	clamp_255(t_color *color);
+#include "event.h"
 
 /**========================================================================
  *                           ASSIGN_VECTOR

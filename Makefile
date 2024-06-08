@@ -30,8 +30,12 @@ MLX_DIR = .mlx_linux
 CC = cc
 CFLAGS = \
 	-I$(HEADERS_DIR) \
-	-I$(HEADERS_DIR)/init_data \
+	-I$(HEADERS_DIR)/event \
 	-I$(HEADERS_DIR)/exit \
+	-I$(HEADERS_DIR)/init_data \
+	-I$(HEADERS_DIR)/linear_algebra \
+	-I$(HEADERS_DIR)/matrix \
+	-I$(HEADERS_DIR)/mesh \
 	-I$(HEADERS_DIR)/parsing \
 	-I$(HEADERS_DIR)/rays \
 	-I$(GNL_DIR) \

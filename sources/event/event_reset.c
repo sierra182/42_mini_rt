@@ -1,7 +1,4 @@
-#include "se_mini_struct.h"
-#include "libft.h"
-
-void	calculate_missing_vectors(t_cam *cam);
+#include "event_reset.h"
 
 /**========================================================================
  *                           RESET

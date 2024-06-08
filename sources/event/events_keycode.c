@@ -1,19 +1,4 @@
-#include "se_mini_struct.h"
-#include "mlx.h"
-
-void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);
-void	rotate_cam(t_cam *cam, double angle, int axe[]);
-void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
-void	reset(t_data *data);
-void	reset_cam(t_data *data);
-void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
-void	actual_mesh_handle(t_data *data, t_obj *mesh,
-			t_matrix_vector **origin_vect, t_matrix_vector **dir_vect);
-void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
-void	make_rt_file(t_data *data);
-void	video_rotate_spheres(t_sphere *sphere, int obj_nbr);
-void	chang_mesh_size(t_data *data, int keycode);
-void	event_intensity(int keycode, double *intensity);
+#include "events_keycode.h"
 
 /**========================================================================
  *                           CAM_EVENT_ROTATE
