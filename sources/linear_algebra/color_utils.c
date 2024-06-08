@@ -10,6 +10,11 @@ void	clamp_255(t_color *color)
 			color->rgb[i] = 255;
 }
 
+int	get_color(unsigned char r, unsigned char g, unsigned char b)
+{
+	return (*(int *)(unsigned char []){b, g, r, 0});
+}
+
 // void clamp_color(t_color *color, int min, int max) {
 //     int i;
 //     for (i = 0; i < AXIS; ++i) {

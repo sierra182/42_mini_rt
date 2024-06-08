@@ -55,6 +55,7 @@ SOURCES = \
 	$(SRC_DIR)/meta/meta_utils.c \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/mesh/cam.c \
+	$(SRC_DIR)/mesh/cam_trsf.c \
 	$(SRC_DIR)/mesh/mesh_trsf.c \
 	$(SRC_DIR)/mesh/change_mesh_size.c \
 	$(SRC_DIR)/event/event.c \
@@ -95,9 +96,9 @@ SOURCES = \
 	$(SRC_DIR)/rays/exec_launch_ray.c \
 	$(SRC_DIR)/linear_algebra/vector.c \
 	$(SRC_DIR)/linear_algebra/color.c \
+	$(SRC_DIR)/linear_algebra/color_utils.c \
 	$(SRC_DIR)/linear_algebra/vector_utils.c \
 	$(SRC_DIR)/linear_algebra/vector_utils_2.c \
-	$(SRC_DIR)/linear_algebra/limit.c \
 	$(SRC_DIR)/event/events_keycode.c \
 	$(SRC_DIR)/event/mouse_events.c \
 	$(SRC_DIR)/event/event_reset.c \
