@@ -1,21 +1,5 @@
 #include "main.h"
 
-# include <stdlib.h>
-# include "ft_printf.h"
-# include "exit.h"
-# include "libft.h"
-# include "mlx.h"
-
-int		init_data(char *map_path, t_data *data);
-int		key_event(int keycode, void *param);
-int		mouse_event(int button, int x, int y, void *param);
-void	display_error(char *error);
-int		parse(t_data *data, char *map_path);
-void	launch_rays(t_mlx *mlx, t_data *data);
-int		key_up_event(int keycode, void *param);
-int		mouse_release(int button, int x, int y, void *param);
-int		generate_video_frames(t_data *data, char **envp);
-
 /**========================================================================
  *                             COMMENTS
  *! taille maximal input file = 1024 chars. peut etre modifie...
