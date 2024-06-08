@@ -1,5 +1,4 @@
 #include "file_content_is_correct.h"
-#include "get_next_line.h"
 
 /**========================================================================
  *                           file_content_is_correct

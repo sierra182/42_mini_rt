@@ -64,7 +64,7 @@ SOURCES = \
 	$(SRC_DIR)/mesh/mesh_trsf.c \
 	$(SRC_DIR)/mesh/change_mesh_size.c \
 	$(SRC_DIR)/event/event.c \
-	$(SRC_DIR)/parsing/utils.c \
+	$(SRC_DIR)/parsing/parsing_utils.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
 	$(SRC_DIR)/exit/data_store_shapes.c \

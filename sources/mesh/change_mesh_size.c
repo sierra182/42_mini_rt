@@ -1,6 +1,4 @@
-#include "se_mini_struct.h"
-#include "mlx.h"
-#include "libft.h"
+#include "change_mesh_size.h"
 
 /**========================================================================
  *							HANDLE_PLUS_KEY

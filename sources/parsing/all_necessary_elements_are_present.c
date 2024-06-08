@@ -1,7 +1,4 @@
 #include "all_necessary_elements_are_present.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <get_next_line.h>
 
 /**========================================================================
  *                           all_necessary_elements_are_present

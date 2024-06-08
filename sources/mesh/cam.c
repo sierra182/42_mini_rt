@@ -1,7 +1,4 @@
-#include <math.h>
-#include "se_mini_struct.h"
-#include "x_matrix.h"
-#include "x_linear_algebra.h"
+#include "cam.h"
 
 void	update_cam(t_cam *cam)
 {

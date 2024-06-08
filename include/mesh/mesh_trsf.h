@@ -1,6 +1,7 @@
 #ifndef MESH_TRSF_H
 # define MESH_TRSF_H
 
-// Déclarations pour mesh_trsf.c
+#include "se_mini_struct.h"
+#include "x_matrix.h"
 
 #endif

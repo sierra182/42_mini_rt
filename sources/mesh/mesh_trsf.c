@@ -1,5 +1,4 @@
-#include "se_mini_struct.h"
-#include "x_matrix.h"
+#include "mesh_trsf.h"
 
 void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[])
 {

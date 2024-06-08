@@ -1,8 +1,4 @@
-#include "se_mini_struct.h"
-#include "x_matrix.h"
-#include "x_linear_algebra.h"
-
-void	trsl_mesh(t_cam *cam, t_matrix_vector *vect, double values[]);
+#include "cam_trsf.h"
 
 static void	cast_matrix_cam(t_cam *cam, t_matrix_vector mult_matrix[MTX])
 {
