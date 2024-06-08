@@ -1,7 +1,7 @@
 import os
 
 # Définissez les chemins de vos répertoires source et include
-src_dir = "./sources"
+src_dir = "./sources/event"
 include_dir = "./include"
 
 # Assurez-vous que le répertoire include existe
