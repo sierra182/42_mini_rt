@@ -17,5 +17,6 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 			t_color *mesh_color, t_ray_vector *normal,
 			t_color *ambiantly_color);
 void	calculate_ray_pack(t_ray_pack *ray_pack);
+void	apply_aces_tonemap(t_color *color);
 
 #endif

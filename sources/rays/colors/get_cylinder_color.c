@@ -69,11 +69,12 @@ int	get_cylinder_color_cyl(t_get_color_params *params)
 			->spotlight.origin_vect.axis) || (!is_in_cyl_height(&tmp, cyl,
 				params->data->spotlight.origin_vect.axis)
 			&& (cyl->which_t == 2)))
-		return (*params->color = ambiantly_color, 0);
+		return (apply_aces_tonemap(params->color),
+			*params->color = ambiantly_color, 0);			
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 	{params, &cyl->color, params->normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	clamp_255(params->color);
+	apply_aces_tonemap(params->color);
 	return (0);
 }
 

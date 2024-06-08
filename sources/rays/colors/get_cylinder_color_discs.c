@@ -70,10 +70,11 @@ int	get_cylinder_color_discs(t_get_color_params *params)
 	if (has_shadow(params->data, params->normal, params->mesh, &light_ray)
 		|| light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
 		(params->normal, &params->data->spotlight, cyl, &params->data->cam))
-		return (*params->color = ambiantly_color, 0);
+		return (apply_aces_tonemap(params->color),
+			*params->color = ambiantly_color, 0);
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 	{params, &cyl->color, params->normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	clamp_255(params->color);
+	apply_aces_tonemap(params->color);
 	return (0);
 }
