@@ -2,7 +2,8 @@
 
 /**========================================================================
  *                           FILE_CONTENT_IS_CORRECT
- *! uncomment to activate element count 
+ *! uncomment to activate element count
+ *! do not forget to re test all necessary !!!  
  *========================================================================**/
 int	file_content_is_correct(t_data *data, char *map_path)
 {
@@ -25,6 +26,7 @@ int	file_content_is_correct(t_data *data, char *map_path)
 			return (free(str), 0);
 		free(str);
 	}
+	(void) data;//! remove me
 	// if (!all_necessary_elements_are_present(data, map_path))
 	// 	return (0);
 	if (!elements_data_are_valid(map_path))

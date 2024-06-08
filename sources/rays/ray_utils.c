@@ -24,8 +24,6 @@ void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
  *========================================================================**/
 void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 {
-	t_ray_vector	scaled_vect;
-
 	scale_vector(ray->dir_vect.axis, t, inter_pt->axis);
 }
 

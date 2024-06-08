@@ -5,9 +5,7 @@
 
 void	save_image_reference(t_data *data, t_mlx *mlx)
 {
-	int bits_per_pixel;
-	int size_line;
-	int endian;
+
 	char *data_addr;
 
 	ft_bzero(data->img_ref, 20);
@@ -17,6 +15,7 @@ void	save_image_reference(t_data *data, t_mlx *mlx)
 
 void save_image_data_to_bin(char *filename, char *data_addr, int width, int height, int size_line)
 {
+	(void) width;
     FILE *file = fopen(filename, "wb");
     if (file == NULL)
     {
@@ -47,6 +46,7 @@ void	create_filename(char *filename, int *i, char *ext)
 
 void	make_bin_file(t_data *data, t_mlx *mlx)
 {
+	(void) data;
 	char filename[100];
 	static int i = 0;
 

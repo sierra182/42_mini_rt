@@ -11,7 +11,7 @@ void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
 void	video_trans_mesh(void *mesh, int mesh_num, int mesh_nbr)
 {
 	t_cylinder	*cyl;
-
+	(void) mesh_nbr;
 	cyl = (t_cylinder *)mesh;
 
 	if (mesh_num < 24)
@@ -84,6 +84,7 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr)
 
 void	rotate_pendulum(t_sphere *sphere, int i)
 {
+	(void) i;
 	int axe[3];
 	static int j = 0;
 	static double angle = 2;
@@ -115,8 +116,7 @@ void	rotate_pendulum(t_sphere *sphere, int i)
 void	video_move_cam(t_cam *cam)
 {
 	int axe[3];
-	t_matrix_vector	trsf_matrix[MTX];
-	t_matrix_vector applied_vect;
+
 	static double angle = -1;
 	static int i = 0;
 
@@ -145,8 +145,6 @@ void	video_move_cam(t_cam *cam)
 
 void	video_move_light(t_spotlight *light)
 {
-	int axe[3];
-	double angle = 1;
 	static int i = 0;
 	static int j = 1;
 	if (i == 16)

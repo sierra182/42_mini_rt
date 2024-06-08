@@ -3,7 +3,7 @@
 /**========================================================================
  *							HANDLE_PLUS_KEY
 ========================================================================**/
-void	handle_plus_key(t_data *data, int keycode)
+void	handle_plus_key(t_data *data)
 {
 	t_event		*mesh;
 	t_sphere	*sphere;
@@ -33,7 +33,7 @@ void	handle_plus_key(t_data *data, int keycode)
 /**========================================================================
  * 							HANDLE_MINUS_KEY
 ========================================================================**/
-void	handle_minus_key(t_data *data, int keycode)
+void	handle_minus_key(t_data *data)
 {
 	t_event		*mesh;
 	t_sphere	*sphere;
@@ -65,17 +65,13 @@ void	handle_minus_key(t_data *data, int keycode)
 ========================================================================**/
 void	chang_mesh_size(t_data *data, int keycode)
 {
-	t_event		*mesh;
+	t_event	*mesh;
 
 	mesh = &data->event;
 	if (mesh->actual_mesh.ref == NULL)
 		return ;
 	if (keycode == PLUS)
-	{
-		handle_plus_key(data, keycode);
-	}
+		handle_plus_key(data);
 	else if (keycode == MINUS)
-	{
-		handle_minus_key(data, keycode);
-	}
+		handle_minus_key(data);
 }

@@ -10,7 +10,6 @@ void	make_rt_file(t_data *data);
 int	generate_video_frames(t_data *data, char **envp)
 {
 	int	i;
-	static int	j = 0;
 
 	data->is_gen_vid = 0;
 	i = 0;
@@ -46,3 +45,22 @@ int	generate_video_frames(t_data *data, char **envp)
 	return (1);
 }
 
+/**========================================================================
+ *                           IS_IT_A_TEST
+ *========================================================================**/
+void	is_it_a_test(t_data *data, char **envp)
+{
+	int	i;
+
+	data->is_test = 0;
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "AUTOMATED_TEST=true", 20) == 0)
+		{
+			data->is_test = 1;
+			break ;
+		}
+		i++;
+	}
+}
