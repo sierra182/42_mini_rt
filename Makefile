@@ -46,8 +46,8 @@ CFLAGS = \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
-	-g -O3 \
-	-Wall -Wextra -Werror
+	-g -O3
+#-Wall -Wextra -Werror
 
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz 
 
@@ -150,15 +150,18 @@ SOURCES = \
 	# $(HEADERS_DIR)/x_funcs_params.h \
 	# $(HEADERS_DIR)/main.h \
 
-.PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
+TICK = false
+
+.PHONY: all mlx ft_printf clean fclean re intro l \
+	newline backline emoticon comp
 #bonus
 
 $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
-	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
+#	 @echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
 $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
-	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
+#	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
 # $(BONUS_DIR)/%_bonus.o : $(BONUS_DIR)/%.c $(LIBFTPRINTF) $(HEADERS) 
@@ -171,7 +174,7 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 
 #all: intro mlx ft_printf $(NAME) emoticon		
 
-l: newline mlx ft_printf $(NAME)
+l: newline mlx ft_printf comp $(NAME)
 
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
@@ -180,8 +183,28 @@ ft_printf: emoticon
 #	@$(MAKE) -s -C $(LIBFT_DIR) bonus 
 	@$(MAKE) -s -C $(FT_PRINTF_DIR) 
 
-$(NAME) : $(OBJECTS) 
-	@echo "\n\033[0;32m linking $(NAME) objects \
+check_compile:
+	@needs_compile=false; \
+	for obj in $(OBJECTS); do \
+		if [ ! -f $$obj ] || [ "$$obj" -ot "$${obj%.o}.c" ]; then \
+			needs_compile=true \
+			break \
+		fi \
+	done ; \
+	if $$needs_compile; then \
+		echo "\033[0;33mCompiling objects...\033[0m" \
+		$(eval TICK=true) \
+	else \
+		$(eval TICK=false) \
+	fi
+
+$(NAME) :: check_compile $(OBJECTS) 
+	@if [ "$(TICK)" = "true" ]; then \
+		echo "\033[0;32m   ✅\033[0m\n" \
+	fi
+# @printf "\b\b\b   ✅\n"
+	@sleep 1
+	@echo "\n\n\033[0;32m linking $(NAME) objects \
 	with $(LIBFTPRINTF)...\033[0m 🚀\n\n 💗 💎 💎 💗\n"
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 

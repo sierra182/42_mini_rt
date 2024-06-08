@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+         #
+#    By: seblin <seblin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 06:56:29 by svidot            #+#    #+#              #
-#    Updated: 2024/06/08 10:02:43 by dsylvain         ###   ########.fr        #
+#    Updated: 2024/06/08 21:45:18 by seblin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ all: $(NAME)
 	fi
 	
 $(NAME) :: $(OBJECTS)
-	@echo "\033[0;32m compiling and adding libft objects to $(NAME) ...\033[0m 🚀\n"
+#	@echo "\033[0;32m compiling and adding libft objects to $(NAME) ...\033[0m 🚀\n"
 	@ar rcs $@ $?
 
 change_flag:
