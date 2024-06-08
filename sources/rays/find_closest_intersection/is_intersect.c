@@ -1,24 +1,4 @@
-/* ************************************************************************** */
-
-#include "se_mini_struct.h"
-#include "math.h"
-#include "x_linear_algebra.h"
-
-double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim);
-void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
-double	scalar_product(double a[], double b[]);
-void	add_vector(double a[], double b[], double sum_vect[]);
-void	subtract_vector(double a[], double b[], double subt_vect[]);
-void	scale_vector(double vect[], double scaler, double scaled_vect[]);
-void	normalize_vector(double vector[]);
-double	distance_between_points(t_ray_vector *point1, t_matrix_vector *point2);
-double	get_t_from_point(t_ray *ray, t_ray_vector *point);
-double	compute_return_value_intersect_disc_plans(double tmp1, double tmp2);
-double	compute_return_value_is_intersect_cylinder(double t[],
-			t_cylinder *cyl, double proj[]);
-double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *tt);
-
-#define EPSILON 1e-6
+#include "is_intersect.h"
 
 double	which_t(double eq_values[], int *which_t, double *tt[])
 {

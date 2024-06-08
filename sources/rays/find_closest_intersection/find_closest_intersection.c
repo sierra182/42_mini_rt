@@ -1,9 +1,4 @@
-#include "se_mini_struct.h"
-
-double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
-double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
-double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
-#define OBJ_MAX_NBR 1000
+#include "find_closest_intersection.h"
 
 /**========================================================================
  *                           find_closest_intersection

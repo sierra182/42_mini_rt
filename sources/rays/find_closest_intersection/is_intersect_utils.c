@@ -1,7 +1,4 @@
-#include "math.h"
-#include "se_mini_struct.h"
-
-void	subtract_vector(double a[], double b[], double subt_vect[]);
+#include "is_intersect_utils.h"
 
 double	distance_between_points(t_ray_vector *point1, t_matrix_vector *point2)
 {

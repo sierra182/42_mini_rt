@@ -1,6 +1,9 @@
 #ifndef IS_INTERSECT_UTILS_H
 # define IS_INTERSECT_UTILS_H
 
-// Déclarations pour is_intersect_utils.c
+#include "math.h"
+#include "se_mini_struct.h"
+
+void	subtract_vector(double a[], double b[], double subt_vect[]);
 
 #endif
