@@ -1,6 +1,7 @@
 #ifndef MATRIX_H
 # define MATRIX_H
 
-// Déclarations pour matrix.c
+#include <math.h>
+#include "se_mini_struct.h"
 
 #endif

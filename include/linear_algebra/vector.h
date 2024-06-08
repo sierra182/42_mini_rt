@@ -1,6 +1,6 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-// Déclarations pour vector.c
+#include "se_mini_struct.h"
 
 #endif

@@ -1,6 +1,7 @@
 #ifndef MATRIX_TRSF_H
 # define MATRIX_TRSF_H
 
-// Déclarations pour matrix_trsf.c
+#include "se_mini_struct.h"
+#include <math.h>
 
 #endif

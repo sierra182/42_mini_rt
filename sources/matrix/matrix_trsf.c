@@ -1,5 +1,4 @@
-#include "se_mini_struct.h"
-#include <math.h>
+#include "matrix_trsf.h"
 
 void	set_matrix_rotation(t_matrix_vector matrix[], double angle, int axe[])
 {

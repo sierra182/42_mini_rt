@@ -1,4 +1,4 @@
-#include "se_mini_struct.h"
+#include "color_utils.h"
 
 void	clamp_255(t_color *color)
 {

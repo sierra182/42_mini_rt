@@ -1,6 +1,6 @@
 #ifndef COLOR_H
 # define COLOR_H
 
-// Déclarations pour color.c
+#include "se_mini_struct.h"
 
 #endif
