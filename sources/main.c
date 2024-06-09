@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 2)
 		return (display_error("arg number not valid\n"), 1);
-	if (parse(&data, argv[1]) == 0)
+	if (parse(argv[1]) == 0)
 		return (display_error(".rt file not valid\n"), 2);
 	if (init_data(argv[1], &data) == 0)
 		return (display_error("data init. error\n"), 3);

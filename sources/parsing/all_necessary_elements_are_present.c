@@ -3,7 +3,7 @@
 /**========================================================================
  *                           ALL_NECESSARY_ELEMENTS_ARE_PRESENT
  *========================================================================**/
-int	all_necessary_elements_are_present(t_data *data, char *map_path)
+int	all_necessary_elements_are_present(char *map_path)
 {
 	int	nbr;
 

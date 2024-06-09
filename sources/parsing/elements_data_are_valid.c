@@ -38,10 +38,8 @@ int	elements_data_are_valid(char *map_path)
 int	data_str_is_valid(char *str)
 {
 	char	*token;
-	int		status;
 	char	*data_str;
 
-	status = 0;
 	token = ft_strtok(str, ", \t");
 	if (!ft_strcmp(token, "A"))
 		data_str = "4,ltr,byt,byt,byt";
