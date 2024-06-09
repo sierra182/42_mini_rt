@@ -46,8 +46,8 @@ CFLAGS = \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
-	-g -O3
-#-Wall -Wextra -Werror
+	-g -O3 \
+	-Wall -Wextra -Werror
 
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz 
 
@@ -150,7 +150,7 @@ SOURCES = \
 	# $(HEADERS_DIR)/x_funcs_params.h \
 	# $(HEADERS_DIR)/main.h \
 
-TICK = true
+TICK = 0
 
 .PHONY: all mlx ft_printf clean fclean re intro l \
 	newline backline emoticon check_compile
@@ -192,16 +192,15 @@ check_compile:
 		fi \
 	done; \
 	if $$needs_compile; then \
-		echo "\033[0;33mCompiling objects...\033[0m"; \
-		$(eval TICK = 1) \
+		echo -n "\033[0;33mCompiling objects...\033[0m"; \
+		$(eval TICK=1) \
 	else \
-		echo "cul"; \
-		$(eval TICK = 0) \
+		$(eval TICK=0) echo "chatte";  echo "cul"; \
 	fi
 	
 $(NAME) : check_compile $(OBJECTS) 
-	@if [ "$(TICK)" = 1 ]; then \
-		echo "\b\b\b   ✅\n"; \
+	@if [ $(TICK) -eq 1 ]; then \
+		echo "\b\b\b  ✅\n"; \
 	fi
 
 	@sleep 1
