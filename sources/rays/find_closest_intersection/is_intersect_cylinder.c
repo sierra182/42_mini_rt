@@ -1,6 +1,38 @@
 #include "is_intersect_cylinder.h"
 
 /**========================================================================
+ *                           IS_INTERSECT_CYLINDER
+ * vars t & proj where declared as arrays of size 2 for norminette compliance
+ * 
+ *========================================================================**/
+double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *tt)
+{
+	double			discrim;
+	double			t[2];
+	t_ray_vector	i;
+	double			proj[2];
+	t_cylinder		*cyl;
+
+	(void) tt;
+	cyl = (t_cylinder *)input_cyl;
+	t[0] = solve_quadratic_equation(ray, cyl, &discrim);
+	if (discrim < 0)
+		return (0.0);
+	get_intersect_point(ray, t[0], &i);
+	cyl->intersec_point.axis[0] = i.axis[0];
+	cyl->intersec_point.axis[1] = i.axis[1];
+	cyl->intersec_point.axis[2] = i.axis[2];
+	proj[0] = scalar_product(i.axis, cyl->axis_vect.axis);
+	cyl->proj = proj[0];
+	proj[1] = scalar_product(cyl->origin_vect.axis, cyl->axis_vect.axis);
+	if (proj[0] < proj[1] - cyl->height * 0.5
+		|| proj[0] > proj[1] + cyl->height * 0.5)
+		t[0] = BIG_VALUE;
+	t[1] = intersect_disc_plans(ray, cyl, &i);
+	return (compute_return_value_is_intersect_cylinder(t, cyl, proj));
+}
+
+/**========================================================================
  *                           INTERSECT_DISC_PLANS
  *========================================================================**/
 double	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i)
@@ -44,38 +76,6 @@ double	compute_return_value_intersect_disc_plans(double tmp1, double tmp2)
 	if (tmp2)
 		return (tmp2);
 	return (0);
-}
-
-/**========================================================================
- *                           IS_INTERSECT_CYLINDER
- * vars t & proj where declared as arrays of size 2 for norminette compliance
- * 
- *========================================================================**/
-double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *tt)
-{
-	double			discrim;
-	double			t[2];
-	t_ray_vector	i;
-	double			proj[2];
-	t_cylinder		*cyl;
-
-	(void) tt;
-	cyl = (t_cylinder *)input_cyl;
-	t[0] = solve_quadratic_equation(ray, cyl, &discrim);
-	if (discrim < 0)
-		return (0.0);
-	get_intersect_point(ray, t[0], &i);
-	cyl->intersec_point.axis[0] = i.axis[0];
-	cyl->intersec_point.axis[1] = i.axis[1];
-	cyl->intersec_point.axis[2] = i.axis[2];
-	proj[0] = scalar_product(i.axis, cyl->axis_vect.axis);
-	cyl->proj = proj[0];
-	proj[1] = scalar_product(cyl->origin_vect.axis, cyl->axis_vect.axis);
-	if (proj[0] < proj[1] - cyl->height * 0.5
-		|| proj[0] > proj[1] + cyl->height * 0.5)
-		t[0] = BIG_VALUE;
-	t[1] = intersect_disc_plans(ray, cyl, &i);
-	return (compute_return_value_is_intersect_cylinder(t, cyl, proj));
 }
 
 /**========================================================================

@@ -21,5 +21,6 @@ void	get_elements_number(t_data *data, char *map_path);
 int		update_cam(t_cam *cam);
 void	post_init_cam(t_cam *cam);
 void	init_vars(t_data *data);
+void	save_data(t_data *data);
 
 #endif

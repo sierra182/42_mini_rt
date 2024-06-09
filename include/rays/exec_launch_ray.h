@@ -20,5 +20,6 @@ void	get_cylinder_color(t_data *data, t_ray *ray,
 			t_obj *obj, t_color	*color);
 void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
 void	get_pixel_color_2(t_get_pixel_color_2_params *params);
+static void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
 
 #endif

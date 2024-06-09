@@ -11,20 +11,50 @@
 int	get_color(unsigned char r, unsigned char g, unsigned char b);
 
 /**========================================================================
- *                           FRAME
+ *                           MAIN
  *========================================================================**/
-int	frame(void *param)
+int	main(int argc, char **argv, char **envp)
 {
-	t_mlx	*mlx;
-	t_data	*data;
+	t_mlx	mlx;
+	t_data	data;
 
-	mlx = (t_mlx *)((void **) param)[0];
-	data = (t_data *)((void **) param)[1];
-	if (!data->refresh)
+	if (argc != 2)
+		return (display_error("arg number not valid\n"), 1);
+	if (parse(&data, argv[1]) == 0)
+		return (display_error(".rt file not valid\n"), 2);
+	if (init_data(argv[1], &data) == 0)
+		return (display_error("data init. error\n"), 3);
+	is_it_a_test(&data, envp);
+	if (generate_video_frames(&data, envp))
 		return (0);
-	data->refresh = 0;
-	launch_rays(mlx, data);
-	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
+	if (init_mlx(&mlx))
+		return (4);
+	launch_mlx_loop(&mlx, &data);
+	flush_exit_struct();
+	return (0);
+}
+
+/**========================================================================
+ *                           INIT_MLX
+ *========================================================================**/
+int	init_mlx(t_mlx *mlx)
+{
+	mlx->connect = mlx_init();
+	if (!mlx->connect)
+		return (1);
+	mlx->window = mlx_new_window(mlx->connect, WIDTH, HEIGHT, "miniRT");
+	if (!mlx->window)
+		return (mlx_destroy_display(mlx->connect), free(mlx->connect), 1);
+	mlx->img.img_ptr = mlx_new_image(mlx->connect, WIDTH, HEIGHT);
+	mlx->img.img_data = mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
+			&mlx->img.line_len, &(int){0});
+	init_img_item(mlx, &mlx->img_items.logo, "xpm/logo.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.legend, "xpm/legend.xpm", 0x0);
+	init_img_item(mlx, &mlx->img_items.sph, "xpm/sph.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.cam, "xpm/cam.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.amb, "xpm/amb.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.bulb, "xpm/bulb.xpm", 0xFF0000);
+	add_exit_struct((void *) mlx, MLX);
 	return (0);
 }
 
@@ -57,49 +87,19 @@ void	init_img_item(t_mlx *mlx, t_img *img, char *str, int color)
 }
 
 /**========================================================================
- *                           INIT_MLX
+ *                           FRAME
  *========================================================================**/
-int	init_mlx(t_mlx *mlx)
+int	frame(void *param)
 {
-	mlx->connect = mlx_init();
-	if (!mlx->connect)
-		return (1);
-	mlx->window = mlx_new_window(mlx->connect, WIDTH, HEIGHT, "miniRT");
-	if (!mlx->window)
-		return (mlx_destroy_display(mlx->connect), free(mlx->connect), 1);
-	mlx->img.img_ptr = mlx_new_image(mlx->connect, WIDTH, HEIGHT);
-	mlx->img.img_data = mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp,
-			&mlx->img.line_len, &(int){0});
-	init_img_item(mlx, &mlx->img_items.logo, "xpm/logo.xpm", 0xFF0000);
-	init_img_item(mlx, &mlx->img_items.legend, "xpm/legend.xpm", 0x0);
-	init_img_item(mlx, &mlx->img_items.sph, "xpm/sph.xpm", 0xFF0000);
-	init_img_item(mlx, &mlx->img_items.cam, "xpm/cam.xpm", 0xFF0000);
-	init_img_item(mlx, &mlx->img_items.amb, "xpm/amb.xpm", 0xFF0000);
-	init_img_item(mlx, &mlx->img_items.bulb, "xpm/bulb.xpm", 0xFF0000);
-	add_exit_struct((void *) mlx, MLX);
-	return (0);
-}
+	t_mlx	*mlx;
+	t_data	*data;
 
-/**========================================================================
- *                           MAIN
- *========================================================================**/
-int	main(int argc, char **argv, char **envp)
-{
-	t_mlx	mlx;
-	t_data	data;
-
-	if (argc != 2)
-		return (display_error("arg number not valid\n"), 1);
-	if (parse(&data, argv[1]) == 0)
-		return (display_error(".rt file not valid\n"), 2);
-	if (init_data(argv[1], &data) == 0)
-		return (display_error("data init. error\n"), 3);
-	is_it_a_test(&data, envp);
-	if (generate_video_frames(&data, envp))
+	mlx = (t_mlx *)((void **) param)[0];
+	data = (t_data *)((void **) param)[1];
+	if (!data->refresh)
 		return (0);
-	if (init_mlx(&mlx))
-		return (4);
-	launch_mlx_loop(&mlx, &data);
-	flush_exit_struct();
+	data->refresh = 0;
+	launch_rays(mlx, data);
+	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
 	return (0);
 }

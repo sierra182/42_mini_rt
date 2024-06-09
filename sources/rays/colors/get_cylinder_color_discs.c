@@ -1,42 +1,6 @@
 #include "get_cylinder_color_discs.h"
 
 /**========================================================================
- *                           HANDLE_NORMAL_SYMMETRIZATION
- *========================================================================**/
-void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector
-*normal, t_ray *light_ray)
-{
-	double			light_dot_normal;
-	double			view_dot_normal;
-	t_cylinder		*cyl;
-
-	cyl = ((t_cylinder *) params->mesh->ref);
-	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
-	if (view_dot_normal > 0.0)
-		symmetrize_vector(normal->axis);
-	light_dot_normal = scalar_product(normal->axis, light_ray->dir_vect.axis);
-	if (light_dot_normal < 0 && cyl->which_t == 2)
-		symmetrize_vector(normal->axis);
-}
-
-static int	is_ambianced_only(t_get_color_params *params,
-	t_ray_pack *light_ray, double *light_coef, t_color *ambiantly_color)
-{
-	t_cylinder		*cyl;
-
-	cyl = ((t_cylinder *) params->mesh->ref);
-	if (has_shadow(params->data, params->mesh, light_ray)
-		|| *light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
-		(params->normal, &params->data->spotlight, cyl, &params->data->cam))
-	{
-		*params->color = *ambiantly_color;
-		apply_aces_tonemap(params->color);
-		return (1);
-	}
-	return (0);
-}
-
-/**========================================================================
  *                           GET_CYLINDER_COLOR_DISCS
  *========================================================================**/
 void	get_cylinder_color_discs(t_get_color_params *params)
@@ -65,4 +29,43 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	{params, &cyl->color, params->normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	apply_aces_tonemap(params->color);
+}
+
+/**========================================================================
+ *                           HANDLE_NORMAL_SYMMETRIZATION
+ *========================================================================**/
+void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector
+*normal, t_ray *light_ray)
+{
+	double			light_dot_normal;
+	double			view_dot_normal;
+	t_cylinder		*cyl;
+
+	cyl = ((t_cylinder *) params->mesh->ref);
+	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
+	if (view_dot_normal > 0.0)
+		symmetrize_vector(normal->axis);
+	light_dot_normal = scalar_product(normal->axis, light_ray->dir_vect.axis);
+	if (light_dot_normal < 0 && cyl->which_t == 2)
+		symmetrize_vector(normal->axis);
+}
+
+/**========================================================================
+ *                           IS_AMBIANCED_ONLY
+ *========================================================================**/
+static int	is_ambianced_only(t_get_color_params *params,
+	t_ray_pack *light_ray, double *light_coef, t_color *ambiantly_color)
+{
+	t_cylinder		*cyl;
+
+	cyl = ((t_cylinder *) params->mesh->ref);
+	if (has_shadow(params->data, params->mesh, light_ray)
+		|| *light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
+		(params->normal, &params->data->spotlight, cyl, &params->data->cam))
+	{
+		*params->color = *ambiantly_color;
+		apply_aces_tonemap(params->color);
+		return (1);
+	}
+	return (0);
 }

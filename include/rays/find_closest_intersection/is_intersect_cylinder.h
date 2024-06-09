@@ -12,5 +12,6 @@ double	compute_return_value_is_intersect_cylinder(double t[],
 			t_cylinder *cyl, double proj[]);
 double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim);
 void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
+double	intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
 
 #endif

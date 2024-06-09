@@ -1,18 +1,5 @@
 #include "is_intersect.h"
 
-double	which_t(double eq_values[], int *which_t, double *tt[])
-{
-	if (eq_values[0] < 0)
-		return (*which_t = 0, 0.0);
-	*tt[0] = (-eq_values[2] - sqrt(eq_values[0])) / (2 * eq_values[1]);
-	*tt[1] = (-eq_values[2] + sqrt(eq_values[0])) / (2 * eq_values[1]);
-	if (*tt[0] > 1e-3)
-		return (*which_t = 1, *tt[0]);
-	else if (*tt[1] > 1e-3)
-		return (*which_t = 2, *tt[1]);
-	else
-		return (*which_t = 0, 0.0);
-}
 /**========================================================================
  *                             IS_INTERSECT
  *  How to solve the cylinder/discs display order problem?
@@ -97,4 +84,21 @@ double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim)
 	*discrim = b * b - 4 * a * c;
 	return (which_t((double []){*discrim, a, b}, &cyl->which_t,
 		(double *[]){&cyl->t1, &cyl->t2}));
+}
+
+/**========================================================================
+ *                           WHICH_T
+ *========================================================================**/
+double	which_t(double eq_values[], int *which_t, double *tt[])
+{
+	if (eq_values[0] < 0)
+		return (*which_t = 0, 0.0);
+	*tt[0] = (-eq_values[2] - sqrt(eq_values[0])) / (2 * eq_values[1]);
+	*tt[1] = (-eq_values[2] + sqrt(eq_values[0])) / (2 * eq_values[1]);
+	if (*tt[0] > 1e-3)
+		return (*which_t = 1, *tt[0]);
+	else if (*tt[1] > 1e-3)
+		return (*which_t = 2, *tt[1]);
+	else
+		return (*which_t = 0, 0.0);
 }

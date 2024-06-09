@@ -16,5 +16,9 @@ int		key_up_event(int keycode, void *param);
 int		mouse_release(int button, int x, int y, void *param);
 int		generate_video_frames(t_data *data, char **envp);
 void	is_it_a_test(t_data *data, char **envp);
+int		init_mlx(t_mlx *mlx);
+void	launch_mlx_loop(t_mlx *mlx, t_data *data);
+void	init_img_item(t_mlx *mlx, t_img *img, char *str, int color);
+int		frame(void *param);
 
 #endif

@@ -1,22 +1,6 @@
 #include "exec_launch_ray.h"
 
 /**========================================================================
- *                           	PUT_PXL
- *========================================================================**/
-
-static void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
-{
-	const double	inverse_eight = 0.125;
-	int				pxl_pos;
-
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-	{
-		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
-		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
-	}
-}
-
-/**========================================================================
  *                           EXEC_LAUNCH_RAYS
  *========================================================================**/
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
@@ -87,4 +71,20 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 	if (*params->inter_bulb && !is_behind_cam(*params->inter_bulb))
 		*rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight
 				.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
+}
+
+/**========================================================================
+ *                           	PUT_PXL
+ *========================================================================**/
+
+static void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
+{
+	const double	inverse_eight = 0.125;
+	int				pxl_pos;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
+		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
+	}
 }
