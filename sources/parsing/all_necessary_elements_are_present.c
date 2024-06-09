@@ -50,7 +50,6 @@ int	is_comment(char *str)
  *========================================================================**/
 int	element_is_present(char *map_path, char *el)
 {
-	int		i;
 	int		n;
 	int		map_fd;
 	char	*str;
@@ -72,6 +71,5 @@ int	element_is_present(char *map_path, char *el)
 		free(str);
 	}
 	close(map_fd);
-	i = 0;
 	return (n);
 }
