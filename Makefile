@@ -150,10 +150,10 @@ SOURCES = \
 	# $(HEADERS_DIR)/x_funcs_params.h \
 	# $(HEADERS_DIR)/main.h \
 
-TICK = false
+TICK = true
 
 .PHONY: all mlx ft_printf clean fclean re intro l \
-	newline backline emoticon comp
+	newline backline emoticon check_compile
 #bonus
 
 $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
@@ -174,7 +174,7 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 
 #all: intro mlx ft_printf $(NAME) emoticon		
 
-l: newline mlx ft_printf comp $(NAME)
+l: newline mlx ft_printf $(NAME)
 
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
@@ -188,21 +188,22 @@ check_compile:
 	for obj in $(OBJECTS); do \
 		if [ ! -f $$obj ] || [ "$$obj" -ot "$${obj%.o}.c" ]; then \
 			needs_compile=true \
-			break \
+			break; \
 		fi \
-	done ; \
+	done; \
 	if $$needs_compile; then \
-		echo "\033[0;33mCompiling objects...\033[0m" \
-		$(eval TICK=true) \
+		echo "\033[0;33mCompiling objects...\033[0m"; \
+		$(eval TICK = 1) \
 	else \
-		$(eval TICK=false) \
+		echo "cul"; \
+		$(eval TICK = 0) \
+	fi
+	
+$(NAME) : check_compile $(OBJECTS) 
+	@if [ "$(TICK)" = 1 ]; then \
+		echo "\b\b\b   ✅\n"; \
 	fi
 
-$(NAME) :: check_compile $(OBJECTS) 
-	@if [ "$(TICK)" = "true" ]; then \
-		echo "\033[0;32m   ✅\033[0m\n" \
-	fi
-# @printf "\b\b\b   ✅\n"
 	@sleep 1
 	@echo "\n\n\033[0;32m linking $(NAME) objects \
 	with $(LIBFTPRINTF)...\033[0m 🚀\n\n 💗 💎 💎 💗\n"
