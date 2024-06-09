@@ -37,7 +37,7 @@ int	init_data(char *map_path, t_data *data)
 	double	tab[20];
 
 	get_elements_number(data, map_path);
-	if (create_data_structs(data, map_path) == 0)
+	if (create_data_structs(data) == 0)
 		return (0);
 	while (get_element_data(map_path, tab, "A") != NULL)
 		fill_struct_a(data, tab);
@@ -75,18 +75,9 @@ void	init_vars(t_data *data)
  *========================================================================**/
 void	get_elements_number(t_data *data, char *map_path)
 {
-	int	val;
-
-	val = 1;
 	data->sp_nbr = element_is_present(map_path, "sp");
-	if (data->sp_nbr == 0)
-		val = 0;
 	data->cy_nbr = element_is_present(map_path, "cy");
-	if (data->cy_nbr == 0)
-		val = 0;
 	data->pl_nbr = element_is_present(map_path, "pl");
-	if (data->pl_nbr == 0)
-		val = 0;
 }
 
 /**========================================================================

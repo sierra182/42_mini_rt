@@ -27,6 +27,7 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 	double	inter_bulb;
 	t_color	color;
 
+	rgb = 0;
 	inter_bulb = is_intersect_sphere(ray, &data->spotlight.bulb, NULL);
 	if (obj->t && obj->type == O_SP && obj->ref)
 	{
@@ -71,6 +72,7 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 	if (*params->inter_bulb && !is_behind_cam(*params->inter_bulb))
 		*rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight
 				.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
+	(void)inter_bulb;
 }
 
 /**========================================================================
