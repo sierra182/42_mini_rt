@@ -13,7 +13,7 @@ void	fill_struct_l(t_data *data, double tab[]);
 void	fill_struct_cy(t_data *data, double tab[]);
 void	fill_struct_pl(t_data *data, double tab[]);
 void	fill_struct_sp(t_data *data, double tab[]);
-int		create_data_structs(t_data *data);
+int	create_data_structs(t_data *data, char *map_path);
 double	*fill_tab(char *str, double tab[]);
 double	*get_element_data(char *map_path, double tab[], char *el);
 int		element_is_present(char *map_path, char *el);

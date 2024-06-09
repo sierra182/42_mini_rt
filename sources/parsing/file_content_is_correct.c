@@ -2,8 +2,7 @@
 
 /**========================================================================
  *                           FILE_CONTENT_IS_CORRECT
- *! uncomment to activate element count
- *! do not forget to re test all necessary !!!  
+ *! uncomment to activate element count 
  *========================================================================**/
 int	file_content_is_correct(t_data *data, char *map_path)
 {

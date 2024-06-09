@@ -7,6 +7,29 @@
  *========================================================================**/
 
 /**========================================================================
+ *                           SAVE_DATA
+ * for reset option
+ *========================================================================**/
+void	save_data(t_data *data)
+{
+	data->data_cpy = (t_data *) ft_calloc(1, sizeof(t_data));
+	*data->data_cpy = *data;
+	data->data_cpy->spheres = (t_sphere *) ft_calloc(data->sp_nbr,
+			sizeof(t_sphere));
+	ft_memcpy(data->data_cpy->spheres, data->spheres, data->sp_nbr
+		* sizeof(t_sphere));
+	data->data_cpy->cylinders = (t_cylinder *) ft_calloc(data->cy_nbr,
+			sizeof(t_cylinder));
+	ft_memcpy(data->data_cpy->cylinders, data->cylinders, data->cy_nbr
+		* sizeof(t_cylinder));
+	data->data_cpy->planes = (t_plane *) ft_calloc(data->pl_nbr,
+			sizeof(t_plane));
+	ft_memcpy(data->data_cpy->planes, data->planes, data->pl_nbr
+		* sizeof(t_plane));
+	add_exit_struct(data->data_cpy, DATA);
+}
+
+/**========================================================================
  *                           INIT_DATA
  *========================================================================**/
 int	init_data(char *map_path, t_data *data)
@@ -14,7 +37,7 @@ int	init_data(char *map_path, t_data *data)
 	double	tab[20];
 
 	get_elements_number(data, map_path);
-	if (create_data_structs(data) == 0)
+	if (create_data_structs(data, map_path) == 0)
 		return (0);
 	while (get_element_data(map_path, tab, "A") != NULL)
 		fill_struct_a(data, tab);
@@ -96,27 +119,4 @@ double	*get_element_data(char *map_path, double tab[], char *el)
 	close(map_fd);
 	map_fd = -1;
 	return (NULL);
-}
-
-/**========================================================================
- *                           SAVE_DATA
- * for reset option
- *========================================================================**/
-void	save_data(t_data *data)
-{
-	data->data_cpy = (t_data *) ft_calloc(1, sizeof(t_data));
-	*data->data_cpy = *data;
-	data->data_cpy->spheres = (t_sphere *) ft_calloc(data->sp_nbr,
-			sizeof(t_sphere));
-	ft_memcpy(data->data_cpy->spheres, data->spheres, data->sp_nbr
-		* sizeof(t_sphere));
-	data->data_cpy->cylinders = (t_cylinder *) ft_calloc(data->cy_nbr,
-			sizeof(t_cylinder));
-	ft_memcpy(data->data_cpy->cylinders, data->cylinders, data->cy_nbr
-		* sizeof(t_cylinder));
-	data->data_cpy->planes = (t_plane *) ft_calloc(data->pl_nbr,
-			sizeof(t_plane));
-	ft_memcpy(data->data_cpy->planes, data->planes, data->pl_nbr
-		* sizeof(t_plane));
-	add_exit_struct(data->data_cpy, DATA);
 }
