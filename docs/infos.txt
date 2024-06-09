@@ -35,3 +35,8 @@ https://en.wikipedia.org/wiki/UV_mapping
 https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/
 https://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_reflection_model
 
+**************************************************
+DON'T FORGET TO END BONUS FILES _BONUS.C / _BONUS.H !!!
+**************************************************
+
+UNCOMMENT PARSING CHECK ALL ELEMENTS ARE PRESENT!!!
