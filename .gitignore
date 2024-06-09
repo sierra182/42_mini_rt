@@ -1,5 +1,5 @@
 miniRT
-mlx_linux
+.mlx_linux
 
 # Prerequisites
 *.d
@@ -59,3 +59,4 @@ dkms.conf
 miniRT
 new_scene.rt
 *.bin
+.myenv

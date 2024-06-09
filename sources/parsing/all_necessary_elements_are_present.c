@@ -1,12 +1,9 @@
 #include "all_necessary_elements_are_present.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <get_next_line.h>
 
 /**========================================================================
- *                           all_necessary_elements_are_present
+ *                           ALL_NECESSARY_ELEMENTS_ARE_PRESENT
  *========================================================================**/
-int	all_necessary_elements_are_present(t_data *data, char *map_path)
+int	all_necessary_elements_are_present(char *map_path)
 {
 	int	nbr;
 
@@ -30,7 +27,7 @@ int	all_necessary_elements_are_present(t_data *data, char *map_path)
 }
 
 /**========================================================================
- *                           is_comment
+ *                           IS_COMMENT
  *========================================================================**/
 int	is_comment(char *str)
 {
@@ -49,7 +46,7 @@ int	is_comment(char *str)
 }
 
 /**========================================================================
- *                           element_is_present
+ *                           ELEMENT_IS_PRESENT
  *========================================================================**/
 int	element_is_present(char *map_path, char *el)
 {

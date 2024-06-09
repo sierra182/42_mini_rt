@@ -1,5 +1,8 @@
 #include "exit.h"
 
+/**========================================================================
+ *                           GET_EXIT_STRUCT
+ *========================================================================**/
 t_exit	*get_exit_struct(void)
 {
 	static t_exit	exit;
@@ -7,6 +10,9 @@ t_exit	*get_exit_struct(void)
 	return (&exit);
 }
 
+/**========================================================================
+ *                           GET_STORE_AND_FREE
+ *========================================================================**/
 static t_getsaf	*get_store_and_free(void)
 {
 	static void	(*store_and_free[END])(t_exit *, void *);
@@ -22,6 +28,9 @@ static t_getsaf	*get_store_and_free(void)
 	return (store_and_free);
 }
 
+/**========================================================================
+ *                           ADD_EXIT_STRUCT
+ *========================================================================**/
 void	add_exit_struct(void *ptr, t_enum_exit ex_en)
 {
 	void	(**store_and_free)(t_exit *, void *);
@@ -33,6 +42,9 @@ void	add_exit_struct(void *ptr, t_enum_exit ex_en)
 		store_and_free[ex_en](exit, ptr);
 }
 
+/**========================================================================
+ *                           FLUSH_EXIT_STRUCT
+ *========================================================================**/
 void	flush_exit_struct(void)
 {
 	void		(**store_and_free)(t_exit *, void *);

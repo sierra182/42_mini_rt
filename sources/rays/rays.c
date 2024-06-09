@@ -1,13 +1,8 @@
 #include "rays.h"
 
-#include "se_mini_struct.h"
-#include "x_linear_algebra.h"
-
-void	save_image_reference(t_data *data, t_mlx *mlx);
-void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y);
-void	add_xpm_items(t_mlx *mlx, t_data *data, int x, int y);
-void	make_bin_file(t_data *data, t_mlx *mlx);
-
+/**========================================================================
+ *                           SCALE_AND_ADD_VECTORS
+ *========================================================================**/
 static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	double norm_scale_y)
 {
@@ -23,6 +18,9 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	add_vector(sum_vect.axis, scaled_forward.axis, ray->dir_vect.axis);
 }
 
+/**========================================================================
+ *                           NORMALIZE_PIXEL
+ *========================================================================**/
 static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 {
 	if (!screen_size)
@@ -32,6 +30,9 @@ static double	normalize_pixel(int screen_size, int pixel, int x_flag)
 	return ((1 - 2 * (pixel + 0.5) / screen_size));
 }
 
+/**========================================================================
+ *                           NEW_RAY
+ *========================================================================**/
 void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 {
 	double	norm_scale_x;
@@ -42,9 +43,12 @@ void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
 	norm_scale_x = normalize_pixel(cam->resol[0], x, 1) * cam->scale
 		* cam->aspect;
 	scale_and_add_vectors(cam, ray, norm_scale_x, norm_scale_y);
-	normalize_vector(ray->dir_vect.axis);
+	self_normalize_vector(ray->dir_vect.axis);
 }
 
+/**========================================================================
+ *                           LAUNCH_RAYS
+ *========================================================================**/
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	int	x;

@@ -1,8 +1,7 @@
-#include "init_data.h"
-#include "exit.h"
+#include "libft.h"
 
 /**========================================================================
- *                           fill_tab
+ *                           FILL_TAB
  *========================================================================**/
 double	*fill_tab(char *str, double tab[])
 {

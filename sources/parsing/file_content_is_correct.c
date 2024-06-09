@@ -1,9 +1,9 @@
 #include "file_content_is_correct.h"
-#include "get_next_line.h"
 
 /**========================================================================
- *                           file_content_is_correct
- *! uncomment to activate element count 
+ *                           FILE_CONTENT_IS_CORRECT
+ *! uncomment to activate element count
+ *! do not forget to re test all necessary !!!  
  *========================================================================**/
 int	file_content_is_correct(t_data *data, char *map_path)
 {
@@ -35,7 +35,7 @@ int	file_content_is_correct(t_data *data, char *map_path)
 }
 
 /**========================================================================
- *                           is_only_valid_chars
+ *                           IS_ONLY_VALID_CHARS
  *========================================================================**/
 int	is_only_valid_chars(char str[])
 {
@@ -54,7 +54,7 @@ int	is_only_valid_chars(char str[])
 }
 
 /**========================================================================
- *                           is_valid_char
+ *                           IS_VALID_CHAR
  *========================================================================**/
 int	is_valid_char(char c)
 {

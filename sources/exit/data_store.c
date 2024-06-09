@@ -1,5 +1,8 @@
 #include "data_store.h"
 
+/**========================================================================
+ *                           STORE_AND_FREE_MLX
+ *========================================================================**/
 void	store_and_free_mlx(t_exit *exit, void *mlx)
 {
 	if (exit && mlx)
@@ -27,6 +30,9 @@ void	store_and_free_mlx(t_exit *exit, void *mlx)
 	}
 }
 
+/**========================================================================
+ *                           STORE_AND_FREE_DATA_COPY
+ *========================================================================**/
 void	store_and_free_data_copy(t_exit *exit, void *data_cpy)
 {
 	if (exit && data_cpy)

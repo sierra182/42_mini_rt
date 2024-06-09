@@ -25,40 +25,49 @@ LIBFTPRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 FT_PRINTF_DIR = ft_printf
 SRC_DIR = sources
 HEADERS_DIR = include
-MLX_DIR = mlx_linux
+MLX_DIR = .mlx_linux
 
 CC = cc
 CFLAGS = \
 	-I$(HEADERS_DIR) \
-	-I$(HEADERS_DIR)/init_data \
+	-I$(HEADERS_DIR)/event \
 	-I$(HEADERS_DIR)/exit \
+	-I$(HEADERS_DIR)/init_data \
+	-I$(HEADERS_DIR)/linear_algebra \
+	-I$(HEADERS_DIR)/matrix \
+	-I$(HEADERS_DIR)/mesh \
 	-I$(HEADERS_DIR)/parsing \
+	-I$(HEADERS_DIR)/rays/colors \
+	-I$(HEADERS_DIR)/rays/find_closest_intersection \
+	-I$(HEADERS_DIR)/rays/shadows \
 	-I$(HEADERS_DIR)/rays \
+	-I$(HEADERS_DIR)/z_main \
 	-I$(GNL_DIR) \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-g -O3 \
-	#-Wall -Wextra -Werror
+	-Wall -Wextra -Werror
 
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz 
 
 OBJECTS = $(SOURCES:.c=.o)
 
 SOURCES = \
-	$(SRC_DIR)/meta/create_video_image.c \
-	$(SRC_DIR)/meta/scening.c \
-	$(SRC_DIR)/meta/save_image_reference.c \
-	$(SRC_DIR)/meta/test_prints.c \
-	$(SRC_DIR)/meta/meta_keycode.c \
-	$(SRC_DIR)/meta/transform_video_scene.c \
-	$(SRC_DIR)/meta/meta_utils.c \
+	$(SRC_DIR)/.meta/create_video_image.c \
+	$(SRC_DIR)/.meta/scening.c \
+	$(SRC_DIR)/.meta/save_image_reference.c \
+	$(SRC_DIR)/.meta/test_prints.c \
+	$(SRC_DIR)/.meta/meta_keycode.c \
+	$(SRC_DIR)/.meta/transform_video_scene.c \
+	$(SRC_DIR)/.meta/meta_utils.c \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/mesh/cam.c \
+	$(SRC_DIR)/mesh/cam_trsf.c \
 	$(SRC_DIR)/mesh/mesh_trsf.c \
 	$(SRC_DIR)/mesh/change_mesh_size.c \
 	$(SRC_DIR)/event/event.c \
-	$(SRC_DIR)/parsing/utils.c \
+	$(SRC_DIR)/parsing/parsing_utils.c \
 	$(SRC_DIR)/exit/exit.c \
 	$(SRC_DIR)/exit/data_store.c \
 	$(SRC_DIR)/exit/data_store_shapes.c \
@@ -82,22 +91,22 @@ SOURCES = \
 	$(SRC_DIR)/rays/colors/mesh_color_effects.c \
 	$(SRC_DIR)/rays/colors/color_effects.c \
 	$(SRC_DIR)/rays/colors/get_sph_pl_bck_color.c \
-	$(SRC_DIR)/rays/get_cylinder_color.c \
-	$(SRC_DIR)/rays/get_cylinder_color_discs.c \
-	$(SRC_DIR)/rays/get_cylinder_color_utils.c \
-	$(SRC_DIR)/rays/is_intersect.c \
+	$(SRC_DIR)/rays/colors/get_cylinder_color.c \
+	$(SRC_DIR)/rays/colors/get_cylinder_color_discs.c \
+	$(SRC_DIR)/rays/colors/get_cylinder_color_utils.c \
 	$(SRC_DIR)/rays/shadows/shadows.c \
 	$(SRC_DIR)/xpm.c \
 	$(SRC_DIR)/rays/shadows/shadows_exclusion.c \
-	$(SRC_DIR)/rays/is_intersect_cylinder.c \
-	$(SRC_DIR)/rays/is_intersect_utils.c \
-	$(SRC_DIR)/rays/find_closest_intersection.c \
+	$(SRC_DIR)/rays/find_closest_intersection/find_closest_intersection.c \
+	$(SRC_DIR)/rays/find_closest_intersection/is_intersect.c \
+	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_cylinder.c \
+	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_utils.c \
 	$(SRC_DIR)/rays/exec_launch_ray.c \
 	$(SRC_DIR)/linear_algebra/vector.c \
 	$(SRC_DIR)/linear_algebra/color.c \
+	$(SRC_DIR)/linear_algebra/color_utils.c \
 	$(SRC_DIR)/linear_algebra/vector_utils.c \
 	$(SRC_DIR)/linear_algebra/vector_utils_2.c \
-	$(SRC_DIR)/linear_algebra/limit.c \
 	$(SRC_DIR)/event/events_keycode.c \
 	$(SRC_DIR)/event/mouse_events.c \
 	$(SRC_DIR)/event/event_reset.c \

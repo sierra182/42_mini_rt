@@ -1,6 +1,8 @@
-#include <math.h>
-#include "se_mini_struct.h"
+#include "vector_utils_2.h"
 
+/**========================================================================
+ *                           ARE_COLLINEAR_VECTORS
+ *========================================================================**/
 int	are_collinear_vectors(t_matrix_vector *cross_prdct, double precision)
 {
 	return (cross_prdct->axis[0] >= -precision
@@ -11,6 +13,9 @@ int	are_collinear_vectors(t_matrix_vector *cross_prdct, double precision)
 		&& cross_prdct->axis[2] <= precision);
 }
 
+/**========================================================================
+ *                           GET_AXIS_RATIO
+ *========================================================================**/
 int	get_axis_ratio(double a, double b, int *ratio)
 {
 	if (b)
@@ -22,6 +27,9 @@ int	get_axis_ratio(double a, double b, int *ratio)
 	return (0);
 }
 
+/**========================================================================
+ *                           ARE_COLLINEAR_VECTORS_DIFF_ORIGIN
+ *========================================================================**/
 int	are_collinear_vectors_diff_origin(double a[], double b[])
 {
 	int	k1;
@@ -35,6 +43,9 @@ int	are_collinear_vectors_diff_origin(double a[], double b[])
 	return (k1 == k2 && k2 == k3);
 }
 
+/**========================================================================
+ *                           CAST_VECTOR_MAT_RAY
+ *========================================================================**/
 void	cast_vector_mat_ray(t_matrix_vector *matrix_vect,
 	t_ray_vector *ray_vect)
 {
@@ -45,6 +56,9 @@ void	cast_vector_mat_ray(t_matrix_vector *matrix_vect,
 		ray_vect->axis[i] = matrix_vect->axis[i];
 }
 
+/**========================================================================
+ *                           IS_EQUAL_VECTOR
+ *========================================================================**/
 int	is_equal_vector(double a[], double b[])
 {
 	int	i;

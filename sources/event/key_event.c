@@ -1,22 +1,4 @@
-#include "se_mini_struct.h"
-#include "mlx.h"
-
-void	reset(t_data *data);
-void	reset_cam(t_data *data);
-void	trsl_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
-void	actual_mesh_handle(t_data *data, t_obj *mesh,
-			t_matrix_vector **origin_vect, t_matrix_vector **dir_vect);
-void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
-void	make_rt_file(t_data *data);
-void	video_rotate_spheres(t_sphere *sphere, int obj_nbr);
-void	chang_mesh_size(t_data *data, int keycode);
-void	event_intensity(int keycode, double *intensity);
-void	cam_event_rotate(int keycode, t_cam *cam);
-void	event_rotate(int keycode, t_matrix_vector *vector);
-void	event_translate(int keycode,
-			void (*trsl_mesh)(t_cam *cam, t_matrix_vector *vect,
-				double values[]), t_cam *cam, t_matrix_vector *vect);
-void	meta_keycode(int keycode, t_data *data, t_mlx *mlx);
+#include "key_event.h"
 
 /**========================================================================
  *                           KEY_CODE_FUNCS
@@ -98,7 +80,6 @@ int	key_event(int keycode, void *param)
 	mlx = (t_mlx *)((void **) param)[0];
 	data = (t_data *)((void **) param)[1];
 	data->refresh = 1;
-	// printf("keycode: %d\n", keycode);
 	key_code_funcs(keycode, data, mlx);
 	data_event_funcs_1(data, keycode);
 	data_event_funcs_2(data, keycode, mlx);

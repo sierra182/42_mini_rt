@@ -5,6 +5,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include "se_mini_struct.h"
+# include "get_next_line.h"
 
 int	all_necessary_elements_are_present(t_data *data, char file_content[]);
 int	elements_data_are_valid(char *map_path);

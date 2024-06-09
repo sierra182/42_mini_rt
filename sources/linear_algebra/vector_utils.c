@@ -1,6 +1,8 @@
-#include <math.h>
-#include "se_mini_struct.h"
+#include "vector_utils.h"
 
+/**========================================================================
+ *                           INVERT_VECTOR
+ *========================================================================**/
 void	invert_vector(double ori[], double dir[],
 	double inv_ori[], double inv_dir[])
 {
@@ -14,6 +16,9 @@ void	invert_vector(double ori[], double dir[],
 	}
 }
 
+/**========================================================================
+ *                           SYMMETRIZE_VECTOR
+ *========================================================================**/
 double	*symmetrize_vector(double vect[])
 {
 	int	i;
@@ -24,13 +29,19 @@ double	*symmetrize_vector(double vect[])
 	return (vect);
 }
 
+/**========================================================================
+ *                           GET_VECTOR_MAGNITUDE
+ *========================================================================**/
 double	get_vector_magnitude(double vector[])
 {
 	return (sqrt(pow(vector[0], 2) + pow(vector[1], 2)
 			+ pow(vector[2], 2)));
 }
 
-void	normalize_vector(double vector[])
+/**========================================================================
+ *                           SELF_NORMALIZE_VECTOR
+ *========================================================================**/
+void	self_normalize_vector(double vector[])
 {
 	int		i;
 	double	magnitude;
@@ -45,10 +56,18 @@ void	normalize_vector(double vector[])
 		vector[i] *= inverse_mag;
 }
 
-void	normalize_zero_one(double *scalar_product, int clamp_flag)
+/**========================================================================
+ *                           NORMALIZE_VECTOR
+ *========================================================================**/
+void	normalize_vector(double vector[], double magnitude, double norm_vect[])
 {
-	if (!clamp_flag)
-		*scalar_product = (*scalar_product + 1) * 0.5;
-	else if (*scalar_product >= -1 && *scalar_product < 0)
-		*scalar_product = 0;
+	int		i;
+	double	inverse_mag;
+
+	if (!magnitude)
+		return ;
+	inverse_mag = 1 / magnitude;
+	i = -1;
+	while (++i < AXIS)
+		norm_vect[i] = vector[i] * inverse_mag;
 }

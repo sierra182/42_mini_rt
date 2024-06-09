@@ -1,23 +1,28 @@
-# include <math.h>
-# include "se_mini_struct.h"
+#include "matrix.h"
 
+/**========================================================================
+ *                           APPLY_MATRIX
+ *========================================================================**/
 void	apply_matrix(t_matrix_vector matrix[], t_matrix_vector *vector,
 	t_matrix_vector *applied_vect)
 {
 	int	i;
 	int	j;
-	
+
 	i = -1;
 	while (++i < MTX)
-	{	
+	{
 		applied_vect->axis[i] = 0.0;
 		j = -1;
 		while (++j < MTX)
 			applied_vect->axis[i] += (matrix[i].axis[j]
 					* vector->axis[j]);
-	}	
+	}
 }
 
+/**========================================================================
+ *                           MULTIPLY_ROWBYCOL
+ *========================================================================**/
 static double	multiply_rowbycol(t_matrix_vector *a_row, t_matrix_vector b[],
 	int col)
 {
@@ -31,6 +36,9 @@ static double	multiply_rowbycol(t_matrix_vector *a_row, t_matrix_vector b[],
 	return (rslt);
 }
 
+/**========================================================================
+ *                           MULTIPLY_MATRIX
+ *========================================================================**/
 void	multiply_matrix(t_matrix_vector a[], t_matrix_vector b[],
 	t_matrix_vector mult_matrix[])
 {
@@ -46,6 +54,9 @@ void	multiply_matrix(t_matrix_vector a[], t_matrix_vector b[],
 	}
 }
 
+/**========================================================================
+ *                           INIT_MATRIX
+ *========================================================================**/
 void	init_matrix(t_matrix_vector matrix[])
 {
 	int	i;

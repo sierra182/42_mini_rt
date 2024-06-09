@@ -1,6 +1,8 @@
-# include "se_mini_struct.h"
-# include <math.h>
+#include "matrix_trsf.h"
 
+/**========================================================================
+ *                           SET_MATRIX_ROTATION
+ *========================================================================**/
 void	set_matrix_rotation(t_matrix_vector matrix[], double angle, int axe[])
 {
 	angle *= M_PI / 180.0;
@@ -27,6 +29,9 @@ void	set_matrix_rotation(t_matrix_vector matrix[], double angle, int axe[])
 	}
 }
 
+/**========================================================================
+ *                           SET_MATRIX_SCALE
+ *========================================================================**/
 void	set_matrix_scale(double matrix[][AXIS], double scale[])
 {
 	int	i;
@@ -36,6 +41,9 @@ void	set_matrix_scale(double matrix[][AXIS], double scale[])
 		matrix[i][i] = scale[i];
 }
 
+/**========================================================================
+ *                           SET_MATRIX_TRANSLATE
+ *========================================================================**/
 void	set_matrix_translate(t_matrix_vector matrix[], double trans[])
 {
 	int	i;
