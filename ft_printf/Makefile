@@ -6,7 +6,7 @@
 #    By: seblin <seblin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/29 08:16:28 by seblin            #+#    #+#              #
-#    Updated: 2024/04/26 11:53:48 by seblin           ###   ########.fr        #
+#    Updated: 2024/06/08 21:40:35 by seblin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,15 +27,15 @@ libft :
 	@$(MAKE) -s -C $(LIBFTDIR)	
 	
 %.o : %.c $(LIBFTPATH) $(HEADER)	
-	@echo "\033[0;32m compiling $<...\033[0m" 🚀
+#	@echo "\033[0;32m compiling $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
 $(NAME) :: $(LIBFTPATH)
-	@echo "\033[0;32m copying $(LIBFTPATH) to $(NAME)...\033[0m 🚀"
+#	@echo "\033[0;32m copying $(LIBFTPATH) to $(NAME)...\033[0m 🚀"
 	@cp $(LIBFTPATH) $(NAME)
 
 $(NAME) :: $(OBJECTS)
-	@echo "\033[0;32m adding $(OBJECTS) to $(NAME)...\033[0m 🚀\n"	
+#	@echo "\033[0;32m adding $(OBJECTS) to $(NAME)...\033[0m 🚀\n"	
 	@ar rcs $@ $(OBJECTS)	
 	
 clean :
