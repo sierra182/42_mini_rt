@@ -181,9 +181,9 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 # 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
-all: intro design mlx ft_printf $(NAME) emoticon		
+all: intro design mlx cursor_start ft_printf $(NAME) emoticon		
 
-l: design newline mlx ft_printf $(NAME)
+l:  design newline mlx ft_printf $(NAME)
 
 $(NAME) : $(OBJECTS)
 	@echo -n "\033[?25l"
@@ -208,6 +208,12 @@ design:
 	@echo "\033[0;32m"
 	@cat mfile_design
 	@echo "\033[0m"
+
+cursor_end:
+	@echo -n "\033[?25l"
+	
+cursor_start:
+	@echo -n "\033[?25h"
 
 emoticon:
 	@echo "\n 🐇 🦄 🦄 🐇\n"
@@ -239,8 +245,6 @@ intro:
 		echo -n "$$j"; \
 		sleep .4; \
 	done
-	@sleep 1
-	@echo "\033[?25h"
 	@$(MAKE) -s backline	
 
 clean:
