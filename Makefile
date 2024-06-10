@@ -10,15 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-#OBJECTS_BONUS = $(SOURCES_BONUS:.c=_bonus.o)
-#SRC_BONUS_DIR = $(BONUS_DIR)/sources
-#NAME_BONUS = $(BONUS_DIR)/$(NAME)
-#BONUS_DIR = bonus
-#HEADERS_BONUS = 
-#SOURCES_BONUS = 
-#CFLAGS_BONUS =
-
-NAME = miniRT
 LIBFT_DIR = ft_printf/libft
 GNL_DIR = gnl
 LIBFTPRINTF = $(FT_PRINTF_DIR)/libftprintf.a
@@ -27,7 +18,12 @@ SRC_DIR = sources
 HEADERS_DIR = include
 MLX_DIR = .mlx_linux
 
+NAME = miniRT
 CC = cc
+
+OBJECTS = $(SOURCES:.c=.o)
+LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
+
 CFLAGS = \
 	-I$(HEADERS_DIR) \
 	-I$(HEADERS_DIR)/event \
@@ -48,10 +44,6 @@ CFLAGS = \
 	-I$(MLX_DIR) \
 	-g -O3 \
 #	-Wall -Wextra -Werror
-
-LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz 
-
-OBJECTS = $(SOURCES:.c=.o)
 
 SOURCES = \
 	$(SRC_DIR)/.meta/create_video_image.c \
@@ -112,43 +104,67 @@ SOURCES = \
 	$(SRC_DIR)/event/event_reset.c \
 	$(SRC_DIR)/event/key_event.c 
 	
-# HEADERS = \
-# 	$(HEADERS_DIR)/exit/exit.h \
-# 	$(HEADERS_DIR)/exit/data_store.h \
-# 	$(HEADERS_DIR)/rays/rays.h \
-# 	$(HEADERS_DIR)/parsing/all_necessary_elements_are_present.h \
-# 	$(HEADERS_DIR)/parsing/check_funcs.h \
-# 	$(HEADERS_DIR)/parsing/elements_data_are_valid.h \
-# 	$(HEADERS_DIR)/parsing/elements_data_are_valid_utils.h \
-# 	$(HEADERS_DIR)/parsing/file_content_is_correct.h \
-# 	$(HEADERS_DIR)/parsing/parse.h \
-# 	$(HEADERS_DIR)/init_data/create_data_structs.h \
-# 	$(HEADERS_DIR)/init_data/fill_struct_funcs.h \
-# 	$(HEADERS_DIR)/init_data/init_data.h \
-# 	$(HEADERS_DIR)/se_camera.h \
-# 	$(HEADERS_DIR)/se_color_image.h \
-# 	$(HEADERS_DIR)/se_events.h \
-# 	$(HEADERS_DIR)/se_exit.h \
-# 	$(HEADERS_DIR)/se_funcs_params.h \
-# 	$(HEADERS_DIR)/se_general.h \
-# 	$(HEADERS_DIR)/se_geometry.h \
-# 	$(HEADERS_DIR)/se_lighting.h \
-# 	$(HEADERS_DIR)/se_mini_struct.h \
-# 	$(HEADERS_DIR)/se_ray_vector.h \
-# 	# $(GNL_DIR)/get_next_line.h \
-	# $(HEADERS_DIR)/x_exit.h \
-	# $(HEADERS_DIR)/x_matrix.h \
-	# $(HEADERS_DIR)/x_linear_algebra.h \
-	# $(HEADERS_DIR)/x_color_effect.h \
-	# $(HEADERS_DIR)/x_ray_vector.h \
-	# $(HEADERS_DIR)/x_camera.h \
-	# $(HEADERS_DIR)/x_geometry.h \
-	# $(HEADERS_DIR)/x_lighting.h \
-	# $(HEADERS_DIR)/x_general.h \
-	# $(HEADERS_DIR)/x_exit.h \
-	# $(HEADERS_DIR)/x_events.h \
-	# $(HEADERS_DIR)/x_funcs_params.h \
-	# $(HEADERS_DIR)/main.h \
+HEADERS = \
+	$(HEADERS_DIR)/event/event_reset.h \
+	$(HEADERS_DIR)/event/event.h \
+	$(HEADERS_DIR)/event/events_keycode.h \
+	$(HEADERS_DIR)/event/key_event.h \
+	$(HEADERS_DIR)/event/mouse_events.h \
+	$(HEADERS_DIR)/exit/data_store_shapes.h \
+ 	$(HEADERS_DIR)/exit/data_store.h \
+ 	$(HEADERS_DIR)/exit/exit.h \
+	$(HEADERS_DIR)/init_data/create_data_structs.h \
+	$(HEADERS_DIR)/init_data/fill_struct_funcs_2.h \
+	$(HEADERS_DIR)/init_data/fill_struct_funcs.h \
+	$(HEADERS_DIR)/init_data/init_data.h \
+	$(HEADERS_DIR)/linear_algebra/color_utils.h \
+	$(HEADERS_DIR)/linear_algebra/color.h \
+	$(HEADERS_DIR)/linear_algebra/vector_utils_2.h \
+	$(HEADERS_DIR)/linear_algebra/vector_utils.h \
+	$(HEADERS_DIR)/linear_algebra/vector.h \
+	$(HEADERS_DIR)/matrix/matrix_trsf.h \
+	$(HEADERS_DIR)/matrix/matrix.h \
+	$(HEADERS_DIR)/mesh/cam_trsf.h \
+	$(HEADERS_DIR)/mesh/cam.h \
+	$(HEADERS_DIR)/mesh/change_mesh_size.h \
+	$(HEADERS_DIR)/mesh/mesh_trsf.h \
+	$(HEADERS_DIR)/parsing/all_necessary_elements_are_present.h \
+	$(HEADERS_DIR)/parsing/check_funcs.h \
+	$(HEADERS_DIR)/parsing/elements_data_are_valid_utils.h \
+	$(HEADERS_DIR)/parsing/elements_data_are_valid.h \
+	$(HEADERS_DIR)/parsing/file_content_is_correct.h \
+	$(HEADERS_DIR)/parsing/parse.h \
+	$(HEADERS_DIR)/parsing/parsing_utils.h \
+	$(HEADERS_DIR)/rays/colors/color_effects.h \
+	$(HEADERS_DIR)/rays/colors/get_cylinder_color_discs.h \
+	$(HEADERS_DIR)/rays/colors/get_cylinder_color_utils.h \
+	$(HEADERS_DIR)/rays/colors/get_cylinder_color.h \
+	$(HEADERS_DIR)/rays/colors/get_sph_pl_bck_color.h \
+	$(HEADERS_DIR)/rays/colors/mesh_color_effects.h \
+	$(HEADERS_DIR)/rays/find_closest_intersection/find_closest_intersection.h \
+	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_cylinder.h \
+	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_utils.h \
+	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect.h \
+	$(HEADERS_DIR)/rays/shadows/shadows_exclusion.h \
+	$(HEADERS_DIR)/rays/shadows/shadows.h \
+	$(HEADERS_DIR)/rays/exec_launch_ray.h \
+	$(HEADERS_DIR)/rays/ray_utils.h \
+	$(HEADERS_DIR)/rays/rays.h \
+	$(HEADERS_DIR)/z_main/main.h \
+	$(HEADERS_DIR)/z_main/se_camera.h \
+	$(HEADERS_DIR)/z_main/se_color_image.h \
+	$(HEADERS_DIR)/z_main/se_events.h \
+	$(HEADERS_DIR)/z_main/se_exit.h \
+	$(HEADERS_DIR)/z_main/se_funcs_params.h \
+	$(HEADERS_DIR)/z_main/se_general.h \
+	$(HEADERS_DIR)/z_main/se_geometry.h \
+	$(HEADERS_DIR)/z_main/se_lighting.h \
+	$(HEADERS_DIR)/z_main/se_mini_struct.h \
+	$(HEADERS_DIR)/z_main/se_ray_vector.h \
+	$(HEADERS_DIR)/z_main/x_color_effect.h \
+	$(HEADERS_DIR)/z_main/x_linear_algebra.h \
+	$(HEADERS_DIR)/z_main/x_matrix.h \
+	$(HEADERS_DIR)/z_main/xpm.h
 
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
 #bonus
