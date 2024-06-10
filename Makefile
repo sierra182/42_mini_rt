@@ -181,9 +181,9 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 # 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
-all: intro mlx ft_printf $(NAME) emoticon		
+all: intro design mlx ft_printf $(NAME) emoticon		
 
-l: newline mlx ft_printf $(NAME)
+l: design newline mlx ft_printf $(NAME)
 
 $(NAME) : $(OBJECTS)
 	@echo -n "\033[?25l"
@@ -202,6 +202,10 @@ ft_printf: emoticon
 #	@$(MAKE) -s -C $(LIBFT_DIR) bonus 
 	@$(MAKE) -s -C $(FT_PRINTF_DIR) 
 
+design:
+	@echo "\033[0;32m"
+	@cat mfile_design
+	@echo "\033[0m"
 
 emoticon:
 	@echo "\n 💗 😀 😃 😍\n"
@@ -226,16 +230,16 @@ intro:
 	for (i = 1; i <= length($$0); i++) \
 	{printf "%s", chars[i]; system("sleep 0.2");}} \
 	system("sleep 1");'
-	@echo "\n\n"
+	@echo "\n"
 # @words="\n\n\tFollow \n\t\tthe \t\b\b\033[0;96mColored! \
 # \n\n\t\t\b\b\b\b\b\b\033[1;95mUnicorne!\033[0m...🦄\n\n"; \
 # for j in $${words}; do \
 # 	echo -n "$$j"; \
 # 	sleep .4; \
 # done
-	@sleep 1
-	@cat mfile_design
-	@$(MAKE) -s emoticon
+#	@sleep 1
+#	@cat mfile_design
+#	@$(MAKE) -s emoticon
 	@echo "\033[?25h"
 	@$(MAKE) -s backline	
 
