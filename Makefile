@@ -188,8 +188,8 @@ l: design newline mlx ft_printf $(NAME)
 $(NAME) : $(OBJECTS)
 	@echo -n "\033[?25l"
 	@$(MAKE) -s backline
-	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b compiled            ✅\033[0m"
-	@sleep 2
+	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b compiled            ✅\033[0m"	
+	@sleep 1
 	@echo "\033[0;36m linking...          🚀 "
 	@sleep 1
 	@$(MAKE) -s backline
