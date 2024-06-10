@@ -173,7 +173,7 @@ TOG = 0
 $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 	@if [ $(TOG) -eq 0 ]; then \
 		echo -n "\033[0;32m compiling...        🚀 "; \
-	fi;
+	fi;	
 	$(eval TOG=1)
 	@$(CC) $(CFLAGS) $< -c -o $@
 
@@ -186,12 +186,14 @@ all: intro mlx ft_printf $(NAME) emoticon
 l: newline mlx ft_printf $(NAME)
 
 $(NAME) : $(OBJECTS)
+	@echo -n "\033[?25l"
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b compiled            ✅\033[0m"
 	@sleep 2
 	@echo -n "\033[0;36m linking...          🚀 "
 	@sleep 1	
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b linked              ☑️\n\033[0m"
+	@echo -n "\033[?25h"
 
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
