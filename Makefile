@@ -167,7 +167,6 @@ HEADERS = \
 	$(HEADERS_DIR)/z_main/xpm.h
 
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
-#bonus
 
 $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
@@ -177,18 +176,15 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
-# $(BONUS_DIR)/%_bonus.o : $(BONUS_DIR)/%.c $(LIBFTPRINTF) $(HEADERS) 
-# 	@echo "\033[0;32m compiling $(NAME) object bonus $<...\033[0m" 🚀
-# 	@$(CC) $(CFLAGS) $(CFLAGS_BONUS) $< -c -o $@
-
-# $(GNL_DIR)/%_bonus.o : $(GNL_DIR)/%.c $(HEADERS)
-# 	@echo "\033[0;32m compiling $(NAME) object bonus $<...\033[0m" 🚀
-# 	@$(CC) $(CFLAGS) $< -c -o $@
-
 #all: intro mlx ft_printf $(NAME) emoticon		
 
 l: newline mlx ft_printf $(NAME)
 
+$(NAME) : $(OBJECTS) 
+	@echo "\n\033[0;32m linking $(NAME) objects \
+	with $(LIBFTPRINTF)...\033[0m 🚀\n\n 💗 💎 💎 💗\n"
+	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
+	
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
 
@@ -196,18 +192,6 @@ ft_printf: emoticon
 #	@$(MAKE) -s -C $(LIBFT_DIR) bonus 
 	@$(MAKE) -s -C $(FT_PRINTF_DIR) 
 
-$(NAME) : $(OBJECTS) 
-	@echo "\n\033[0;32m linking $(NAME) objects \
-	with $(LIBFTPRINTF)...\033[0m 🚀\n\n 💗 💎 💎 💗\n"
-	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
-
-# bonus: ft_printf $(NAME_BONUS)
-# 	@echo " 💎 🧯 🔥 😵\n"
-
-# $(NAME_BONUS) : $(OBJECTS_BONUS)
-# 	@echo "\n\033[0;32m linking $(NAME) objects and objects bonus with
-#   $(LIBFTPRINTF) to $(NAME_BONUS) \033[0m 🚀\n"
-# 	@$(CC) $(OBJECTS_BONUS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 
 emoticon:
 	@echo "\n 💗 😀 😃 😍\n"
