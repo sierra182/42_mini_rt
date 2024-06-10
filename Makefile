@@ -47,7 +47,7 @@ CFLAGS = \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-g -O3 \
-	-Wall -Wextra -Werror
+	# -Wall -Wextra -Werror
 
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz 
 
@@ -150,7 +150,7 @@ SOURCES = \
 	# $(HEADERS_DIR)/x_funcs_params.h \
 	# $(HEADERS_DIR)/main.h \
 
-TICK = 0
+export TICK = 0
 
 .PHONY: all mlx ft_printf clean fclean re intro l \
 	newline backline emoticon check_compile
@@ -185,24 +185,32 @@ ft_printf: emoticon
 
 check_compile:
 	@needs_compile=false; \
+	truc=false; \
 	for obj in $(OBJECTS); do \
 		if [ ! -f $$obj ] || [ "$$obj" -ot "$${obj%.o}.c" ]; then \
 			needs_compile=true \
+			truc=true; \
 			break; \
 		fi \
 	done; \
 	if $$needs_compile; then \
 		echo -n "\033[0;33mCompiling objects...\033[0m"; \
-		$(eval TICK=1) \
 	else \
-		$(eval TICK=0) echo "chatte";  echo "cul"; \
+		echo "chatte"; \
+		echo "cul"; \
+	fi; \
+	if $$truc; then \
+		$(MAKE) TICK=87 internal_set_condition; \
 	fi
-	
+
+internal_set_condition:
+	@echo "Condition définie à 1"
+
 $(NAME) : check_compile $(OBJECTS) 
 	@if [ $(TICK) -eq 1 ]; then \
 		echo "\b\b\b  ✅\n"; \
 	fi
-
+	@echo $(TICK);
 	@sleep 1
 	@echo "\n\n\033[0;32m linking $(NAME) objects \
 	with $(LIBFTPRINTF)...\033[0m 🚀\n\n 💗 💎 💎 💗\n"
