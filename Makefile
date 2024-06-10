@@ -172,7 +172,7 @@ TOG = 0
 
 $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 	@if [ $(TOG) -eq 0 ]; then \
-		echo "\033[0;32m compiling...\033[0m" 🚀; \
+		echo -n "\033[0;32m compiling...        🚀 "; \
 	fi;
 	$(eval TOG=1)
 	@$(CC) $(CFLAGS) $< -c -o $@
@@ -181,15 +181,17 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 # 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
-#all: intro mlx ft_printf $(NAME) emoticon		
+all: intro mlx ft_printf $(NAME) emoticon		
 
 l: newline mlx ft_printf $(NAME)
 
 $(NAME) : $(OBJECTS)
-	@echo "\b\b\b "
-	@echo "\n\033[0;32m linking $(NAME) objects \
-	with $(LIBFTPRINTF)...\033[0m 🚀\n\n 💗 💎 💎 💗\n"
+	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b compiled            ✅\033[0m"
+	@sleep 2
+	@echo -n "\033[0;32m linking...          🚀 "
+	@sleep 1	
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
+	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b linked              ✅\n"
 
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
@@ -221,14 +223,15 @@ intro:
 	echo "\033[1;92m$$letters\033[0m" | awk '{split($$0, chars, ""); \
 	for (i = 1; i <= length($$0); i++) \
 	{printf "%s", chars[i]; system("sleep 0.2");}} \
-	system("sleep 1");' 
-	@words="\n\n\tFollow \n\t\tthe \t\b\b\033[0;96mColored! \
-	\n\n\t\t\b\b\b\b\b\b\033[1;95mUnicorne!\033[0m...🦄\n\n"; \
-	for j in $${words}; do \
-		echo -n "$$j"; \
-		sleep .4; \
-	done
-	@sleep .4
+	system("sleep 1");'
+	@echo "\n\n"
+# @words="\n\n\tFollow \n\t\tthe \t\b\b\033[0;96mColored! \
+# \n\n\t\t\b\b\b\b\b\b\033[1;95mUnicorne!\033[0m...🦄\n\n"; \
+# for j in $${words}; do \
+# 	echo -n "$$j"; \
+# 	sleep .4; \
+# done
+	@sleep 1
 	@cat mfile_design
 	@$(MAKE) -s emoticon
 	@echo "\033[?25h"
