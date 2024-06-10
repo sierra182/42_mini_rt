@@ -42,7 +42,7 @@ CFLAGS = \
 	-I$(LIBFT_DIR) \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
-	-g -O3 \
+	-O3 \
 #	-Wall -Wextra -Werror
 
 SOURCES = \
@@ -233,15 +233,13 @@ intro:
 	{printf "%s", chars[i]; system("sleep 0.2");}} \
 	system("sleep 1");'
 	@echo "\n"
-# @words="\n\n\tFollow \n\t\tthe \t\b\b\033[0;96mColored! \
-# \n\n\t\t\b\b\b\b\b\b\033[1;95mUnicorne!\033[0m...🦄\n\n"; \
-# for j in $${words}; do \
-# 	echo -n "$$j"; \
-# 	sleep .4; \
-# done
-#	@sleep 1
-#	@cat mfile_design
-#	@$(MAKE) -s emoticon
+	@words="\n\n\tFollow \n\t\tthe \t\b\b\033[0;96mColored! \
+	\n\n\t\t\b\b\b\b\b\b\033[1;95mUnicorne!\033[0m...🦄\n\n"; \
+	for j in $${words}; do \
+		echo -n "$$j"; \
+		sleep .4; \
+	done
+	@sleep 1
 	@echo "\033[?25h"
 	@$(MAKE) -s backline	
 
