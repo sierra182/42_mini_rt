@@ -168,23 +168,29 @@ HEADERS = \
 
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
 
+TOG = 0
+
 $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
-	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
+	@if [ $(TOG) -eq 0 ]; then \
+		echo "\033[0;32m compiling...\033[0m" 🚀; \
+	fi;
+	$(eval TOG=1)
 	@$(CC) $(CFLAGS) $< -c -o $@
 
 $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
-	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
+# 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
 #all: intro mlx ft_printf $(NAME) emoticon		
 
 l: newline mlx ft_printf $(NAME)
 
-$(NAME) : $(OBJECTS) 
+$(NAME) : $(OBJECTS)
+	@echo "\b\b\b "
 	@echo "\n\033[0;32m linking $(NAME) objects \
 	with $(LIBFTPRINTF)...\033[0m 🚀\n\n 💗 💎 💎 💗\n"
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
-	
+
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
 
