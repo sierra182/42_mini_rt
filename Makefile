@@ -188,10 +188,10 @@ l: newline mlx ft_printf $(NAME)
 $(NAME) : $(OBJECTS)
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b compiled            ✅\033[0m"
 	@sleep 2
-	@echo -n "\033[0;32m linking...          🚀 "
+	@echo -n "\033[0;36m linking...          🚀 "
 	@sleep 1	
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
-	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b linked              ✅\n"
+	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b linked              ☑️\n\033[0m"
 
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
