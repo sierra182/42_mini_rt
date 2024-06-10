@@ -47,7 +47,7 @@ CFLAGS = \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-g -O3 \
-	# -Wall -Wextra -Werror
+#	-Wall -Wextra -Werror
 
 LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz 
 
@@ -150,18 +150,15 @@ SOURCES = \
 	# $(HEADERS_DIR)/x_funcs_params.h \
 	# $(HEADERS_DIR)/main.h \
 
-export TICK = 0
-
-.PHONY: all mlx ft_printf clean fclean re intro l \
-	newline backline emoticon check_compile
+.PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
 #bonus
 
 $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
-#	 @echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
+	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
 $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
-#	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
+	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
 # $(BONUS_DIR)/%_bonus.o : $(BONUS_DIR)/%.c $(LIBFTPRINTF) $(HEADERS) 
@@ -183,36 +180,8 @@ ft_printf: emoticon
 #	@$(MAKE) -s -C $(LIBFT_DIR) bonus 
 	@$(MAKE) -s -C $(FT_PRINTF_DIR) 
 
-check_compile:
-	@needs_compile=false; \
-	truc=false; \
-	for obj in $(OBJECTS); do \
-		if [ ! -f $$obj ] || [ "$$obj" -ot "$${obj%.o}.c" ]; then \
-			needs_compile=true \
-			truc=true; \
-			break; \
-		fi \
-	done; \
-	if $$needs_compile; then \
-		echo -n "\033[0;33mCompiling objects...\033[0m"; \
-	else \
-		echo "chatte"; \
-		echo "cul"; \
-	fi; \
-	if $$truc; then \
-		$(MAKE) TICK=87 internal_set_condition; \
-	fi
-
-internal_set_condition:
-	@echo "Condition définie à 1"
-
-$(NAME) : check_compile $(OBJECTS) 
-	@if [ $(TICK) -eq 1 ]; then \
-		echo "\b\b\b  ✅\n"; \
-	fi
-	@echo $(TICK);
-	@sleep 1
-	@echo "\n\n\033[0;32m linking $(NAME) objects \
+$(NAME) : $(OBJECTS) 
+	@echo "\n\033[0;32m linking $(NAME) objects \
 	with $(LIBFTPRINTF)...\033[0m 🚀\n\n 💗 💎 💎 💗\n"
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 
