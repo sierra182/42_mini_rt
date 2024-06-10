@@ -43,7 +43,7 @@ CFLAGS = \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-O3 \
-#	-Wall -Wextra -Werror
+	-Wall -Wextra -Werror
 
 SOURCES = \
 	$(SRC_DIR)/.meta/create_video_image.c \
@@ -211,7 +211,7 @@ design:
 
 cursor_end:
 	@echo -n "\033[?25l"
-	
+
 cursor_start:
 	@echo -n "\033[?25h"
 
