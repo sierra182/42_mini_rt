@@ -75,6 +75,7 @@ SOURCES = \
 	$(SRC_DIR)/init_data/fill_struct_funcs.c \
 	$(SRC_DIR)/init_data/fill_struct_funcs_2.c \
 	$(SRC_DIR)/init_data/create_data_structs.c \
+	$(SRC_DIR)/init_data/xpm.c \
 	$(SRC_DIR)/parsing/check_funcs.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
@@ -87,7 +88,6 @@ SOURCES = \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_discs.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_utils.c \
 	$(SRC_DIR)/rays/shadows/shadows.c \
-	$(SRC_DIR)/xpm.c \
 	$(SRC_DIR)/rays/shadows/shadows_exclusion.c \
 	$(SRC_DIR)/rays/find_closest_intersection/find_closest_intersection.c \
 	$(SRC_DIR)/rays/find_closest_intersection/is_intersect.c \
@@ -117,6 +117,7 @@ HEADERS = \
 	$(HEADERS_DIR)/init_data/fill_struct_funcs_2.h \
 	$(HEADERS_DIR)/init_data/fill_struct_funcs.h \
 	$(HEADERS_DIR)/init_data/init_data.h \
+	$(HEADERS_DIR)/init_data/xpm.h \
 	$(HEADERS_DIR)/linear_algebra/color_utils.h \
 	$(HEADERS_DIR)/linear_algebra/color.h \
 	$(HEADERS_DIR)/linear_algebra/vector_utils_2.h \
@@ -164,8 +165,7 @@ HEADERS = \
 	$(HEADERS_DIR)/z_main/x_color_effect.h \
 	$(HEADERS_DIR)/z_main/x_linear_algebra.h \
 	$(HEADERS_DIR)/z_main/x_matrix.h \
-	$(HEADERS_DIR)/z_main/xpm.h
-
+	
 .PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
 
 TOG = 0
