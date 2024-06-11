@@ -53,6 +53,8 @@ int	data_str_is_valid(char *str)
 		data_str = "10,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt,fl";
 	else if (!ft_strcmp(token, "cy"))
 		data_str = "12,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt,fl";
+	else if (!ft_strcmp(token, "tr"))
+		data_str = "13,fl,fl,fl,fl,fl,fl,fl,fl,fl,byt,byt,byt,fl";
 	else if (!ft_strncmp(token, "#", 1))
 		return (1);
 	else
