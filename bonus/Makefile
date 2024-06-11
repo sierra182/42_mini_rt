@@ -77,8 +77,8 @@ SOURCES = \
 	$(SRC_DIR)/init_data/create_data_structs_bonus.c \
 	$(SRC_DIR)/init_data/xpm_bonus.c \
 	$(SRC_DIR)/parsing/check_funcs_bonus.c \
-	$(GNL_DIR)/get_next_line_bonus.c \
-	$(GNL_DIR)/get_next_line_utils_bonus.c \
+	$(GNL_DIR)/get_next_line.c \
+	$(GNL_DIR)/get_next_line_utils.c \
 	$(SRC_DIR)/rays/rays_bonus.c \
 	$(SRC_DIR)/rays/ray_utils_bonus.c \
 	$(SRC_DIR)/rays/colors/mesh_color_effects_bonus.c \
