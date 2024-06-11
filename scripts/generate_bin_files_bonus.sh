@@ -20,7 +20,7 @@ for ((i=0; i<total_files; i++)); do
     mkdir -p "$bin_folder"
     echo "Dossier $bin_folder créé."
 fi
-    ./miniRT "$rt_file" &
+    ./bonus/miniRT_bonus "$rt_file" &
     sleep 1
     while [ ! -f "file_0.bin" ]; do
         sleep 1
