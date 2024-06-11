@@ -16,9 +16,9 @@ LIBFTPRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 LIBFT_DIR = $(FT_PRINTF_DIR)/libft
 SRC_DIR = sources
 HEADERS_DIR = include
-MLX_DIR = ../.mlx_linux
+MLX_DIR = ../.mlx_linux	
 
-NAME = miniRT
+NAME = miniRT_bonus
 CC = cc
 
 OBJECTS = $(SOURCES:.c=.o)
@@ -181,9 +181,9 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 # 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
-# all: intro design mlx cursor_start ft_printf $(NAME) emoticon		
+# all: intro design mlx cursor_start ft_printf $(NAME)	
 
-all:  design newline mlx ft_printf $(NAME) emoticon
+all:  design newline mlx ft_printf $(NAME) 
 
 $(NAME) : $(OBJECTS)
 	@echo -n "\033[?25l"
@@ -195,7 +195,6 @@ $(NAME) : $(OBJECTS)
 	@$(MAKE) -s backline
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b linked              ☑️\n\033[0m"
-	@echo -n "\033[?25h"
 
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
@@ -220,7 +219,7 @@ emoticon:
 
 newline: 
 	@echo ""
-
+	
 backline: 
 	@echo "\033[A\033[A"
 
