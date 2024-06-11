@@ -1,5 +1,5 @@
 #include "libft.h"
-
+#include <stdio.h>
 /**========================================================================
  *                           FILL_TAB
  *========================================================================**/
@@ -17,8 +17,10 @@ double	*fill_tab(char *str, double tab[])
 	{
 		token = ft_strtok(NULL, ", \t\n");
 		if (token)
-		{
+		{ 
 			tab[i] = ft_atof(token);
+			if (!ft_strcmp(token, "checkerboard"))
+				tab[i] = -42;
 		}
 		i++;
 	}

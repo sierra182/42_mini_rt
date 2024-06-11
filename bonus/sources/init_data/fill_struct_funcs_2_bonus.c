@@ -18,7 +18,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[0] = tab[4];
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
-	if (tab[7])
+	if (tab[7] == -42)
 		data->spheres[i].checkerboard = 1;
 	else
 		data->spheres[i].checkerboard = 0;
@@ -50,7 +50,7 @@ void	fill_struct_cy(t_data *data, double tab[])
 	data->cylinders[i].color.rgb[0] = tab[8];
 	data->cylinders[i].color.rgb[1] = tab[9];
 	data->cylinders[i].color.rgb[2] = tab[10];
-	if (tab[11])
+	if (tab[11] == -42)
 		data->cylinders[i].checkerboard = 1;
 	else
 		data->cylinders[i].checkerboard = 0;
@@ -77,7 +77,7 @@ void	fill_struct_pl(t_data *data, double tab[])
 	data->planes[i].color.rgb[0] = tab[6];
 	data->planes[i].color.rgb[1] = tab[7];
 	data->planes[i].color.rgb[2] = tab[8];
-	if (tab[9])
+	if (tab[9] == -42)
 		data->planes[i].checkerboard = 1;
 	else
 		data->planes[i].checkerboard = 0;
