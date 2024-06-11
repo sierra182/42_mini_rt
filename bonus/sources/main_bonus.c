@@ -25,6 +25,8 @@ int	main(int argc, char **argv, char **envp)
 	if (init_data(argv[1], &data) == 0)
 		return (display_error("data init. error\n"), 3);
 	is_it_a_test(&data, envp);
+	if (data.is_test == 2)
+		return (0);
 	if (generate_video_frames(&data, envp))
 		return (0);
 	if (init_mlx(&mlx))
