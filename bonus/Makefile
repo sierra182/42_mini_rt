@@ -43,7 +43,7 @@ CFLAGS = \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-O3 \
-	-Wall -Wextra -Werror
+#	-Wall -Wextra -Werror
 
 SOURCES = \
 	$(SRC_DIR)/.meta/create_video_image_bonus.c \
@@ -183,7 +183,7 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 
 # all: intro design mlx cursor_start ft_printf $(NAME) emoticon		
 
-l:  design newline mlx ft_printf $(NAME)
+all:  design newline mlx ft_printf $(NAME)
 
 $(NAME) : $(OBJECTS)
 	@echo -n "\033[?25l"
