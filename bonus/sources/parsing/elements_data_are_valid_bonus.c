@@ -1,5 +1,6 @@
 #include "elements_data_are_valid_bonus.h"
 #include <stdio.h>
+int	file_exists(char *map_path);
 
 /**========================================================================
  *                           ELEMENTS_DATA_ARE_VALID
@@ -87,6 +88,15 @@ int	check_data(char *token, char *check)
 	return (1);
 }
 
+int	is_valid_png(char *str)
+{
+	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".png") && file_exists(str))
+		return (1);
+	printf("str: %s\n", &str[ft_strlen(str) - 4]);
+	return (0);
+	
+}
+
 /**========================================================================
  *                           CHECK_DATA_NBRS
  *========================================================================**/
@@ -107,7 +117,7 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "fl") && !chck_fl(token, FL))
 			return (0);
-		if (num[*i] && !ft_strcmp(num[*i], "check") && token && ft_strcmp(token, "checkerboard"))
+		if (num[*i] && !ft_strcmp(num[*i], "check") && token && (ft_strcmp(token, "checkerboard") && !is_valid_png(token)))
 			return (0);
 		(*i)++;
 	}
