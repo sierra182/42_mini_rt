@@ -17,35 +17,8 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
-/**========================================================================
- *                           CLAMP_0
- *========================================================================**/
-double	clamp_0(double *num)
-{
-	if (*num < 0)
-		*num = 0;
-	return (*num);
-}
 
-#include <math.h>
-double	calculate_light_reflexion(t_ray *ray, t_ray_pack *light_ray, t_ray_vector *normal)
-{
-	t_ray	light_reflx;
-	
-	double 			scalar_nl;
-	t_ray_vector 	scaled_norm;
-	double 			scalar_rl;
-
-	scalar_nl = 2 *scalar_product(normal->axis, light_ray->ray_norm.dir_vect.axis);
-	scale_vector(normal->axis, scalar_nl, scaled_norm.axis);
-	subtract_vector(scaled_norm.axis, light_ray->ray.dir_vect.axis, light_reflx.dir_vect.axis);
-	self_normalize_vector(light_reflx.dir_vect.axis);
-	scalar_rl = scalar_product(light_reflx.dir_vect.axis, ray->dir_vect.axis);
-	
-	double i_spec;
-	i_spec =  pow(clamp_0(&scalar_rl), 2) * 1;
-	printf("ispec: %f\n", i_spec);
-}
+int	calculate_spotlight_effect2(t_ray *ray, t_calc_spotlight_effect_params *params);
 
 /**========================================================================
  *                           GET_SPHERE_COLOR
@@ -60,7 +33,6 @@ int	get_sphere_color(t_get_color_params *params)
 
 	sphere = (t_sphere *) params->mesh->ref;
 	compute_sph_normal_and_light_ray(params, sphere, &normal, &light_ray);
-	calculate_light_reflexion(params->ray,  &light_ray, &normal);
 	calculate_ambiant_effect(params, &sphere->color, &normal,
 		&ambiantly_color);
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
@@ -71,7 +43,7 @@ int	get_sphere_color(t_get_color_params *params)
 		apply_aces_tonemap(params->color);
 		return (0);
 	}
-	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+	calculate_spotlight_effect2(params->ray, &(t_calc_spotlight_effect_params)
 	{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	apply_aces_tonemap(params->color);
