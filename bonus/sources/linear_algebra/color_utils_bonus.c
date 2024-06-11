@@ -14,15 +14,6 @@ void	clamp_255(t_color *color)
 }
 
 /**========================================================================
- *                           CLAMP_0
- *========================================================================**/
-void	clamp_0(double *num)
-{
-	if (*num < 0)
-		*num = 0;
-}
-
-/**========================================================================
  *                           GET_COLOR
  *========================================================================**/
 int	get_color(unsigned char r, unsigned char g, unsigned char b)
@@ -40,11 +31,3 @@ void	normalize_zero_one(double *scalar_product, int clamp_flag)
 	else if (*scalar_product >= -1 && *scalar_product < 0)
 		*scalar_product = 0;
 }
-
-// void clamp_color(t_color *color, int min, int max) {
-//     int i;
-//     for (i = 0; i < AXIS; ++i) {
-//         if (color->rgb[i] < min) color->rgb[i] = min;
-//         if (color->rgb[i] > max) color->rgb[i] = max;
-//     }
-// }
