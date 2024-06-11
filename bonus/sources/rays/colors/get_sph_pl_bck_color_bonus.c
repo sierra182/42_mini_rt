@@ -17,6 +17,27 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
+void	calculate_light_reflexion(t_ray *light_ray, t_ray_vector *normal)
+{
+	t_ray	light_reflx;
+	
+	double 			scalar_nl;
+	t_ray_vector 	scaled_norm;
+	
+	scalar_nl = 2 *scalar_product(normal->axis, light_ray->dir_vect.axis);
+	scale_vector(normal->axis, scalar_nl, scaled_norm.axis);
+	subtract_vector(scaled_norm.axis, light_ray->dir_vect.axis, light_reflx.dir_vect.axis);
+	
+	printf("light ,ref or: %f, %f, %f\n", light_reflx.origin_vect.axis[0], light_reflx.origin_vect.axis[1], light_reflx.origin_vect.axis[2]);
+	printf("light ,ref dir: %f, %f, %f\n", light_reflx.dir_vect.axis[0], light_reflx.dir_vect.axis[1], light_reflx.dir_vect.axis[2]);
+
+	printf("light , or: %f, %f, %f\n", light_ray->origin_vect.axis[0], light_ray->origin_vect.axis[1], light_ray->origin_vect.axis[2]);
+	printf("light , dir: %f, %f, %f\n", light_ray->dir_vect.axis[0], light_ray->dir_vect.axis[1], light_ray->dir_vect.axis[2]);
+	symmetrize_vector(light_ray->dir_vect.axis);
+	printf("light ,sym or: %f, %f, %f\n", light_ray->origin_vect.axis[0], light_ray->origin_vect.axis[1], light_ray->origin_vect.axis[2]);
+	printf("light ,sym dir: %f, %f, %f\n", light_ray->dir_vect.axis[0], light_ray->dir_vect.axis[1], light_ray->dir_vect.axis[2]);
+}
+
 /**========================================================================
  *                           GET_SPHERE_COLOR
  *========================================================================**/
@@ -27,9 +48,10 @@ int	get_sphere_color(t_get_color_params *params)
 	t_color			ambiantly_color;
 	t_color			spotlighty_color;
 	t_sphere		*sphere;
-//
+
 	sphere = (t_sphere *) params->mesh->ref;
 	compute_sph_normal_and_light_ray(params, sphere, &normal, &light_ray);
+	calculate_light_reflexion(&light_ray.ray, &normal);
 	calculate_ambiant_effect(params, &sphere->color, &normal,
 		&ambiantly_color);
 	if (is_sphere_surface_between(params->mesh->ref, &params->data->spotlight)
