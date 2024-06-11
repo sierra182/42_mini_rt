@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT_DIR = ft_printf/libft
 GNL_DIR = gnl
-LIBFTPRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 FT_PRINTF_DIR = ft_printf
+LIBFTPRINTF = $(FT_PRINTF_DIR)/libftprintf.a
+LIBFT_DIR = $(FT_PRINTF_DIR)/libft
 SRC_DIR = sources
 HEADERS_DIR = include
 MLX_DIR = .mlx_linux
