@@ -195,7 +195,8 @@ $(NAME) : $(OBJECTS)
 	@$(MAKE) -s backline
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b linked              ☑️\n\033[0m"
-
+	@echo -n "\033[?25h"
+	
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
 
