@@ -107,8 +107,8 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "fl") && !chck_fl(token, FL))
 			return (0);
-		if (num[*i] && !ft_strcmp(num[*i], "check") && token)
-			printf("token: %s\n", token);
+		if (num[*i] && !ft_strcmp(num[*i], "check") && token && ft_strcmp(token, "checkerboard"))
+			return (0);
 		(*i)++;
 	}
 	return (1);
