@@ -75,7 +75,7 @@ double	calculate_light_reflexion(t_ray *ray, t_ray_pack *light_ray, t_ray_vector
 	//symmetrize_vector(light_reflx.dir_vect.axis);
 	scalar_rl = scalar_product(light_reflx.dir_vect.axis, ray->dir_vect.axis);
 	double i_spec;
-	i_spec =  pow(clamp_0(scalar_rl), 200) * 1;
+	i_spec =  pow(clamp_0(scalar_rl), 200) * 100;
 	printf("ispec: %f\n", i_spec);
 	return (i_spec);
 }
