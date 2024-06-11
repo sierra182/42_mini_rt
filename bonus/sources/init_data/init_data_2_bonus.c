@@ -1,5 +1,7 @@
 #include "libft.h"
 #include <stdio.h>
+int	is_valid_png(char *str);
+
 /**========================================================================
  *                           FILL_TAB
  *========================================================================**/
@@ -7,6 +9,7 @@ double	*fill_tab(char *str, double tab[])
 {
 	int		i;
 	char	*token;
+	static int	j = 1;
 
 	i = 0;
 	while (i < 20)
@@ -21,6 +24,12 @@ double	*fill_tab(char *str, double tab[])
 			tab[i] = ft_atof(token);
 			if (!ft_strcmp(token, "checkerboard"))
 				tab[i] = -42;
+			if (is_valid_png(token))
+			{
+				tab[i] = -(j);
+				j++;
+				printf("oh mon dieu: %s, %i\n", token, (int)tab[i]);
+			}
 		}
 		i++;
 	}
