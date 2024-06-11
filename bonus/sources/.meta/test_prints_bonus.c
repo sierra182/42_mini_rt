@@ -1,4 +1,4 @@
-#include "se_mini_struct.h"
+#include "se_mini_struct_bonus.h"
 
 void	print_matrix_vector(t_matrix_vector vector)
 {

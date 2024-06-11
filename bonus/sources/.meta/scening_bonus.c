@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "se_mini_struct.h"
+#include "se_mini_struct_bonus.h"
 # include <fcntl.h>
 # include <unistd.h>
 #include "libft.h"

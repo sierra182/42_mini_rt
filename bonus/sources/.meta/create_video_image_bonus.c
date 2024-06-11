@@ -1,5 +1,5 @@
-# include "se_mini_struct.h"
-# include "x_matrix.h"
+# include "se_mini_struct_bonus.h"
+# include "x_matrix_bonus.h"
 
 void	generate_video_frames(t_data *data);
 void	rotate_mesh(t_matrix_vector *vect, double angle, int axe[]);

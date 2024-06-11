@@ -1,4 +1,4 @@
-#include "events_keycode.h"
+#include "events_keycode_bonus.h"
 
 /**========================================================================
  *                           CAM_EVENT_ROTATE

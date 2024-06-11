@@ -1,4 +1,4 @@
-#include "shadows.h"
+#include "shadows_bonus.h"
 
 /**========================================================================
  *                           HAS_SPHERE_SHADOW

@@ -1,4 +1,4 @@
-#include "color_effects.h"
+#include "color_effects_bonus.h"
 
 /**========================================================================
  *                           CALCULATE_LIGHT_ATTENUATION

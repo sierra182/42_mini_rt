@@ -1,5 +1,5 @@
-# include "se_mini_struct.h"
-# include "x_matrix.h"
+# include "se_mini_struct_bonus.h"
+# include "x_matrix_bonus.h"
 #include "libft.h"
 void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr);
 void	rotate_pendulum(t_sphere *sphere, int i);

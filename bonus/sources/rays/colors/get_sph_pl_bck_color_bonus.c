@@ -1,4 +1,4 @@
-#include "get_sph_pl_bck_color.h"
+#include "get_sph_pl_bck_color_bonus.h"
 
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL_AND_LIGHT_RAY

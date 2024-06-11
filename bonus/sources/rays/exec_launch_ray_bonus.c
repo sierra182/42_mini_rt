@@ -1,4 +1,4 @@
-#include "exec_launch_ray.h"
+#include "exec_launch_ray_bonus.h"
 
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS

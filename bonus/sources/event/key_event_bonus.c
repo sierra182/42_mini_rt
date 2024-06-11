@@ -1,4 +1,4 @@
-#include "key_event.h"
+#include "key_event_bonus.h"
 
 /**========================================================================
  *                           KEY_CODE_FUNCS

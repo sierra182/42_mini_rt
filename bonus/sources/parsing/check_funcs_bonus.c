@@ -1,4 +1,4 @@
-#include "check_funcs.h"
+#include "check_funcs_bonus.h"
 
 /**========================================================================
  *                           TYP_CHECK_FL

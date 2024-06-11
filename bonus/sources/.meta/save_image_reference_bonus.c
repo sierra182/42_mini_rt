@@ -1,4 +1,4 @@
-#include "se_mini_struct.h"
+#include "se_mini_struct_bonus.h"
 #include "mlx.h"
 #include "libft.h"
 #include <stdlib.h>

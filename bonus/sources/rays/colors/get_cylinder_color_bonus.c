@@ -1,4 +1,4 @@
-#include "get_cylinder_color.h"
+#include "get_cylinder_color_bonus.h"
 
 /**========================================================================
  *                           GET_CYLINDER_COLOR

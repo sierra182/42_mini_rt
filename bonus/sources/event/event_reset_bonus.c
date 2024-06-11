@@ -1,4 +1,4 @@
-#include "event_reset.h"
+#include "event_reset_bonus.h"
 
 /**========================================================================
  *                           RESET

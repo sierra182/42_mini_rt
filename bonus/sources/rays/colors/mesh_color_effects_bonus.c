@@ -1,4 +1,4 @@
-#include "mesh_color_effects.h"
+#include "mesh_color_effects_bonus.h"
 
 /**========================================================================
  *                           ADD_SHADING
