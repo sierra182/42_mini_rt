@@ -12,7 +12,8 @@ int	all_necessary_elements_are_present(char *map_path)
 		return (0);
 	if (element_is_present(map_path, "C") != 1)
 		return (0);
-	if (element_is_present(map_path, "L") != 1)
+	nbr = element_is_present(map_path, "L");
+	if (nbr == 0)
 		return (0);
 	nbr = element_is_present(map_path, "sp");
 	if (nbr == 0)
