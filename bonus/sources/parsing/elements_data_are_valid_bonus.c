@@ -1,4 +1,5 @@
 #include "elements_data_are_valid_bonus.h"
+#include <stdio.h>
 
 /**========================================================================
  *                           ELEMENTS_DATA_ARE_VALID
@@ -48,11 +49,11 @@ int	data_str_is_valid(char *str)
 	else if (!ft_strcmp(token, "L"))
 		data_str = "7,fl,fl,fl,ltr,byt,byt,byt";
 	else if (!ft_strcmp(token, "sp"))
-		data_str = "7,fl,fl,fl,fl,byt,byt,byt";
+		data_str = "8,fl,fl,fl,fl,byt,byt,byt,check";
 	else if (!ft_strcmp(token, "pl"))
-		data_str = "9,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt";
+		data_str = "10,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt,check";
 	else if (!ft_strcmp(token, "cy"))
-		data_str = "11,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt";
+		data_str = "12,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt,check";
 	else if (!ft_strcmp(token, "tr"))
 		data_str = "12,fl,fl,fl,fl,fl,fl,fl,fl,fl,byt,byt,byt";
 	else if (!ft_strncmp(token, "#", 1))
@@ -80,7 +81,7 @@ int	check_data(char *token, char *check)
 	i = 1;
 	if (check_data_nbrs(token, num, &i) == 0)
 		return (free_tab(num), 0);
-	if (i != len_max + 2)
+	if (i != len_max + 2 && i != len_max + 1)
 		return (free_tab(num), 0);
 	free_tab(num);
 	return (1);
@@ -106,6 +107,8 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "fl") && !chck_fl(token, FL))
 			return (0);
+		if (num[*i] && !ft_strcmp(num[*i], "check") && token)
+			printf("token: %s\n", token);
 		(*i)++;
 	}
 	return (1);
