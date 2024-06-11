@@ -27,7 +27,7 @@ int	get_sphere_color(t_get_color_params *params)
 	t_color			ambiantly_color;
 	t_color			spotlighty_color;
 	t_sphere		*sphere;
-
+//
 	sphere = (t_sphere *) params->mesh->ref;
 	compute_sph_normal_and_light_ray(params, sphere, &normal, &light_ray);
 	calculate_ambiant_effect(params, &sphere->color, &normal,
