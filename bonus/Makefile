@@ -18,7 +18,7 @@ SRC_DIR = sources
 HEADERS_DIR = include
 MLX_DIR = ../.mlx_linux
 
-NAME = miniRT_bonus
+NAME = miniRT
 CC = cc
 
 OBJECTS = $(SOURCES:.c=.o)
@@ -183,7 +183,7 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 
 # all: intro design mlx cursor_start ft_printf $(NAME) emoticon		
 
-all:  design newline mlx ft_printf $(NAME)
+all:  design newline mlx ft_printf $(NAME) emoticon
 
 $(NAME) : $(OBJECTS)
 	@echo -n "\033[?25l"
@@ -265,4 +265,4 @@ fclean:
 	@$(MAKE) -C $(MLX_DIR) clean -s
 	@echo ""
 
-re: fclean backline l
+re: fclean backline all
