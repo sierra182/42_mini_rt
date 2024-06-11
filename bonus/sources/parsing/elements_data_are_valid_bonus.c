@@ -1,4 +1,6 @@
 #include "elements_data_are_valid_bonus.h"
+#include <stdio.h>
+int	file_exists(char *map_path);
 
 /**========================================================================
  *                           ELEMENTS_DATA_ARE_VALID
@@ -48,11 +50,13 @@ int	data_str_is_valid(char *str)
 	else if (!ft_strcmp(token, "L"))
 		data_str = "7,fl,fl,fl,ltr,byt,byt,byt";
 	else if (!ft_strcmp(token, "sp"))
-		data_str = "7,fl,fl,fl,fl,byt,byt,byt";
+		data_str = "8,fl,fl,fl,fl,byt,byt,byt,check";
 	else if (!ft_strcmp(token, "pl"))
-		data_str = "9,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt";
+		data_str = "10,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt,check";
 	else if (!ft_strcmp(token, "cy"))
-		data_str = "11,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt";
+		data_str = "12,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt,check";
+	else if (!ft_strcmp(token, "tr"))
+		data_str = "12,fl,fl,fl,fl,fl,fl,fl,fl,fl,byt,byt,byt";
 	else if (!ft_strncmp(token, "#", 1))
 		return (1);
 	else
@@ -78,10 +82,26 @@ int	check_data(char *token, char *check)
 	i = 1;
 	if (check_data_nbrs(token, num, &i) == 0)
 		return (free_tab(num), 0);
-	if (i != len_max + 2)
+	if (i != len_max + 2 && i != len_max + 1)
 		return (free_tab(num), 0);
 	free_tab(num);
 	return (1);
+}
+
+int	is_valid_png(char *str)
+{
+	char path[1000];
+
+	ft_bzero(path, 1000);
+	ft_strlcat(path, "bump_maps/", 1000);
+	ft_strlcat(path, str, 1000);
+	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".png") && file_exists(path))
+		return (1);
+	printf("str: %s\n", &str[ft_strlen(str) - 4]);
+	printf("path: %s\n", path);
+
+	return (0);
+	
 }
 
 /**========================================================================
@@ -103,6 +123,8 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 		if (num[*i] && !ft_strcmp(num[*i], "fov") && !chck_bt(token, FOV))
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "fl") && !chck_fl(token, FL))
+			return (0);
+		if (num[*i] && !ft_strcmp(num[*i], "check") && token && (ft_strcmp(token, "checkerboard") && !is_valid_png(token)))
 			return (0);
 		(*i)++;
 	}

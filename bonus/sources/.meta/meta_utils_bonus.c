@@ -61,6 +61,11 @@ void	is_it_a_test(t_data *data, char **envp)
 			data->is_test = 1;
 			break ;
 		}
+		if (ft_strncmp(envp[i], "TESTING=true", 13) == 0)
+		{
+			data->is_test = 2;
+			break ;
+		}
 		i++;
 	}
 }
