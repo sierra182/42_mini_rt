@@ -1,11 +1,12 @@
 #include "libft.h"
 #include <stdio.h>
+#include "se_mini_struct_bonus.h"
 int	is_valid_png(char *str);
 
 /**========================================================================
  *                           FILL_TAB
  *========================================================================**/
-double	*fill_tab(char *str, double tab[])
+double	*fill_tab(t_data *data, char *str, double tab[])
 {
 	int		i;
 	char	*token;
@@ -26,9 +27,10 @@ double	*fill_tab(char *str, double tab[])
 				tab[i] = -42;
 			if (is_valid_png(token))
 			{
-				tab[i] = -(j);
+				tab[i] = j;
 				j++;
 				printf("oh mon dieu: %s, %i\n", token, (int)tab[i]);
+				data->bump_map_paths[j] = ft_strdup(token);
 			}
 		}
 		i++;

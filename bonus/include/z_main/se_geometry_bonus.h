@@ -9,6 +9,7 @@ typedef enum e_cyl_or_discs
 
 typedef struct s_sphere
 {
+	int				bump_map_nbr;
 	int				checkerboard;
 	t_matrix_vector	origin_vect;
 	double			diameter;
@@ -41,10 +42,12 @@ typedef struct s_cylinder
 
 typedef struct s_plane
 {
+	int				bump_map_nbr;
 	int				checkerboard;
 	t_matrix_vector	origin_vect;
 	t_matrix_vector	norm_vect;
 	t_color			color;
+
 }	t_plane;
 
 #endif

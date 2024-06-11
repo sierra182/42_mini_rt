@@ -134,8 +134,6 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "check") && token && (ft_strcmp(token, "checkerboard") && !is_valid_png(token)))
 			return (0);
-		if (token && is_valid_png(token))
-			handle_bump_map(token);
 		(*i)++;
 	}
 	return (1);

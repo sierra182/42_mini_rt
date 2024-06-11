@@ -39,17 +39,17 @@ int	init_data(char *map_path, t_data *data)
 	get_elements_number(data, map_path);
 	if (create_data_structs(data) == 0)
 		return (0);
-	while (get_element_data(map_path, tab, "A") != NULL)
+	while (get_element_data(NULL, map_path, tab, "A") != NULL)
 		fill_struct_a(data, tab);
-	while (get_element_data(map_path, tab, "C") != NULL)
+	while (get_element_data(NULL, map_path, tab, "C") != NULL)
 		fill_struct_c(data, tab);
-	while (get_element_data(map_path, tab, "L") != NULL)
+	while (get_element_data(NULL, map_path, tab, "L") != NULL)
 		fill_struct_l(data, tab);
-	while (get_element_data(map_path, tab, "sp") != NULL)
+	while (get_element_data(data, map_path, tab, "sp") != NULL)
 		fill_struct_sp(data, tab);
-	while (get_element_data(map_path, tab, "cy") != NULL)
+	while (get_element_data(data, map_path, tab, "cy") != NULL)
 		fill_struct_cy(data, tab);
-	while (get_element_data(map_path, tab, "pl") != NULL)
+	while (get_element_data(data, map_path, tab, "pl") != NULL)
 		fill_struct_pl(data, tab);
 	init_vars(data);
 	return (1);
@@ -83,7 +83,7 @@ void	get_elements_number(t_data *data, char *map_path)
 /**========================================================================
  *                           GET_ELEMENT_DATA
  *========================================================================**/
-double	*get_element_data(char *map_path, double tab[], char *el)
+double	*get_element_data(t_data *data, char *map_path, double tab[], char *el)
 {
 	static int	map_fd = -1;
 	char		*str;
@@ -101,7 +101,7 @@ double	*get_element_data(char *map_path, double tab[], char *el)
 			i++;
 		if (ft_strnstr(&str[i], el, ft_strlen(el)))
 		{
-			tab = fill_tab(str, tab);
+			tab = fill_tab(data, str, tab);
 			free (str);
 			return (tab);
 		}
