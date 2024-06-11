@@ -17,6 +17,8 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
+
+
 void	calculate_light_reflexion(t_ray *light_ray, t_ray_vector *normal)
 {
 	t_ray	light_reflx;
@@ -28,14 +30,9 @@ void	calculate_light_reflexion(t_ray *light_ray, t_ray_vector *normal)
 	scale_vector(normal->axis, scalar_nl, scaled_norm.axis);
 	subtract_vector(scaled_norm.axis, light_ray->dir_vect.axis, light_reflx.dir_vect.axis);
 	
-	printf("light ,ref or: %f, %f, %f\n", light_reflx.origin_vect.axis[0], light_reflx.origin_vect.axis[1], light_reflx.origin_vect.axis[2]);
-	printf("light ,ref dir: %f, %f, %f\n", light_reflx.dir_vect.axis[0], light_reflx.dir_vect.axis[1], light_reflx.dir_vect.axis[2]);
+	double i_spec;
 
-	printf("light , or: %f, %f, %f\n", light_ray->origin_vect.axis[0], light_ray->origin_vect.axis[1], light_ray->origin_vect.axis[2]);
-	printf("light , dir: %f, %f, %f\n", light_ray->dir_vect.axis[0], light_ray->dir_vect.axis[1], light_ray->dir_vect.axis[2]);
-	symmetrize_vector(light_ray->dir_vect.axis);
-	printf("light ,sym or: %f, %f, %f\n", light_ray->origin_vect.axis[0], light_ray->origin_vect.axis[1], light_ray->origin_vect.axis[2]);
-	printf("light ,sym dir: %f, %f, %f\n", light_ray->dir_vect.axis[0], light_ray->dir_vect.axis[1], light_ray->dir_vect.axis[2]);
+
 }
 
 /**========================================================================
