@@ -8,6 +8,7 @@ typedef struct s_exit
 	t_sphere	*spheres;
 	t_cylinder	*cylinders;
 	t_plane		*planes;
+	t_triangle	*triangles;
 	t_spotlight	*spotlights;
 	t_mlx		*mlx;
 	t_data		*data_cpy;
@@ -21,6 +22,7 @@ typedef enum e_exit
 	CY,
 	PL,
 	SL,
+	TR,
 	DATA,
 	END
 }	t_enum_exit;

@@ -1,4 +1,5 @@
 #include "init_data_bonus.h"
+void	fill_struct_tr(t_data *data, double tab[]);
 
 /**========================================================================
  *                             INIT_DATA
@@ -51,6 +52,8 @@ int	init_data(char *map_path, t_data *data)
 		fill_struct_cy(data, tab);
 	while (get_element_data(data, map_path, tab, "pl") != NULL)
 		fill_struct_pl(data, tab);
+	while (get_element_data(data, map_path, tab, "tr") != NULL)
+		fill_struct_tr(data, tab);
 	init_vars(data);
 	return (1);
 }
@@ -80,6 +83,7 @@ void	get_elements_number(t_data *data, char *map_path)
 	data->cy_nbr = element_is_present(map_path, "cy");
 	data->pl_nbr = element_is_present(map_path, "pl");
 	data->sl_nbr = element_is_present(map_path, "L");
+	data->tr_nbr = element_is_present(map_path, "tr");
 }
 
 /**========================================================================

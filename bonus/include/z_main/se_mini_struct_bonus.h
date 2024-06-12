@@ -27,11 +27,13 @@ typedef struct s_data
 	int				pl_nbr;
 	int				cy_nbr;
 	int				sl_nbr;
+	int				tr_nbr;
 	t_event			event;
 	t_cam			cam;
 	t_sphere		*spheres;
 	t_cylinder		*cylinders;
 	t_plane			*planes;
+	t_triangle		*triangles;
 	t_spotlight		spotlight;
 	t_spotlight		*spotlights;
 	t_ambiant_light	ambiant_light;

@@ -125,3 +125,21 @@ void	fill_struct_l(t_data *data, double tab[])
 	data->spotlights[i].bulb.origin_vect = data->spotlight.origin_vect;
 	i++;
 }
+
+void	fill_struct_tr(t_data *data, double tab[])
+{
+	static int	i = 0;
+	data->triangles[i].point_a.axis[0] = tab[0];
+	data->triangles[i].point_a.axis[1] = tab[1];
+	data->triangles[i].point_a.axis[2] = tab[2];
+	data->triangles[i].point_a.axis[0] = tab[3];
+	data->triangles[i].point_a.axis[1] = tab[4];
+	data->triangles[i].point_a.axis[2] = tab[5];
+	data->triangles[i].point_a.axis[0] = tab[6];
+	data->triangles[i].point_a.axis[1] = tab[7];
+	data->triangles[i].point_a.axis[2] = tab[8];
+	data->triangles[i].color.rgb[0] = tab[9];
+	data->triangles[i].color.rgb[1] = tab[10];
+	data->triangles[i].color.rgb[2] = tab[11];
+	i++;
+}
