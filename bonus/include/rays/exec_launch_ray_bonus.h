@@ -1,5 +1,5 @@
-#ifndef EXEC_LAUNCH_RAY_H
-# define EXEC_LAUNCH_RAY_H
+#ifndef EXEC_LAUNCH_RAY_BONUS_H
+# define EXEC_LAUNCH_RAY_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 

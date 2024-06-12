@@ -17,9 +17,6 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
-
-int	calculate_spotlight_effect2(t_ray *ray, t_calc_spotlight_effect_params *params);
-
 /**========================================================================
  *                           GET_SPHERE_COLOR
  *========================================================================**/
@@ -43,7 +40,7 @@ int	get_sphere_color(t_get_color_params *params)
 		apply_aces_tonemap(params->color);
 		return (0);
 	}
-	calculate_spotlight_effect2(params->ray, &(t_calc_spotlight_effect_params)
+	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 	{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	apply_aces_tonemap(params->color);

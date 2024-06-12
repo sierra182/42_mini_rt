@@ -1,5 +1,5 @@
-#ifndef SE_EVENTS_H
-# define SE_EVENTS_H
+#ifndef SE_EVENTS_BONUS_H
+# define SE_EVENTS_BONUS_H
 
 typedef enum e_event_mesh
 {

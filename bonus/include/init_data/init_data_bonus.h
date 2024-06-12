@@ -1,5 +1,5 @@
-#ifndef INIT_DATA_H
-# define INIT_DATA_H
+#ifndef INIT_DATA_BONUS_H
+# define INIT_DATA_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 # include "get_next_line.h"

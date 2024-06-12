@@ -1,5 +1,5 @@
-#ifndef EXIT_H
-# define EXIT_H
+#ifndef EXIT_BONUS_H
+# define EXIT_BONUS_H
 
 # include <stdlib.h>
 # include "se_mini_struct_bonus.h"

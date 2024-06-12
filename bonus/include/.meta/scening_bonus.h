@@ -1,5 +1,5 @@
-#ifndef SCENING_H
-# define SCENING_H
+#ifndef SCENING_BONUS_H
+# define SCENING_BONUS_H
 
 // Déclarations pour scening.c
 

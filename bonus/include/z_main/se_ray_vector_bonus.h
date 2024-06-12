@@ -1,5 +1,5 @@
-#ifndef SE_RAY_VECTOR_H
-# define SE_RAY_VECTOR_H
+#ifndef SE_RAY_VECTOR_BONUS_H
+# define SE_RAY_VECTOR_BONUS_H
 
 typedef struct s_ray_vector
 {

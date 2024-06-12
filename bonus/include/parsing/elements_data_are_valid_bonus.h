@@ -1,5 +1,5 @@
-#ifndef ELEMENTS_DATA_ARE_VALID_H
-# define ELEMENTS_DATA_ARE_VALID_H
+#ifndef ELEMENTS_DATA_ARE_VALID_BONUS_H
+# define ELEMENTS_DATA_ARE_VALID_BONUS_H
 
 # include "libft.h"
 # include <unistd.h>

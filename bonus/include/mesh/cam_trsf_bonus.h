@@ -1,5 +1,5 @@
-#ifndef CAM_TRSF_H
-# define CAM_TRSF_H
+#ifndef CAM_TRSF_BONUS_H
+# define CAM_TRSF_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 # include "x_matrix_bonus.h"

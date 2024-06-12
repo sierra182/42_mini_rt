@@ -1,5 +1,6 @@
-#ifndef X_LINEAR_ALGEBRA_H
-# define X_LINEAR_ALGEBRA_H
+#ifndef X_LINEAR_ALGEBRA_BONUS_H
+# define X_LINEAR_ALGEBRA_BONUS_H
+
 # include "se_mini_struct_bonus.h"
 
 void	self_normalize_vector(double vector[]);
@@ -26,5 +27,7 @@ int		is_equal_vector(double a[], double b[]);
 void	get_average_color(t_color *a, t_color *b, t_color *average);
 void	clamp_255(t_color *color);
 int		get_color(unsigned char r, unsigned char g, unsigned char b);
+double	clamp_0(double num);
+double	clamp_1(double num);
 
 #endif

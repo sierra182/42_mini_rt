@@ -1,5 +1,5 @@
-#ifndef SE_LIGHTING_H
-# define SE_LIGHTING_H
+#ifndef SE_LIGHTING_BONUS_H
+# define SE_LIGHTING_BONUS_H
 
 typedef struct s_spotlight
 {

@@ -1,5 +1,5 @@
-#ifndef FILE_CONTENT_IS_CORRECT_H
-# define FILE_CONTENT_IS_CORRECT_H
+#ifndef FILE_CONTENT_IS_CORRECT_BONUS_H
+# define FILE_CONTENT_IS_CORRECT_BONUS_H
 
 # include "libft.h"
 # include <fcntl.h>

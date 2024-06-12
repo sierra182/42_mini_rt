@@ -1,5 +1,5 @@
-#ifndef SE_GEOMETRY_H
-# define SE_GEOMETRY_H
+#ifndef SE_GEOMETRY_BONUS_H
+# define SE_GEOMETRY_BONUS_H
 
 typedef enum e_cyl_or_discs
 {

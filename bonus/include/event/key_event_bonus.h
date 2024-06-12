@@ -1,5 +1,5 @@
-#ifndef KEY_EVENT_H
-# define KEY_EVENT_H
+#ifndef KEY_EVENT_BONUS_H
+# define KEY_EVENT_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 # include "mlx.h"

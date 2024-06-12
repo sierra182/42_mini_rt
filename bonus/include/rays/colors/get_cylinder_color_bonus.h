@@ -1,5 +1,5 @@
-#ifndef GET_CYLINDER_COLOR_H
-# define GET_CYLINDER_COLOR_H
+#ifndef GET_CYLINDER_COLOR_BONUS_H
+# define GET_CYLINDER_COLOR_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 # include "x_linear_algebra_bonus.h"

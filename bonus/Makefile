@@ -94,6 +94,7 @@ SOURCES = \
 	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_cylinder_bonus.c \
 	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_utils_bonus.c \
 	$(SRC_DIR)/rays/exec_launch_ray_bonus.c \
+	$(SRC_DIR)/linear_algebra/clamping_bonus.c \
 	$(SRC_DIR)/linear_algebra/vector_bonus.c \
 	$(SRC_DIR)/linear_algebra/color_bonus.c \
 	$(SRC_DIR)/linear_algebra/color_utils_bonus.c \
@@ -118,6 +119,7 @@ HEADERS = \
 	$(HEADERS_DIR)/init_data/fill_struct_funcs_bonus.h \
 	$(HEADERS_DIR)/init_data/init_data_bonus.h \
 	$(HEADERS_DIR)/init_data/xpm_bonus.h \
+	$(HEADERS_DIR)/linear_algebra/clamping_bonus.h \
 	$(HEADERS_DIR)/linear_algebra/color_utils_bonus.h \
 	$(HEADERS_DIR)/linear_algebra/color_bonus.h \
 	$(HEADERS_DIR)/linear_algebra/vector_utils_2_bonus.h \

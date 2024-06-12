@@ -1,5 +1,5 @@
-#ifndef SE_COLOR_IMAGE_H
-# define SE_COLOR_IMAGE_H
+#ifndef SE_COLOR_IMAGE_BONUS_H
+# define SE_COLOR_IMAGE_BONUS_H
 
 typedef struct s_color
 {

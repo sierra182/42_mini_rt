@@ -40,47 +40,7 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 	add_shading(params->ray, normal, ambiantly_color, ambiantly_color);
 }
 
-/**========================================================================
- *                           CLAMP_0
- *========================================================================**/
-double	clamp_0(double num)
-{
-	if (num < 0)
-		return (0.0);
-	return (num);
-}
-
-/**========================================================================
- *                           CLAMP_0
- *========================================================================**/
-double	clamp_1(double num)
-{
-	if (num > 1)
-		return (1.0);
-	return (num);
-}
-#include <math.h>
-double	calculate_light_reflexion(t_ray *ray, t_ray_pack *light_ray, t_ray_vector *normal)
-{
-	t_ray	light_reflx;
-	
-	double 			scalar_nl;
-	t_ray_vector 	scaled_norm;
-	double 			scalar_rl;
-
-	scalar_nl = 2 *scalar_product(normal->axis, light_ray->ray.dir_vect.axis);
-	scale_vector(normal->axis, scalar_nl, scaled_norm.axis);
-	subtract_vector(light_ray->ray.dir_vect.axis, scaled_norm.axis, light_reflx.dir_vect.axis);
-	self_normalize_vector(light_reflx.dir_vect.axis);
-	//symmetrize_vector(light_reflx.dir_vect.axis);
-	scalar_rl = scalar_product(light_reflx.dir_vect.axis, ray->dir_vect.axis);
-	double i_spec;
-	i_spec =  pow(clamp_0(scalar_rl), 200) * 1;
-	// printf("ispec: %f\n", i_spec);
-	return (i_spec);
-}
-
-int	calculate_spotlight_effect2(t_ray *ray, t_calc_spotlight_effect_params *params)
+int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 {
 	double	light_attenuat;
 	double	light_coef;
@@ -90,7 +50,7 @@ int	calculate_spotlight_effect2(t_ray *ray, t_calc_spotlight_effect_params *para
 	normalize_zero_one(&light_coef, 1);
 	light_attenuat = calculate_light_attenuation(params->light_ray,
 			light_coef * params->params->data->spotlight.intensity);
-	spec_light_coef = calculate_light_reflexion(ray, params->light_ray, params->normal);
+	spec_light_coef = calculate_light_reflexion(params->params->ray, params->light_ray, params->normal);
 
 	add_shading(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
@@ -101,10 +61,11 @@ int	calculate_spotlight_effect2(t_ray *ray, t_calc_spotlight_effect_params *para
 		params->spotlighty_color);
 	return (0);
 }
+
 /**========================================================================
  *                           CALCULATE_SPOTLIGHT_EFFECT
  *========================================================================**/
-int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
+int	calculate_spotlight_effect2(t_calc_spotlight_effect_params *params)
 {
 	double	light_attenuat;
 	double	light_coef;
@@ -116,7 +77,7 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 			light_coef * params->params->data->spotlight.intensity);
 	color_with_light(params->mesh_color,
 		&params->params->data->spotlight.color,
-		params->params->data->spotlight.intensity * light_attenuat * 1,
+		params->params->data->spotlight.intensity * light_attenuat,
 		params->spotlighty_color);
 	add_shading(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
