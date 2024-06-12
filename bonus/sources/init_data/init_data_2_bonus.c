@@ -29,7 +29,7 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 			{
 				tab[i] = j;
 				j++;
-				printf("oh mon dieu: %s, %i\n", token, (int)tab[i]);
+				// printf("oh mon dieu: %s, %i\n", token, (int)tab[i]);
 				data->bump_map_paths[j] = ft_strdup(token);
 			}
 		}

@@ -26,7 +26,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	else if ((int)tab[7])
 	{
 		data->spheres[i].bump_map_nbr = (int)tab[7];
-		printf("%i: nbr map, %s\n", (int)tab[7], data->bump_map_paths[(int)tab[7]]);
+		// printf("%i: nbr map, %s\n", (int)tab[7], data->bump_map_paths[(int)tab[7]]);
 	}
 	else
 		data->spheres[i].checkerboard = 0;

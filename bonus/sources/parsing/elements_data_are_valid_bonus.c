@@ -98,7 +98,7 @@ int	is_valid_png(char *str)
 	ft_strlcat(path, str, 1000);
 	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".png") && file_exists(path))
 	{
-		printf("is_valid_png returns 1\n");
+		// printf("is_valid_png returns 1\n");
 		return (1);
 	}
 	return (0);
@@ -107,7 +107,7 @@ int	is_valid_png(char *str)
 
 void	handle_bump_map(char *str)
 {
-	printf("oleole! %s\n", str);
+	// printf("oleole! %s\n", str);
 	char path[1000];
 
 	ft_bzero(path, 1000);
