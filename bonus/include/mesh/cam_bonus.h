@@ -1,5 +1,5 @@
-#ifndef CAM_H
-# define CAM_H
+#ifndef CAM_BONUS_H
+# define CAM_BONUS_H
 
 # include <math.h>
 # include "se_mini_struct_bonus.h"

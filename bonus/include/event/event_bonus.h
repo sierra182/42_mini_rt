@@ -1,5 +1,5 @@
-#ifndef EVENT_H
-# define EVENT_H
+#ifndef EVENT_BONUS_H
+# define EVENT_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 

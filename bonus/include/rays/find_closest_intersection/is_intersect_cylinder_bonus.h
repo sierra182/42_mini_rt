@@ -1,5 +1,5 @@
-#ifndef IS_INTERSECT_CYLINDER_H
-# define IS_INTERSECT_CYLINDER_H
+#ifndef IS_INTERSECT_CYLINDER_BONUS_H
+# define IS_INTERSECT_CYLINDER_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 # include "x_linear_algebra_bonus.h"

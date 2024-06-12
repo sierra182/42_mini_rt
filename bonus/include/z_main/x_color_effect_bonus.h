@@ -1,5 +1,5 @@
-#ifndef X_COLOR_EFFECT_H
-# define X_COLOR_EFFECT_H
+#ifndef X_COLOR_EFFECT_BONUS_H
+# define X_COLOR_EFFECT_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 

@@ -1,5 +1,5 @@
-#ifndef SE_FUNCS_PARAMS_H
-# define SE_FUNCS_PARAMS_H
+#ifndef SE_FUNCS_PARAMS_BONUS_H
+# define SE_FUNCS_PARAMS_BONUS_H
 
 typedef struct s_intersection_params
 {

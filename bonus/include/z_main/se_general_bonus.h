@@ -1,5 +1,5 @@
-#ifndef SE_GENERAL_H
-# define SE_GENERAL_H
+#ifndef SE_GENERAL_BONUS_H
+# define SE_GENERAL_BONUS_H
 
 typedef struct s_data	t_data;
 

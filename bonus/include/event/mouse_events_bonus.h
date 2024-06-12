@@ -1,5 +1,5 @@
-#ifndef MOUSE_EVENTS_H
-# define MOUSE_EVENTS_H
+#ifndef MOUSE_EVENTS_BONUS_H
+# define MOUSE_EVENTS_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 

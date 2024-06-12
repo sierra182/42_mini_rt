@@ -1,5 +1,5 @@
-#ifndef VECTOR_H
-# define VECTOR_H
+#ifndef VECTOR_BONUS_H
+# define VECTOR_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 

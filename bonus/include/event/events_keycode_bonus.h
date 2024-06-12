@@ -1,5 +1,5 @@
-#ifndef EVENTS_KEYCODE_H
-# define EVENTS_KEYCODE_H
+#ifndef EVENTS_KEYCODE_BONUS_H
+# define EVENTS_KEYCODE_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 

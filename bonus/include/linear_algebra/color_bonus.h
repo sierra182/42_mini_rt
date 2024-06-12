@@ -1,5 +1,5 @@
-#ifndef COLOR_H
-# define COLOR_H
+#ifndef COLOR_BONUS_H
+# define COLOR_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 

@@ -1,5 +1,5 @@
-#ifndef X_MATRIX_H
-# define X_MATRIX_H
+#ifndef X_MATRIX_BONUS_H
+# define X_MATRIX_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 

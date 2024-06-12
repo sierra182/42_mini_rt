@@ -1,5 +1,5 @@
-#ifndef DATA_STORE_H
-# define DATA_STORE_H
+#ifndef DATA_STORE_BONUS_H
+# define DATA_STORE_BONUS_H
 
 # include <stdlib.h>
 # include "se_mini_struct_bonus.h"

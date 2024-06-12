@@ -1,5 +1,5 @@
-#ifndef RAYS_H
-# define RAYS_H
+#ifndef RAYS_BONUS_H
+# define RAYS_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 # include "x_linear_algebra_bonus.h"

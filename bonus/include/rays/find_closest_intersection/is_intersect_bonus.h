@@ -1,5 +1,5 @@
-#ifndef IS_INTERSECT_H
-# define IS_INTERSECT_H
+#ifndef IS_INTERSECT_BONUS_H
+# define IS_INTERSECT_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 # include "math.h"

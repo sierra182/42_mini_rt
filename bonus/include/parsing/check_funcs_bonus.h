@@ -1,5 +1,5 @@
-#ifndef CHECK_FUNCS_H
-# define CHECK_FUNCS_H
+#ifndef CHECK_FUNCS_BONUS_H
+# define CHECK_FUNCS_BONUS_H
 
 # include <stdlib.h>
 # include "get_next_line.h"
