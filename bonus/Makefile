@@ -191,9 +191,9 @@ $(NAME) : $(OBJECTS)
 	@echo -n "\033[?25l"
 	@$(MAKE) -s backline
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b compiled            ✅\033[0m"	
-	@sleep 1
+	# @sleep 1
 	@echo "\033[0;36m linking...          🚀 "
-	@sleep 1
+	# @sleep 1
 	@$(MAKE) -s backline
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b linked              ☑️\n\033[0m"
