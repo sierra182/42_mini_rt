@@ -157,6 +157,6 @@ void	fill_struct_tr(t_data *data, double tab[])
 	data->triangles[i].color.rgb[0] = tab[9];
 	data->triangles[i].color.rgb[1] = tab[10];
 	data->triangles[i].color.rgb[2] = tab[11];
-	i++;
 	print_triangle(&data->triangles[i]);
+	i++;
 }
