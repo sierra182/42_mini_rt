@@ -10,6 +10,20 @@
 
 int	get_color(unsigned char r, unsigned char g, unsigned char b);
 
+void	free_paths(t_data *data)
+{
+	printf("free_paths...\n");
+	int	i;
+
+	i = 0;
+	while (data->bump_map_paths[i])
+	{
+		printf("%s\n", data->bump_map_paths[i]);
+		free (data->bump_map_paths[i]);
+		i++;
+	}
+}
+
 /**========================================================================
  *                           MAIN
  *========================================================================**/
@@ -32,6 +46,7 @@ int	main(int argc, char **argv, char **envp)
 	if (init_mlx(&mlx))
 		return (4);
 	launch_mlx_loop(&mlx, &data);
+	free_paths(&data);
 	flush_exit_struct();
 	return (0);
 }

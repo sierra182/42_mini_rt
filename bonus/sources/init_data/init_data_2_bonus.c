@@ -10,7 +10,7 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 {
 	int		i;
 	char	*token;
-	static int	j = 1;
+	static int	j = 0;
 
 	i = 0;
 	while (i < 20)
@@ -30,6 +30,7 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 				// printf("token: %s\n", token);
 				data->bump_map_paths[j] = ft_strdup(token);
 				tab[i] = j++;
+				data->bump_map_paths[j] = NULL;
 			}
 		}
 		i++;
