@@ -19,10 +19,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
 	if (tab[7] == -42)
-	{
-		// printf("il se passe un sphere\n");
 		data->spheres[i].checkerboard = 1;
-	}
 	else
 		data->spheres[i].checkerboard = 0;
 	if ((int)tab[7] != 1024)
@@ -59,10 +56,7 @@ void	fill_struct_cy(t_data *data, double tab[])
 	data->cylinders[i].color.rgb[1] = tab[9];
 	data->cylinders[i].color.rgb[2] = tab[10];
 	if (tab[11] == -42)
-	{
-		// printf("il se passe un cylindre\n");
 		data->spheres[i].checkerboard = 1;
-	}
 	else
 		data->cylinders[i].checkerboard = 0;
 	data->cylinders[i].which_t = 0;
@@ -89,10 +83,7 @@ void	fill_struct_pl(t_data *data, double tab[])
 	data->planes[i].color.rgb[1] = tab[7];
 	data->planes[i].color.rgb[2] = tab[8];
 	if (tab[9] == -42)
-	{
-		// printf("il se passe un plane\n");
 		data->planes[i].checkerboard = 1;
-	}
 	else
 		data->planes[i].checkerboard = 0;
 	if ((int)tab[9] != 1024)
