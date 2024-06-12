@@ -123,6 +123,5 @@ void	fill_struct_l(t_data *data, double tab[])
 	data->spotlights[i].bulb.square_radius = data->spotlight.bulb.radius
 		* data->spotlights[i].bulb.radius;
 	data->spotlights[i].bulb.origin_vect = data->spotlight.origin_vect;
-	printf("spotlight %i, intensity: %f\n", i, data->spotlights[i].intensity);
 	i++;
 }

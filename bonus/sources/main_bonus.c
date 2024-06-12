@@ -12,13 +12,11 @@ int	get_color(unsigned char r, unsigned char g, unsigned char b);
 
 void	free_paths(t_data *data)
 {
-	printf("free_paths...\n");
 	int	i;
 
 	i = 0;
 	while (data->bump_map_paths[i])
 	{
-		printf("%s\n", data->bump_map_paths[i]);
 		free (data->bump_map_paths[i]);
 		i++;
 	}
