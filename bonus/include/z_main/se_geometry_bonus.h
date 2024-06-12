@@ -52,4 +52,12 @@ typedef struct s_plane
 
 }	t_plane;
 
+typedef struct s_triangle
+{
+	t_matrix_vector	point_a;
+	t_matrix_vector	point_b;
+	t_matrix_vector	point_c;
+	t_color			color;
+}	t_triangle;
+
 #endif

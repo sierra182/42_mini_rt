@@ -1,4 +1,6 @@
 #include "init_data_bonus.h"
+void	fill_struct_tr(t_data *data, double tab[]);
+void	fill_struct_l_one(t_data *data, double tab[]);
 
 /**========================================================================
  *                             INIT_DATA
@@ -44,6 +46,8 @@ int	init_data(char *map_path, t_data *data)
 	while (get_element_data(NULL, map_path, tab, "C") != NULL)
 		fill_struct_c(data, tab);
 	while (get_element_data(NULL, map_path, tab, "L") != NULL)
+		fill_struct_l_one(data, tab);
+	while (get_element_data(NULL, map_path, tab, "L") != NULL)
 		fill_struct_l(data, tab);
 	while (get_element_data(data, map_path, tab, "sp") != NULL)
 		fill_struct_sp(data, tab);
@@ -51,6 +55,8 @@ int	init_data(char *map_path, t_data *data)
 		fill_struct_cy(data, tab);
 	while (get_element_data(data, map_path, tab, "pl") != NULL)
 		fill_struct_pl(data, tab);
+	while (get_element_data(data, map_path, tab, "tr") != NULL)
+		fill_struct_tr(data, tab);
 	init_vars(data);
 	return (1);
 }
@@ -69,6 +75,7 @@ void	init_vars(t_data *data)
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
 	save_data(data);
+	data->bump_map_paths[0] = NULL;
 }
 
 /**========================================================================
@@ -80,6 +87,7 @@ void	get_elements_number(t_data *data, char *map_path)
 	data->cy_nbr = element_is_present(map_path, "cy");
 	data->pl_nbr = element_is_present(map_path, "pl");
 	data->sl_nbr = element_is_present(map_path, "L");
+	data->tr_nbr = element_is_present(map_path, "tr");
 }
 
 /**========================================================================

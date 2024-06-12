@@ -117,11 +117,45 @@ void	fill_struct_l(t_data *data, double tab[])
 	data->spotlights[i].color.rgb[0] = tab[4];
 	data->spotlights[i].color.rgb[1] = tab[5];
 	data->spotlights[i].color.rgb[2] = tab[6];
-	data->spotlights[i].bulb.color = data->spotlight.color;
+	data->spotlights[i].bulb.color = data->spotlights[i].color;
 	data->spotlights[i].bulb.diameter = 1;
-	data->spotlights[i].bulb.radius = data->spotlight.bulb.diameter * 0.5;
-	data->spotlights[i].bulb.square_radius = data->spotlight.bulb.radius
+	data->spotlights[i].bulb.radius = data->spotlights[i].bulb.diameter * 0.5;
+	data->spotlights[i].bulb.square_radius = data->spotlights[i].bulb.radius
 		* data->spotlights[i].bulb.radius;
-	data->spotlights[i].bulb.origin_vect = data->spotlight.origin_vect;
+	data->spotlights[i].bulb.origin_vect = data->spotlights[i].origin_vect;
+	i++;
+}
+
+void	print_triangle(t_triangle *triangle)
+{
+	printf("%f\n", triangle->point_a.axis[0]);
+	printf("%f\n", triangle->point_a.axis[1]);
+	printf("%f\n", triangle->point_a.axis[2]);
+	printf("%f\n", triangle->point_b.axis[0]);
+	printf("%f\n", triangle->point_b.axis[1]);
+	printf("%f\n", triangle->point_b.axis[2]);
+	printf("%f\n", triangle->point_c.axis[0]);
+	printf("%f\n", triangle->point_c.axis[1]);
+	printf("%f\n", triangle->point_c.axis[2]);
+	printf("%i\n", triangle->color.rgb[0]);
+	printf("%i\n", triangle->color.rgb[1] );
+	printf("%i\n", triangle->color.rgb[2] );
+}
+
+void	fill_struct_tr(t_data *data, double tab[])
+{
+	static int	i = 0;
+	data->triangles[i].point_a.axis[0] = tab[0];
+	data->triangles[i].point_a.axis[1] = tab[1];
+	data->triangles[i].point_a.axis[2] = tab[2];
+	data->triangles[i].point_b.axis[0] = tab[3];
+	data->triangles[i].point_b.axis[1] = tab[4];
+	data->triangles[i].point_b.axis[2] = tab[5];
+	data->triangles[i].point_c.axis[0] = tab[6];
+	data->triangles[i].point_c.axis[1] = tab[7];
+	data->triangles[i].point_c.axis[2] = tab[8];
+	data->triangles[i].color.rgb[0] = tab[9];
+	data->triangles[i].color.rgb[1] = tab[10];
+	data->triangles[i].color.rgb[2] = tab[11];
 	i++;
 }

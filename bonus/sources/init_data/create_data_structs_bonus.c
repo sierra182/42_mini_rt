@@ -21,5 +21,9 @@ int	create_data_structs(t_data *data)
 	if (data->spotlights == NULL)
 		return (0);
 	add_exit_struct(data->spotlights, SL);
+	data->triangles = (t_triangle *)malloc(sizeof(t_triangle) * data->tr_nbr);
+	if (data->triangles == NULL)
+		return (0);
+	add_exit_struct(data->triangles, TR);
 	return (1);
 }

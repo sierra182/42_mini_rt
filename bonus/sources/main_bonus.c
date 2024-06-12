@@ -15,6 +15,8 @@ void	free_paths(t_data *data)
 	int	i;
 
 	i = 0;
+	if (data->bump_map_paths[i] == NULL)
+		return ;
 	while (data->bump_map_paths[i])
 	{
 		free (data->bump_map_paths[i]);
