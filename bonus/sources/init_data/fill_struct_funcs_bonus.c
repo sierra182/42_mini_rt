@@ -28,7 +28,7 @@ void	fill_struct_c(t_data *data, double tab[])
 /**========================================================================
  *                           FILL_STRUCT_L
  *========================================================================**/
-void	fill_struct_l(t_data *data, double tab[])
+void	fill_struct_l_one(t_data *data, double tab[])
 {
 	data->spotlight.origin_vect.axis[0] = tab[0];
 	data->spotlight.origin_vect.axis[1] = tab[1];
