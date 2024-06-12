@@ -92,11 +92,15 @@ int	is_valid_png(char *str)
 {
 	char path[1000];
 
+	
 	ft_bzero(path, 1000);
 	ft_strlcat(path, "bump_maps/", 1000);
 	ft_strlcat(path, str, 1000);
 	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".png") && file_exists(path))
+	{
+		printf("is_valid_png returns 1\n");
 		return (1);
+	}
 	return (0);
 	
 }
@@ -134,8 +138,6 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "check") && token && (ft_strcmp(token, "checkerboard") && !is_valid_png(token)))
 			return (0);
-		if (token && is_valid_png(token))
-			handle_bump_map(token);
 		(*i)++;
 	}
 	return (1);
