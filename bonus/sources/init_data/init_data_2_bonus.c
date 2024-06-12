@@ -24,13 +24,19 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 		{ 
 			tab[i] = ft_atof(token);
 			if (!ft_strcmp(token, "checkerboard"))
+			{
+				// printf("tab[%i] = -42\n", i);
 				tab[i] = -42;
+			}
 			if (is_valid_png(token))
 			{
+				printf("tab[%i] before: %i\n", i, (int)tab[i]);
 				tab[i] = j;
+				printf("tab[%i] after: %i\n", i, (int)tab[i]);
 				j++;
-				// printf("oh mon dieu: %s, %i\n", token, (int)tab[i]);
+				printf("oh mon dieu: %s, %i\n", token, (int)tab[i]);
 				data->bump_map_paths[j] = ft_strdup(token);
+				printf("string that was malloc'd: %s\n", data->bump_map_paths[j]);
 			}
 		}
 		i++;

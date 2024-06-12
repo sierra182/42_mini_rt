@@ -11,6 +11,7 @@ typedef struct s_sphere
 {
 	int				bump_map_nbr;
 	int				checkerboard;
+	char			*bump_map_path;
 	t_matrix_vector	origin_vect;
 	double			diameter;
 	double			radius;
@@ -43,6 +44,7 @@ typedef struct s_cylinder
 typedef struct s_plane
 {
 	int				bump_map_nbr;
+	char			*bump_map_path;
 	int				checkerboard;
 	t_matrix_vector	origin_vect;
 	t_matrix_vector	norm_vect;
