@@ -26,12 +26,14 @@ double	has_bulb(t_data *data, t_ray *ray, t_color *color)
 	i = -1;
 	while (++i < data->sl_nbr)
 	{
-		
 		inter_bulb = is_intersect_sphere(ray, &data->spotlights[i].bulb, NULL);
-		// printf("color :%i\n", data->spotlights[i].color.rgb[1]);
-		*color = data->spotlights[i].bulb.color;
+		if (inter_bulb)
+		{
+			*color = data->spotlights[i].bulb.color;
+			return (inter_bulb);
+		}	
 	}
-	return (inter_bulb);	
+	return (0.0);	
 }
 
 /**========================================================================
@@ -77,12 +79,12 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 	color = params->color;
 	rgb = params->rgb;
 	inter_bulb = params->inter_bulb;
-	// if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref)
-	// {
-	// 	get_plane_color(&(t_get_color_params)
-	// 	{data, params->ray, obj->t, obj, color, NULL});
-	// 	*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
-	// }
+	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref)
+	{
+		get_plane_color(&(t_get_color_params)
+		{data, params->ray, obj->t, obj, color, NULL});
+		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
+	}
 	if (obj->ref == NULL)
 		*rgb = get_background_color(params->ray, data);
 	if (*params->inter_bulb && !is_behind_cam(*params->inter_bulb))
