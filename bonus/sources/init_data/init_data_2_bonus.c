@@ -30,13 +30,14 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 			}
 			if (is_valid_png(token))
 			{
-
+				printf("token: %s\n", token);
+				data->bump_map_paths[j] = ft_strdup(token);
+				tab[i] = j++;
 				// printf("tab[%i] before: %i\n", i, (int)tab[i]);
 				// tab[i] = j;
 				// printf("tab[%i] after: %i\n", i, (int)tab[i]);
 				// j++;
 				// printf("oh mon dieu: %s, %i\n", token, (int)tab[i]);
-				// data->bump_map_paths[j] = ft_strdup(token);
 				// printf("string that was malloc'd: %s\n", data->bump_map_paths[j]);
 			}
 		}
