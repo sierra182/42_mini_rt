@@ -17,9 +17,6 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
-
-int	calculate_spotlight_effect2(t_ray *ray, t_calc_spotlight_effect_params *params);
-
 /**========================================================================
  *                           GET_SPHERE_COLOR
  *========================================================================**/
