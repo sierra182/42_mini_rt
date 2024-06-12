@@ -19,13 +19,16 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
 	if (tab[7] == -42)
+	{
+		printf("sphere is checkerboard\n");
 		data->spheres[i].checkerboard = 1;
+	}
 	else
 		data->spheres[i].checkerboard = 0;
 	if ((int)tab[7] != 1024)
 	{
-		data->planes[i].bump_map_path = data->bump_map_paths[(int)tab[7]];
-		printf("sphere bump map path: %s\n", data->planes[i].bump_map_path);
+		// data->planes[i].bump_map_path = data->bump_map_paths[(int)tab[7]];
+		// printf("sphere bump map path: %s\n", data->planes[i].bump_map_path);
 	}
 	data->spheres[i].which_t = 0;
 	data->spheres[i].t1 = 0.0;
@@ -55,10 +58,6 @@ void	fill_struct_cy(t_data *data, double tab[])
 	data->cylinders[i].color.rgb[0] = tab[8];
 	data->cylinders[i].color.rgb[1] = tab[9];
 	data->cylinders[i].color.rgb[2] = tab[10];
-	if (tab[11] == -42)
-		data->spheres[i].checkerboard = 1;
-	else
-		data->cylinders[i].checkerboard = 0;
 	data->cylinders[i].which_t = 0;
 	data->cylinders[i].t1 = 0.0;
 	data->cylinders[i].t2 = 0.0;
@@ -83,13 +82,16 @@ void	fill_struct_pl(t_data *data, double tab[])
 	data->planes[i].color.rgb[1] = tab[7];
 	data->planes[i].color.rgb[2] = tab[8];
 	if (tab[9] == -42)
+	{
+		printf("plane is checkerboard\n");
 		data->planes[i].checkerboard = 1;
+	}
 	else
 		data->planes[i].checkerboard = 0;
 	if ((int)tab[9] != 1024)
 	{
-		data->planes[i].bump_map_path = data->bump_map_paths[(int)tab[9]];
-		printf("plane bump map path: %s\n", data->planes[i].bump_map_path);
+		// data->planes[i].bump_map_path = data->bump_map_paths[(int)tab[9]];
+		// printf("plane bump map path: %s\n", data->planes[i].bump_map_path);
 	}
 	i++;
 }
