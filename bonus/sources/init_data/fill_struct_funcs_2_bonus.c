@@ -1,5 +1,13 @@
 #include "fill_struct_funcs_2_bonus.h"
 
+char *get_bmpath(t_data *data, int index)
+{
+	char *bmpath;
+
+	bmpath = data->bump_map_paths[index];
+	return bmpath;
+}
+
 /**========================================================================
  *                           FILL_STRUCT_SP
  *========================================================================**/
@@ -20,13 +28,12 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[2] = tab[6];
 	if (tab[7] == -42)
 	{
-		printf("il se passe un truc\n");
 		data->spheres[i].checkerboard = 1;
 	}
-	else if ((int)tab[7])
+	else if ((int)tab[7] != 1024)
 	{
-		data->spheres[i].bump_map_nbr = (int)tab[7];
-		// printf("%i: nbr map, %s\n", (int)tab[7], data->bump_map_paths[(int)tab[7]]);
+		data->planes[i].bump_map_path = get_bmpath(data, (int)tab[7]);
+		// printf("sphere bump map path: %s\n", data->planes[i].bump_map_path);
 	}
 	else
 		data->spheres[i].checkerboard = 0;
@@ -58,10 +65,6 @@ void	fill_struct_cy(t_data *data, double tab[])
 	data->cylinders[i].color.rgb[0] = tab[8];
 	data->cylinders[i].color.rgb[1] = tab[9];
 	data->cylinders[i].color.rgb[2] = tab[10];
-	if (tab[11] == -42)
-		data->cylinders[i].checkerboard = 1;
-	else
-		data->cylinders[i].checkerboard = 0;
 	data->cylinders[i].which_t = 0;
 	data->cylinders[i].t1 = 0.0;
 	data->cylinders[i].t2 = 0.0;
@@ -86,10 +89,40 @@ void	fill_struct_pl(t_data *data, double tab[])
 	data->planes[i].color.rgb[1] = tab[7];
 	data->planes[i].color.rgb[2] = tab[8];
 	if (tab[9] == -42)
+	{
 		data->planes[i].checkerboard = 1;
-	else if ((int)tab[9] < 0 && (int)tab[9] > -40)
-		data->planes[i].bump_map_nbr = (int)tab[11];
+	}
+	else if ((int)tab[9] != 1024)
+	{
+		data->planes[i].bump_map_path = get_bmpath(data, (int)tab[9]);
+		// printf("plane bump map path: %s\n", data->planes[i].bump_map_path);
+	}
 	else
 		data->planes[i].checkerboard = 0;
+	i++;
+}
+
+/**========================================================================
+ *                           FILL_STRUCT_L
+ *========================================================================**/
+void	fill_struct_l(t_data *data, double tab[])
+{
+	static int	i = 0;
+
+	data->spotlights[i].origin_vect.axis[0] = tab[0];
+	data->spotlights[i].origin_vect.axis[1] = tab[1];
+	data->spotlights[i].origin_vect.axis[2] = tab[2];
+	data->spotlights[i].origin_vect.axis[3] = 1;
+	data->spotlights[i].intensity = tab[3];
+	data->spotlights[i].color.rgb[0] = tab[4];
+	data->spotlights[i].color.rgb[1] = tab[5];
+	data->spotlights[i].color.rgb[2] = tab[6];
+	data->spotlights[i].bulb.color = data->spotlight.color;
+	data->spotlights[i].bulb.diameter = 1;
+	data->spotlights[i].bulb.radius = data->spotlight.bulb.diameter * 0.5;
+	data->spotlights[i].bulb.square_radius = data->spotlight.bulb.radius
+		* data->spotlights[i].bulb.radius;
+	data->spotlights[i].bulb.origin_vect = data->spotlight.origin_vect;
+	printf("spotlight %i, intensity: %f\n", i, data->spotlights[i].intensity);
 	i++;
 }

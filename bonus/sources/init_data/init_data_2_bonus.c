@@ -10,7 +10,7 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 {
 	int		i;
 	char	*token;
-	static int	j = 1;
+	static int	j = 0;
 
 	i = 0;
 	while (i < 20)
@@ -27,10 +27,10 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 				tab[i] = -42;
 			if (is_valid_png(token))
 			{
-				tab[i] = j;
-				j++;
-				// printf("oh mon dieu: %s, %i\n", token, (int)tab[i]);
+				// printf("token: %s\n", token);
 				data->bump_map_paths[j] = ft_strdup(token);
+				tab[i] = j++;
+				data->bump_map_paths[j] = NULL;
 			}
 		}
 		i++;
