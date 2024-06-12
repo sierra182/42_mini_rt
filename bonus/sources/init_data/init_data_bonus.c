@@ -78,6 +78,7 @@ void	get_elements_number(t_data *data, char *map_path)
 	data->sp_nbr = element_is_present(map_path, "sp");
 	data->cy_nbr = element_is_present(map_path, "cy");
 	data->pl_nbr = element_is_present(map_path, "pl");
+	data->sl_nbr = element_is_present(map_path, "L");
 }
 
 /**========================================================================
