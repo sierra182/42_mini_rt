@@ -66,6 +66,20 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
+void	add_spotlights_effects(t_calc_spotlight_effect_params *params)
+{
+	int	i;
+
+	i = -1;
+	while (++i < params->params->data->sl_nbr)
+	{
+		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+		{params->params, &params->mesh_color, &params->normal,
+			&params->spotlighty_color, &params->light_ray});
+	}
+	add_color(&params->spotlighty_color, &params->ambiantly_color, params->params->color);
+}
+
 /**========================================================================
  *                           GET_PLANE_COLOR
  *========================================================================**/
@@ -87,12 +101,39 @@ int	get_plane_color(t_get_color_params *params)
 		apply_aces_tonemap(params->color);
 		return (0);
 	}
-	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+	add_spotlights_effects(&(t_calc_spotlight_effect_params)
 	{params, &plane->color, &normal, &spotlighty_color, &light_ray});
-	add_color(&spotlighty_color, &ambiantly_color, params->color);
+	add_color(&params->spotlighty_color, &params->ambiantly_color, params->params->color);
 	apply_aces_tonemap(params->color);
 	return (0);
 }
+// /**========================================================================
+//  *                           GET_PLANE_COLOR
+//  *========================================================================**/
+// int	get_plane_color(t_get_color_params *params)
+// {
+// 	t_ray_vector	normal;
+// 	t_ray_pack		light_ray;
+// 	t_color			ambiantly_color;
+// 	t_color			spotlighty_color;
+// 	t_plane			*plane;
+
+// 	plane = ((t_plane *) params->mesh->ref);
+// 	compute_pl_normal_and_light_ray(params, plane, &normal, &light_ray);
+// 	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
+// 	if (has_shadow(params->data, params->mesh, &light_ray)
+// 		|| scalar_product(normal.axis, light_ray.ray.dir_vect.axis) < 1e-3)
+// 	{
+// 		*params->color = ambiantly_color;
+// 		apply_aces_tonemap(params->color);
+// 		return (0);
+// 	}
+// 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+// 	{params, &plane->color, &normal, &spotlighty_color, &light_ray});
+// 	add_color(&spotlighty_color, &ambiantly_color, params->color);
+// 	apply_aces_tonemap(params->color);
+// 	return (0);
+// }
 
 /**========================================================================
  *                           GET_BACKGROUND_COLOR
