@@ -17,5 +17,11 @@ int	create_data_structs(t_data *data)
 	if (data->planes == NULL)
 		return (0);
 	add_exit_struct(data->planes, PL);
+	data->spotlights = (t_spotlight *)malloc(sizeof(t_spotlight) * data->sl_nbr);
+	if (data->spotlights == NULL)
+		return (0);
+	else 
+		printf("%i spotlights were malloc'd\n", data->sl_nbr);
+	add_exit_struct(data->spotlights, SL);
 	return (1);
 }

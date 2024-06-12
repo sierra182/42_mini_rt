@@ -41,3 +41,17 @@ void	store_and_free_planes(t_exit *exit, void *planes)
 		exit->planes = NULL;
 	}
 }
+
+/**========================================================================
+ *                           STORE_AND_FREE_SPOTLIGHTS
+ *========================================================================**/
+void	store_and_free_spotlights(t_exit *exit, void *spotlights)
+{
+	if (exit && spotlights)
+		exit->spotlights = (t_spotlight *) spotlights;
+	else if (exit && exit->spotlights)
+	{
+		free(exit->spotlights);
+		exit->spotlights = NULL;
+	}
+}

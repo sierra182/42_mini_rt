@@ -92,11 +92,15 @@ int	is_valid_png(char *str)
 {
 	char path[1000];
 
+	
 	ft_bzero(path, 1000);
 	ft_strlcat(path, "bump_maps/", 1000);
 	ft_strlcat(path, str, 1000);
 	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".png") && file_exists(path))
+	{
+		printf("is_valid_png returns 1\n");
 		return (1);
+	}
 	return (0);
 	
 }

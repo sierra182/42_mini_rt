@@ -181,7 +181,7 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 # 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
-all: intro design mlx cursor_start ft_printf $(NAME)		
+# all: intro design mlx cursor_start ft_printf $(NAME)		
 
 l:  design newline mlx ft_printf $(NAME)
 
