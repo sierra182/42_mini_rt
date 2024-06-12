@@ -33,7 +33,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	else if ((int)tab[7] != 1024)
 	{
 		data->planes[i].bump_map_path = get_bmpath(data, (int)tab[7]);
-		printf("sphere bump map path: %s\n", data->planes[i].bump_map_path);
+		// printf("sphere bump map path: %s\n", data->planes[i].bump_map_path);
 	}
 	else
 		data->spheres[i].checkerboard = 0;
@@ -95,7 +95,7 @@ void	fill_struct_pl(t_data *data, double tab[])
 	else if ((int)tab[9] != 1024)
 	{
 		data->planes[i].bump_map_path = get_bmpath(data, (int)tab[9]);
-		printf("plane bump map path: %s\n", data->planes[i].bump_map_path);
+		// printf("plane bump map path: %s\n", data->planes[i].bump_map_path);
 	}
 	else
 		data->planes[i].checkerboard = 0;

@@ -27,7 +27,7 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 				tab[i] = -42;
 			if (is_valid_png(token))
 			{
-				printf("token: %s\n", token);
+				// printf("token: %s\n", token);
 				data->bump_map_paths[j] = ft_strdup(token);
 				tab[i] = j++;
 			}

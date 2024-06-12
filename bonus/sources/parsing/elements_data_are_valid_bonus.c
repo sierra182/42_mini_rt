@@ -54,7 +54,7 @@ int	data_str_is_valid(char *str)
 	else if (!ft_strcmp(token, "pl"))
 		data_str = "10,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt,check";
 	else if (!ft_strcmp(token, "cy"))
-		data_str = "12,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt,check";
+		data_str = "11,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt";
 	else if (!ft_strcmp(token, "tr"))
 		data_str = "12,fl,fl,fl,fl,fl,fl,fl,fl,fl,byt,byt,byt";
 	else if (!ft_strncmp(token, "#", 1))
@@ -90,7 +90,7 @@ int	check_data(char *token, char *check)
 
 int	is_valid_png(char *str)
 {
-	printf("str to check: '%s'\n", str);
+	// printf("str to check: '%s'\n", str);
 	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".png") && file_exists(str))
 	{
 		// printf("is_valid_png returns 1\n");
