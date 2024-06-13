@@ -57,7 +57,7 @@ void	checker_board_modif(t_get_color_params *params, t_color *color_altered, t_r
 	i = 0;
 	while (i < 3)
 	{
-		printf("color->rgb[%d] = %d\n", i, sphere->color.rgb[i]);
+		// printf("color->rgb[%d] = %d\n", i, sphere->color.rgb[i]);
 		color_altered->rgb[i] = sphere->color.rgb[i];
 		i++;
 	}
