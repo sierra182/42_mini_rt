@@ -1,5 +1,6 @@
 #include "get_sph_pl_bck_color_bonus.h"
 void	clamp_rgb_0(t_color *color);
+#include <math.h>
 
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL_AND_LIGHT_RAY
@@ -18,8 +19,33 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
+void cartesian_to_spherical(t_ray_vector *point, float *theta, float *phi)
+{
+	float r;
+	
+	r = sqrt(point->axis[0]* point->axis[0]+ point->axis[1] * point->axis[1] + point->axis[2] * point->axis[2]);
+	*theta = acos(point->axis[2] / r);
+	*phi = atan2(point->axis[1], point->axis[0]);
+}
 
-void	checker_board_modif(t_get_color_params *params, t_color *color_altered)
+int is_checkerboard(t_ray_vector point, float size)
+{
+	float theta;
+	float phi;
+	int check_theta;
+	int check_phi;
+
+	cartesian_to_spherical(&point, &theta, &phi);
+
+	// Convertir theta et phi en indices de damier
+	check_theta = (int)(theta / size) % 2;
+	check_phi = (int)(phi / size) % 2;
+
+	// Alterner les couleurs selon les indices
+	return (check_theta + check_phi) % 2 == 0;
+}
+
+void	checker_board_modif(t_get_color_params *params, t_color *color_altered, t_ray_vector *i_point)
 {
 	t_sphere		*sphere;
 
@@ -35,11 +61,24 @@ void	checker_board_modif(t_get_color_params *params, t_color *color_altered)
 		color_altered->rgb[i] = sphere->color.rgb[i];
 		i++;
 	}
-	color_altered->rgb[0] -= 50;
-	color_altered->rgb[1] -= 50;
-	color_altered->rgb[2] -= 50;
+		// color_altered->rgb[0] -= 50;
+		// color_altered->rgb[1] -= 50;
+		// color_altered->rgb[2] -= 50;
 
-	clamp_rgb_0(color_altered);
+	// sphere->color.rgb[0] -= 50;
+	// sphere->color.rgb[1] -= 50;
+	// sphere->color.rgb[2] -= 50;
+	if (is_checkerboard(*i_point, 0.05))
+	{
+		*params->color = *color_altered;
+		apply_aces_tonemap(params->color);
+		return ;
+	}
+	params->color->rgb[0] -= 50;
+	params->color->rgb[1] -= 50;
+	params->color->rgb[2] -= 50;
+
+	clamp_rgb_0(params->color);
 }
 
 /**========================================================================
@@ -69,7 +108,7 @@ int	get_sphere_color(t_get_color_params *params)
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 	{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	checker_board_modif(params, &color_altered);
+	checker_board_modif(params, &color_altered, &light_ray.ray.origin_vect);
 	apply_aces_tonemap(params->color);
 	return (0);
 }
