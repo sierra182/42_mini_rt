@@ -128,6 +128,7 @@ void	fill_struct_l(t_data *data, double tab[])
 
 void	print_triangle(t_triangle *triangle)
 {
+	printf("triangle: \n");
 	printf("%f\n", triangle->point_a.axis[0]);
 	printf("%f\n", triangle->point_a.axis[1]);
 	printf("%f\n", triangle->point_a.axis[2]);
@@ -157,5 +158,6 @@ void	fill_struct_tr(t_data *data, double tab[])
 	data->triangles[i].color.rgb[0] = tab[9];
 	data->triangles[i].color.rgb[1] = tab[10];
 	data->triangles[i].color.rgb[2] = tab[11];
+	// print_triangle(&data->triangles[i]);
 	i++;
 }
