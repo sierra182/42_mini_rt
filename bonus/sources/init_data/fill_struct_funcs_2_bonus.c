@@ -160,38 +160,3 @@ void	fill_struct_tr(t_data *data, double tab[])
 	i++;
 }
 
-void	print_triangle(t_triangle *triangle)
-{
-	printf("triangle: \n");
-	printf("%f\n", triangle->point_a.axis[0]);
-	printf("%f\n", triangle->point_a.axis[1]);
-	printf("%f\n", triangle->point_a.axis[2]);
-	printf("%f\n", triangle->point_b.axis[0]);
-	printf("%f\n", triangle->point_b.axis[1]);
-	printf("%f\n", triangle->point_b.axis[2]);
-	printf("%f\n", triangle->point_c.axis[0]);
-	printf("%f\n", triangle->point_c.axis[1]);
-	printf("%f\n", triangle->point_c.axis[2]);
-	printf("%i\n", triangle->color.rgb[0]);
-	printf("%i\n", triangle->color.rgb[1] );
-	printf("%i\n", triangle->color.rgb[2] );
-}
-
-void	fill_struct_tr(t_data *data, double tab[])
-{
-	static int	i = 0;
-	data->triangles[i].point_a.axis[0] = tab[0];
-	data->triangles[i].point_a.axis[1] = tab[1];
-	data->triangles[i].point_a.axis[2] = tab[2];
-	data->triangles[i].point_b.axis[0] = tab[3];
-	data->triangles[i].point_b.axis[1] = tab[4];
-	data->triangles[i].point_b.axis[2] = tab[5];
-	data->triangles[i].point_c.axis[0] = tab[6];
-	data->triangles[i].point_c.axis[1] = tab[7];
-	data->triangles[i].point_c.axis[2] = tab[8];
-	data->triangles[i].color.rgb[0] = tab[9];
-	data->triangles[i].color.rgb[1] = tab[10];
-	data->triangles[i].color.rgb[2] = tab[11];
-	// print_triangle(&data->triangles[i]);
-	i++;
-}
