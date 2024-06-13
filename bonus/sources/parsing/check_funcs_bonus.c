@@ -18,6 +18,11 @@ int	typ_check_fl(char *str, t_num_type num)
 		if (tmp < -1.0 || tmp > 1.0)
 			return (0);
 	}
+	else if (num == UFL)
+	{
+		if (tmp < 0.0)
+			return (0);
+	}
 	return (1);
 }
 

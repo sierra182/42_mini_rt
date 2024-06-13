@@ -13,7 +13,8 @@ typedef enum t_num_type
 	VECR,
 	BYT,
 	FOV,
-	FL
+	FL,
+	UFL
 }	t_num_type;
 
 int		data_str_is_valid(char *str);
