@@ -15,10 +15,12 @@ void	free_paths(t_data *data)
 	int	i;
 
 	i = 0;
+	// printf("free paths\n");
 	if (data->bump_map_paths[i] == NULL)
 		return ;
 	while (data->bump_map_paths[i])
 	{
+		// printf("free path: %s\n", data->bump_map_paths[i]);
 		free (data->bump_map_paths[i]);
 		i++;
 	}
@@ -43,9 +45,9 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	if (generate_video_frames(&data, envp))
 		return (0);
-	// if (init_mlx(&mlx))
-	// 	return (4);
-	// launch_mlx_loop(&mlx, &data);
+	if (init_mlx(&mlx))
+		return (4);
+	launch_mlx_loop(&mlx, &data);
 	free_paths(&data);
 	flush_exit_struct();
 	return (0);

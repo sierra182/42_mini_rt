@@ -41,7 +41,9 @@ int	init_data(char *map_path, t_data *data)
 	get_elements_number(data, map_path);
 	if (create_data_structs(data) == 0)
 		return (0);
-	data->bump_map_paths[0] = NULL;
+	int	i = 0;
+	while (i < 100)
+		data->bump_map_paths[i++] = NULL;
 	while (get_element_data(NULL, map_path, tab, "A") != NULL)
 		fill_struct_a(data, tab);
 	while (get_element_data(NULL, map_path, tab, "C") != NULL)
