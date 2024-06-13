@@ -9,7 +9,7 @@ int		intersect_disc_plans(t_ray *ray, t_cylinder *cyl, t_ray_vector	*i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 int		is_behind_cam(double t);
 int		get_sphere_color(t_get_color_params *params);
-int		get_plane_color(t_get_color_params *params);
+void	get_plane_color(t_get_color_params *params);
 int		get_background_color(t_ray *ray, t_data *data);
 int		get_pixel_color(t_data *data, t_ray *ray, t_obj *obj);
 int		get_color(unsigned char r, unsigned char g, unsigned char b);
