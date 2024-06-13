@@ -50,11 +50,11 @@ int	data_str_is_valid(char *str)
 	else if (!ft_strcmp(token, "L"))
 		data_str = "7,fl,fl,fl,ltr,byt,byt,byt";
 	else if (!ft_strcmp(token, "sp"))
-		data_str = "8,fl,fl,fl,fl,byt,byt,byt,check";
+		data_str = "8,fl,fl,fl,ufl,byt,byt,byt,check";
 	else if (!ft_strcmp(token, "pl"))
 		data_str = "10,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt,check";
 	else if (!ft_strcmp(token, "cy"))
-		data_str = "11,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt";
+		data_str = "11,fl,fl,fl,vecr,vecr,vecr,ufl,ufl,byt,byt,byt";
 	else if (!ft_strcmp(token, "tr"))
 		data_str = "12,fl,fl,fl,fl,fl,fl,fl,fl,fl,byt,byt,byt";
 	else if (!ft_strncmp(token, "#", 1))
@@ -91,6 +91,8 @@ int	check_data(char *token, char *check)
 int	is_valid_png(char *str)
 {
 	// printf("str to check: '%s'\n", str);
+	if (!str || ft_strlen(str) < 5)
+		return (0);
 	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".png") && file_exists(str))
 	{
 		// printf("is_valid_png returns 1\n");
@@ -119,6 +121,8 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 		if (num[*i] && !ft_strcmp(num[*i], "fov") && !chck_bt(token, FOV))
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "fl") && !chck_fl(token, FL))
+			return (0);
+		if (num[*i] && !ft_strcmp(num[*i], "ufl") && !chck_fl(token, UFL))
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "check") && token && (ft_strcmp(token, "checkerboard") && !is_valid_png(token)))
 			return (0);

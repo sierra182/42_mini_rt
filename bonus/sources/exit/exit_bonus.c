@@ -1,5 +1,6 @@
 #include "exit_bonus.h"
 void	store_and_free_spotlights(t_exit *exit, void *spotlights);
+void	store_and_free_triangles(t_exit *exit, void *triangles);
 
 /**========================================================================
  *                           GET_EXIT_STRUCT
@@ -25,6 +26,7 @@ static t_getsaf	*get_store_and_free(void)
 		store_and_free[CY] = store_and_free_cylinders;
 		store_and_free[PL] = store_and_free_planes;
 		store_and_free[SL] = store_and_free_spotlights;
+		store_and_free[TR] = store_and_free_triangles;
 		store_and_free[DATA] = store_and_free_data_copy;
 	}
 	return (store_and_free);

@@ -55,3 +55,14 @@ void	store_and_free_spotlights(t_exit *exit, void *spotlights)
 		exit->spotlights = NULL;
 	}
 }
+
+void	store_and_free_triangles(t_exit *exit, void *triangles)
+{
+	if (exit && triangles)
+		exit->triangles = (t_triangle *) triangles;
+	else if (exit && exit->triangles)
+	{
+		free(exit->triangles);
+		exit->triangles = NULL;
+	}
+}
