@@ -103,6 +103,7 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 /**========================================================================
  *                           GET_PLANE_COLOR
  *========================================================================**/
+int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
 
 int	get_plane_color(t_get_color_params *params)
 {
@@ -127,12 +128,13 @@ int	get_plane_color(t_get_color_params *params)
 		if (has_shadow(params->data, params->mesh, &light_ray)
 			|| scalar_product(normal.axis, light_ray.ray.dir_vect.axis) < 1e-3)
 		{
-			*params->color = ambiantly_color;
-			apply_aces_tonemap(params->color);
-			return (0);
+			// *params->color = ambiantly_color;
+			// apply_aces_tonemap(params->color);
+			//return (0);
+			continue;
 		}
-		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-		{params, &plane->color, &normal, &spotlighty_color, &light_ray});
+		calculate_spotlight_effect3(&params->data->spotlights[i], &(t_calc_spotlight_effect_params)
+		{ params, &plane->color, &normal, &spotlighty_color, &light_ray});
 		add_color(&spotlighties_color, &spotlighty_color, &spotlighties_color);
 	}
 	add_color(&spotlighties_color, &ambiantly_color, params->color);

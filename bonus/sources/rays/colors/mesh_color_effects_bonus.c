@@ -63,6 +63,24 @@ int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 	return (0);
 }
 
+int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_params *params)
+{
+	double	light_attenuat;
+	double	light_coef;
+
+	light_coef = scalar_product(params->light_ray->ray_norm.dir_vect.axis,
+			params->normal->axis);
+	normalize_zero_one(&light_coef, 1);
+	light_attenuat = calculate_light_attenuation(params->light_ray,
+			light_coef * spotlight->intensity);
+	color_with_light(params->mesh_color,
+		&spotlight->color,
+		spotlight->intensity * light_attenuat * 1,
+		params->spotlighty_color);
+	add_shading(params->params->ray, params->normal, params->spotlighty_color,
+		params->spotlighty_color);
+	return (0);
+}
 /**========================================================================
  *                           CALCULATE_SPOTLIGHT_EFFECT
  * 
