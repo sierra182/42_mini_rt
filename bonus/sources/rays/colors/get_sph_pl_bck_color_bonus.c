@@ -1,4 +1,5 @@
 #include "get_sph_pl_bck_color_bonus.h"
+void	clamp_rgb_0(t_color *color);
 
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL_AND_LIGHT_RAY
@@ -17,6 +18,30 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 		symmetrize_vector(normal->axis);
 }
 
+
+void	checker_board_modif(t_get_color_params *params, t_color *color_altered)
+{
+	t_sphere		*sphere;
+
+	int i;
+
+	sphere = (t_sphere *) params->mesh->ref;
+	if (sphere->checkerboard == 0)
+		return ;
+	i = 0;
+	while (i < 3)
+	{
+		printf("color->rgb[%d] = %d\n", i, sphere->color.rgb[i]);
+		color_altered->rgb[i] = sphere->color.rgb[i];
+		i++;
+	}
+	color_altered->rgb[0] -= 50;
+	color_altered->rgb[1] -= 50;
+	color_altered->rgb[2] -= 50;
+
+	clamp_rgb_0(color_altered);
+}
+
 /**========================================================================
  *                           GET_SPHERE_COLOR
  *========================================================================**/
@@ -27,6 +52,7 @@ int	get_sphere_color(t_get_color_params *params)
 	t_color			ambiantly_color;
 	t_color			spotlighty_color;
 	t_sphere		*sphere;
+	t_color 		color_altered;
 
 	sphere = (t_sphere *) params->mesh->ref;
 	compute_sph_normal_and_light_ray(params, sphere, &normal, &light_ray);
@@ -43,6 +69,7 @@ int	get_sphere_color(t_get_color_params *params)
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 	{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
+	checker_board_modif(params, &color_altered);
 	apply_aces_tonemap(params->color);
 	return (0);
 }
@@ -65,6 +92,7 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 	if (view_dot_normal > 0)
 		symmetrize_vector(normal->axis);
 }
+
 
 /**========================================================================
  *                           GET_PLANE_COLOR
