@@ -91,6 +91,8 @@ int	check_data(char *token, char *check)
 int	is_valid_png(char *str)
 {
 	// printf("str to check: '%s'\n", str);
+	if (!str || ft_strlen(str) < 5)
+		return (0);
 	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".png") && file_exists(str))
 	{
 		// printf("is_valid_png returns 1\n");
