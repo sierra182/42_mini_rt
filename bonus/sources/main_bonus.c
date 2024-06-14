@@ -13,6 +13,7 @@ int	get_color(unsigned char r, unsigned char g, unsigned char b);
 void	free_paths(t_data *data)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	// printf("free paths\n");
@@ -22,6 +23,18 @@ void	free_paths(t_data *data)
 	{
 		// printf("free path: %s\n", data->bump_map_paths[i]);
 		free (data->bump_map_paths[i]);
+		i++;
+	}
+	i = 0;
+	while (i < 10)
+	{
+		j = 0;
+		while (j < 512)
+		{
+			free(data->bump_maps[i][j]);
+			j++;
+		}
+		free(data->bump_maps[i]);
 		i++;
 	}
 }

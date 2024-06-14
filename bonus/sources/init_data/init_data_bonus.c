@@ -71,11 +71,11 @@ void	alloc_bump_maps(t_data *data)
 		j = 0;
 		while (j < 10)
 		{
-			data->bump_maps[j] = (char **)malloc(sizeof (char *) * 513);
+			data->bump_maps[j] = (char **)malloc(sizeof (char *) * 512);
 			i = 0;
 			while (i < 512)
 			{
-				data->bump_maps[j][i] = (char *)malloc(sizeof (char) * 513);
+				data->bump_maps[j][i] = (char *)malloc(sizeof (char) * 512);
 				data->bump_maps[j][i][512] = '\0';
 				i++;
 			}
