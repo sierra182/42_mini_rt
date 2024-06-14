@@ -11,6 +11,15 @@ void	clamp_rgb_0(t_color *color);
 // 	*phi = atan2(point->axis[1], point->axis[0]);
 // }
 
+
+/**========================================================================
+ *                             COMMENT BLOCK
+ *  checker_board_modif_uv(params, light_ray, 10);
+	apply_aces_tonemap(params->color);
+ *  			AND
+ void	checker_board_modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
+
+ *========================================================================**/
 void calculate_uv(t_ray_vector point, double *u, double *v) {
 	double theta;
 	double phi;

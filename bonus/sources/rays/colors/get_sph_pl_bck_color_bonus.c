@@ -1,6 +1,4 @@
 #include "get_sph_pl_bck_color_bonus.h"
-void	clamp_rgb_0(t_color *color);
-#include <math.h>
 void	checker_board_modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
 
 /**========================================================================
@@ -19,7 +17,6 @@ void	compute_sph_normal_and_light_ray(t_get_color_params *params,
 	if (sphere->which_t == 2)
 		symmetrize_vector(normal->axis);
 }
-
 
 /**========================================================================
  *                           GET_SPHERE_COLOR
@@ -71,7 +68,6 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
 	if (view_dot_normal > 0)
 		symmetrize_vector(normal->axis);
 }
-
 
 /**========================================================================
  *                           GET_PLANE_COLOR
