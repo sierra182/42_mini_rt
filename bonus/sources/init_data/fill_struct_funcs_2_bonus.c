@@ -29,6 +29,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	if (tab[7] == -42)
 	{
 		data->spheres[i].checkerboard = 1;
+		data->spheres[i].bump_map_nbr = -1;
 	}
 	else if ((int)tab[7] != 1024)
 	{
@@ -36,7 +37,10 @@ void	fill_struct_sp(t_data *data, double tab[])
 		// printf("sphere bump map path: %s\n", data->planes[i].bump_map_path);
 	}
 	else
+	{
 		data->spheres[i].checkerboard = 0;
+		data->spheres[i].bump_map_nbr = -1;
+	}
 	data->spheres[i].which_t = 0;
 	data->spheres[i].t1 = 0.0;
 	data->spheres[i].t2 = 0.0;

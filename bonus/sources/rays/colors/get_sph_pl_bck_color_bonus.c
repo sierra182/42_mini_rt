@@ -1,5 +1,5 @@
 #include "get_sph_pl_bck_color_bonus.h"
-void	checker_board_modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
+void	board_modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
 
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL_AND_LIGHT_RAY
@@ -45,7 +45,7 @@ int	get_sphere_color(t_get_color_params *params)
 	{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	params->normal = &normal;
-	checker_board_modif_uv(params, light_ray, 10);
+	board_modif_uv(params, light_ray, 10);
 	apply_aces_tonemap(params->color);
 	return (0);
 }

@@ -46,15 +46,20 @@ void checker_color(double u, double v, int checker_size, t_color *color)
 	}
 }
 
-void	checker_board_modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
+void	board_modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 {
 	double u;
 	double v;
 	t_sphere		*sphere;
 
 	sphere = (t_sphere *) params->mesh->ref;
-	if (sphere->checkerboard == 0)
+	if (sphere->checkerboard == 0 && sphere->bump_map_nbr == -1)
 		return ;
+	// if (sphere->bump_map_nbr != -1)
+	// {
+	// 	// printf("je suis une bump map!\n");
+	// 	return ;
+	// }
 	calculate_uv(*params->normal, &u, &v);
 	checker_color(u, v, size, params->color);
 }
