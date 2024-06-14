@@ -47,11 +47,15 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	t_color		ambiantly_color;
 	t_color		spotlighties_color;
 	t_cylinder	*cyl;
-	
+	double			view_dot_normal;
+
 	cyl = ((t_cylinder *) params->mesh->ref);
 	cast_vector_mat_ray(&cyl->axis_vect, params->normal);
 	self_normalize_vector(params->normal->axis);
 	get_intersect_point(params->ray, params->t, &light_ray.ray.origin_vect);
+	view_dot_normal = scalar_product(params->normal->axis, params->ray->dir_vect.axis);
+	if (view_dot_normal > 0.0)
+		symmetrize_vector(params->normal->axis);
 	calculate_ambiant_effect(params, &cyl->color, params->normal,
 			&ambiantly_color);
 	add_disc_spotlights_effect(params, params->normal, &spotlighties_color,
@@ -80,13 +84,13 @@ void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector
 *normal, t_ray *light_ray)
 {
 	double			light_dot_normal;
-	double			view_dot_normal;
 	t_cylinder		*cyl;
 
 	cyl = ((t_cylinder *) params->mesh->ref);
-	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
-	if (view_dot_normal > 0.0)
-		symmetrize_vector(normal->axis);
+	// 	double			view_dot_normal;
+	// view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
+	// if (view_dot_normal > 0.0)
+	// 	symmetrize_vector(normal->axis);
 	light_dot_normal = scalar_product(normal->axis, light_ray->dir_vect.axis);
 	if (light_dot_normal < 0 && cyl->which_t == 2)
 		symmetrize_vector(normal->axis);
@@ -104,10 +108,6 @@ static int	is_ambianced_only(t_spotlight *spotlight, t_get_color_params *params,
 	if (has_shadow(params->data, params->mesh, light_ray)
 		|| *light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
 		(params->normal, spotlight, cyl, &params->data->cam))
-	{
-		// *params->color = *ambiantly_color;
-		// apply_aces_tonemap(params->color);
-		return (1);
-	}
+		return (1);	
 	return (0);
 }

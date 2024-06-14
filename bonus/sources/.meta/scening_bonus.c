@@ -84,10 +84,16 @@ void	make_rt_file(t_data *data)
 	dprintf(fd, "%.*f  ", 0,  data->cam.fov_deg);
 	write_fd(fd, "\n");
 
-	dprintf(fd, "L ");
-	write_vector(fd, &data->spotlight.origin_vect);
-	dprintf(fd, "%f  ", data->spotlight.intensity);
-	write_color(fd, &data->spotlight.bulb.color);
+	i = 0;
+	while (i < data->sl_nbr)
+	{
+		dprintf(fd, "L ");
+		write_vector(fd, &data->spotlights[i].origin_vect);
+		dprintf(fd, "%f  ", data->spotlights[i].intensity);
+		write_color(fd, &data->spotlights[i].bulb.color);
+		i++;
+	}
+
 
 	i = 0;
 	while (i < data->cy_nbr)
