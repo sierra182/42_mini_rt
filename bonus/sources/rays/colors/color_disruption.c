@@ -14,10 +14,10 @@ void	clamp_rgb_0(t_color *color);
 
 /**========================================================================
  *                             COMMENT BLOCK
- *  checker_board_modif_uv(params, light_ray, 10);
+ *  modif_uv(params, light_ray, 10);
 	apply_aces_tonemap(params->color);
  *  			AND
- void	checker_board_modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
+ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
 
  *========================================================================**/
 void calculate_uv(t_ray_vector point, double *u, double *v) {
@@ -46,15 +46,19 @@ void checker_color(double u, double v, int checker_size, t_color *color)
 	}
 }
 
-void	checker_board_modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
+void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 {
 	double u;
 	double v;
 	t_sphere		*sphere;
 
 	sphere = (t_sphere *) params->mesh->ref;
-	if (sphere->checkerboard == 0)
+	if (sphere->checkerboard == 0 && !sphere->bump_map_path)
 		return ;
-	calculate_uv(*params->normal, &u, &v);
-	checker_color(u, v, size, params->color);
+	if (sphere->checkerboard == 1)
+	{
+		calculate_uv(*params->normal, &u, &v);
+		checker_color(u, v, size, params->color);
+	}
+	printf("bmp: %s\n", sphere->bump_map_path);
 }
