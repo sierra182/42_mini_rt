@@ -35,7 +35,7 @@ void uv_to_texture_coordinates(double u, double v, int *x, int *y) {
     if (*y < 0) *y = 0;
     if (*x >= TEXTURE_WIDTH) *x = TEXTURE_WIDTH - 1;
     if (*y >= TEXTURE_WIDTH) *y = TEXTURE_WIDTH - 1;
-	// printf("%f, %f => %i, %i\n", u, v, *x, *y);
+	printf("%f, %f => %i, %i\n", u, v, *x, *y);
 }
 
 

@@ -29,6 +29,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	if (tab[7] == -42)
 	{
 		data->spheres[i].checkerboard = 1;
+		data->spheres[i].bump_map_nbr = -1;
 	}
 	else if ((int)tab[7] != 1024)
 	{
