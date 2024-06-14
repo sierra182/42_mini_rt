@@ -5,6 +5,7 @@
         "mesh_color_effects_bonus.h": "c",
         "clamping_bonus.h": "c",
         "color_effects_bonus.h": "c",
-        "get_cylinder_color_bonus.h": "c"
+        "get_cylinder_color_bonus.h": "c",
+        "get_cylinder_color_discs_bonus.h": "c"
     }
 }
