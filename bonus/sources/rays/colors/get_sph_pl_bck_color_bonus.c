@@ -95,10 +95,13 @@ void calculate_uv(t_ray_vector point, double *u, double *v) {
 
 void checker_color(double u, double v, int checker_size, int *rgb)
 {
-    int u_index = (int)(u * checker_size);
-    int v_index = (int)(v * checker_size);
-    int is_checker = (u_index % 2 == v_index % 2);
-    if (is_checker)
+	int u_index = (int)(u * checker_size);
+	int v_index = (int)(v * checker_size);
+	int	is_checker;
+	is_checker = (u_index % 2 == v_index % 2);
+
+	
+	if (is_checker)
 	{
 		rgb[0] = 0;
 		rgb[1] = 0;
@@ -110,6 +113,35 @@ void checker_color(double u, double v, int checker_size, int *rgb)
 		rgb[1] = 255;
 		rgb[2] = 255;
 	}
+}
+
+void	checker_board_modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
+{
+	double u, v;
+	t_sphere		*sphere;
+
+	sphere = (t_sphere *) params->mesh->ref;
+	if (sphere->checkerboard == 0)
+		return ;
+	// self_normalize_vector(light_ray.ray.origin_vect.axis);
+
+	// t_ray_vector i_point;
+	// subtract_vector(light_ray.ray.origin_vect.axis, sphere->origin_vect.axis, i_point.axis);
+
+	t_ray_vector local_point;
+
+    local_point.axis[0] = light_ray.ray.origin_vect.axis[0] - sphere->origin_vect.axis[0];
+    local_point.axis[1] = light_ray.ray.origin_vect.axis[1] - sphere->origin_vect.axis[1];
+    local_point.axis[2] = light_ray.ray.origin_vect.axis[2] - sphere->origin_vect.axis[2];
+
+
+
+
+
+	self_normalize_vector(local_point.axis);
+	calculate_uv(local_point, &u, &v);
+	checker_color(u, v, size, params->color->rgb);
+
 }
 
 /**========================================================================
@@ -141,12 +173,10 @@ int	get_sphere_color(t_get_color_params *params)
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
 	// checker_board_modif(params, &color_altered, &light_ray.ray.origin_vect);
 
+	checker_board_modif_uv(params, light_ray, 10);
+	
 
-	double u, v;
-	calculate_uv(light_ray.ray.origin_vect, &u, &v);
-	checker_color(u, v, 220, params->color->rgb);
-
-	// apply_aces_tonemap(params->color);
+	apply_aces_tonemap(params->color);
 	return (0);
 }
 
