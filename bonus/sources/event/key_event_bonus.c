@@ -23,6 +23,8 @@ void	key_code_funcs(int keycode, t_data *data, t_mlx *mlx)
 		data->event.ctrl_ispressed = 1;
 }
 
+void	actual_light_handle(t_data *data, int store_color,
+	t_matrix_vector **origin_vect);//
 /**========================================================================
  *                           DATA_EVENT_FUNCS_1
  *========================================================================**/
@@ -39,8 +41,10 @@ void	data_event_funcs_1(t_data *data, int keycode)
 		cam_event_rotate(keycode, &data->cam);
 	}
 	if (data->event.actual_mode == E_SPOTL)
-		event_translate(keycode, trsl_about_cam, &data->cam,
-			&data->spotlight.origin_vect);
+	{
+		actual_light_handle(data, 0, &transl_vect);
+		event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
+	}
 	if (data->event.actual_mode == E_MESH)
 	{
 		actual_mesh_handle(data, NULL, &transl_vect, &rotate_vect);

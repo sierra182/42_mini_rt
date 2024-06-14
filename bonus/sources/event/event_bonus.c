@@ -71,6 +71,28 @@ void	event_intensity(int keycode, double *intensity)
 		*intensity -= 0.1;
 }
 
+double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
+
+static double	has_bulb(t_data *data, t_ray *ray)
+{
+	double	inter_bulb;
+	int		i;
+
+	i = -1;
+	while (++i < data->sl_nbr)
+	{
+		inter_bulb = is_intersect_sphere(ray, &data->spotlights[i].bulb, NULL);
+		if (inter_bulb)
+		{
+			data->event.actual_light = &data->spotlights[i];			
+			return (inter_bulb);
+		}	
+	}
+	return (0.0);	
+}
+int	is_behind_cam(double t);//
+
+
 /**========================================================================
  *                           EVENT_LAUNCH_RAYS
  *========================================================================**/
@@ -85,6 +107,24 @@ void	event_launch_rays(t_data *data, int x, int y)
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
-	if (obj.ref)
+	if (obj.ref && !is_behind_cam(obj.t))//!modif mandat
 		actual_mesh_handle(data, &obj, NULL, NULL);
+}
+
+void	actual_light_handle(t_data *data, int store_color,
+	t_matrix_vector **origin_vect)
+{
+	if (store_color)
+		;//!handle_mesh_color_update(data, mesh);
+	else if (data->event.actual_light)
+		*origin_vect = &data->event.actual_light->origin_vect;	
+}
+
+void	event_spotlight_launch_rays(t_data *data, int x, int y)
+{
+	t_ray		ray;
+	
+	new_ray(&data->cam, &ray, x, y);
+	if (!is_behind_cam(has_bulb(data, &ray)))
+		actual_light_handle(data, 1, NULL);
 }

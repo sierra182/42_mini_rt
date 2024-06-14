@@ -15,6 +15,7 @@ typedef struct s_event
 	int				legend;
 	t_event_mesh	actual_mode;
 	t_obj			actual_mesh;
+	t_spotlight		*actual_light;
 	t_color			color_sav;
 }	t_event;
 

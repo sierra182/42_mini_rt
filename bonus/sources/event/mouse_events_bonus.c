@@ -1,5 +1,7 @@
 #include "mouse_events_bonus.h"
 
+void	event_spotlight_launch_rays(t_data *data, int x, int y);//
+
 /**========================================================================
  *                           MOUSE_EVENT
  *========================================================================**/
@@ -15,6 +17,8 @@ int	mouse_event(int button, int x, int y, void *param)
 			return (data->event.legend = (data->event.legend + 1) % 2, 0);
 		if (data->event.actual_mode == E_MESH)
 			event_launch_rays(data, x, y);
+		if (data->event.actual_mode == E_SPOTL)
+			event_spotlight_launch_rays(data, x, y);
 		return (0);
 	}
 	else if (button == 5 && data->cam.fov_deg < 180)
