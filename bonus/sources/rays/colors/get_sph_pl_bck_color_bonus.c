@@ -128,10 +128,11 @@ void	compute_pl_normal_and_light_ray(t_get_color_params *params,
  *                           COMPUTE_PL_NORMAL
  *========================================================================**/
 void	compute_pl_normal(t_get_color_params *params,
-	t_plane *plane, t_ray_vector *normal)
+	t_plane *plane, t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	double	scalar_nr;
 
+	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
 	cast_vector_mat_ray(&plane->norm_vect, normal);
 	self_normalize_vector(normal->axis);
 	scalar_nr = scalar_product(normal->axis, params->ray->dir_vect.axis);
@@ -144,33 +145,17 @@ void	compute_pl_normal(t_get_color_params *params,
  *========================================================================**/
 void	compute_light_ray(t_spotlight *spotlight, t_get_color_params *params,
 	t_ray_pack *light_ray)
-{
-	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
+{	
 	subtract_vector(spotlight->origin_vect.axis,
 		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);
 	calculate_ray_pack(light_ray);
 }
 
-// void	add_spotlights_effects(t_calc_spotlight_effect_params *params)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (++i < params->params->data->sl_nbr)
-// 	{
-// 		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-// 		{params->params, &params->mesh_color, &params->normal,
-// 			&params->spotlighty_color, &params->light_ray});
-// 	}
-// 	add_color(&params->spotlighty_color, &params->ambiantly_color,
-// 		params->params->color);
-// }
 int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
 
 void	add_spotlights_effect(t_get_color_params *params,
-	t_ray_vector *normal, t_color *spotlighties_color, t_color *mesh_color)
-{
-	t_ray_pack	light_ray;
+	t_ray_vector *normal, t_color *spotlighties_color, t_color *mesh_color, t_ray_pack	*light_ray)
+{	
 	t_color		spotlighty_color;
 	int			i;
 	
@@ -179,13 +164,13 @@ void	add_spotlights_effect(t_get_color_params *params,
 	while (++i < params->data->sl_nbr)
 	{
 		compute_light_ray(&params->data->spotlights[i], params,
-			&light_ray);	
-		if (has_shadow(params->data, params->mesh, &light_ray)
-			|| scalar_product(normal->axis, light_ray.ray.dir_vect.axis) < 1e-3)	
+			light_ray);	
+		if (has_shadow(params->data, params->mesh, light_ray)
+			|| scalar_product(normal->axis, light_ray->ray.dir_vect.axis) < 1e-3)	
 			continue;
 		calculate_spotlight_effect3(&params->data->spotlights[i],
 			&(t_calc_spotlight_effect_params)
-		{params, mesh_color, normal, &spotlighty_color, &light_ray});
+		{params, mesh_color, normal, &spotlighty_color, light_ray});
 		add_color(spotlighties_color, &spotlighty_color, spotlighties_color);
 	}
 }
@@ -197,16 +182,17 @@ void	add_spotlights_effect(t_get_color_params *params,
 void	get_plane_color(t_get_color_params *params)
 {
 	t_ray_vector	normal;
+	t_ray_pack		light_ray;
 	t_color			ambiantly_color;	
 	t_color			spotlighties_color;
 	t_plane			*plane;
 	
 	plane = (t_plane *) params->mesh->ref;
-	compute_pl_normal(params, plane, &normal);
+	compute_pl_normal(params, plane, &normal, &light_ray);
 	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
-	add_spotlights_effect(params, &normal, &spotlighties_color, &plane->color);	
+	add_spotlights_effect(params, &normal, &spotlighties_color, &plane->color, &light_ray);	
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	apply_aces_tonemap(params->color);	
+	apply_aces_tonemap(params->color);
 }
 
 // /**========================================================================
