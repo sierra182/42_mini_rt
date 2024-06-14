@@ -19,7 +19,7 @@ void	calculate_ray_pack(t_ray_pack *ray_pack);
 void	apply_aces_tonemap(t_color *color);
 void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector
 *normal, t_ray *light_ray);
-static int	is_ambianced_only(t_get_color_params *params,
+static int	is_ambianced_only(t_spotlight *spotlight, t_get_color_params *params,
 	t_ray_pack *light_ray, double *light_coef);
 
 #endif

@@ -20,7 +20,7 @@ void	add_disc_spotlights_effect(t_get_color_params *params,
 				light_ray->ray.dir_vect.axis);
 		// calculate_ambiant_effect(params, &mesh_color, params->normal,
 		// 	&ambiantly_color);
-		if (is_ambianced_only(params, light_ray, &light_coef))
+		if (is_ambianced_only(&params->data->spotlights[i], params, light_ray, &light_coef))
 			continue ;
 		calculate_spotlight_effect3(&params->data->spotlights[i],
 			&(t_calc_spotlight_effect_params)
@@ -95,7 +95,7 @@ void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector
 /**========================================================================
  *                           IS_AMBIANCED_ONLY
  *========================================================================**/
-static int	is_ambianced_only(t_get_color_params *params,
+static int	is_ambianced_only(t_spotlight *spotlight, t_get_color_params *params,
 	t_ray_pack *light_ray, double *light_coef)
 {
 	t_cylinder		*cyl;
@@ -103,7 +103,7 @@ static int	is_ambianced_only(t_get_color_params *params,
 	cyl = ((t_cylinder *) params->mesh->ref);
 	if (has_shadow(params->data, params->mesh, light_ray)
 		|| *light_coef < 0.0 || are_light_and_cam_in_different_cyl_space
-		(params->normal, &params->data->spotlight, cyl, &params->data->cam))
+		(params->normal, spotlight, cyl, &params->data->cam))
 	{
 		// *params->color = *ambiantly_color;
 		// apply_aces_tonemap(params->color);
