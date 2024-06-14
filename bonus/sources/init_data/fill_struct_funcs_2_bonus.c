@@ -1,5 +1,5 @@
 #include "fill_struct_funcs_2_bonus.h"
-
+#include <stdlib.h>
 char *get_bmpath(t_data *data, int index)
 {
 	char *bmpath;
@@ -8,9 +8,14 @@ char *get_bmpath(t_data *data, int index)
 	return bmpath;
 }
 
-char **get_texture(char *bump_map_path)
+char **get_texture(t_data *data, int i)
 {
-		printf("bump map path: %s\n", bump_map_path);
+	char *bump_map_path;
+	char **texture;
+
+	bump_map_path = data->spheres[i].bump_map_path;
+	printf("bump map path: %s\n", bump_map_path);
+	return (texture);
 }
 
 /**========================================================================
@@ -39,7 +44,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	else if ((int)tab[7] != 1024)
 	{
 		data->spheres[i].bump_map_path = get_bmpath(data, (int)tab[7]);
-		data->bump_maps[(int)tab[7]] = get_texture(data->spheres[i].bump_map_path);
+		data->bump_maps[(int)tab[7]] = get_texture(data, i);;
 	}
 	else
 	{

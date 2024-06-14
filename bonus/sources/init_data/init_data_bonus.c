@@ -64,6 +64,27 @@ int	init_data(char *map_path, t_data *data)
 	return (1);
 }
 
+void	alloc_bump_maps(t_data *data)
+{
+		int	i;
+		int j;
+		j = 0;
+		while (j < 10)
+		{
+			data->bump_maps[j] = (char **)malloc(sizeof (char *) * 513);
+			i = 0;
+			while (i < 512)
+			{
+				data->bump_maps[j][i] = (char *)malloc(sizeof (char) * 513);
+				data->bump_maps[j][i][512] = '\0';
+				i++;
+			}
+			j++;
+		}
+		data->bump_maps[j] = NULL;
+}
+
+
 /**========================================================================
  *                           INIT_VARS
  *========================================================================**/
@@ -77,6 +98,8 @@ void	init_vars(t_data *data)
 	data->event.actual_mesh.ref = NULL;
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
+	alloc_bump_maps(data);
+
 	save_data(data);
 }
 
