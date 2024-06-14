@@ -1,7 +1,7 @@
 #include "libft.h"
 #include <stdio.h>
 #include "se_mini_struct_bonus.h"
-int	is_valid_png(char *str);
+int	is_valid_xpm(char *str);
 
 /**========================================================================
  *                           FILL_TAB
@@ -25,7 +25,7 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 			tab[i] = ft_atof(token);
 			if (!ft_strcmp(token, "checkerboard"))
 				tab[i] = -42;
-			if (is_valid_png(token))
+			if (is_valid_xpm(token))
 			{
 				// printf("token: %s\n", token);
 				data->bump_map_paths[j] = ft_strdup(token);

@@ -1,10 +1,11 @@
 {
     "files.associations": {
-        "cam_bonus.h": "c",
-        "get_sph_pl_bck_color_bonus.h": "c",
-        "mesh_color_effects_bonus.h": "c",
-        "clamping_bonus.h": "c",
-        "color_effects_bonus.h": "c"
+		"cam_bonus.h": "c",
+		"get_sph_pl_bck_color_bonus.h": "c",
+		"mesh_color_effects_bonus.h": "c",
+		"clamping_bonus.h": "c",
+		"color_effects_bonus.h": "c",
+		"create_data_structs_bonus.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

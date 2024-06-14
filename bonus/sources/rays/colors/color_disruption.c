@@ -21,24 +21,36 @@ void checker_color(double u, double v, int checker_size, t_color *color);
  *                             COMMENT BLOCK
  *  modif_uv(params, light_ray, 10);
 	apply_aces_tonemap(params->color);
- *  			AND
- void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
+*  			AND
+void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
 
- *========================================================================**/
+*========================================================================**/
 
 
 void uv_to_texture_coordinates(double u, double v, int *x, int *y) {
-    *x = (int)(u * TEXTURE_WIDTH);
-    *y = (int)(v * TEXTURE_WIDTH);
+	*x = (int)(u * TEXTURE_WIDTH);
+	*y = (int)(v * TEXTURE_WIDTH);
 
-    if (*x < 0) *x = 0;
-    if (*y < 0) *y = 0;
-    if (*x >= TEXTURE_WIDTH) *x = TEXTURE_WIDTH - 1;
-    if (*y >= TEXTURE_WIDTH) *y = TEXTURE_WIDTH - 1;
-	printf("%f, %f => %i, %i\n", u, v, *x, *y);
+	if (*x < 0) *x = 0;
+	if (*y < 0) *y = 0;
+	if (*x >= TEXTURE_WIDTH) *x = TEXTURE_WIDTH - 1;
+	if (*y >= TEXTURE_WIDTH) *y = TEXTURE_WIDTH - 1;
+	// printf("%f, %f => %i, %i\n", u, v, *x, *y);
 }
 
+// double get_grayscale_value(unsigned char *texture_data, int x, int y)
+// {
+// 	unsigned char r;
+// 	unsigned char g;
+// 	unsigned char b;
+// 	int index;
 
+// 	index = (y * TEXTURE_WIDTH + x) * 3;
+// 	r = texture_data[index];
+// 	g = texture_data[index + 1];
+// 	b = texture_data[index + 2];
+// 	return (0.299 * r + 0.587 * g + 0.114 * b);
+// }	
 
 void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 {
@@ -58,12 +70,6 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	uv_to_texture_coordinates(u, v, &x, &y);
 	// printf("bmp: %s\n", sphere->bump_map_path);
 }
-
-
-
-
-
-
 
 void calculate_uv(t_ray_vector point, double *u, double *v) {
 	double theta;
