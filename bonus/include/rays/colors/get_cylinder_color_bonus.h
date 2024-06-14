@@ -19,8 +19,7 @@ void	apply_aces_tonemap(t_color *color);
 void	get_cylinder_color_cyl(t_get_color_params *params);
 void	handle_projection(t_get_color_params *params, t_ray_vector *normal,
 	t_ray *light_ray);
-static int	is_ambianced_only(t_get_color_params *params, t_ray_pack *light_ray,
-	t_color *ambiantly_color, t_ray_vector *tmp);
+static int	is_ambianced_only(t_get_color_params *params, t_ray_pack *light_ray);
 
 
 
