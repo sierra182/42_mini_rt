@@ -81,6 +81,37 @@ void	checker_board_modif(t_get_color_params *params, t_color *color_altered, t_r
 	clamp_rgb_0(params->color);
 }
 
+
+void calculate_uv(t_ray_vector point, double *u, double *v) {
+	double theta;
+	double phi;
+	
+	theta = atan2(point.axis[2], point.axis[0]);
+	phi = asin(point.axis[1]);
+	*u = 0.5 + theta / (2 * M_PI);
+	*v = 0.5 - phi / M_PI;
+	printf("u = %f, v = %f\n", *u, *v);
+}
+
+void checker_color(double u, double v, int checker_size, int *rgb)
+{
+    int u_index = (int)(u * checker_size);
+    int v_index = (int)(v * checker_size);
+    int is_checker = (u_index % 2 == v_index % 2);
+    if (is_checker)
+	{
+		rgb[0] = 0;
+		rgb[1] = 0;
+		rgb[2] = 0;
+	}
+	else
+	{
+		rgb[0] = 255;
+		rgb[1] = 255;
+		rgb[2] = 255;
+	}
+}
+
 /**========================================================================
  *                           GET_SPHERE_COLOR
  *========================================================================**/
@@ -108,8 +139,14 @@ int	get_sphere_color(t_get_color_params *params)
 	calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 	{params, &sphere->color, &normal, &spotlighty_color, &light_ray});
 	add_color(&spotlighty_color, &ambiantly_color, params->color);
-	checker_board_modif(params, &color_altered, &light_ray.ray.origin_vect);
-	apply_aces_tonemap(params->color);
+	// checker_board_modif(params, &color_altered, &light_ray.ray.origin_vect);
+
+
+	double u, v;
+	calculate_uv(light_ray.ray.origin_vect, &u, &v);
+	checker_color(u, v, 220, params->color->rgb);
+
+	// apply_aces_tonemap(params->color);
 	return (0);
 }
 
