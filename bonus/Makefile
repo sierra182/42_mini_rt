@@ -87,6 +87,7 @@ SOURCES = \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_discs_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_utils_bonus.c \
+	$(SRC_DIR)/rays/colors/color_disruption.c \
 	$(SRC_DIR)/rays/shadows/shadows_bonus.c \
 	$(SRC_DIR)/rays/shadows/shadows_exclusion_bonus.c \
 	$(SRC_DIR)/rays/find_closest_intersection/find_closest_intersection_bonus.c \
