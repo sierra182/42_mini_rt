@@ -58,9 +58,9 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	if (generate_video_frames(&data, envp))
 		return (0);
-	// if (init_mlx(&mlx))
-	// 	return (4);
-	// launch_mlx_loop(&mlx, &data);
+	if (init_mlx(&mlx))
+		return (4);
+	launch_mlx_loop(&mlx, &data);
 	free_paths(&data);
 	flush_exit_struct();
 	return (0);
