@@ -76,7 +76,7 @@ void	alloc_bump_maps(t_data *data)
 			while (i < 512)
 			{
 				data->bump_maps[j][i] = (char *)malloc(sizeof (char) * 512);
-				data->bump_maps[j][i][512] = '\0';
+				data->bump_maps[j][i][511] = '\0';
 				i++;
 			}
 			j++;
