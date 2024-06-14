@@ -81,7 +81,7 @@ int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_
 		params->spotlighty_color);
 	spec_coef = spotlight->intensity + spec_light_coef;
 	color_with_light(params->mesh_color,
-		&params->params->data->spotlight.color,
+		&spotlight->color,
 	 	spec_coef * light_attenuat,	params->spotlighty_color);
 	return (0);
 }
