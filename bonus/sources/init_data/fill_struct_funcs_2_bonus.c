@@ -22,6 +22,8 @@ char **get_texture(t_data *data, int i)
 	char **tab;
 	int	fd;
 	int	shades_nbr;
+	char	char_tab[100][2];
+
 	bump_map_path = data->spheres[i].bump_map_path;
 	printf("bump map path: %s\n", bump_map_path);
 	
@@ -54,8 +56,10 @@ char **get_texture(t_data *data, int i)
 			str_tmp = ft_substr(str, 1, ft_strlen(str) - 4);
 			free (str);
 			str = str_tmp;
+			char_tab[j][0] = str[0];
 			printf("VALUE: \"%c\", ", str[0]);
-			printf("PAIR: \"%s\"\n", &str[4]);
+			printf("PAIR: \"%s\"", &str[4]);
+			printf("char_tb[0]: %i\n", char_tab[j][0]);
 		}
 		free(str);
 		j++;
