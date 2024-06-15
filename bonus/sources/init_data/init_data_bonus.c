@@ -28,6 +28,10 @@ void	save_data(t_data *data)
 			sizeof(t_plane));
 	ft_memcpy(data->data_cpy->planes, data->planes, data->pl_nbr
 		* sizeof(t_plane));
+	data->data_cpy->spotlights = (t_spotlight *) ft_calloc(data->sl_nbr,
+			sizeof(t_spotlight));
+	ft_memcpy(data->data_cpy->spotlights, data->spotlights, data->sl_nbr
+		* sizeof(t_spotlight));
 	add_exit_struct(data->data_cpy, DATA);
 }
 

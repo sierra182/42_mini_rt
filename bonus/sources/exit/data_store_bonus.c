@@ -45,6 +45,8 @@ void	store_and_free_data_copy(t_exit *exit, void *data_cpy)
 		exit->data_cpy->cylinders = NULL;
 		free(exit->data_cpy->planes);
 		exit->data_cpy->planes = NULL;
+		free(exit->data_cpy->spotlights);
+		exit->data_cpy->spotlights = NULL;
 		free(exit->data_cpy);
 		exit->data_cpy = NULL;
 	}

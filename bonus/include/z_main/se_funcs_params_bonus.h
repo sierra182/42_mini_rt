@@ -94,10 +94,12 @@ typedef struct s_reset_tmps
 	t_plane		*planes;
 	t_sphere	*spheres;
 	t_cylinder	*cylinders;
+	t_spotlight	*spotlights;
 	t_data		*data_cpy;
 	t_plane		*planes_cpy;
 	t_sphere	*spheres_cpy;
 	t_cylinder	*cylinders_cpy;
+	t_spotlight	*spotlights_cpy;
 }	t_reset_tmps;
 
 #endif
