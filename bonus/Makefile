@@ -84,7 +84,8 @@ SOURCES = \
 	$(SRC_DIR)/rays/ray_utils_bonus.c \
 	$(SRC_DIR)/rays/colors/mesh_color_effects_bonus.c \
 	$(SRC_DIR)/rays/colors/color_effects_bonus.c \
-	$(SRC_DIR)/rays/colors/get_sph_pl_bck_color_bonus.c \
+	$(SRC_DIR)/rays/colors/get_sphere_color_bonus.c \
+	$(SRC_DIR)/rays/colors/get_plane_color_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_discs_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_utils_bonus.c \
@@ -144,7 +145,8 @@ HEADERS = \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_discs_bonus.h \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_utils_bonus.h \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_bonus.h \
-	$(HEADERS_DIR)/rays/colors/get_sph_pl_bck_color_bonus.h \
+	$(HEADERS_DIR)/rays/colors/get_sphere_color_bonus.h \
+	$(HEADERS_DIR)/rays/colors/get_plane_color_bonus.h \
 	$(HEADERS_DIR)/rays/colors/mesh_color_effects_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/find_closest_intersection_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_cylinder_bonus.h \
