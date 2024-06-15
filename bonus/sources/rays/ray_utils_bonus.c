@@ -30,8 +30,7 @@ void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 /**========================================================================
  *                           COMPUTE_LIGHT_RAY
  *========================================================================**/
-void	compute_light_ray(t_spotlight *spotlight, t_get_color_params *params,
-	t_ray_pack *light_ray)
+void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray)
 {
 	subtract_vector(spotlight->origin_vect.axis,
 		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);

@@ -1,7 +1,6 @@
 #include "get_cylinder_color_discs_bonus.h"
 void	calculate_spotlight_effect(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
-void	compute_light_ray(t_spotlight *spotlight, t_get_color_params *params,
-	t_ray_pack *light_ray);
+void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
 void	add_disc_spotlights_effect(t_get_color_params *params,
 	t_ray_vector *normal, t_color *spotlighties_color, t_color *mesh_color, t_ray_pack	*light_ray)
 {
@@ -13,7 +12,7 @@ void	add_disc_spotlights_effect(t_get_color_params *params,
 	i = -1;
 	while (++i < params->data->sl_nbr)
 	{
-		compute_light_ray(&params->data->spotlights[i], params, light_ray);	
+		compute_light_ray(&params->data->spotlights[i], light_ray);	
 		handle_normal_symmetrization(params, params->normal, &light_ray->ray);
 		light_coef = scalar_product(params->normal->axis,
 				light_ray->ray.dir_vect.axis);

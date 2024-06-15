@@ -29,8 +29,7 @@ static void	add_pl_spotlights_effect(t_get_color_params *params,
 	i = -1;
 	while (++i < params->data->sl_nbr)
 	{
-		compute_light_ray(&params->data->spotlights[i], params,
-			light_ray);
+		compute_light_ray(&params->data->spotlights[i], light_ray);
 		if (has_shadow(params->data, params->mesh, light_ray)
 			|| scalar_product(normal->axis, light_ray->ray.dir_vect.axis)
 			< 1e-3)

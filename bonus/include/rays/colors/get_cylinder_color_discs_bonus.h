@@ -5,7 +5,6 @@
 # include "x_linear_algebra_bonus.h"
 
 void		get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
-void		add_lightening(t_add_lightening_params *params);
 void		add_self_shadowing(double light_coef, double light_attenuation,
 				t_color *color);
 int			has_shadow(t_data *data, void *mesh, t_ray_pack *light_ray);

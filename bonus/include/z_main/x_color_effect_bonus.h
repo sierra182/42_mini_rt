@@ -10,7 +10,6 @@ void	add_shading( t_ray *ray, t_ray_vector *normal,
 			t_color *color, t_color *res_color);
 void	add_shading2( t_ray *ray, t_ray_vector *normal,
 			t_color *color, t_color *res_color);
-void	add_lightening(t_add_lightening_params *params);
 void	color_with_light(t_color *mesh_color,
 			t_color *light_color, double intensity, t_color *new_color);
 

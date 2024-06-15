@@ -1,7 +1,6 @@
 #include "get_cylinder_color_bonus.h"
 void	calculate_spotlight_effect(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
-void	compute_light_ray(t_spotlight *spotlight, t_get_color_params *params,
-	t_ray_pack *light_ray);
+void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
 /**========================================================================
  *                           GET_CYLINDER_COLOR
  *========================================================================**/
@@ -34,8 +33,7 @@ void	add_cyl_spotlights_effect(t_get_color_params *params,
 	i = -1;
 	while (++i < params->data->sl_nbr)
 	{
-		compute_light_ray(&params->data->spotlights[i], params,
-			light_ray);
+		compute_light_ray(&params->data->spotlights[i], light_ray);
 		if (is_ambianced_only(&params->data->spotlights[i], params, light_ray))
 			continue ;
 		calculate_spotlight_effect(&params->data->spotlights[i],

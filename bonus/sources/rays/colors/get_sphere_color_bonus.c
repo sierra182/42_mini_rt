@@ -1,8 +1,7 @@
 #include "get_sphere_color_bonus.h"
 
 void	calculate_spotlight_effect(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
-void	compute_light_ray(t_spotlight *spotlight, t_get_color_params *params,
-	t_ray_pack *light_ray);
+void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL
  *========================================================================**/
@@ -30,8 +29,7 @@ static void	add_sph_spotlights_effect(t_get_color_params *params,
 	i = -1;
 	while (++i < params->data->sl_nbr)
 	{
-		compute_light_ray(&params->data->spotlights[i], params,
-			light_ray);
+		compute_light_ray(&params->data->spotlights[i], light_ray);
 		if (is_sphere_surface_between(params->mesh->ref,
 				&params->data->spotlights[i])
 			|| (has_shadow(params->data, params->mesh, light_ray)
