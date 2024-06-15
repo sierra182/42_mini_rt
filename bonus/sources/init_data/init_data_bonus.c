@@ -1,6 +1,7 @@
 #include "init_data_bonus.h"
 void	fill_struct_tr(t_data *data, double tab[]);
 void	fill_struct_l_one(t_data *data, double tab[]);
+void	alloc_bump_maps(t_data *data);
 
 /**========================================================================
  *                             INIT_DATA
@@ -41,6 +42,7 @@ int	init_data(char *map_path, t_data *data)
 	get_elements_number(data, map_path);
 	if (create_data_structs(data) == 0)
 		return (0);
+	alloc_bump_maps(data);
 	int	i = 0;
 	while (i < 100)
 		data->bump_map_paths[i++] = NULL;
@@ -68,7 +70,6 @@ void	alloc_bump_maps(t_data *data)
 {
 		int	i;
 		int j;
-		int k;
 
 		data->bump_maps = (int ***)malloc(sizeof (int **) * 10);
 		j = 0;
@@ -79,12 +80,11 @@ void	alloc_bump_maps(t_data *data)
 			while (i < 512)
 			{
 				data->bump_maps[j][i] = (int *)malloc(sizeof (int) * 512);
-				data->bump_maps[j][i][511] = '\0';
 				i++;
 			}
 			j++;
 		}
-		data->bump_maps[j] = NULL;
+		// ft_bzero(data->bump_maps, sizeof(data->bump_maps));
 }
 
 
@@ -101,8 +101,6 @@ void	init_vars(t_data *data)
 	data->event.actual_mesh.ref = NULL;
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
-	alloc_bump_maps(data);
-
 	save_data(data);
 }
 

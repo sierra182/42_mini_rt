@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	// if (init_mlx(&mlx))
 	// 	return (4);
 	// launch_mlx_loop(&mlx, &data);
-	free_paths(&data);
+	// free_paths(&data);
 	flush_exit_struct();
 	return (0);
 }

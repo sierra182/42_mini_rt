@@ -60,18 +60,18 @@ int **get_texture(t_data *data, int i)
 			free (str);
 			str = str_tmp;
 			char_tab[j][0] = str[0];
-			printf("VALUE: \"%i\", ", char_tab[j][0]);
+			// printf("VALUE: \"%i\", ", char_tab[j][0]);
 			if (gray_to_hex_string(&str[4], hex_output))
 			{
 				// data->bump_maps[j][1] = hex_to_int(hex_output);
 				char_tab[j][1] = hex_to_int(hex_output);
-				printf("PAIR: \"%i\" \n", char_tab[j][1]);
+				// printf("PAIR: \"%i\" \n", char_tab[j][1]);
 			}
 			else
 			{
 				// data->bump_maps[j][1] = hex_to_int(&str[4]);
 				char_tab[j][1] = hex_to_int(&str[4]);
-				printf("PAIR: \"%i\" \n", char_tab[j][1]);
+				// printf("PAIR: \"%i\" \n", char_tab[j][1]);
 			}
 		}
 		free(str);
@@ -92,15 +92,15 @@ int **get_texture(t_data *data, int i)
 			j = 0;
 			while (str[j])
 			{
-				printf("map %i, line: %i char %i =>", i, l, j);
 				k = 0;
 				while (k < shades_nbr)
 				{
 					if (str [j] == char_tab[k][0])
 					{
-						// printf("%c = ", str[j]);
-						// printf("i: %i, j: %i: \n", i, j);
-						printf("%i\n", char_tab[k][1]);
+						
+						data->bump_maps[i][l][j] = char_tab[k][1];
+						printf("map %i, line: %i char %i =>", i, l, j);
+						printf("%i\n", data->bump_maps[i][l][j]);
 					}
 					k++;
 				}
@@ -141,7 +141,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	else if ((int)tab[7] != 1024)
 	{
 		data->spheres[i].bump_map_path = get_bmpath(data, (int)tab[7]);
-		data->bump_maps[(int)tab[7]] = get_texture(data, i);;
+		get_texture(data, i);
 	}
 	else
 	{
