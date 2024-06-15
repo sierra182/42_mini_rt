@@ -1,5 +1,10 @@
 #include "fill_struct_funcs_2_bonus.h"
 #include <stdlib.h>
+# include <fcntl.h>
+#include "get_next_line.h"
+# include <unistd.h>
+#include "libft.h"
+
 char *get_bmpath(t_data *data, int index)
 {
 	char *bmpath;
@@ -12,9 +17,61 @@ char **get_texture(t_data *data, int i)
 {
 	char *bump_map_path;
 	char **texture;
-
+	char *str;
+	char *str_tmp;
+	char **tab;
+	int	fd;
+	int	shades_nbr;
 	bump_map_path = data->spheres[i].bump_map_path;
 	printf("bump map path: %s\n", bump_map_path);
+	
+	fd = open(bump_map_path, O_RDONLY);
+
+	
+	while (str)
+	{
+		str = get_next_line(fd);
+		if (str && str[0] == '"')
+		{
+			str = ft_strtrim(str, "\",\n");
+			printf("%s\n", str);
+			tab = ft_split(str, ' ');
+			shades_nbr = ft_atoi(tab[2]);
+			printf("NUMBER: %i\n", shades_nbr);
+			free(str);
+			break;
+		}
+		free(str);
+	}
+	int j = 0;
+	while (j < shades_nbr)
+	{
+		str = get_next_line(fd);
+		if (str && str[0] == '"')
+		{
+			str_tmp = ft_strtrim(str, "\",\n");
+			free (str);
+			str = str_tmp;
+			printf("VALUE: \"%c\", ", str[0]);
+			printf("PAIR: \"%s\"\n", &str[4]);
+		}
+		free(str);
+		j++;
+	}
+	while (str)
+	{
+		str = get_next_line(fd);
+		if (str && str[0] == '"')
+		{
+			str_tmp = ft_strtrim(str, "\",\n");
+			free (str);
+			str = str_tmp;
+			// printf("%s\n", str);
+		}
+		free(str);
+		j++;
+	}
+	close(fd);
 	return (texture);
 }
 

@@ -5,7 +5,8 @@
 		"mesh_color_effects_bonus.h": "c",
 		"clamping_bonus.h": "c",
 		"color_effects_bonus.h": "c",
-		"create_data_structs_bonus.h": "c"
+		"create_data_structs_bonus.h": "c",
+		"parse_bonus.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

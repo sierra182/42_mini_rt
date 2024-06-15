@@ -37,21 +37,7 @@ void uv_to_texture_coordinates(double u, double v, int *x, int *y) {
 	if (*x >= TEXTURE_WIDTH) *x = TEXTURE_WIDTH - 1;
 	if (*y >= TEXTURE_WIDTH) *y = TEXTURE_WIDTH - 1;
 	// printf("%f, %f => %i, %i\n", u, v, *x, *y);
-}
-
-// double get_grayscale_value(unsigned char *texture_data, int x, int y)
-// {
-// 	unsigned char r;
-// 	unsigned char g;
-// 	unsigned char b;
-// 	int index;
-
-// 	index = (y * TEXTURE_WIDTH + x) * 3;
-// 	r = texture_data[index];
-// 	g = texture_data[index + 1];
-// 	b = texture_data[index + 2];
-// 	return (0.299 * r + 0.587 * g + 0.114 * b);
-// }	
+}	
 
 void gray_to_hex_string(const char *gray_string, char *hex_output)
 {
@@ -104,10 +90,10 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	const char *hex_color3 = "#6B6B6B";
 	const char *hex_color4 = "#FFFFFF";
 
-	printf("%s -> %d\n", hex_color1, hex_to_int(hex_output));
-	printf("%s -> %d\n", hex_color2, hex_to_int(hex_color2));
-	printf("%s -> %d\n", hex_color3, hex_to_int(hex_color3));
-	printf("%s -> %d\n", hex_color4, hex_to_int(hex_color4));
+	// printf("%s -> %d\n", hex_color1, hex_to_int(hex_output));
+	// printf("%s -> %d\n", hex_color2, hex_to_int(hex_color2));
+	// printf("%s -> %d\n", hex_color3, hex_to_int(hex_color3));
+	// printf("%s -> %d\n", hex_color4, hex_to_int(hex_color4));
 	
 }
 

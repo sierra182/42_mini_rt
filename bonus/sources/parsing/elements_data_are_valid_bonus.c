@@ -88,16 +88,21 @@ int	check_data(char *token, char *check)
 	return (1);
 }
 
+/**========================================================================
+ *                           IS_VALID_XPM
+ * ! file verification to be added with "open"
+ *========================================================================**/
 int	is_valid_xpm(char *str)
 {
 	// printf("str to check: '%s'\n", str);
-	if (!str || ft_strlen(str) < 5)
+	if (!str || ft_strlen(str) < 5 || !file_exists(str))
 		return (0);
 	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".xpm") && file_exists(str))
 	{
 		// printf("is_valid_xpm returns 1\n");
 		return (1);
 	}
+		
 	return (0);
 	
 }
