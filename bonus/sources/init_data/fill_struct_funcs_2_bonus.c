@@ -33,8 +33,10 @@ char **get_texture(t_data *data, int i)
 		str = get_next_line(fd);
 		if (str && str[0] == '"')
 		{
-			str = ft_strtrim(str, "\",\n");
-			printf("%s\n", str);
+			str_tmp = ft_substr(str, 1, ft_strlen(str) - 5);
+			free(str);
+			str = str_tmp;
+			printf(">%s<\n", str);
 			tab = ft_split(str, ' ');
 			shades_nbr = ft_atoi(tab[2]);
 			printf("NUMBER: %i\n", shades_nbr);
@@ -49,7 +51,7 @@ char **get_texture(t_data *data, int i)
 		str = get_next_line(fd);
 		if (str && str[0] == '"')
 		{
-			str_tmp = ft_strtrim(str, "\",\n");
+			str_tmp = ft_substr(str, 1, ft_strlen(str) - 4);
 			free (str);
 			str = str_tmp;
 			printf("VALUE: \"%c\", ", str[0]);
@@ -63,7 +65,7 @@ char **get_texture(t_data *data, int i)
 		str = get_next_line(fd);
 		if (str && str[0] == '"')
 		{
-			str_tmp = ft_strtrim(str, "\",\n");
+			str_tmp = ft_substr(str, 1, ft_strlen(str) - 4);
 			free (str);
 			str = str_tmp;
 			// printf("%s\n", str);
