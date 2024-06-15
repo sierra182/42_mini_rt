@@ -26,6 +26,7 @@ void	free_paths(t_data *data)
 		i++;
 	}
 	i = 0;
+	int k;
 	while (i < 10)
 	{
 		j = 0;
@@ -37,6 +38,7 @@ void	free_paths(t_data *data)
 		free(data->bump_maps[i]);
 		i++;
 	}
+	free(data->bump_maps);
 }
 
 /**========================================================================
@@ -61,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	// if (init_mlx(&mlx))
 	// 	return (4);
 	// launch_mlx_loop(&mlx, &data);
-	// free_paths(&data);
+	free_paths(&data);
 	flush_exit_struct();
 	return (0);
 }

@@ -15,7 +15,21 @@ char *get_bmpath(t_data *data, int index)
 	return bmpath;
 }
 
-int **get_texture(t_data *data, int i)
+static void	free_tab(char **tab)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void get_texture(t_data *data, int i)
 {
 	char *bump_map_path;
 	int **texture;
@@ -45,6 +59,7 @@ int **get_texture(t_data *data, int i)
 			tab = ft_split(str, ' ');
 			shades_nbr = ft_atoi(tab[2]);
 			printf("NUMBER: %i\n", shades_nbr);
+			free_tab(tab);
 			free(str);
 			break;
 		}
@@ -86,6 +101,8 @@ int **get_texture(t_data *data, int i)
 		if (str && str[0] == '"')
 		{
 			str_tmp = ft_substr(str, 1, ft_strlen(str) - 3);
+			free (str);
+			str = str_tmp;
 			str_tmp = ft_strtrim(str_tmp, "\"");
 			free (str);
 			str = str_tmp;
@@ -99,8 +116,8 @@ int **get_texture(t_data *data, int i)
 					{
 						
 						data->bump_maps[i][l][j] = char_tab[k][1];
-						printf("map %i, line: %i char %i =>", i, l, j);
-						printf("%i\n", data->bump_maps[i][l][j]);
+						// printf("map %i, line: %i char %i =>", i, l, j);
+						// printf("%i\n", data->bump_maps[i][l][j]);
 					}
 					k++;
 				}
@@ -112,7 +129,6 @@ int **get_texture(t_data *data, int i)
 		j++;
 	}
 	close(fd);
-	return (texture);
 }
 
 /**========================================================================
