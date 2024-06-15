@@ -1,5 +1,5 @@
 #include "get_plane_color_bonus.h"
-void	calculate_spotlight_effect(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
+void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
 /**========================================================================
  *                           COMPUTE_PL_NORMAL
  *========================================================================**/
@@ -22,7 +22,7 @@ static void	compute_pl_normal(t_get_color_params *params,
  *                         ADD_PL_SPOTLIGHTS_EFFECT
  *========================================================================**/
 static void	add_pl_spotlights_effect(t_get_color_params *params,
-	t_ray_vector *normal, t_color *spotlighties_color, t_ray_pack	*light_ray)
+	t_ray_vector *normal, t_color *spotlighties_color, t_ray_pack *light_ray)
 {
 	t_color	spotlighty_color;
     t_plane	*plane;
@@ -38,9 +38,9 @@ static void	add_pl_spotlights_effect(t_get_color_params *params,
 			|| scalar_product(normal->axis, light_ray->ray.dir_vect.axis)
 			< 1e-3)
 			continue ;
-		calculate_spotlight_effect(&params->data->spotlights[i],
-			&(t_calc_spotlight_effect_params)
-		{params, &plane->color, normal, &spotlighty_color, light_ray});
+		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+		{params, &plane->color, normal, &spotlighty_color, light_ray,
+            &params->data->spotlights[i]});
 		add_color(spotlighties_color, &spotlighty_color, spotlighties_color);
 	}
 }

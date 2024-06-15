@@ -1,6 +1,6 @@
 #include "get_sphere_color_bonus.h"
 
-void	calculate_spotlight_effect(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
+void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
 void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL
@@ -41,9 +41,9 @@ static void	add_sph_spotlights_effect(t_get_color_params *params,
 				&& scalar_product(light_ray->ray.dir_vect.axis,
 					normal->axis) > 0))
 			continue ;
-		calculate_spotlight_effect(&params->data->spotlights[i],
-			&(t_calc_spotlight_effect_params)
-		{params, &sphere->color, normal, &spotlighty_color, light_ray});
+		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+		{params, &sphere->color, normal, &spotlighty_color, light_ray,
+			&params->data->spotlights[i]});
 		add_color(spotlighties_color, &spotlighty_color, spotlighties_color);
 	}
 }

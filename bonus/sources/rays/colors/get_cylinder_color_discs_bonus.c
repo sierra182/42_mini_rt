@@ -1,8 +1,8 @@
 #include "get_cylinder_color_discs_bonus.h"
-void	calculate_spotlight_effect(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
+void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
 void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
 void	add_disc_spotlights_effect(t_get_color_params *params,
-	t_ray_vector *normal, t_color *spotlighties_color, t_color *mesh_color, t_ray_pack	*light_ray)
+	t_ray_vector *normal, t_color *spotlighties_color, t_color *mesh_color, t_ray_pack *light_ray)
 {
 	t_color	spotlighty_color;
 	double	light_coef;
@@ -19,9 +19,9 @@ void	add_disc_spotlights_effect(t_get_color_params *params,
 		if (is_ambianced_only(&params->data->spotlights[i], params, light_ray,
 				&light_coef))
 			continue ;
-		calculate_spotlight_effect(&params->data->spotlights[i],
-			&(t_calc_spotlight_effect_params)
-		{params, mesh_color, normal, &spotlighty_color, light_ray});
+		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
+		{params, mesh_color, normal, &spotlighty_color, light_ray,
+			&params->data->spotlights[i]});
 		add_color(spotlighties_color, &spotlighty_color, spotlighties_color);
 	}
 }

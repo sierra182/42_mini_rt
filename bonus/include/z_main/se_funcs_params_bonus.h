@@ -39,6 +39,7 @@ typedef struct s_calc_spotlight_effect_params
 	t_ray_vector		*normal;
 	t_color				*spotlighty_color;
 	t_ray_pack			*light_ray;
+	t_spotlight			*spotlight;
 }	t_calc_spotlight_effect_params;
 
 typedef struct s_reset_tmps
