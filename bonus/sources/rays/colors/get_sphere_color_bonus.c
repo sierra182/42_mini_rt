@@ -5,9 +5,12 @@ void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL
  *========================================================================**/
-static void	compute_sph_normal(t_get_color_params *params,
-	t_sphere *sphere, t_ray_vector *normal, t_ray_pack *light_ray)
+static void	compute_sph_normal(t_get_color_params *params, t_ray_vector *normal,
+t_ray_pack *light_ray)
 {
+	t_sphere		*sphere;
+
+	sphere = (t_sphere *) params->mesh->ref;	
 	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
 	subtract_vector(light_ray->ray.origin_vect.axis,
 		sphere->origin_vect.axis, normal->axis);
@@ -55,7 +58,7 @@ int	get_sphere_color(t_get_color_params *params)
 	t_sphere		*sphere;
 
 	sphere = (t_sphere *) params->mesh->ref;
-	compute_sph_normal(params, sphere, &normal, &light_ray);
+	compute_sph_normal(params, &normal, &light_ray);
 	calculate_ambiant_effect(params, &sphere->color, &normal,
 		&ambiantly_color);
 	add_sph_spotlights_effect(params, &normal, &spotlighties_color,
