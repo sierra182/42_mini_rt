@@ -4,9 +4,10 @@ void	clamp_rgb_0(t_color *color);
 void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
 void calculate_uv(t_ray_vector point, double *u, double *v);
 void checker_color(double u, double v, int checker_size, t_color *color);
-
+#include "libft.h"
 #define TEXTURE_WIDTH 512
-
+#include <string.h>
+#include <stdlib.h>
 // void cartesian_to_spherical(t_ray_vector *point, float *theta, float *phi)
 // {
 // 	float r;
@@ -52,6 +53,32 @@ void uv_to_texture_coordinates(double u, double v, int *x, int *y) {
 // 	return (0.299 * r + 0.587 * g + 0.114 * b);
 // }	
 
+void gray_to_hex_string(const char *gray_string, char *hex_output)
+{
+	if (ft_strncmp(gray_string, "gray", 4) != 0) {
+		printf("Input string is not in the correct format\n");
+		strcpy(hex_output, "Invalid");
+		return;
+	}
+	int gray_value = ft_atoi(gray_string + 4);
+	if (gray_value < 0) gray_value = 0;
+	if (gray_value > 100) gray_value = 100;
+	int intensity = (int)(gray_value * 255 / 100);
+	sprintf(hex_output, "#%02X%02X%02X", intensity, intensity, intensity);
+}
+
+int hex_to_int(const char *hex_string)
+{
+	if (hex_string[0] != '#')
+	{
+		printf("Invalid format\n");
+		return -1;
+	}
+	int color_value = (int)strtol(hex_string + 1, NULL, 16);
+	return color_value;
+}
+
+
 void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 {
 	double u;
@@ -69,6 +96,19 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	int x, y;
 	uv_to_texture_coordinates(u, v, &x, &y);
 	// printf("bmp: %s\n", sphere->bump_map_path);
+	char hex_output[8];
+	gray_to_hex_string("gray42", hex_output);
+	char *hex_color1 = hex_output;
+
+	const char *hex_color2 = "#1A1A1A";
+	const char *hex_color3 = "#6B6B6B";
+	const char *hex_color4 = "#FFFFFF";
+
+	printf("%s -> %d\n", hex_color1, hex_to_int(hex_output));
+	printf("%s -> %d\n", hex_color2, hex_to_int(hex_color2));
+	printf("%s -> %d\n", hex_color3, hex_to_int(hex_color3));
+	printf("%s -> %d\n", hex_color4, hex_to_int(hex_color4));
+	
 }
 
 void calculate_uv(t_ray_vector point, double *u, double *v) {
