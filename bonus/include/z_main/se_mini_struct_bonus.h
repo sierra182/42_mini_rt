@@ -40,7 +40,7 @@ typedef struct s_data
 	struct s_data	*data_cpy;
 	char			img_ref[20];
 	char			*bump_map_paths[100];
-	unsigned char	***bump_maps;
+	double	***bump_maps;
 }	t_data;
 
 #endif

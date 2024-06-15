@@ -83,6 +83,8 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	double v;
 	t_sphere		*sphere;
 
+	// printf("modif_uv\n");
+
 	sphere = (t_sphere *) params->mesh->ref;
 	if (sphere->checkerboard == 0 && !sphere->bump_map_path)
 		return ;
@@ -93,19 +95,8 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	}
 	int x, y;
 	uv_to_texture_coordinates(u, v, &x, &y);
-	// printf("bmp: %s\n", sphere->bump_map_path);
+	printf("%i, %i: texture value: %f\n", x, y, params->data->bump_maps[sphere->bump_map_nbr][x][y]);
 	char hex_output[8];
-	gray_to_hex_string("gray42", hex_output);
-	char *hex_color1 = hex_output;
-
-	const char *hex_color2 = "#1A1A1A";
-	const char *hex_color3 = "#6B6B6B";
-	const char *hex_color4 = "#FFFFFF";
-
-	// printf("%s -> %d\n", hex_color1, hex_to_int(hex_output));
-	// printf("%s -> %d\n", hex_color2, hex_to_int(hex_color2));
-	// printf("%s -> %d\n", hex_color3, hex_to_int(hex_color3));
-	// printf("%s -> %d\n", hex_color4, hex_to_int(hex_color4));
 	
 }
 
