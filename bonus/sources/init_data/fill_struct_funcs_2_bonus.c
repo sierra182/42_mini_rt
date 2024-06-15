@@ -78,30 +78,35 @@ int **get_texture(t_data *data, int i)
 		j++;
 	}
 	int k;
+	int	l;
+	l = 0;
 	while (str)
 	{
 		str = get_next_line(fd);
 		if (str && str[0] == '"')
 		{
-			str_tmp = ft_substr(str, 1, ft_strlen(str) - 4);
+			str_tmp = ft_substr(str, 1, ft_strlen(str) - 3);
+			str_tmp = ft_strtrim(str_tmp, "\"");
 			free (str);
 			str = str_tmp;
 			j = 0;
 			while (str[j])
 			{
+				printf("map %i, line: %i char %i =>", i, l, j);
 				k = 0;
 				while (k < shades_nbr)
 				{
 					if (str [j] == char_tab[k][0])
 					{
-						printf("%c = ", str[j]);
+						// printf("%c = ", str[j]);
+						// printf("i: %i, j: %i: \n", i, j);
 						printf("%i\n", char_tab[k][1]);
 					}
 					k++;
 				}
 				j++;
 			}
-
+			l++;
 		}
 		free(str);
 		j++;
