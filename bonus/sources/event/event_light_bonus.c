@@ -1,8 +1,4 @@
-# include "se_mini_struct_bonus.h"
-
-void	new_ray(t_cam *cam, t_ray *ray, int x, int y);
-double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
-int	is_behind_cam(double t);//
+#include "event_light_bonus.h"
 
 /**========================================================================
  *                           EVENT_INTENSITY
@@ -29,11 +25,11 @@ static double	has_bulb(t_data *data, t_ray *ray)
 		inter_bulb = is_intersect_sphere(ray, &data->spotlights[i].bulb, NULL);
 		if (inter_bulb && !is_behind_cam(inter_bulb))
 		{
-			data->event.actual_light = &data->spotlights[i];			
+			data->event.actual_light = &data->spotlights[i];
 			return (inter_bulb);
-		}	
+		}
 	}
-	return (0.0);	
+	return (0.0);
 }
 
 /**========================================================================
@@ -52,10 +48,10 @@ void	actual_light_handle(t_data *data, int store_color,
 		data->event.bulb_color_sav = *color ;
 		i = -1;
 		while (++i < AXIS)
-			color->rgb[i] = 255 - color->rgb[i];	
-	}	
-	else if (data->event.actual_light)	
-		*origin_vect = &data->event.actual_light->origin_vect;	
+			color->rgb[i] = 255 - color->rgb[i];
+	}
+	else if (data->event.actual_light)
+		*origin_vect = &data->event.actual_light->origin_vect;
 }
 
 /**========================================================================
@@ -63,7 +59,7 @@ void	actual_light_handle(t_data *data, int store_color,
  *========================================================================**/
 void	event_spotlight_launch_rays(t_data *data, int x, int y)
 {
-	t_ray		ray;
+	t_ray	ray;
 
 	new_ray(&data->cam, &ray, x, y);
 	if (has_bulb(data, &ray))

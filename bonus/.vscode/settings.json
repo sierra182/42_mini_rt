@@ -8,6 +8,8 @@
         "get_cylinder_color_bonus.h": "c",
         "get_cylinder_color_discs_bonus.h": "c",
         "exec_launch_ray_bonus.h": "c",
-        "event_bonus.h": "c"
+        "event_bonus.h": "c",
+        "key_event_bonus.h": "c",
+        "mouse_events_bonus.h": "c"
     }
 }

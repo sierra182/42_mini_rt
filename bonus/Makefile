@@ -109,6 +109,7 @@ SOURCES = \
 HEADERS = \
 	$(HEADERS_DIR)/event/event_reset_bonus.h \
 	$(HEADERS_DIR)/event/event_bonus.h \
+	$(HEADERS_DIR)/event/event_light_bonus.h \
 	$(HEADERS_DIR)/event/events_keycode_bonus.h \
 	$(HEADERS_DIR)/event/key_event_bonus.h \
 	$(HEADERS_DIR)/event/mouse_events_bonus.h \

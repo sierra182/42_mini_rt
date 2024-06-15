@@ -23,15 +23,13 @@ void	key_code_funcs(int keycode, t_data *data, t_mlx *mlx)
 		data->event.ctrl_ispressed = 1;
 }
 
-void	actual_light_handle(t_data *data, int store_color,
-	t_matrix_vector **origin_vect);//
 /**========================================================================
  *                           DATA_EVENT_FUNCS_1
  *========================================================================**/
 void	data_event_funcs_1(t_data *data, int keycode)
 {
-	t_matrix_vector				*rotate_vect;
-	t_matrix_vector				*transl_vect;
+	t_matrix_vector	*rotate_vect;
+	t_matrix_vector	*transl_vect;
 
 	rotate_vect = NULL;
 	transl_vect = NULL;
@@ -44,10 +42,10 @@ void	data_event_funcs_1(t_data *data, int keycode)
 	{
 		actual_light_handle(data, 0, &transl_vect);
 		if (transl_vect)
-		{		
+		{
 			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
 			data->event.actual_light->bulb.origin_vect
-				= data->event.actual_light->origin_vect;		
+				= data->event.actual_light->origin_vect;
 		}
 	}
 }
@@ -57,8 +55,8 @@ void	data_event_funcs_1(t_data *data, int keycode)
  *========================================================================**/
 void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
 {
-	t_matrix_vector				*rotate_vect;
-	t_matrix_vector				*transl_vect;
+	t_matrix_vector	*rotate_vect;
+	t_matrix_vector	*transl_vect;
 
 	rotate_vect = NULL;
 	transl_vect = NULL;
@@ -76,8 +74,8 @@ void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
 	if (data->event.actual_mode == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);
 	meta_keycode(keycode, data, mlx);
-	if (data->event.actual_mode == E_SPOTL)		
-		event_intensity(keycode, &data->event.actual_light->intensity);	
+	if (data->event.actual_mode == E_SPOTL)
+		event_intensity(keycode, &data->event.actual_light->intensity);
 }
 
 /**========================================================================
@@ -85,8 +83,8 @@ void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
  *========================================================================**/
 int	key_event(int keycode, void *param)
 {
-	t_mlx						*mlx;
-	t_data						*data;
+	t_mlx	*mlx;
+	t_data	*data;
 
 	mlx = (t_mlx *)((void **) param)[0];
 	data = (t_data *)((void **) param)[1];
