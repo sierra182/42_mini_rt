@@ -29,6 +29,20 @@ static void	free_tab(char **tab)
 	free(tab);
 }
 
+void int_to_rgb(unsigned int hex_value, unsigned char *r, unsigned char *g, unsigned char *b)
+{
+	*r = (hex_value >> 16) & 0xFF;
+	*g = (hex_value >> 8) & 0xFF;
+	*b = hex_value & 0xFF;
+}
+
+unsigned char int_to_grayscale(unsigned int hex_value)
+{
+	unsigned char r, g, b;
+	int_to_rgb(hex_value, &r, &g, &b);
+	return (unsigned char)(0.299 * r + 0.587 * g + 0.114 * b);
+}
+
 void get_texture(t_data *data, int i)
 {
 	char *bump_map_path;
@@ -114,7 +128,7 @@ void get_texture(t_data *data, int i)
 				{
 					if (str [j] == char_tab[k][0])
 					{
-						
+						printf("%i\n", int_to_grayscale(char_tab[k][1]));
 						data->bump_maps[i][l][j] = char_tab[k][1];
 						// printf("map %i, line: %i char %i =>", i, l, j);
 						// printf("%i\n", data->bump_maps[i][l][j]);
