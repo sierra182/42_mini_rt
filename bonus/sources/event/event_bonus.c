@@ -31,7 +31,6 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh)
 		i = -1;
 		while (++i < AXIS)
 			color->rgb[i] += 255 - color->rgb[i];
-		//clamp_255(color);
 	}
 	data->event.actual_mesh = *mesh;
 }
@@ -125,8 +124,7 @@ void	actual_light_handle(t_data *data, int store_color,
 		data->event.bulb_color_sav = *color ;
 		i = -1;
 		while (++i < AXIS)
-			color->rgb[i] = 255 - color->rgb[i];
-		//clamp_255(color);
+			color->rgb[i] = 255 - color->rgb[i];	
 	}	
 	else if (data->event.actual_light)	
 		*origin_vect = &data->event.actual_light->origin_vect;	

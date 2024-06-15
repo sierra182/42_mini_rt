@@ -1,5 +1,5 @@
 #include "get_cylinder_color_discs_bonus.h"
-int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
+int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);//
 
 void	add_disc_spotlights_effect(t_get_color_params *params,
 	t_ray_vector *normal, t_color *spotlighties_color, t_color *mesh_color, t_ray_pack	*light_ray)

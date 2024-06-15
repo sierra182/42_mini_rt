@@ -1,6 +1,5 @@
 #include "init_data_bonus.h"
-void	fill_struct_tr(t_data *data, double tab[]);
-void	fill_struct_l_one(t_data *data, double tab[]);
+void	fill_struct_tr(t_data *data, double tab[]);//
 
 /**========================================================================
  *                             INIT_DATA
@@ -41,19 +40,18 @@ void	save_data(t_data *data)
 int	init_data(char *map_path, t_data *data)
 {
 	double	tab[20];
+	int		i;
 
 	get_elements_number(data, map_path);
 	if (create_data_structs(data) == 0)
 		return (0);
-	int	i = 0;
+	i = 0;
 	while (i < 100)
 		data->bump_map_paths[i++] = NULL;
 	while (get_element_data(NULL, map_path, tab, "A") != NULL)
 		fill_struct_a(data, tab);
 	while (get_element_data(NULL, map_path, tab, "C") != NULL)
 		fill_struct_c(data, tab);
-	// while (get_element_data(NULL, map_path, tab, "L") != NULL)
-	// 	fill_struct_l_one(data, tab);
 	while (get_element_data(NULL, map_path, tab, "L") != NULL)
 		fill_struct_l(data, tab);
 	while (get_element_data(data, map_path, tab, "sp") != NULL)

@@ -50,6 +50,18 @@ void	data_event_funcs_1(t_data *data, int keycode)
 				= data->event.actual_light->origin_vect;		
 		}
 	}
+}
+
+/**========================================================================
+ *                           DATA_EVENT_FUNCS_2
+ *========================================================================**/
+void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
+{
+	t_matrix_vector				*rotate_vect;
+	t_matrix_vector				*transl_vect;
+
+	rotate_vect = NULL;
+	transl_vect = NULL;
 	if (data->event.actual_mode == E_MESH)
 	{
 		actual_mesh_handle(data, NULL, &transl_vect, &rotate_vect);
@@ -61,13 +73,6 @@ void	data_event_funcs_1(t_data *data, int keycode)
 	if (data->event.actual_mode == E_MESH && (keycode == PLUS
 			|| keycode == MINUS))
 		chang_mesh_size(data, keycode);
-}
-
-/**========================================================================
- *                           DATA_EVENT_FUNCS_2
- *========================================================================**/
-void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
-{
 	if (data->event.actual_mode == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);
 	meta_keycode(keycode, data, mlx);
