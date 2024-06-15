@@ -1,5 +1,7 @@
 #include "get_cylinder_color_bonus.h"
-
+int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
+void	compute_light_ray(t_spotlight *spotlight, t_get_color_params *params,
+	t_ray_pack *light_ray);
 /**========================================================================
  *                           GET_CYLINDER_COLOR
  *========================================================================**/
@@ -21,25 +23,21 @@ void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj,
 		{data, ray, obj->t, obj, color, &normal});
 	}
 }
-int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_params *params);
-
-void	compute_light_ray(t_spotlight *spotlight, t_get_color_params *params,
-	t_ray_pack *light_ray);//
 
 void	add_cyl_spotlights_effect(t_get_color_params *params,
 	t_ray_vector *normal, t_color *spotlighties_color, t_color *mesh_color, t_ray_pack	*light_ray)
-{	
+{
 	t_color		spotlighty_color;
 	int			i;
-	
+
 	*spotlighties_color = (t_color){.rgb[0] = 0, .rgb[1] = 0, .rgb[2] = 0};
 	i = -1;
 	while (++i < params->data->sl_nbr)
 	{
 		compute_light_ray(&params->data->spotlights[i], params,
-			light_ray);	
+			light_ray);
 		if (is_ambianced_only(&params->data->spotlights[i], params, light_ray))
-	 		continue ;
+			continue ;
 		calculate_spotlight_effect3(&params->data->spotlights[i],
 			&(t_calc_spotlight_effect_params)
 		{params, mesh_color, normal, &spotlighty_color, light_ray});
@@ -101,13 +99,12 @@ static int	is_ambianced_only(t_spotlight *spotlight, t_get_color_params *params,
 	t_ray_vector	tmp;
 
 	cyl = (t_cylinder *)params->mesh->ref;
-
 	cast_vector_mat_ray(&cyl->axis_vect, &tmp);
 	self_normalize_vector(tmp.axis);
 	if (has_shadow(params->data, params->mesh, light_ray)
 		|| is_cylinder_surface_between (cyl, spotlight->origin_vect.axis)
 		|| (!is_in_cyl_height(&tmp, cyl, spotlight->origin_vect.axis)
-		&& (cyl->which_t == 2)))
-		return (1);	
+			&& (cyl->which_t == 2)))
+		return (1);
 	return (0);
 }

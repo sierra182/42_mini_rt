@@ -13,6 +13,7 @@ void	fill_struct_l(t_data *data, double tab[]);
 void	fill_struct_cy(t_data *data, double tab[]);
 void	fill_struct_pl(t_data *data, double tab[]);
 void	fill_struct_sp(t_data *data, double tab[]);
+void	fill_struct_tr(t_data *data, double tab[]);
 int		create_data_structs(t_data *data);
 double	*fill_tab(t_data *data, char *str, double tab[]);
 double	*get_element_data(t_data *data, char *map_path, double tab[], char *el);

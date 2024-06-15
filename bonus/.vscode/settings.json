@@ -10,6 +10,8 @@
         "exec_launch_ray_bonus.h": "c",
         "event_bonus.h": "c",
         "key_event_bonus.h": "c",
-        "mouse_events_bonus.h": "c"
+        "mouse_events_bonus.h": "c",
+        "init_data_bonus.h": "c",
+        "exit_bonus.h": "c"
     }
 }

@@ -18,7 +18,10 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	put_pxl(mlx, x, y, get_pixel_color(data, &ray, &obj));
 }
 
-double	has_bulb(t_data *data, t_ray *ray, t_color *color)
+/**========================================================================
+ *                           	HAS_BULB
+ *========================================================================**/
+static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
 {
 	double	inter_bulb;
 	int		i;
@@ -31,9 +34,9 @@ double	has_bulb(t_data *data, t_ray *ray, t_color *color)
 		{
 			*color = data->spotlights[i].bulb.color;
 			return (inter_bulb);
-		}	
+		}
 	}
-	return (0.0);	
+	return (0.0);
 }
 
 /**========================================================================
@@ -53,7 +56,8 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 		{data, ray, obj->t, obj, &color, NULL});
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
-	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref && !inter_bulb)
+	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref
+		&& !inter_bulb)
 	{
 		get_cylinder_color(data, ray, obj, &color);
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
@@ -72,11 +76,11 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 	t_data	*data;
 	t_color	*color;
 	int		*rgb;
-	
+
 	obj = params->obj;
 	data = params->data;
 	color = params->color;
-	rgb = params->rgb;	
+	rgb = params->rgb;
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref
 		&& !*params->inter_bulb)
 	{
@@ -87,7 +91,7 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 	if (obj->ref == NULL)
 		*rgb = get_background_color(params->ray, data);
 	if (*params->inter_bulb && !is_behind_cam(*params->inter_bulb))
-		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);	
+		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
 }
 
 /**========================================================================

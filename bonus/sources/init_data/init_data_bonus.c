@@ -1,5 +1,4 @@
 #include "init_data_bonus.h"
-void	fill_struct_tr(t_data *data, double tab[]);//
 
 /**========================================================================
  *                             INIT_DATA

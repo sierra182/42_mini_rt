@@ -1,8 +1,7 @@
 #include "libft.h"
 #include <stdio.h>
 #include "se_mini_struct_bonus.h"
-int	is_valid_png(char *str);//
-
+int	is_valid_png(char *str);
 /**========================================================================
  *                           FILL_TAB
  *========================================================================**/
