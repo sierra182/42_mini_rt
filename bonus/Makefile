@@ -187,8 +187,6 @@ $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 # 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
 
-# all: intro design mlx cursor_start ft_printf $(NAME)	
-
 all:  design newline mlx ft_printf $(NAME) 
 
 $(NAME) : $(OBJECTS)
@@ -255,7 +253,7 @@ intro:
 
 clean:
 	@echo "\n cleanning $(NAME) objects 🧻"
-	@rm -f $(OBJECTS) $(OBJECTS_BONUS);
+	@rm -f $(OBJECTS);
 	@$(MAKE) -C $(FT_PRINTF_DIR) clean -s
 	@echo ""
 	@$(MAKE) -C $(MLX_DIR) clean -s
@@ -263,9 +261,9 @@ clean:
 
 fclean: 
 	@echo "\n cleanning $(NAME) objects 🧻"
-	@rm -f $(OBJECTS) $(OBJECTS_BONUS);
+	@rm -f $(OBJECTS);
 	@echo " cleanning $(NAME) 🚽" 
-	@rm -f $(NAME) $(NAME_BONUS)
+	@rm -f $(NAME) 
 	@$(MAKE) -C $(FT_PRINTF_DIR) fclean -s
 	@echo ""
 	@$(MAKE) -C $(MLX_DIR) clean -s
