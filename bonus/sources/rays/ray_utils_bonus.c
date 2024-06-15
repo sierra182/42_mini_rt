@@ -28,12 +28,15 @@ void	get_local_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt)
 }
 
 /**========================================================================
- *                           CALCULATE_RAY_PACK
+ *                           COMPUTE_LIGHT_RAY
  *========================================================================**/
-void	calculate_ray_pack(t_ray_pack *ray_pack)
+void	compute_light_ray(t_spotlight *spotlight, t_get_color_params *params,
+	t_ray_pack *light_ray)
 {
-	ray_pack->ray_norm.origin_vect = ray_pack->ray.origin_vect;
-	ray_pack->magnitude = get_vector_magnitude(ray_pack->ray.dir_vect.axis);
-	normalize_vector(ray_pack->ray.dir_vect.axis, ray_pack->magnitude,
-		ray_pack->ray_norm.dir_vect.axis);
+	subtract_vector(spotlight->origin_vect.axis,
+		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);
+	light_ray->ray_norm.origin_vect = light_ray->ray.origin_vect;
+	light_ray->magnitude = get_vector_magnitude(light_ray->ray.dir_vect.axis);
+	normalize_vector(light_ray->ray.dir_vect.axis, light_ray->magnitude,
+		light_ray->ray_norm.dir_vect.axis);
 }
