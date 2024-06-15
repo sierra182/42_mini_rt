@@ -4,6 +4,8 @@
 #include "get_next_line.h"
 # include <unistd.h>
 #include "libft.h"
+int gray_to_hex_string(const char *gray_string, char *hex_output);
+int hex_to_int(const char *hex_string);
 
 char *get_bmpath(t_data *data, int index)
 {
@@ -22,7 +24,8 @@ char **get_texture(t_data *data, int i)
 	char **tab;
 	int	fd;
 	int	shades_nbr;
-	char	char_tab[100][2];
+	int	char_tab[100][2];
+	char hex_output[8];
 
 	bump_map_path = data->spheres[i].bump_map_path;
 	printf("bump map path: %s\n", bump_map_path);
@@ -57,13 +60,24 @@ char **get_texture(t_data *data, int i)
 			free (str);
 			str = str_tmp;
 			char_tab[j][0] = str[0];
-			printf("VALUE: \"%c\", ", str[0]);
-			printf("PAIR: \"%s\"", &str[4]);
-			printf("char_tb[%i]: %i\n", j, char_tab[j][0]);
+			printf("VALUE: \"%i\", ", char_tab[j][0]);
+			if (gray_to_hex_string(&str[4], hex_output))
+			{
+				// data->bump_maps[j][1] = hex_to_int(hex_output);
+				char_tab[j][1] = hex_to_int(hex_output);
+				printf("PAIR: \"%i\" \n", char_tab[j][1]);
+			}
+			else
+			{
+				// data->bump_maps[j][1] = hex_to_int(&str[4]);
+				char_tab[j][1] = hex_to_int(&str[4]);
+				printf("PAIR: \"%i\" \n", char_tab[j][1]);
+			}
 		}
 		free(str);
 		j++;
 	}
+	int k;
 	while (str)
 	{
 		str = get_next_line(fd);
@@ -72,7 +86,22 @@ char **get_texture(t_data *data, int i)
 			str_tmp = ft_substr(str, 1, ft_strlen(str) - 4);
 			free (str);
 			str = str_tmp;
-			// printf("%s\n", str);
+			j = 0;
+			while (str[j])
+			{
+				k = 0;
+				while (k < shades_nbr)
+				{
+					if (str [j] == char_tab[k][0])
+					{
+						printf("%c = ", str[j]);
+						printf("%i\n", char_tab[k][1]);
+					}
+					k++;
+				}
+				j++;
+			}
+
 		}
 		free(str);
 		j++;

@@ -39,18 +39,30 @@ void uv_to_texture_coordinates(double u, double v, int *x, int *y) {
 	// printf("%f, %f => %i, %i\n", u, v, *x, *y);
 }	
 
-void gray_to_hex_string(const char *gray_string, char *hex_output)
+int gray_to_hex_string(const char *gray_string, char *hex_output)
 {
+	if (ft_strncmp(gray_string, "black", 4) == 0) {
+		// printf("Input string is not in the correct format\n");
+		strcpy(hex_output, "#FFFFFF");
+		return 1;
+	}
+	if (ft_strncmp(gray_string, "white", 4) == 0) {
+		// printf("Input string is not in the correct format\n");
+		strcpy(hex_output, "#000000");
+		return 1;
+	}
+	
 	if (ft_strncmp(gray_string, "gray", 4) != 0) {
-		printf("Input string is not in the correct format\n");
+		// printf("Input string is not in the correct format\n");
 		strcpy(hex_output, "Invalid");
-		return;
+		return 0;
 	}
 	int gray_value = ft_atoi(gray_string + 4);
 	if (gray_value < 0) gray_value = 0;
 	if (gray_value > 100) gray_value = 100;
 	int intensity = (int)(gray_value * 255 / 100);
 	sprintf(hex_output, "#%02X%02X%02X", intensity, intensity, intensity);
+	return (1);
 }
 
 int hex_to_int(const char *hex_string)
