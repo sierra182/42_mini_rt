@@ -52,8 +52,8 @@ int	init_data(char *map_path, t_data *data)
 		fill_struct_a(data, tab);
 	while (get_element_data(NULL, map_path, tab, "C") != NULL)
 		fill_struct_c(data, tab);
-	while (get_element_data(NULL, map_path, tab, "L") != NULL)
-		fill_struct_l_one(data, tab);
+	// while (get_element_data(NULL, map_path, tab, "L") != NULL)
+	// 	fill_struct_l_one(data, tab);
 	while (get_element_data(NULL, map_path, tab, "L") != NULL)
 		fill_struct_l(data, tab);
 	while (get_element_data(data, map_path, tab, "sp") != NULL)

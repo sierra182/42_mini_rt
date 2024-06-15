@@ -18,26 +18,26 @@ void	video_move_light(t_spotlight *light);
  *========================================================================**/
 void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 {
-	int	i;
-	static int	j = 0;
+	// int	i;
+	// static int	j = 0;
 
-	if (keycode == MAKE_RT_FILE)
-		make_rt_file(data);
-	if (keycode == MAKE_BIN_FILE)
-		make_bin_file(data, mlx);
-	if (keycode == VIDEO_NEXT_FRAME)
-	{
-		i = 0;
-		while (i < data->cy_nbr)
-		{
-			video_rotate_cogs(&data->cylinders[i], i, data->cy_nbr);
-			i++;
-		}
-		rotate_pendulum(&data->spheres[0] , j);
-		video_move_cam(&data->cam);
-		video_move_light(&data->spotlight);
-		j++;
-	}
+	// if (keycode == MAKE_RT_FILE)
+	// 	make_rt_file(data);
+	// if (keycode == MAKE_BIN_FILE)
+	// 	make_bin_file(data, mlx);
+	// if (keycode == VIDEO_NEXT_FRAME)
+	// {
+	// 	i = 0;
+	// 	while (i < data->cy_nbr)
+	// 	{
+	// 		video_rotate_cogs(&data->cylinders[i], i, data->cy_nbr);
+	// 		i++;
+	// 	}
+	// 	rotate_pendulum(&data->spheres[0] , j);
+	// 	video_move_cam(&data->cam);
+	// 	video_move_light(&data->spotlight);
+	// 	j++;
+	// }
 
 	
 	// *** VIDEO ALL_SHAPES ***

@@ -111,40 +111,40 @@ int	get_sphere_color(t_get_color_params *params)
 /**========================================================================
  *                           COMPUTE_PL_NORMAL_AND_LIGHT_RAY
  *========================================================================**/
-void	compute_pl_normal_and_light_ray2(t_spotlight *spotlight, t_get_color_params *params,
-	t_plane *plane, t_ray_vector *normal, t_ray_pack *light_ray)
-{
-	double	view_dot_normal;
+// void	compute_pl_normal_and_light_ray2(t_spotlight *spotlight, t_get_color_params *params,
+// 	t_plane *plane, t_ray_vector *normal, t_ray_pack *light_ray)
+// {
+// 	double	view_dot_normal;
 
-	cast_vector_mat_ray(&plane->norm_vect, normal);
-	self_normalize_vector(normal->axis);
-	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
-	subtract_vector(spotlight->origin_vect.axis,
-		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);
-	calculate_ray_pack(light_ray);
-	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
-	if (view_dot_normal > 0)
-		symmetrize_vector(normal->axis);
-}
+// 	cast_vector_mat_ray(&plane->norm_vect, normal);
+// 	self_normalize_vector(normal->axis);
+// 	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
+// 	subtract_vector(spotlight->origin_vect.axis,
+// 		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);
+// 	calculate_ray_pack(light_ray);
+// 	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
+// 	if (view_dot_normal > 0)
+// 		symmetrize_vector(normal->axis);
+// }
 
 /**========================================================================
  *                           COMPUTE_PL_NORMAL_AND_LIGHT_RAY
  *========================================================================**/
-void	compute_pl_normal_and_light_ray(t_get_color_params *params,
-	t_plane *plane, t_ray_vector *normal, t_ray_pack *light_ray)
-{
-	double	view_dot_normal;
+// void	compute_pl_normal_and_light_ray(t_get_color_params *params,
+// 	t_plane *plane, t_ray_vector *normal, t_ray_pack *light_ray)
+// {
+// 	double	view_dot_normal;
 
-	cast_vector_mat_ray(&plane->norm_vect, normal);
-	self_normalize_vector(normal->axis);
-	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
-	subtract_vector(params->data->spotlight.origin_vect.axis,
-		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);
-	calculate_ray_pack(light_ray);
-	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
-	if (view_dot_normal > 0)
-		symmetrize_vector(normal->axis);
-}
+// 	cast_vector_mat_ray(&plane->norm_vect, normal);
+// 	self_normalize_vector(normal->axis);
+// 	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
+// 	subtract_vector(params->data->spotlight.origin_vect.axis,
+// 		light_ray->ray.origin_vect.axis, light_ray->ray.dir_vect.axis);
+// 	calculate_ray_pack(light_ray);
+// 	view_dot_normal = scalar_product(normal->axis, params->ray->dir_vect.axis);
+// 	if (view_dot_normal > 0)
+// 		symmetrize_vector(normal->axis);
+// }
 
 /**========================================================================
  *                           COMPUTE_PL_NORMAL

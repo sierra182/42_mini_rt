@@ -59,9 +59,9 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 
 	cyl = (t_cylinder *)params->mesh->ref;
 	handle_projection(params, params->normal, &light_ray.ray);	
-	subtract_vector(params->data->spotlight.origin_vect.axis, light_ray
-		.ray.origin_vect.axis, light_ray.ray.dir_vect.axis);
-	calculate_ray_pack(&light_ray);
+	// subtract_vector(params->data->spotlight.origin_vect.axis, light_ray //!big pb
+	// 	.ray.origin_vect.axis, light_ray.ray.dir_vect.axis);
+	// calculate_ray_pack(&light_ray);
 	calculate_ambiant_effect(params, &cyl->color, params->normal,
 		&ambiantly_color);
 	add_cyl_spotlights_effect(params, params->normal, &spotlighties_color,

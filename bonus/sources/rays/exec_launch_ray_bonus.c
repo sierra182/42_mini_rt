@@ -47,13 +47,13 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 
 	rgb = 0;
 	inter_bulb = has_bulb(data, ray, &color);
-	if (obj->t && obj->type == O_SP && obj->ref)
+	if (obj->t && obj->type == O_SP && obj->ref && inter_bulb)
 	{
 		get_sphere_color(&(t_get_color_params)
 		{data, ray, obj->t, obj, &color, NULL});
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
-	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref)
+	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref && !inter_bulb)
 	{
 		get_cylinder_color(data, ray, obj, &color);
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
