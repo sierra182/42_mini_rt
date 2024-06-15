@@ -128,8 +128,9 @@ void get_texture(t_data *data, int i)
 				{
 					if (str [j] == char_tab[k][0])
 					{
-						printf("%i\n", int_to_grayscale(char_tab[k][1]));
-						data->bump_maps[i][l][j] = char_tab[k][1];
+						data->bump_maps[i][l][j] = int_to_grayscale(char_tab[k][1]);
+						printf("%i => ", int_to_grayscale(char_tab[k][1]));
+						printf("%i\n", data->bump_maps[i][l][j]);
 						// printf("map %i, line: %i char %i =>", i, l, j);
 						// printf("%i\n", data->bump_maps[i][l][j]);
 					}
