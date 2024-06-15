@@ -1,7 +1,5 @@
 #include "get_sphere_color_bonus.h"
 
-void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
-void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL
  *========================================================================**/

@@ -1,6 +1,5 @@
 #include "get_cylinder_color_bonus.h"
-void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
-void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
+
 /**========================================================================
  *                           GET_CYLINDER_COLOR
  *========================================================================**/
@@ -23,12 +22,17 @@ void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj,
 	}
 }
 
-void	add_cyl_spotlights_effect(t_get_color_params *params,
-	t_ray_vector *normal, t_color *spotlighties_color, t_color *mesh_color, t_ray_pack	*light_ray)
+/**========================================================================
+ *                        ADD_CYL_SPOTLIGHTS_EFFECT
+ *========================================================================**/
+static void	add_cyl_spotlights_effect(t_get_color_params *params,
+	t_ray_vector *normal, t_color *spotlighties_color, t_ray_pack *light_ray)
 {
 	t_color		spotlighty_color;
+	t_cylinder	*cyl;	
 	int			i;
 
+	cyl = (t_cylinder *)params->mesh->ref;
 	*spotlighties_color = (t_color){.rgb[0] = 0, .rgb[1] = 0, .rgb[2] = 0};
 	i = -1;
 	while (++i < params->data->sl_nbr)
@@ -37,7 +41,7 @@ void	add_cyl_spotlights_effect(t_get_color_params *params,
 		if (is_ambianced_only(&params->data->spotlights[i], params, light_ray))
 			continue ;
 		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-		{params, mesh_color, normal, &spotlighty_color, light_ray,
+		{params, &cyl->color, normal, &spotlighty_color, light_ray,
 		&params->data->spotlights[i]});
 		add_color(spotlighties_color, &spotlighty_color, spotlighties_color);
 	}
@@ -46,7 +50,7 @@ void	add_cyl_spotlights_effect(t_get_color_params *params,
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
  *========================================================================**/
-void	get_cylinder_color_cyl(t_get_color_params *params)
+static void	get_cylinder_color_cyl(t_get_color_params *params)
 {
 	t_ray_pack		light_ray;
 	t_color			ambiantly_color;
@@ -58,7 +62,7 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 	calculate_ambiant_effect(params, &cyl->color, params->normal,
 		&ambiantly_color);
 	add_cyl_spotlights_effect(params, params->normal, &spotlighties_color,
-		&cyl->color, &light_ray);
+		&light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
 	apply_aces_tonemap(params->color);
 }
@@ -66,7 +70,7 @@ void	get_cylinder_color_cyl(t_get_color_params *params)
 /**========================================================================
  *                           HANDLE_PROJECTION
  *========================================================================**/
-void	handle_projection(t_get_color_params *params, t_ray_vector *normal,
+static void	handle_projection(t_get_color_params *params, t_ray_vector *normal,
 	t_ray *light_ray)
 {
 	t_ray_vector	intersect_point;
@@ -91,7 +95,8 @@ void	handle_projection(t_get_color_params *params, t_ray_vector *normal,
 /**========================================================================
  *                           IS_AMBIANCED_ONLY
  *========================================================================**/
-static int	is_ambianced_only(t_spotlight *spotlight, t_get_color_params *params, t_ray_pack *light_ray)
+static int	is_ambianced_only(t_spotlight *spotlight,
+	t_get_color_params *params, t_ray_pack *light_ray)
 {
 	t_cylinder		*cyl;
 	t_ray_vector	tmp;

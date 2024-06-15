@@ -1,5 +1,5 @@
 #include "get_plane_color_bonus.h"
-void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
+
 /**========================================================================
  *                           COMPUTE_PL_NORMAL
  *========================================================================**/

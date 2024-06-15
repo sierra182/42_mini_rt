@@ -12,6 +12,8 @@
         "key_event_bonus.h": "c",
         "mouse_events_bonus.h": "c",
         "init_data_bonus.h": "c",
-        "exit_bonus.h": "c"
+        "exit_bonus.h": "c",
+        "get_sphere_color_bonus.h": "c",
+        "get_plane_color_bonus.h": "c"
     }
 }

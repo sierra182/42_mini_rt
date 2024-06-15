@@ -3,7 +3,7 @@
 /**========================================================================
  *                           ASSIGN_VECTOR
  *========================================================================**/
-void	assign_vector(t_matrix_vector *origin_vect, t_matrix_vector *dir_vect,
+static void	assign_vector(t_matrix_vector *origin_vect, t_matrix_vector *dir_vect,
 	t_matrix_vector **new_origin_vect, t_matrix_vector **new_dir_vect)
 {
 	*new_origin_vect = origin_vect;

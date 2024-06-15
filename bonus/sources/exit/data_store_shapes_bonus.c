@@ -56,6 +56,9 @@ void	store_and_free_spotlights(t_exit *exit, void *spotlights)
 	}
 }
 
+/**========================================================================
+ *                           STORE_AND_FREE_TRIANGLES
+ *========================================================================**/
 void	store_and_free_triangles(t_exit *exit, void *triangles)
 {
 	if (exit && triangles)

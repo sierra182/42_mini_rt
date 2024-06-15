@@ -1,13 +1,14 @@
 #include "get_cylinder_color_discs_bonus.h"
-void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
-void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
-void	add_disc_spotlights_effect(t_get_color_params *params,
-	t_ray_vector *normal, t_color *spotlighties_color, t_color *mesh_color, t_ray_pack *light_ray)
-{
-	t_color	spotlighty_color;
-	double	light_coef;
-	int		i;
 
+void	add_disc_spotlights_effect(t_get_color_params *params,
+	t_ray_vector *normal, t_color *spotlighties_color, t_ray_pack *light_ray)
+{
+	t_color		spotlighty_color;
+	double		light_coef;
+	t_cylinder	*cyl;
+	int			i;
+
+	cyl = ((t_cylinder *) params->mesh->ref);
 	*spotlighties_color = (t_color){.rgb[0] = 0, .rgb[1] = 0, .rgb[2] = 0};
 	i = -1;
 	while (++i < params->data->sl_nbr)
@@ -20,7 +21,7 @@ void	add_disc_spotlights_effect(t_get_color_params *params,
 				&light_coef))
 			continue ;
 		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
-		{params, mesh_color, normal, &spotlighty_color, light_ray,
+		{params, &cyl->color, normal, &spotlighty_color, light_ray,
 			&params->data->spotlights[i]});
 		add_color(spotlighties_color, &spotlighty_color, spotlighties_color);
 	}
@@ -34,8 +35,8 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	t_ray_pack	light_ray;
 	t_color		ambiantly_color;
 	t_color		spotlighties_color;
-	t_cylinder	*cyl;
 	double		view_dot_normal;
+	t_cylinder	*cyl;
 
 	cyl = ((t_cylinder *) params->mesh->ref);
 	cast_vector_mat_ray(&cyl->axis_vect, params->normal);
@@ -48,7 +49,7 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	calculate_ambiant_effect(params, &cyl->color, params->normal,
 		&ambiantly_color);
 	add_disc_spotlights_effect(params, params->normal, &spotlighties_color,
-		&cyl->color, &light_ray);
+		&light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
 	apply_aces_tonemap(params->color);
 }

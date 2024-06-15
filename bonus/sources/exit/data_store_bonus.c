@@ -51,8 +51,3 @@ void	store_and_free_data_copy(t_exit *exit, void *data_cpy)
 		exit->data_cpy = NULL;
 	}
 }
-
-t_mlx	*get_mlx(void)
-{
-	return (get_exit_struct()->mlx);
-}
