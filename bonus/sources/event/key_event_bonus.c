@@ -43,7 +43,12 @@ void	data_event_funcs_1(t_data *data, int keycode)
 	if (data->event.actual_mode == E_SPOTL)
 	{
 		actual_light_handle(data, 0, &transl_vect);
-		event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
+		if (transl_vect)
+		{		
+			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
+			transl_vect = &data->event.actual_light->bulb.origin_vect;
+			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
+		}
 	}
 	if (data->event.actual_mode == E_MESH)
 	{

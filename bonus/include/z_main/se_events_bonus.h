@@ -17,6 +17,7 @@ typedef struct s_event
 	t_obj			actual_mesh;
 	t_spotlight		*actual_light;
 	t_color			color_sav;
+	t_color			bulb_color_sav;
 }	t_event;
 
 typedef enum e_event

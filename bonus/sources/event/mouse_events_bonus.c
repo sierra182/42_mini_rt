@@ -53,6 +53,11 @@ int	mouse_release(int button, int x, int y, void *param)
 			((t_cylinder *) data->event.actual_mesh.ref)->color
 				= data->event.color_sav;
 	}
+	if (data->event.actual_light)
+	{
+		data->refresh = 1;
+		data->event.actual_light->bulb.color = data->event.bulb_color_sav;
+	}
 	return (0);
 }
 
