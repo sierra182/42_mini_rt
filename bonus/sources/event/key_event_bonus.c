@@ -46,8 +46,8 @@ void	data_event_funcs_1(t_data *data, int keycode)
 		if (transl_vect)
 		{		
 			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
-			transl_vect = &data->event.actual_light->bulb.origin_vect;
-			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
+			data->event.actual_light->bulb.origin_vect
+				= data->event.actual_light->origin_vect;		
 		}
 	}
 	if (data->event.actual_mode == E_MESH)
@@ -71,11 +71,8 @@ void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
 	if (data->event.actual_mode == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);
 	meta_keycode(keycode, data, mlx);
-	if (data->event.actual_mode == E_SPOTL)
-	{
-		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
-		event_intensity(keycode, &data->spotlight.intensity);
-	}
+	if (data->event.actual_mode == E_SPOTL)		
+		event_intensity(keycode, &data->event.actual_light->intensity);	
 }
 
 /**========================================================================
