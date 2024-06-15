@@ -40,6 +40,9 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 	add_shading(params->ray, normal, ambiantly_color, ambiantly_color);
 }
 
+/**========================================================================
+ *                          CALCULATE_SPOTLIGHT_EFFECT
+ *========================================================================**/
 int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_params *params)//void
 {
 	double	light_attenuat;
