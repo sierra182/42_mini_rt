@@ -59,6 +59,7 @@ SOURCES = \
 	$(SRC_DIR)/mesh/mesh_trsf_bonus.c \
 	$(SRC_DIR)/mesh/change_mesh_size_bonus.c \
 	$(SRC_DIR)/event/event_bonus.c \
+	$(SRC_DIR)/event/event_light_bonus.c \
 	$(SRC_DIR)/parsing/parsing_utils_bonus.c \
 	$(SRC_DIR)/exit/exit_bonus.c \
 	$(SRC_DIR)/exit/data_store_bonus.c \
@@ -103,7 +104,7 @@ SOURCES = \
 	$(SRC_DIR)/event/events_keycode_bonus.c \
 	$(SRC_DIR)/event/mouse_events_bonus.c \
 	$(SRC_DIR)/event/event_reset_bonus.c \
-	$(SRC_DIR)/event/key_event_bonus.c 
+	$(SRC_DIR)/event/key_event_bonus.c
 	
 HEADERS = \
 	$(HEADERS_DIR)/event/event_reset_bonus.h \
