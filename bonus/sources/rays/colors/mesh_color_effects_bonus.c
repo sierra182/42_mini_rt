@@ -43,7 +43,7 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 /**========================================================================
  *                          CALCULATE_SPOTLIGHT_EFFECT
  *========================================================================**/
-int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_params *params)//void
+void	calculate_spotlight_effect(t_spotlight *spotlight, t_calc_spotlight_effect_params *params)//void
 {
 	double	light_attenuat;
 	double	light_coef;
@@ -63,5 +63,4 @@ int	calculate_spotlight_effect3(t_spotlight *spotlight, t_calc_spotlight_effect_
 	color_with_light(params->mesh_color,
 		&spotlight->color, spec_coef * light_attenuat,
 		params->spotlighty_color);
-	return (0);
 }
