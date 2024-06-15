@@ -59,7 +59,7 @@ char **get_texture(t_data *data, int i)
 			char_tab[j][0] = str[0];
 			printf("VALUE: \"%c\", ", str[0]);
 			printf("PAIR: \"%s\"", &str[4]);
-			printf("char_tb[0]: %i\n", char_tab[j][0]);
+			printf("char_tb[%i]: %i\n", j, char_tab[j][0]);
 		}
 		free(str);
 		j++;
