@@ -50,7 +50,7 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 
 	rgb = 0;
 	inter_bulb = has_bulb(data, ray, &color);
-	if (obj->t && obj->type == O_SP && obj->ref && inter_bulb)
+	if (obj->t && obj->type == O_SP && obj->ref && !inter_bulb)
 	{
 		get_sphere_color(&(t_get_color_params)
 		{data, ray, obj->t, obj, &color, NULL});
