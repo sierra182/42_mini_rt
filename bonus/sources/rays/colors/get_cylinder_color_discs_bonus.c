@@ -13,7 +13,7 @@ void	add_disc_spotlights_effect(t_get_color_params *params,
 	i = -1;
 	while (++i < params->data->sl_nbr)
 	{
-		compute_light_ray(&params->data->spotlights[i], light_ray);	
+		compute_light_ray(&params->data->spotlights[i], light_ray);
 		handle_normal_symmetrization(params, params->normal, &light_ray->ray);
 		light_coef = scalar_product(params->normal->axis,
 				light_ray->ray.dir_vect.axis);
@@ -72,8 +72,8 @@ void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector
 /**========================================================================
  *                           IS_AMBIANCED_ONLY
  *========================================================================**/
-static int	is_ambianced_only(t_spotlight *spotlight, t_get_color_params *params,
-	t_ray_pack *light_ray, double *light_coef)
+static int	is_ambianced_only(t_spotlight *spotlight,
+	t_get_color_params *params, t_ray_pack *light_ray, double *light_coef)
 {
 	t_cylinder		*cyl;
 

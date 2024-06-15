@@ -6,7 +6,7 @@
 static void	compute_pl_normal(t_get_color_params *params,
 	t_ray_vector *normal, t_ray_pack *light_ray)
 {
-    t_plane *plane;
+	t_plane	*plane;
 	double	scalar_nr;
 
 	plane = (t_plane *) params->mesh->ref;
@@ -25,7 +25,7 @@ static void	add_pl_spotlights_effect(t_get_color_params *params,
 	t_ray_vector *normal, t_color *spotlighties_color, t_ray_pack *light_ray)
 {
 	t_color	spotlighty_color;
-    t_plane	*plane;
+	t_plane	*plane;
 	int		i;
 
 	plane = (t_plane *) params->mesh->ref;
@@ -40,7 +40,7 @@ static void	add_pl_spotlights_effect(t_get_color_params *params,
 			continue ;
 		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 		{params, &plane->color, normal, &spotlighty_color, light_ray,
-            &params->data->spotlights[i]});
+			&params->data->spotlights[i]});
 		add_color(spotlighties_color, &spotlighty_color, spotlighties_color);
 	}
 }

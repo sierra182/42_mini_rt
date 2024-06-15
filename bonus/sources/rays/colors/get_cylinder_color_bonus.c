@@ -42,7 +42,7 @@ static void	add_cyl_spotlights_effect(t_get_color_params *params,
 			continue ;
 		calculate_spotlight_effect(&(t_calc_spotlight_effect_params)
 		{params, &cyl->color, normal, &spotlighty_color, light_ray,
-		&params->data->spotlights[i]});
+			&params->data->spotlights[i]});
 		add_color(spotlighties_color, &spotlighty_color, spotlighties_color);
 	}
 }

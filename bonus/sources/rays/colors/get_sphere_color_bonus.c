@@ -8,7 +8,7 @@ t_ray_pack *light_ray)
 {
 	t_sphere		*sphere;
 
-	sphere = (t_sphere *) params->mesh->ref;	
+	sphere = (t_sphere *) params->mesh->ref;
 	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
 	subtract_vector(light_ray->ray.origin_vect.axis,
 		sphere->origin_vect.axis, normal->axis);
