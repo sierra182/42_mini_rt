@@ -15,10 +15,10 @@ char *get_bmpath(t_data *data, int index)
 	return bmpath;
 }
 
-char **get_texture(t_data *data, int i)
+int **get_texture(t_data *data, int i)
 {
 	char *bump_map_path;
-	char **texture;
+	int **texture;
 	char *str;
 	char *str_tmp;
 	char **tab;
