@@ -4,6 +4,8 @@ void	clamp_rgb_0(t_color *color);
 void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
 void calculate_uv(t_ray_vector point, double *u, double *v);
 void checker_color(double u, double v, int checker_size, t_color *color);
+void checker_color_grayscale(double u, double v, int checker_size, t_color *color, double bump_coef);
+
 #include "libft.h"
 #define TEXTURE_WIDTH 512
 #include <string.h>
@@ -76,6 +78,19 @@ int hex_to_int(const char *hex_string)
 	return color_value;
 }
 
+t_ray_vector apply_bump_map(t_ray_vector normal, t_ray_vector tangent, t_ray_vector bitangent, double bump_factor)
+{
+    // Calculer la nouvelle normale
+    t_ray_vector perturbed_normal = {
+        normal.axis[0] + bump_factor * tangent.axis[0] + bump_factor * bitangent.axis[0],
+        normal.axis[1] + bump_factor * tangent.axis[1] + bump_factor * bitangent.axis[1],
+        normal.axis[2] + bump_factor * tangent.axis[2] + bump_factor * bitangent.axis[2]
+    };
+
+    // Normaliser la normale perturbée
+	self_normalize_vector(perturbed_normal.axis);
+    return (perturbed_normal);
+}
 
 void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 {
@@ -95,8 +110,12 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	}
 	int x, y;
 	uv_to_texture_coordinates(u, v, &x, &y);
-	printf("%i, %i: texture value: %f\n", x, y, params->data->bump_maps[sphere->bump_map_nbr][x][y]);
-	char hex_output[8];
+	double bump_coef;
+	bump_coef = params->data->bump_maps[sphere->bump_map_nbr][x][y];
+	// printf("%i, %i: texture value: %f\n", x, y, bump_coef);
+
+	checker_color_grayscale(u, v, size, params->color, bump_coef);
+	// *params->normal = apply_bump_map(*params->normal, (t_ray_vector){1,1,1}, (t_ray_vector){1,1,1}, bump_coef);
 	
 }
 
@@ -109,6 +128,21 @@ void calculate_uv(t_ray_vector point, double *u, double *v) {
 
 	*u = 0.5 + theta / (2 * M_PI);
 	*v = 0.5 - phi / M_PI;
+}
+
+void checker_color_grayscale(double u, double v, int checker_size, t_color *color, double bump_coef)
+{
+	int u_index = (int)(u * checker_size);
+	int v_index = (int)(v * checker_size);
+	int	is_checker;
+		
+	// is_checker = (u_index % 2 == v_index % 2);
+	// if (is_checker)
+	{
+		color->rgb[0] *= bump_coef;
+		color->rgb[1] *= bump_coef;
+		color->rgb[2] *= bump_coef;
+	}
 }
 
 void checker_color(double u, double v, int checker_size, t_color *color)

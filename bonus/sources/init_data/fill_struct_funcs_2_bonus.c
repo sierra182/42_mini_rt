@@ -173,6 +173,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	else if ((int)tab[7] != 1024)
 	{
 		data->spheres[i].bump_map_path = get_bmpath(data, (int)tab[7]);
+		data->spheres[i].bump_map_nbr = (int)tab[7];
 		get_texture(data, i);
 	}
 	else
