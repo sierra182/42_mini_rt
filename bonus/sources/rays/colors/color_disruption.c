@@ -101,7 +101,7 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	// printf("modif_uv\n");
 
 	sphere = (t_sphere *) params->mesh->ref;
-	if (sphere->checkerboard == 0 && !sphere->bump_map_path)
+	if (sphere->checkerboard == 0 && sphere->bump_map_nbr == -1)
 		return ;
 	calculate_uv(*params->normal, &u, &v);
 	if (sphere->checkerboard == 1)

@@ -101,6 +101,7 @@ void	init_vars(t_data *data)
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
 	save_data(data);
+	
 }
 
 /**========================================================================

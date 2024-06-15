@@ -174,11 +174,13 @@ void	fill_struct_sp(t_data *data, double tab[])
 	{
 		data->spheres[i].bump_map_path = get_bmpath(data, (int)tab[7]);
 		data->spheres[i].bump_map_nbr = (int)tab[7];
+		data->spheres[i].checkerboard = 0;
 		get_texture(data, i);
 	}
 	else
 	{
 		data->spheres[i].checkerboard = 0;
+		data->spheres[i].bump_map_nbr = -1;
 	}
 	data->spheres[i].which_t = 0;
 	data->spheres[i].t1 = 0.0;
