@@ -56,13 +56,14 @@ void get_texture(t_data *data, int i)
 	char hex_output[8];
 
 	bump_map_path = data->spheres[i].bump_map_path;
-	// printf("bump map path: %s\n", bump_map_path);
+	// printf("bump map path:< %s\n", bump_map_path);
 	
 	fd = open(bump_map_path, O_RDONLY);
-
-	
+	// printf("fd: %i\n", fd);
+	str = "";
 	while (str)
 	{
+		// printf("str: %s\n", str);
 		str = get_next_line(fd);
 		if (str && str[0] == '"')
 		{
@@ -106,6 +107,7 @@ void get_texture(t_data *data, int i)
 		free(str);
 		j++;
 	}
+	printf("shades_nbr: %i\n", shades_nbr);
 	int k;
 	int	l;
 	l = 0;
@@ -126,10 +128,11 @@ void get_texture(t_data *data, int i)
 				k = 0;
 				while (k < shades_nbr)
 				{
+
 					if (str [j] == char_tab[k][0])
 					{
-
 						data->bump_maps[i][l][j] = int_to_grayscale(char_tab[k][1]) / 255.0f;
+						// printf("get_texture: sphere->bump_map_nbr: %i, x: %i, y: %i\n", i, l, j);
 						// printf("%i => ", int_to_grayscale(char_tab[k][1]));
 						// printf("%i\n", data->bump_maps[i][l][j]);
 						// printf("map %i, line: %i char %i =>", i, l, j);
@@ -172,8 +175,9 @@ void	fill_struct_sp(t_data *data, double tab[])
 	}
 	else if ((int)tab[7] != 1024)
 	{
+		// printf("tab[7]: %i, i: %i\n", (int)tab[7], i);
 		data->spheres[i].bump_map_path = get_bmpath(data, (int)tab[7]);
-		data->spheres[i].bump_map_nbr = (int)tab[7];
+		data->spheres[i].bump_map_nbr = i;
 		data->spheres[i].checkerboard = 0;
 		get_texture(data, i);
 	}

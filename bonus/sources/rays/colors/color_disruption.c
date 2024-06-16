@@ -107,13 +107,17 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	if (sphere->checkerboard == 1)
 	{
 		checker_color(u, v, size, params->color);
+		return ;
 	}
 	int x, y;
 	uv_to_texture_coordinates(u, v, &x, &y);
 	double bump_coef;
 	bump_coef = params->data->bump_maps[sphere->bump_map_nbr][x][y];
-	// printf("%i, %i: texture value: %f\n", x, y, bump_coef);
-
+	if (sphere->bump_map_nbr == 1)
+		{printf("sphere->bump_map_path: %s, sphere->bump_map_nbr: %i\n", sphere->bump_map_path, sphere->bump_map_nbr);
+		// printf("bump_coef: %f\n", bump_coef);
+		printf("%i, %i: texture value: %f\n", x, y, bump_coef);}
+	// printf("modif_uv: sphere->bump_map_nbr: %i, x: %i, y: %i\n", sphere->bump_map_nbr, x, y);
 	checker_color_grayscale(u, v, size, params->color, bump_coef);
 	// *params->normal = apply_bump_map(*params->normal, (t_ray_vector){1,1,1}, (t_ray_vector){1,1,1}, bump_coef);
 	
@@ -134,15 +138,10 @@ void checker_color_grayscale(double u, double v, int checker_size, t_color *colo
 {
 	int u_index = (int)(u * checker_size);
 	int v_index = (int)(v * checker_size);
-	int	is_checker;
-		
-	// is_checker = (u_index % 2 == v_index % 2);
-	// if (is_checker)
-	{
-		color->rgb[0] *= bump_coef;
-		color->rgb[1] *= bump_coef;
-		color->rgb[2] *= bump_coef;
-	}
+	
+	color->rgb[0] *= bump_coef;
+	color->rgb[1] *= bump_coef;
+	color->rgb[2] *= bump_coef;
 }
 
 void checker_color(double u, double v, int checker_size, t_color *color)
