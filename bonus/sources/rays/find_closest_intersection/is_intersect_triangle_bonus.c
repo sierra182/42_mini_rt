@@ -20,6 +20,11 @@ double	is_intersect_triangle(t_ray *ray, void *input_triangle)
 	const double	epsilon = 1e-6;
 
 	triangle = (t_triangle *) input_triangle;
+	// printf("%f, %f, %f :  %f, %f, %f : %f, %f, %f : %d, %d, %d\n",
+	// triangle->point_a.axis[0], triangle->point_a.axis[1], triangle->point_a.axis[2], 
+	// triangle->point_b.axis[0], triangle->point_b.axis[1], triangle->point_b.axis[2], 
+	// triangle->point_c.axis[0], triangle->point_c.axis[1], triangle->point_c.axis[2], 
+	// triangle->color.rgb[0], triangle->color.rgb[1], triangle->color.rgb[2]);
 	subtract_vector(triangle->point_b.axis, triangle->point_a.axis, e1.axis);
 	subtract_vector(triangle->point_c.axis, triangle->point_a.axis, e2.axis);
 	cross_product(ray->dir_vect.axis, e2.axis, p.axis);
