@@ -15,7 +15,8 @@ typedef enum e_obj_type
 {
 	O_SP,
 	O_CY,
-	O_PL
+	O_PL,
+	O_TR
 }	t_obj_type;
 
 typedef struct s_obj_intersect

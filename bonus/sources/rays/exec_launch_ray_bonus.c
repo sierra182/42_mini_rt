@@ -1,5 +1,6 @@
 #include "exec_launch_ray_bonus.h"
 double	is_intersect_triangle(t_ray *ray, void *input_triangle);
+void	get_triangle_color(t_get_color_params *params);
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS
  *========================================================================**/
@@ -11,13 +12,20 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	new_ray(&data->cam, &ray, x, y);
 	obj.t = BIG_VALUE;
 	obj.ref = NULL;
-	obj.type = 4;
+	obj.type = 5;// ? ex4
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
-	put_pxl(mlx, x, y, get_pixel_color(data, &ray, &obj));
-	if (is_intersect_triangle(&ray, &data->triangles[0]))
-		put_pxl(mlx, x, y, 0xFFFFFF);
+	put_pxl(mlx, x, y, get_pixel_color(data, &ray, &obj));	
+	if (obj.t = is_intersect_triangle(&ray, &data->triangles[0]))
+	{
+		t_color color;
+		obj.ref = &data->triangles[0];
+		obj.type = O_TR;
+		get_triangle_color((&(t_get_color_params)
+		{data, &ray, obj.t, &obj, &color, NULL}));
+		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
+	}
 }
 
 /**========================================================================
