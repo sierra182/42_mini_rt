@@ -43,7 +43,7 @@ CFLAGS = \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-O3 \
-#	-Wall -Wextra -Werror
+	# -Wall -Wextra -Werror
 
 SOURCES = \
 	$(SRC_DIR)/.meta/create_video_image_bonus.c \
@@ -149,11 +149,13 @@ HEADERS = \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_bonus.h \
 	$(HEADERS_DIR)/rays/colors/get_sphere_color_bonus.h \
 	$(HEADERS_DIR)/rays/colors/get_plane_color_bonus.h \
+	$(HEADERS_DIR)/rays/colors/get_triangle_color_bonus.h \
 	$(HEADERS_DIR)/rays/colors/mesh_color_effects_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/find_closest_intersection_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_cylinder_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_utils_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_bonus.h \
+	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_triangle_bonus.h \
 	$(HEADERS_DIR)/rays/shadows/shadows_exclusion_bonus.h \
 	$(HEADERS_DIR)/rays/shadows/shadows_bonus.h \
 	$(HEADERS_DIR)/rays/exec_launch_ray_bonus.h \

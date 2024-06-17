@@ -1,8 +1,5 @@
 #include "exec_launch_ray_bonus.h"
-void	get_closest_intersection_tr(t_data *data, t_ray *ray, t_obj *obj);
-double	is_intersect_triangle(t_ray *ray, void *input_triangle,
-	t_ray_vector *i);
-void	get_triangle_color(t_get_color_params *params);
+
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS
  *========================================================================**/
@@ -14,22 +11,13 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	new_ray(&data->cam, &ray, x, y);
 	obj.t = BIG_VALUE;
 	obj.ref = NULL;
-	obj.type = 5;// ? ex4
+	obj.type = 5;
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
 	get_closest_intersection_tr(data, &ray, &obj);
 	get_closest_intersection_tr(data, &ray, &obj);
-	put_pxl(mlx, x, y, get_pixel_color(data, &ray, &obj));	
-	// if (obj.t = is_intersect_triangle(&ray, &data->triangles[0], NULL))
-	// {
-	// 	t_color color;
-	// 	obj.ref = &data->triangles[0];
-	// 	obj.type = O_TR;
-	// 	get_triangle_color((&(t_get_color_params)
-	// 	{data, &ray, obj.t, &obj, &color, NULL}));
-	// 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
-	// }
+	put_pxl(mlx, x, y, get_pixel_color(data, &ray, &obj));
 }
 
 /**========================================================================
@@ -64,6 +52,8 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 
 	rgb = 0;
 	inter_bulb = has_bulb(data, ray, &color);
+	if (inter_bulb && !is_behind_cam(inter_bulb))
+		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	if (obj->t && obj->type == O_SP && obj->ref && !inter_bulb)
 	{
 		get_sphere_color(&(t_get_color_params)
@@ -111,8 +101,6 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 	}
 	if (obj->ref == NULL)
 		*rgb = get_background_color(params->ray, data);
-	if (*params->inter_bulb && !is_behind_cam(*params->inter_bulb))
-		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
 }
 
 /**========================================================================

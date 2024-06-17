@@ -28,10 +28,8 @@ void	key_code_funcs(int keycode, t_data *data, t_mlx *mlx)
  *========================================================================**/
 void	data_event_funcs_1(t_data *data, int keycode)
 {
-	t_matrix_vector	*rotate_vect;
 	t_matrix_vector	*transl_vect;
 
-	rotate_vect = NULL;
 	transl_vect = NULL;
 	if (data->event.actual_mode == E_CAM)
 	{

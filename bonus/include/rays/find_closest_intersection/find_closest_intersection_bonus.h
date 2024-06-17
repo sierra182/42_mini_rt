@@ -8,6 +8,6 @@ double	is_intersect_sphere(t_ray *ray, void *input_sphere, t_ray_vector *i);
 double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i);
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *t);
 double	is_intersect_triangle(t_ray *ray, void *input_triangle,
-	t_ray_vector *i);
-	
+			t_ray_vector *i);
+
 #endif

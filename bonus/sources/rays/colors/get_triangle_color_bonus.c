@@ -1,15 +1,5 @@
-# include "se_mini_struct_bonus.h"
-# include "x_linear_algebra_bonus.h"
+#include "get_triangle_color_bonus.h"
 
-int		has_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray);
-void	get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
-int		is_sphere_surface_between(t_sphere *sphere, t_spotlight *spotlight);
-void	calculate_ambiant_effect(t_get_color_params *params,
-			t_color *mesh_color, t_ray_vector *normal,
-			t_color *ambiantly_color);
-void	apply_aces_tonemap(t_color *color);
-void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
-void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
 /**========================================================================
  *                           COMPUTE_TR_NORMAL
  *========================================================================**/
@@ -17,7 +7,7 @@ static void	compute_tr_normal(t_get_color_params *params,
 	t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	t_triangle	*triangle;
-	double	scalar_nr;
+	double		scalar_nr;
 
 	triangle = (t_triangle *) params->mesh->ref;
 	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
@@ -44,7 +34,7 @@ static void	add_tr_spotlights_effect(t_get_color_params *params,
 	while (++i < params->data->sl_nbr)
 	{
 		compute_light_ray(&params->data->spotlights[i], light_ray);
-		if (has_shadow(params->data, params->mesh, light_ray)//! add tr shadows
+		if (has_shadow(params->data, params->mesh, light_ray)
 			|| scalar_product(normal->axis, light_ray->ray.dir_vect.axis)
 			< 1e-3)
 			continue ;
@@ -54,6 +44,7 @@ static void	add_tr_spotlights_effect(t_get_color_params *params,
 		add_color(spotlighties_color, &spotlighty_color, spotlighties_color);
 	}
 }
+
 /**========================================================================
  *                           GET_TRIANGLE_COLOR
  *========================================================================**/

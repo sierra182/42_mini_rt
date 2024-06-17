@@ -1,6 +1,5 @@
-# include "se_mini_struct_bonus.h"
-# include "x_linear_algebra_bonus.h"
-# include <math.h>
+#include "is_intersect_triangle_bonus.h"
+
 /**========================================================================
  *                          IS_INTERSECT_TRIANGLE
  *========================================================================**/
@@ -17,7 +16,7 @@ double	is_intersect_triangle(t_ray *ray, void *input_triangle,
 	double			v;
 	double 			t;
 	const double	epsilon = 1e-6;
-
+	(void) i;
 	triangle = (t_triangle *) input_triangle;	
 	subtract_vector(triangle->point_b.axis, triangle->point_a.axis,
 		triangle->e1.axis);
