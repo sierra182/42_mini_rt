@@ -4,7 +4,8 @@
 /**========================================================================
  *                          IS_INTERSECT_TRIANGLE
  *========================================================================**/
-double	is_intersect_triangle(t_ray *ray, void *input_triangle)
+double	is_intersect_triangle(t_ray *ray, void *input_triangle,
+	t_ray_vector *i)
 {
 	t_triangle		*triangle;
 	t_ray_vector	p;
@@ -18,8 +19,10 @@ double	is_intersect_triangle(t_ray *ray, void *input_triangle)
 	const double	epsilon = 1e-6;
 
 	triangle = (t_triangle *) input_triangle;	
-	subtract_vector(triangle->point_b.axis, triangle->point_a.axis, triangle->e1.axis);
-	subtract_vector(triangle->point_c.axis, triangle->point_a.axis, triangle->e2.axis);
+	subtract_vector(triangle->point_b.axis, triangle->point_a.axis,
+		triangle->e1.axis);
+	subtract_vector(triangle->point_c.axis, triangle->point_a.axis,
+		triangle->e2.axis);
 	cross_product(ray->dir_vect.axis, triangle->e2.axis, p.axis);
 	det = scalar_product(triangle->e1.axis, p.axis); 
 	if (fabs(det) < epsilon)

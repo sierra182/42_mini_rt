@@ -105,7 +105,7 @@ static int	has_triangle_shadow(t_data *data, t_obj *mesh,
 		if (mesh->ref && (void *) &data->triangles[i] != mesh->ref)
 		{
 			t = is_intersect_triangle(&light_ray->ray_norm,
-					&data->triangles[i]);
+					&data->triangles[i], NULL);
 			if (t)
 			{
 				get_local_intersect_point(&light_ray->ray_norm, t, &inter_pt);

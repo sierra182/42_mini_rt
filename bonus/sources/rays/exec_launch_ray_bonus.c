@@ -1,5 +1,7 @@
 #include "exec_launch_ray_bonus.h"
-double	is_intersect_triangle(t_ray *ray, void *input_triangle);
+void	get_closest_intersection_tr(t_data *data, t_ray *ray, t_obj *obj);
+double	is_intersect_triangle(t_ray *ray, void *input_triangle,
+	t_ray_vector *i);
 void	get_triangle_color(t_get_color_params *params);
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS
@@ -16,16 +18,18 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
+	get_closest_intersection_tr(data, &ray, &obj);
+	get_closest_intersection_tr(data, &ray, &obj);
 	put_pxl(mlx, x, y, get_pixel_color(data, &ray, &obj));	
-	if (obj.t = is_intersect_triangle(&ray, &data->triangles[0]))
-	{
-		t_color color;
-		obj.ref = &data->triangles[0];
-		obj.type = O_TR;
-		get_triangle_color((&(t_get_color_params)
-		{data, &ray, obj.t, &obj, &color, NULL}));
-		put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
-	}
+	// if (obj.t = is_intersect_triangle(&ray, &data->triangles[0], NULL))
+	// {
+	// 	t_color color;
+	// 	obj.ref = &data->triangles[0];
+	// 	obj.type = O_TR;
+	// 	get_triangle_color((&(t_get_color_params)
+	// 	{data, &ray, obj.t, &obj, &color, NULL}));
+	// 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
+	// }
 }
 
 /**========================================================================
@@ -95,6 +99,13 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 		&& !*params->inter_bulb)
 	{
 		get_plane_color(&(t_get_color_params)
+		{data, params->ray, obj->t, obj, color, NULL});
+		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
+	}
+	if (obj->t && obj->type == O_TR && !is_behind_cam(obj->t) && obj->ref
+		&& !*params->inter_bulb)
+	{
+		get_triangle_color(&(t_get_color_params)
 		{data, params->ray, obj->t, obj, color, NULL});
 		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
 	}
