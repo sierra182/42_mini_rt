@@ -99,7 +99,7 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 		{data, params->ray, obj->t, obj, color, NULL});
 		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
 	}
-	if (obj->ref == NULL)
+	if (obj->ref == NULL && !*params->inter_bulb)
 		*rgb = get_background_color(params->ray, data);
 }
 
