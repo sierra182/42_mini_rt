@@ -132,6 +132,7 @@ void get_texture(t_data *data, int i)
 					if (str [j] == char_tab[k][0])
 					{
 						data->bump_maps[i][l][j] = int_to_grayscale(char_tab[k][1]) / 255.0f;
+						// data->bump_maps[i][l][j] = (char_tab[k][1]);
 						// printf("get_texture: sphere->bump_map_nbr: %i, x: %i, y: %i\n", i, l, j);
 						// printf("%i => ", int_to_grayscale(char_tab[k][1]));
 						// printf("%i\n", data->bump_maps[i][l][j]);

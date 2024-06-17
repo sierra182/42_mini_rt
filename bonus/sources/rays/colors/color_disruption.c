@@ -114,9 +114,11 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	double bump_coef;
 	bump_coef = params->data->bump_maps[sphere->bump_map_nbr][x][y];
 	if (sphere->bump_map_nbr == 1)
-		{printf("sphere->bump_map_path: %s, sphere->bump_map_nbr: %i\n", sphere->bump_map_path, sphere->bump_map_nbr);
-		// printf("bump_coef: %f\n", bump_coef);
-		printf("%i, %i: texture value: %f\n", x, y, bump_coef);}
+	{
+		// printf("sphere->bump_map_path: %s, sphere->bump_map_nbr: %i\n", sphere->bump_map_path, sphere->bump_map_nbr);
+		// // printf("bump_coef: %f\n", bump_coef);
+		// printf("%i, %i: texture value: %i\n", x, y, bump_coef);
+	}
 	// printf("modif_uv: sphere->bump_map_nbr: %i, x: %i, y: %i\n", sphere->bump_map_nbr, x, y);
 	checker_color_grayscale(u, v, size, params->color, bump_coef);
 	// *params->normal = apply_bump_map(*params->normal, (t_ray_vector){1,1,1}, (t_ray_vector){1,1,1}, bump_coef);
@@ -139,6 +141,12 @@ void checker_color_grayscale(double u, double v, int checker_size, t_color *colo
 	int u_index = (int)(u * checker_size);
 	int v_index = (int)(v * checker_size);
 	
+	// int r = (bump_coef >> 16) & 0xFF;
+    // int g = (bump_coef >> 8) & 0xFF;
+    // int b = bump_coef & 0xFF;
+
+	// printf("r: %i, g: %i, b: %i\n", r, g, b);
+
 	color->rgb[0] *= bump_coef;
 	color->rgb[1] *= bump_coef;
 	color->rgb[2] *= bump_coef;
