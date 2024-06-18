@@ -18,18 +18,6 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	add_vector(sum_vect.axis, scaled_forward.axis, ray->dir_vect.axis);
 }
 
-// /**========================================================================
-//  *                           NORMALIZE_PIXEL
-//  *========================================================================**/
-// static double	normalize_pixel(int screen_size, int pixel, int x_flag)
-// {
-// 	if (!screen_size)
-// 		return (0.0);
-// 	if (x_flag)
-// 		return (((pixel + 0.5) / screen_size) * 2 - 1);
-// 	return ((1 - 2 * (pixel + 0.5) / screen_size));
-// }
-
 /**========================================================================
  *                           NORMALIZE_PIXEL
  *========================================================================**/
@@ -41,6 +29,7 @@ static double	normalize_pixel(int screen_size, double pixel, int x_flag)
 		return (((pixel) / screen_size) * 2 - 1);
 	return ((1 - 2 * (pixel) / screen_size));
 }
+
 /**========================================================================
  *                           NEW_RAY
  *========================================================================**/
@@ -71,7 +60,10 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		x = -1;
 		while (++x < data->cam.resol[0])
 		{
-			exec_launch_rays(mlx, data, x, y);
+			if (data->event.antia)
+				exec_launch_rays_antia(mlx, data, x, y);
+			else
+				exec_launch_rays(mlx, data, x, y);
 			add_xpm_items(mlx, data, x, y);
 		}
 	}

@@ -7,6 +7,8 @@ void	key_code_funcs(int keycode, t_data *data, t_mlx *mlx)
 {
 	if (keycode == ESC)
 		mlx_loop_end(mlx->connect);
+	if (keycode == ANT)
+		data->event.antia = 1;	
 	if (keycode == RST)
 		reset(data);
 	if (keycode == RST_CM)

@@ -25,5 +25,6 @@ void		get_closest_intersection_tr(t_data *data, t_ray *ray, t_obj *obj);
 double		is_intersect_triangle(t_ray *ray, void *input_triangle,
 				t_ray_vector *i);
 void		get_triangle_color(t_get_color_params *params);
+void		new_ray(t_cam *cam, t_ray *ray, double x, double y);
 
 #endif
