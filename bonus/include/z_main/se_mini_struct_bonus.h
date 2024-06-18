@@ -34,7 +34,6 @@ typedef struct s_data
 	t_cylinder		*cylinders;
 	t_plane			*planes;
 	t_triangle		*triangles;
-	t_spotlight		spotlight;
 	t_spotlight		*spotlights;
 	t_ambiant_light	ambiant_light;
 	struct s_data	*data_cpy;

@@ -18,5 +18,7 @@ void	event_translate(int keycode,
 			void (*trsl_mesh)(t_cam *cam, t_matrix_vector *vect,
 				double values[]), t_cam *cam, t_matrix_vector *vect);
 void	meta_keycode(int keycode, t_data *data, t_mlx *mlx);
+void	actual_light_handle(t_data *data, int store_color,
+			t_matrix_vector **origin_vect);
 
 #endif

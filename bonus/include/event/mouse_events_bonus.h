@@ -3,7 +3,7 @@
 
 # include "se_mini_struct_bonus.h"
 
-void	event_launch_rays(t_data *data, int x, int y);
 void	update_cam(t_cam *cam);
-
+void	event_launch_rays(t_data *data, int x, int y);
+void	event_spotlight_launch_rays(t_data *data, int x, int y);
 #endif

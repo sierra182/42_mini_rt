@@ -24,16 +24,19 @@ void	calculate_missing_vectors(t_cam *cam)
 	cam->up_vect.axis[0] = 0;
 	cam->up_vect.axis[1] = 1;
 	cam->up_vect.axis[2] = 0;
-	cross_product(&cam->up_vect, &cam->forward_vect, &cam->right_vect);
+	cross_product(cam->up_vect.axis, cam->forward_vect.axis,
+		cam->right_vect.axis);
 	if (are_collinear_vectors(&cam->right_vect, 1e-3))
 	{
 		cam->up_vect.axis[0] = -1;
 		cam->up_vect.axis[1] = 0;
 		cam->up_vect.axis[2] = 0;
-		cross_product(&cam->up_vect, &cam->forward_vect, &cam->right_vect);
+		cross_product(cam->up_vect.axis, cam->forward_vect.axis,
+			cam->right_vect.axis);
 	}
 	self_normalize_vector(cam->right_vect.axis);
-	cross_product(&cam->forward_vect, &cam->right_vect, &cam->up_vect);
+	cross_product(cam->forward_vect.axis, cam->right_vect.axis,
+		cam->up_vect.axis);
 	self_normalize_vector(cam->up_vect.axis);
 }
 

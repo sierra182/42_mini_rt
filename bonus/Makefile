@@ -43,8 +43,7 @@ CFLAGS = \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-O3 \
-	-g \
-#	-Wall -Wextra -Werror
+	# -Wall -Wextra -Werror
 
 SOURCES = \
 	$(SRC_DIR)/.meta/create_video_image_bonus.c \
@@ -60,6 +59,7 @@ SOURCES = \
 	$(SRC_DIR)/mesh/mesh_trsf_bonus.c \
 	$(SRC_DIR)/mesh/change_mesh_size_bonus.c \
 	$(SRC_DIR)/event/event_bonus.c \
+	$(SRC_DIR)/event/event_light_bonus.c \
 	$(SRC_DIR)/parsing/parsing_utils_bonus.c \
 	$(SRC_DIR)/exit/exit_bonus.c \
 	$(SRC_DIR)/exit/data_store_bonus.c \
@@ -84,18 +84,21 @@ SOURCES = \
 	$(SRC_DIR)/rays/ray_utils_bonus.c \
 	$(SRC_DIR)/rays/colors/mesh_color_effects_bonus.c \
 	$(SRC_DIR)/rays/colors/color_effects_bonus.c \
-	$(SRC_DIR)/rays/colors/get_sph_pl_bck_color_bonus.c \
+	$(SRC_DIR)/rays/colors/get_sphere_color_bonus.c \
+	$(SRC_DIR)/rays/colors/get_plane_color_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_discs_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_utils_bonus.c \
 	$(SRC_DIR)/rays/colors/color_disruption.c \
 	$(SRC_DIR)/rays/colors/bump_mapping.c \
+	$(SRC_DIR)/rays/colors/get_triangle_color_bonus.c \
 	$(SRC_DIR)/rays/shadows/shadows_bonus.c \
 	$(SRC_DIR)/rays/shadows/shadows_exclusion_bonus.c \
 	$(SRC_DIR)/rays/find_closest_intersection/find_closest_intersection_bonus.c \
 	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_bonus.c \
 	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_cylinder_bonus.c \
 	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_utils_bonus.c \
+	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_triangle_bonus.c \
 	$(SRC_DIR)/rays/exec_launch_ray_bonus.c \
 	$(SRC_DIR)/linear_algebra/clamping_bonus.c \
 	$(SRC_DIR)/linear_algebra/vector_bonus.c \
@@ -106,11 +109,12 @@ SOURCES = \
 	$(SRC_DIR)/event/events_keycode_bonus.c \
 	$(SRC_DIR)/event/mouse_events_bonus.c \
 	$(SRC_DIR)/event/event_reset_bonus.c \
-	$(SRC_DIR)/event/key_event_bonus.c 
+	$(SRC_DIR)/event/key_event_bonus.c
 	
 HEADERS = \
 	$(HEADERS_DIR)/event/event_reset_bonus.h \
 	$(HEADERS_DIR)/event/event_bonus.h \
+	$(HEADERS_DIR)/event/event_light_bonus.h \
 	$(HEADERS_DIR)/event/events_keycode_bonus.h \
 	$(HEADERS_DIR)/event/key_event_bonus.h \
 	$(HEADERS_DIR)/event/mouse_events_bonus.h \
@@ -145,12 +149,15 @@ HEADERS = \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_discs_bonus.h \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_utils_bonus.h \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_bonus.h \
-	$(HEADERS_DIR)/rays/colors/get_sph_pl_bck_color_bonus.h \
+	$(HEADERS_DIR)/rays/colors/get_sphere_color_bonus.h \
+	$(HEADERS_DIR)/rays/colors/get_plane_color_bonus.h \
+	$(HEADERS_DIR)/rays/colors/get_triangle_color_bonus.h \
 	$(HEADERS_DIR)/rays/colors/mesh_color_effects_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/find_closest_intersection_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_cylinder_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_utils_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_bonus.h \
+	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_triangle_bonus.h \
 	$(HEADERS_DIR)/rays/shadows/shadows_exclusion_bonus.h \
 	$(HEADERS_DIR)/rays/shadows/shadows_bonus.h \
 	$(HEADERS_DIR)/rays/exec_launch_ray_bonus.h \
@@ -185,8 +192,6 @@ $(SRC_DIR)/%.o : $(SRC_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 $(GNL_DIR)/%.o : $(GNL_DIR)/%.c $(LIBFTPRINTF) $(HEADERS)
 # 	@echo "\033[0;32m compiling $(NAME) object $<...\033[0m" 🚀
 	@$(CC) $(CFLAGS) $< -c -o $@
-
-# all: intro design mlx cursor_start ft_printf $(NAME)	
 
 all:  design newline mlx ft_printf $(NAME) 
 
@@ -254,7 +259,7 @@ intro:
 
 clean:
 	@echo "\n cleanning $(NAME) objects 🧻"
-	@rm -f $(OBJECTS) $(OBJECTS_BONUS);
+	@rm -f $(OBJECTS);
 	@$(MAKE) -C $(FT_PRINTF_DIR) clean -s
 	@echo ""
 	@$(MAKE) -C $(MLX_DIR) clean -s
@@ -262,9 +267,9 @@ clean:
 
 fclean: 
 	@echo "\n cleanning $(NAME) objects 🧻"
-	@rm -f $(OBJECTS) $(OBJECTS_BONUS);
+	@rm -f $(OBJECTS);
 	@echo " cleanning $(NAME) 🚽" 
-	@rm -f $(NAME) $(NAME_BONUS)
+	@rm -f $(NAME) 
 	@$(MAKE) -C $(FT_PRINTF_DIR) fclean -s
 	@echo ""
 	@$(MAKE) -C $(MLX_DIR) clean -s

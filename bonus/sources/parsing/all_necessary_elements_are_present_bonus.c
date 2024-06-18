@@ -5,9 +5,9 @@
  *========================================================================**/
 int	all_necessary_elements_are_present(char *map_path)
 {
-	int	nbr;
+	// int	nbr;
 
-	nbr = -1;
+	// nbr = -1;
 	if (element_is_present(map_path, "A") != 1)
 		return (0);
 	if (element_is_present(map_path, "C") != 1)

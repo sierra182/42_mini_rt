@@ -1,12 +1,19 @@
 {
     "files.associations": {
-		"cam_bonus.h": "c",
-		"get_sph_pl_bck_color_bonus.h": "c",
-		"mesh_color_effects_bonus.h": "c",
-		"clamping_bonus.h": "c",
-		"color_effects_bonus.h": "c",
-		"create_data_structs_bonus.h": "c",
-		"parse_bonus.h": "c"
-	},
-	"C_Cpp.errorSquiggles": "disabled"
+        "cam_bonus.h": "c",
+        "get_sph_pl_bck_color_bonus.h": "c",
+        "mesh_color_effects_bonus.h": "c",
+        "clamping_bonus.h": "c",
+        "color_effects_bonus.h": "c",
+        "get_cylinder_color_bonus.h": "c",
+        "get_cylinder_color_discs_bonus.h": "c",
+        "exec_launch_ray_bonus.h": "c",
+        "event_bonus.h": "c",
+        "key_event_bonus.h": "c",
+        "mouse_events_bonus.h": "c",
+        "init_data_bonus.h": "c",
+        "exit_bonus.h": "c",
+        "get_sphere_color_bonus.h": "c",
+        "get_plane_color_bonus.h": "c"
+    }
 }

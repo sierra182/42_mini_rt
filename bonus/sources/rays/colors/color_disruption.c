@@ -1,7 +1,9 @@
-#include "get_sph_pl_bck_color_bonus.h"
+#include "se_mini_struct_bonus.h"
+#include "x_linear_algebra_bonus.h"
+
 void	clamp_rgb_0(t_color *color);
 #include <math.h>
-void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
+void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray, int size, t_ray_vector	*normal);
 void calculate_uv(t_ray_vector point, double *u, double *v);
 void checker_color(double u, double v, int checker_size, t_color *color);
 void checker_color_grayscale(double u, double v, int checker_size, t_color *color, double bump_coef);
@@ -109,7 +111,7 @@ double get_bump_coef(double **bump_map, double u, double v)
 	return bump_coef;
 }
 
-void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
+void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray, int size, t_ray_vector	*normal)
 {
 	double u;
 	double v;
@@ -120,7 +122,7 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	sphere = (t_sphere *) params->mesh->ref;
 	if (sphere->checkerboard == 0 && sphere->bump_map_nbr == -1)
 		return ;
-	calculate_uv(*params->normal, &u, &v);
+	calculate_uv(*normal, &u, &v);
 	if (sphere->checkerboard == 1)
 	{
 		checker_color(u, v, size, params->color);
@@ -135,7 +137,7 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	
 	// printf("modif_uv: sphere->bump_map_nbr: %i, x: %i, y: %i\n", sphere->bump_map_nbr, x, y);
 	// checker_color_grayscale(u, v, size, params->color, bump_coef);
-	apply_bump_mapping(params->normal, u, v, bump_map);
+	apply_bump_mapping(normal, u, v, bump_map);
 }
 
 void calculate_uv(t_ray_vector point, double *u, double *v) {

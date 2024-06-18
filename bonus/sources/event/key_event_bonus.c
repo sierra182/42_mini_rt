@@ -28,10 +28,8 @@ void	key_code_funcs(int keycode, t_data *data, t_mlx *mlx)
  *========================================================================**/
 void	data_event_funcs_1(t_data *data, int keycode)
 {
-	t_matrix_vector				*rotate_vect;
-	t_matrix_vector				*transl_vect;
+	t_matrix_vector	*transl_vect;
 
-	rotate_vect = NULL;
 	transl_vect = NULL;
 	if (data->event.actual_mode == E_CAM)
 	{
@@ -39,8 +37,27 @@ void	data_event_funcs_1(t_data *data, int keycode)
 		cam_event_rotate(keycode, &data->cam);
 	}
 	if (data->event.actual_mode == E_SPOTL)
-		event_translate(keycode, trsl_about_cam, &data->cam,
-			&data->spotlight.origin_vect);
+	{
+		actual_light_handle(data, 0, &transl_vect);
+		if (transl_vect)
+		{
+			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
+			data->event.actual_light->bulb.origin_vect
+				= data->event.actual_light->origin_vect;
+		}
+	}
+}
+
+/**========================================================================
+ *                           DATA_EVENT_FUNCS_2
+ *========================================================================**/
+void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
+{
+	t_matrix_vector	*rotate_vect;
+	t_matrix_vector	*transl_vect;
+
+	rotate_vect = NULL;
+	transl_vect = NULL;
 	if (data->event.actual_mode == E_MESH)
 	{
 		actual_mesh_handle(data, NULL, &transl_vect, &rotate_vect);
@@ -52,21 +69,11 @@ void	data_event_funcs_1(t_data *data, int keycode)
 	if (data->event.actual_mode == E_MESH && (keycode == PLUS
 			|| keycode == MINUS))
 		chang_mesh_size(data, keycode);
-}
-
-/**========================================================================
- *                           DATA_EVENT_FUNCS_2
- *========================================================================**/
-void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
-{
 	if (data->event.actual_mode == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);
 	meta_keycode(keycode, data, mlx);
 	if (data->event.actual_mode == E_SPOTL)
-	{
-		data->spotlight.bulb.origin_vect = data->spotlight.origin_vect;
-		event_intensity(keycode, &data->spotlight.intensity);
-	}
+		event_intensity(keycode, &data->event.actual_light->intensity);
 }
 
 /**========================================================================
@@ -74,8 +81,8 @@ void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
  *========================================================================**/
 int	key_event(int keycode, void *param)
 {
-	t_mlx						*mlx;
-	t_data						*data;
+	t_mlx	*mlx;
+	t_data	*data;
 
 	mlx = (t_mlx *)((void **) param)[0];
 	data = (t_data *)((void **) param)[1];

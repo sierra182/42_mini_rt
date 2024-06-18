@@ -12,8 +12,7 @@ void	add_vector(double a[], double b[], double sum_vect[]);
 void	subtract_vector(double a[], double b[], double subt_vect[]);
 void	scale_vector(double vect[], double scaler, double scaled_vect[]);
 double	scalar_product(double a[], double b[]);
-void	cross_product(t_matrix_vector *a, t_matrix_vector *b,
-			t_matrix_vector *product_vect);
+void	cross_product(double a[], double b[], double cross_product[]);
 void	cast_vector_mat_ray(t_matrix_vector *matrix_vect,
 			t_ray_vector *ray_vect);
 int		are_collinear_vectors(t_matrix_vector *cross_prdct, double precision);
