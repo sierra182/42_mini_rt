@@ -94,8 +94,7 @@ void	handle_line(t_data *data, char *str, int *j, int i,
 /**========================================================================
  *                           FILL_BUMP_MAP
  *========================================================================**/
-void	fill_bump_map(int shades_nbr, int char_tab[][2],
-	t_data *data, int fd, int i)
+void	fill_bump_map(t_fill_bump_map *p, int char_tab[][2])
 {
 	int		j;
 	int		l;
@@ -104,10 +103,10 @@ void	fill_bump_map(int shades_nbr, int char_tab[][2],
 	l = 0;
 	while (str)
 	{
-		str = get_next_line(fd);
+		str = get_next_line(p->fd);
 		if (str && str[0] == '"')
 		{
-			handle_line(data, str, &j, i, shades_nbr, &l, char_tab);
+			handle_line(p->data, str, &j, p->i, p->shades_nbr, &l, char_tab);
 			l++;
 		}
 		free(str);
@@ -126,6 +125,6 @@ void	get_texture(t_data *data, int i)
 	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
 	shades_nbr = get_shades_nbr(fd, tab);
 	extract_texture_values(shades_nbr, fd, char_tab);
-	fill_bump_map(shades_nbr, char_tab, data, fd, i);
+	fill_bump_map(&(t_fill_bump_map){shades_nbr, data, fd, i}, char_tab);
 	close(fd);
 }

@@ -64,4 +64,12 @@ typedef struct s_calculate_bump_derivatives_params
 	double **bump_map;
 }	t_calculate_bump_derivatives_params;
 
+typedef struct	s_fill_bump_map
+{
+	int shades_nbr;
+	t_data *data;
+	int fd;
+	int i;
+}	t_fill_bump_map;
+
 #endif
