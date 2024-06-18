@@ -60,15 +60,15 @@ void	apply_bump_mapping(t_ray_vector *normal, double u, double v, double **bump_
 	// printf("scalar_product(B, T): %f\n", scalar_product(B.axis, T.axis));
 	
 	t_ray_vector N_prime;
-    double scale = 1.0;  // Example scale factor for bump mapping
+    double scale = 0.001;  // Example scale factor for bump mapping
 
     N_prime.axis[0] = normal->axis[0] + scale * (du * T.axis[0] + dv * B.axis[0]);
     N_prime.axis[1] = normal->axis[1] + scale * (du * T.axis[1] + dv * B.axis[1]);
     N_prime.axis[2] = normal->axis[2] + scale * (du * T.axis[2] + dv * B.axis[2]);
 
     self_normalize_vector(N_prime.axis);
-
+	*normal = N_prime;
     // Debug print for perturbed normal
-    printf("Original normal: (%f, %f, %f)\n", normal->axis[0], normal->axis[1], normal->axis[2]);
-    printf("Perturbed normal: (%f, %f, %f)\n", N_prime.axis[0], N_prime.axis[1], N_prime.axis[2]);
+    // printf("Original normal: (%f, %f, %f)\n", normal->axis[0], normal->axis[1], normal->axis[2]);
+    // printf("Perturbed normal: (%f, %f, %f)\n", N_prime.axis[0], N_prime.axis[1], N_prime.axis[2]);
 }

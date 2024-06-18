@@ -89,8 +89,8 @@ SOURCES = \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_discs_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_utils_bonus.c \
-	$(SRC_DIR)/rays/colors/color_disruption.c \
-	$(SRC_DIR)/rays/colors/bump_mapping.c \
+	$(SRC_DIR)/rays/colors/color_disruption_bonus.c \
+	$(SRC_DIR)/rays/colors/bump_mapping_bonus.c \
 	$(SRC_DIR)/rays/colors/get_triangle_color_bonus.c \
 	$(SRC_DIR)/rays/shadows/shadows_bonus.c \
 	$(SRC_DIR)/rays/shadows/shadows_exclusion_bonus.c \
