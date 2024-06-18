@@ -21,19 +21,22 @@ void	calculate_bitangent(t_ray_vector *N, t_ray_vector *T, t_ray_vector *B)
 
 void calculate_bump_derivatives(double u, double v, double *du, double *dv, double **bump_map)
 {
-	double delta_u = 1.0 / 512.0;
-	double delta_v = 1.0 / 512.0;
 	double bump_coef;
 	double bump_coef_u;
 	double bump_coef_v;
+
 	bump_coef = get_bump_coef(bump_map, u, v);
-	bump_coef_u = get_bump_coef(bump_map, u + delta_u, v);
-	bump_coef_v = get_bump_coef(bump_map, u, v + delta_v);
-	*du = (bump_coef_u - bump_coef) / delta_u;
-	*dv = (bump_coef_v - bump_coef) / delta_v;
+	bump_coef_u = get_bump_coef(bump_map, u + (1.0 / 512.0), v);
+	bump_coef_v = get_bump_coef(bump_map, u, v + (1.0 / 512.0));
+	*du = (bump_coef_u - bump_coef) / (1.0 / 512.0);
+	*dv = (bump_coef_v - bump_coef) / (1.0 / 512.0);
 
 }
 
+/**========================================================================
+ *                           apply_bump_mapping
+ * change scale value for texturization "intensity"
+ *========================================================================**/
 void	apply_bump_mapping(t_ray_vector *normal, double u, double v, double **bump_map)
 {
 	t_ray_vector T;
