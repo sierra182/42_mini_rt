@@ -15,6 +15,8 @@ int	mouse_event(int button, int x, int y, void *param)
 			return (data->event.legend = (data->event.legend + 1) % 2, 0);
 		if (data->event.actual_mode == E_MESH)
 			event_launch_rays(data, x, y);
+		if (data->event.actual_mode == E_SPOTL)
+			event_spotlight_launch_rays(data, x, y);
 		return (0);
 	}
 	else if (button == 5 && data->cam.fov_deg < 180)
@@ -49,6 +51,11 @@ int	mouse_release(int button, int x, int y, void *param)
 			((t_cylinder *) data->event.actual_mesh.ref)->color
 				= data->event.color_sav;
 	}
+	if (data->event.actual_light)
+	{
+		data->refresh = 1;
+		data->event.actual_light->bulb.color = data->event.bulb_color_sav;
+	}
 	return (0);
 }
 
@@ -61,5 +68,5 @@ void	key_up_event(int keycode, void *param)
 
 	data = (t_data *)((void **) param)[1];
 	if (keycode == CTRL || keycode == CTRL_2)
-		data->event.ctrl_ispressed = 0;	
+		data->event.ctrl_ispressed = 0;
 }

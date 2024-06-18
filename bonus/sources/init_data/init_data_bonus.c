@@ -1,6 +1,8 @@
 #include "init_data_bonus.h"
+
 void	fill_struct_tr(t_data *data, double tab[]);
 void	fill_struct_l_one(t_data *data, double tab[]);
+void	alloc_bump_maps(t_data *data);
 
 /**========================================================================
  *                             INIT_DATA
@@ -28,6 +30,10 @@ void	save_data(t_data *data)
 			sizeof(t_plane));
 	ft_memcpy(data->data_cpy->planes, data->planes, data->pl_nbr
 		* sizeof(t_plane));
+	data->data_cpy->spotlights = (t_spotlight *) ft_calloc(data->sl_nbr,
+			sizeof(t_spotlight));
+	ft_memcpy(data->data_cpy->spotlights, data->spotlights, data->sl_nbr
+		* sizeof(t_spotlight));
 	add_exit_struct(data->data_cpy, DATA);
 }
 
@@ -37,19 +43,19 @@ void	save_data(t_data *data)
 int	init_data(char *map_path, t_data *data)
 {
 	double	tab[20];
+	int		i;
 
 	get_elements_number(data, map_path);
 	if (create_data_structs(data) == 0)
 		return (0);
-	int	i = 0;
+	alloc_bump_maps(data);
+	i = 0;
 	while (i < 100)
 		data->bump_map_paths[i++] = NULL;
 	while (get_element_data(NULL, map_path, tab, "A") != NULL)
 		fill_struct_a(data, tab);
 	while (get_element_data(NULL, map_path, tab, "C") != NULL)
 		fill_struct_c(data, tab);
-	while (get_element_data(NULL, map_path, tab, "L") != NULL)
-		fill_struct_l_one(data, tab);
 	while (get_element_data(NULL, map_path, tab, "L") != NULL)
 		fill_struct_l(data, tab);
 	while (get_element_data(data, map_path, tab, "sp") != NULL)
@@ -60,8 +66,7 @@ int	init_data(char *map_path, t_data *data)
 		fill_struct_pl(data, tab);
 	while (get_element_data(data, map_path, tab, "tr") != NULL)
 		fill_struct_tr(data, tab);
-	init_vars(data);
-	return (1);
+	return (init_vars(data), 1);
 }
 
 /**========================================================================
@@ -75,9 +80,11 @@ void	init_vars(t_data *data)
 	data->event.legend = 0;
 	data->event.actual_mode = 0;
 	data->event.actual_mesh.ref = NULL;
+	data->event.actual_light = NULL;
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
 	save_data(data);
+	data->bump_map_paths[0] = NULL;
 }
 
 /**========================================================================

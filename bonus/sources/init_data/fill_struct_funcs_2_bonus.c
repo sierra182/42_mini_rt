@@ -1,12 +1,15 @@
 #include "fill_struct_funcs_2_bonus.h"
+#include <stdlib.h>
+#include <fcntl.h>
+#include "get_next_line.h"
+#include <unistd.h>
+#include "libft.h"
 
-char *get_bmpath(t_data *data, int index)
-{
-	char *bmpath;
-
-	bmpath = data->bump_map_paths[index];
-	return bmpath;
-}
+int		gray_to_hex_string(const char *gray_string, char *hex_output);
+int		hex_to_int(const char *hex_string);
+void	get_texture(t_data *data, int i);
+char	*get_bmpath(t_data *data, int index);
+void	handle_uv_modif_params(double nbr, t_data *data, int i);
 
 /**========================================================================
  *                           FILL_STRUCT_SP
@@ -26,21 +29,35 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[0] = tab[4];
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
-	if (tab[7] == -42)
-	{
-		data->spheres[i].checkerboard = 1;
-	}
-	else if ((int)tab[7] != 1024)
-	{
-		data->planes[i].bump_map_path = get_bmpath(data, (int)tab[7]);
-		// printf("sphere bump map path: %s\n", data->planes[i].bump_map_path);
-	}
-	else
-		data->spheres[i].checkerboard = 0;
+	handle_uv_modif_params(tab[7], data, i);
 	data->spheres[i].which_t = 0;
 	data->spheres[i].t1 = 0.0;
 	data->spheres[i].t2 = 0.0;
 	i++;
+}
+
+/**========================================================================
+ *                           HANDLE_UV_MODIF_PARAMS
+ *========================================================================**/
+void	handle_uv_modif_params(double nbr, t_data *data, int i)
+{
+	if ((int)nbr == -42)
+	{
+		data->spheres[i].checkerboard = 1;
+		data->spheres[i].bump_map_nbr = -1;
+	}
+	else if ((int)nbr != 1024)
+	{
+		data->spheres[i].bump_map_path = get_bmpath(data, (int)nbr);
+		data->spheres[i].bump_map_nbr = i;
+		data->spheres[i].checkerboard = 0;
+		get_texture(data, i);
+	}
+	else
+	{
+		data->spheres[i].checkerboard = 0;
+		data->spheres[i].bump_map_nbr = -1;
+	}
 }
 
 /**========================================================================
@@ -95,7 +112,6 @@ void	fill_struct_pl(t_data *data, double tab[])
 	else if ((int)tab[9] != 1024)
 	{
 		data->planes[i].bump_map_path = get_bmpath(data, (int)tab[9]);
-		// printf("plane bump map path: %s\n", data->planes[i].bump_map_path);
 	}
 	else
 		data->planes[i].checkerboard = 0;
@@ -103,49 +119,12 @@ void	fill_struct_pl(t_data *data, double tab[])
 }
 
 /**========================================================================
- *                           FILL_STRUCT_L
+ *                           FILL_STRUCT_TR
  *========================================================================**/
-void	fill_struct_l(t_data *data, double tab[])
-{
-	static int	i = 0;
-
-	data->spotlights[i].origin_vect.axis[0] = tab[0];
-	data->spotlights[i].origin_vect.axis[1] = tab[1];
-	data->spotlights[i].origin_vect.axis[2] = tab[2];
-	data->spotlights[i].origin_vect.axis[3] = 1;
-	data->spotlights[i].intensity = tab[3];
-	data->spotlights[i].color.rgb[0] = tab[4];
-	data->spotlights[i].color.rgb[1] = tab[5];
-	data->spotlights[i].color.rgb[2] = tab[6];
-	data->spotlights[i].bulb.color = data->spotlight.color;
-	data->spotlights[i].bulb.diameter = 1;
-	data->spotlights[i].bulb.radius = data->spotlight.bulb.diameter * 0.5;
-	data->spotlights[i].bulb.square_radius = data->spotlight.bulb.radius
-		* data->spotlights[i].bulb.radius;
-	data->spotlights[i].bulb.origin_vect = data->spotlight.origin_vect;
-	i++;
-}
-
-void	print_triangle(t_triangle *triangle)
-{
-	printf("triangle: \n");
-	printf("%f\n", triangle->point_a.axis[0]);
-	printf("%f\n", triangle->point_a.axis[1]);
-	printf("%f\n", triangle->point_a.axis[2]);
-	printf("%f\n", triangle->point_b.axis[0]);
-	printf("%f\n", triangle->point_b.axis[1]);
-	printf("%f\n", triangle->point_b.axis[2]);
-	printf("%f\n", triangle->point_c.axis[0]);
-	printf("%f\n", triangle->point_c.axis[1]);
-	printf("%f\n", triangle->point_c.axis[2]);
-	printf("%i\n", triangle->color.rgb[0]);
-	printf("%i\n", triangle->color.rgb[1] );
-	printf("%i\n", triangle->color.rgb[2] );
-}
-
 void	fill_struct_tr(t_data *data, double tab[])
 {
 	static int	i = 0;
+
 	data->triangles[i].point_a.axis[0] = tab[0];
 	data->triangles[i].point_a.axis[1] = tab[1];
 	data->triangles[i].point_a.axis[2] = tab[2];
@@ -158,6 +137,5 @@ void	fill_struct_tr(t_data *data, double tab[])
 	data->triangles[i].color.rgb[0] = tab[9];
 	data->triangles[i].color.rgb[1] = tab[10];
 	data->triangles[i].color.rgb[2] = tab[11];
-	// print_triangle(&data->triangles[i]);
 	i++;
 }

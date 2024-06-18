@@ -11,11 +11,34 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	new_ray(&data->cam, &ray, x, y);
 	obj.t = BIG_VALUE;
 	obj.ref = NULL;
-	obj.type = 4;
+	obj.type = 5;
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
+	get_closest_intersection_tr(data, &ray, &obj);
+	get_closest_intersection_tr(data, &ray, &obj);
 	put_pxl(mlx, x, y, get_pixel_color(data, &ray, &obj));
+}
+
+/**========================================================================
+ *                           	HAS_BULB
+ *========================================================================**/
+static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
+{
+	double	inter_bulb;
+	int		i;
+
+	i = -1;
+	while (++i < data->sl_nbr)
+	{
+		inter_bulb = is_intersect_sphere(ray, &data->spotlights[i].bulb, NULL);
+		if (inter_bulb)
+		{
+			*color = data->spotlights[i].bulb.color;
+			return (inter_bulb);
+		}
+	}
+	return (0.0);
 }
 
 /**========================================================================
@@ -28,14 +51,17 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj)
 	t_color	color;
 
 	rgb = 0;
-	inter_bulb = is_intersect_sphere(ray, &data->spotlight.bulb, NULL);
-	if (obj->t && obj->type == O_SP && obj->ref)
+	inter_bulb = has_bulb(data, ray, &color);
+	if (inter_bulb && !is_behind_cam(inter_bulb))
+		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
+	if (obj->t && obj->type == O_SP && obj->ref && !inter_bulb)
 	{
 		get_sphere_color(&(t_get_color_params)
 		{data, ray, obj->t, obj, &color, NULL});
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
 	}
-	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref)
+	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref
+		&& !inter_bulb)
 	{
 		get_cylinder_color(data, ray, obj, &color);
 		rgb = get_color(color.rgb[0], color.rgb[1], color.rgb[2]);
@@ -54,25 +80,27 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params)
 	t_data	*data;
 	t_color	*color;
 	int		*rgb;
-	double	*inter_bulb;
 
 	obj = params->obj;
 	data = params->data;
 	color = params->color;
 	rgb = params->rgb;
-	inter_bulb = params->inter_bulb;
-	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref)
+	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref
+		&& !*params->inter_bulb)
 	{
 		get_plane_color(&(t_get_color_params)
 		{data, params->ray, obj->t, obj, color, NULL});
 		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
 	}
-	if (obj->ref == NULL)
+	if (obj->t && obj->type == O_TR && !is_behind_cam(obj->t) && obj->ref
+		&& !*params->inter_bulb)
+	{
+		get_triangle_color(&(t_get_color_params)
+		{data, params->ray, obj->t, obj, color, NULL});
+		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
+	}
+	if (obj->ref == NULL && !*params->inter_bulb)
 		*rgb = get_background_color(params->ray, data);
-	if (*params->inter_bulb && !is_behind_cam(*params->inter_bulb))
-		*rgb = get_color(data->spotlight.bulb.color.rgb[0], data->spotlight
-				.bulb.color.rgb[1], data->spotlight.bulb.color.rgb[2]);
-	(void)inter_bulb;
 }
 
 /**========================================================================

@@ -166,7 +166,8 @@ HEADERS = \
 	$(HEADERS_DIR)/z_main/x_linear_algebra.h \
 	$(HEADERS_DIR)/z_main/x_matrix.h \
 	
-.PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon
+.PHONY: all mlx ft_printf clean fclean re intro l newline backline emoticon \
+	bonus
 
 TOG = 0
 
@@ -196,6 +197,9 @@ $(NAME) : $(OBJECTS)
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b linked              ☑️\n\033[0m"
 	@echo -n "\033[?25h"
+
+bonus:
+	@$(MAKE) -s -C bonus all
 
 mlx:
 	@$(MAKE) -s -C $(MLX_DIR)
@@ -249,20 +253,22 @@ intro:
 
 clean:
 	@echo "\n cleanning $(NAME) objects 🧻"
-	@rm -f $(OBJECTS) $(OBJECTS_BONUS);
+	@rm -f $(OBJECTS);
 	@$(MAKE) -C $(FT_PRINTF_DIR) clean -s
 	@echo ""
 	@$(MAKE) -C $(MLX_DIR) clean -s
 	@echo ""
+	@$(MAKE) -C bonus clean -s
 
 fclean: 
 	@echo "\n cleanning $(NAME) objects 🧻"
-	@rm -f $(OBJECTS) $(OBJECTS_BONUS);
+	@rm -f $(OBJECTS);
 	@echo " cleanning $(NAME) 🚽" 
-	@rm -f $(NAME) $(NAME_BONUS)
+	@rm -f $(NAME)
 	@$(MAKE) -C $(FT_PRINTF_DIR) fclean -s
 	@echo ""
 	@$(MAKE) -C $(MLX_DIR) clean -s
 	@echo ""
+	@$(MAKE) -C bonus fclean -s
 
 re: fclean backline l

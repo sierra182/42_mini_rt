@@ -6,6 +6,6 @@
 
 double	calculate_light_attenuation(t_ray_pack *light_ray, double intensity);
 double	calculate_light_reflexion(t_ray *ray, t_ray_pack *light_ray,
-	t_ray_vector *normal);
+			t_ray_vector *normal);
 
 #endif

@@ -1,6 +1,4 @@
 #include "exit_bonus.h"
-void	store_and_free_spotlights(t_exit *exit, void *spotlights);
-void	store_and_free_triangles(t_exit *exit, void *triangles);
 
 /**========================================================================
  *                           GET_EXIT_STRUCT

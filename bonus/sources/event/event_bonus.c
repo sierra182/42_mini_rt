@@ -3,8 +3,9 @@
 /**========================================================================
  *                           ASSIGN_VECTOR
  *========================================================================**/
-void	assign_vector(t_matrix_vector *origin_vect, t_matrix_vector *dir_vect,
-	t_matrix_vector **new_origin_vect, t_matrix_vector **new_dir_vect)
+static void	assign_vector(t_matrix_vector *origin_vect,
+	t_matrix_vector *dir_vect, t_matrix_vector **new_origin_vect,
+	t_matrix_vector **new_dir_vect)
 {
 	*new_origin_vect = origin_vect;
 	*new_dir_vect = dir_vect;
@@ -30,8 +31,7 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh)
 		data->event.color_sav = *color;
 		i = -1;
 		while (++i < AXIS)
-			color->rgb[i] += 100;
-		clamp_255(color);
+			color->rgb[i] += 255 - color->rgb[i];
 	}
 	data->event.actual_mesh = *mesh;
 }
@@ -61,17 +61,6 @@ void	actual_mesh_handle(t_data *data, t_obj *mesh,
 }
 
 /**========================================================================
- *                           EVENT_INTENSITY
- *========================================================================**/
-void	event_intensity(int keycode, double *intensity)
-{
-	if (keycode == PLUS && *intensity <= 0.9)
-		*intensity += 0.1;
-	else if (keycode == MINUS && *intensity >= 0.1)
-		*intensity -= 0.1;
-}
-
-/**========================================================================
  *                           EVENT_LAUNCH_RAYS
  *========================================================================**/
 void	event_launch_rays(t_data *data, int x, int y)
@@ -85,6 +74,6 @@ void	event_launch_rays(t_data *data, int x, int y)
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
-	if (obj.ref)
+	if (obj.ref && !is_behind_cam(obj.t)) //!modif mandat
 		actual_mesh_handle(data, &obj, NULL, NULL);
 }

@@ -88,16 +88,21 @@ int	check_data(char *token, char *check)
 	return (1);
 }
 
-int	is_valid_png(char *str)
+/**========================================================================
+ *                           IS_VALID_XPM
+ * ! file verification to be added with "open"
+ *========================================================================**/
+int	is_valid_xpm(char *str)
 {
 	// printf("str to check: '%s'\n", str);
-	if (!str || ft_strlen(str) < 5)
+	if (!str || ft_strlen(str) < 5 || !file_exists(str))
 		return (0);
-	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".png") && file_exists(str))
+	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".xpm") && file_exists(str))
 	{
-		// printf("is_valid_png returns 1\n");
+		// printf("is_valid_xpm returns 1\n");
 		return (1);
 	}
+		
 	return (0);
 	
 }
@@ -124,7 +129,7 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "ufl") && !chck_fl(token, UFL))
 			return (0);
-		if (num[*i] && !ft_strcmp(num[*i], "check") && token && (ft_strcmp(token, "checkerboard") && !is_valid_png(token)))
+		if (num[*i] && !ft_strcmp(num[*i], "check") && token && (ft_strcmp(token, "checkerboard") && !is_valid_xpm(token)))
 			return (0);
 		(*i)++;
 	}

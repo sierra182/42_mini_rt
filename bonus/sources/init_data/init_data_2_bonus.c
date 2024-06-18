@@ -1,15 +1,18 @@
 #include "libft.h"
 #include <stdio.h>
 #include "se_mini_struct_bonus.h"
-int	is_valid_png(char *str);
+#include <stdlib.h>
+
+int		is_valid_xpm(char *str);
+void	handle_uv_modifs_params(t_data *data, double *nbr, char *token, int *j);
 
 /**========================================================================
  *                           FILL_TAB
  *========================================================================**/
 double	*fill_tab(t_data *data, char *str, double tab[])
 {
-	int		i;
-	char	*token;
+	int			i;
+	char		*token;
 	static int	j = 0;
 
 	i = 0;
@@ -21,19 +24,41 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 	{
 		token = ft_strtok(NULL, ", \t\n");
 		if (token)
-		{ 
-			tab[i] = ft_atof(token);
-			if (!ft_strcmp(token, "checkerboard"))
-				tab[i] = -42;
-			if (is_valid_png(token))
-			{
-				// printf("token: %s\n", token);
-				data->bump_map_paths[j] = ft_strdup(token);
-				tab[i] = j++;
-				data->bump_map_paths[j] = NULL;
-			}
-		}
+			handle_uv_modifs_params(data, &(tab)[i], token, &j);
 		i++;
 	}
 	return (tab);
+}
+
+void	handle_uv_modifs_params(t_data *data, double *nbr, char *token, int *j)
+{
+	*nbr = ft_atof(token);
+	if (!ft_strcmp(token, "checkerboard"))
+		*nbr = -42;
+	if (is_valid_xpm(token))
+	{
+		data->bump_map_paths[*j] = ft_strdup(token);
+		*nbr = (*j)++;
+		data->bump_map_paths[*j] = NULL;
+	}
+}
+
+void	alloc_bump_maps(t_data *data)
+{
+	int	i;
+	int	j;
+
+	data->bump_maps = (double ***)malloc(sizeof (double **) * 10);
+	j = 0;
+	while (j < 10)
+	{
+		data->bump_maps[j] = (double **)malloc(sizeof (double *) * 512);
+		i = 0;
+		while (i < 512)
+		{
+			data->bump_maps[j][i] = (double *)malloc(sizeof (double) * 512);
+			i++;
+		}
+		j++;
+	}
 }

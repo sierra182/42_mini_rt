@@ -88,3 +88,25 @@ void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj)
 	params_pl.i = NULL;
 	find_closest_intersection(params_pl);
 }
+
+/**========================================================================
+ *                           GET_CLOSEST_INTERSECTION_TR
+ *========================================================================**/
+void	get_closest_intersection_tr(t_data *data, t_ray *ray, t_obj *obj)
+{
+	t_intersection_params	params_tr;
+	t_triangle				*triangles_addresses[OBJ_MAX_NBR];
+	int						i;
+
+	i = -1;
+	while (++i < data->tr_nbr)
+		triangles_addresses[i] = &(data->triangles[i]);
+	params_tr.objects = triangles_addresses;
+	params_tr.ray = *ray;
+	params_tr.obj_nbr = data->tr_nbr;
+	params_tr.intersect_func = is_intersect_triangle;
+	params_tr.obj = obj;
+	params_tr.obj_type = O_TR;
+	params_tr.i = NULL;
+	find_closest_intersection(params_tr);
+}

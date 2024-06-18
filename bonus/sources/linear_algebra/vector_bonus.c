@@ -54,10 +54,9 @@ double	scalar_product(double a[], double b[])
 /**========================================================================
  *                           CROSS_PRODUCT
  *========================================================================**/
-void	cross_product(t_matrix_vector *a, t_matrix_vector *b,
-	t_matrix_vector *product_vect)
+void	cross_product(double a[], double b[], double cross_product[])
 {
-	product_vect->axis[0] = a->axis[1] * b->axis[2] - a->axis[2] * b->axis[1];
-	product_vect->axis[1] = a->axis[2] * b->axis[0] - a->axis[0] * b->axis[2];
-	product_vect->axis[2] = a->axis[0] * b->axis[1] - a->axis[1] * b->axis[0];
+	cross_product[0] = a[1] * b[2] - a[2] * b[1];
+	cross_product[1] = a[2] * b[0] - a[0] * b[2];
+	cross_product[2] = a[0] * b[1] - a[1] * b[0];
 }

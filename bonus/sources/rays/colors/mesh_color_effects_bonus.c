@@ -40,49 +40,27 @@ void	calculate_ambiant_effect(t_get_color_params *params,
 	add_shading(params->ray, normal, ambiantly_color, ambiantly_color);
 }
 
-int	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
+/**========================================================================
+ *                          CALCULATE_SPOTLIGHT_EFFECT
+ *========================================================================**/
+void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params)
 {
 	double	light_attenuat;
 	double	light_coef;
 	double	spec_light_coef;
-	double 	spec_coef;
+	double	spec_coef;
 
 	light_coef = scalar_product(params->light_ray->ray_norm.dir_vect.axis,
 			params->normal->axis);
 	normalize_zero_one(&light_coef, 1);
 	light_attenuat = calculate_light_attenuation(params->light_ray,
-			light_coef * params->params->data->spotlight.intensity);
+			light_coef * params->spotlight->intensity);
 	spec_light_coef = calculate_light_reflexion(params->params->ray,
-		params->light_ray, params->normal);
+			params->light_ray, params->normal);
 	add_shading(params->params->ray, params->normal, params->spotlighty_color,
 		params->spotlighty_color);
-	spec_coef = params->params->data->spotlight.intensity + spec_light_coef;
+	spec_coef = params->spotlight->intensity + spec_light_coef;
 	color_with_light(params->mesh_color,
-		&params->params->data->spotlight.color,
-	 	spec_coef * light_attenuat,	params->spotlighty_color);
-	return (0);
-}
-
-/**========================================================================
- *                           CALCULATE_SPOTLIGHT_EFFECT
- * 
- * ! modifye return type on bonus and mand to void
- *========================================================================**/
-int	calculate_spotlight_effect2(t_calc_spotlight_effect_params *params)
-{
-	double	light_attenuat;
-	double	light_coef;
-
-	light_coef = scalar_product(params->light_ray->ray_norm.dir_vect.axis,
-			params->normal->axis);
-	normalize_zero_one(&light_coef, 1);
-	light_attenuat = calculate_light_attenuation(params->light_ray,
-			light_coef * params->params->data->spotlight.intensity);
-	color_with_light(params->mesh_color,
-		&params->params->data->spotlight.color,
-		params->params->data->spotlight.intensity * light_attenuat,
+		&params->spotlight->color, spec_coef * light_attenuat,
 		params->spotlighty_color);
-	add_shading(params->params->ray, params->normal, params->spotlighty_color,
-		params->spotlighty_color);
-	return (0);
 }
