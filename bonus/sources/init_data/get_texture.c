@@ -1,14 +1,15 @@
 #include "fill_struct_funcs_2_bonus.h"
 #include <stdlib.h>
-# include <fcntl.h>
+#include <fcntl.h>
 #include "get_next_line.h"
-# include <unistd.h>
+#include <unistd.h>
 #include "libft.h"
-int gray_to_hex_string(const char *gray_string, char *hex_output);
-int hex_to_int(const char *hex_string);
-void get_texture(t_data *data, int i);
-static void	free_tab(char **tab);
-unsigned char int_to_grayscale(unsigned int hex_value);
+
+int				gray_to_hex_string(const char *gray_string, char *hex_output);
+int				hex_to_int(const char *hex_string);
+void			get_texture(t_data *data, int i);
+static void		free_tab(char **tab);
+unsigned char	int_to_grayscale(unsigned int hex_value);
 
 char	*get_bmpath(t_data *data, int index)
 {
@@ -38,8 +39,8 @@ unsigned char	int_to_grayscale(unsigned int hex_value)
 
 static void	free_tab(char **tab)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (tab[i])
@@ -50,20 +51,12 @@ static void	free_tab(char **tab)
 	free(tab);
 }
 
-void get_texture(t_data *data, int i)
+int	get_shades_nbr(int fd, char **tab)
 {
-	char *bump_map_path;
-	int **texture;
-	char *str;
-	char *str_tmp;
-	char **tab;
-	int	fd;
-	int	shades_nbr;
-	int	char_tab[100][2];
-	char hex_output[8];
+	char	*str_tmp;
+	int		shades_nbr;
+	char	*str;
 
-	bump_map_path = data->spheres[i].bump_map_path;
-	fd = open(bump_map_path, O_RDONLY);
 	str = "";
 	while (str)
 	{
@@ -77,11 +70,21 @@ void get_texture(t_data *data, int i)
 			shades_nbr = ft_atoi(tab[2]);
 			free_tab(tab);
 			free(str);
-			break;
+			break ;
 		}
 		free(str);
 	}
-	int j = 0;
+	return (shades_nbr);
+}
+
+void	extract_texture_values(int shades_nbr, int fd, int char_tab[][2])
+{
+	char	hex_output[8];
+	int		j;
+	char	*str_tmp;
+	char	*str;
+
+	j = 0;
 	while (j < shades_nbr)
 	{
 		str = get_next_line(fd);
@@ -99,38 +102,71 @@ void get_texture(t_data *data, int i)
 		free(str);
 		j++;
 	}
-	int k;
-	int	l;
+
+}
+
+void	handle_line(t_data *data, char *str, int *j, int i,
+	int shades_nbr, int *l, int char_tab[][2])
+{
+	char	*str_tmp;
+	int		k;
+
+	str_tmp = ft_substr(str, 1, ft_strlen(str) - 3);
+	free (str);
+	str = str_tmp;
+	str_tmp = ft_strtrim(str_tmp, "\"");
+	free (str);
+	str = str_tmp;
+	*j = 0;
+	while (str[*j])
+	{
+		k = 0;
+		while (k < shades_nbr)
+		{
+			if (str [*j] == char_tab[k][0])
+				data->bump_maps[i][*l][*j]
+					= int_to_grayscale(char_tab[k][1]) / 255.0f;
+			k++;
+		}
+		(*j)++;
+	}
+}
+
+/**========================================================================
+ *                           FILL_BUMP_MAP
+ *========================================================================**/
+void	fill_bump_map(int shades_nbr, int char_tab[][2],
+	t_data *data, int fd, int i)
+{
+	int		j;
+	int		l;
+	char	*str;
+
 	l = 0;
 	while (str)
 	{
 		str = get_next_line(fd);
 		if (str && str[0] == '"')
 		{
-			str_tmp = ft_substr(str, 1, ft_strlen(str) - 3);
-			free (str);
-			str = str_tmp;
-			str_tmp = ft_strtrim(str_tmp, "\"");
-			free (str);
-			str = str_tmp;
-			j = 0;
-			while (str[j])
-			{
-				k = 0;
-				while (k < shades_nbr)
-				{
-					if (str [j] == char_tab[k][0])
-					{
-						data->bump_maps[i][l][j] = int_to_grayscale(char_tab[k][1]) / 255.0f;
-					}
-					k++;
-				}
-				j++;
-			}
+			handle_line(data, str, &j, i, shades_nbr, &l, char_tab);
 			l++;
 		}
 		free(str);
 		j++;
 	}
+}
+
+void get_texture(t_data *data, int i)
+{
+	char	*str_tmp;
+	char	**tab;
+	int		fd;
+	int		shades_nbr;
+	int		char_tab[100][2];
+
+	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
+	shades_nbr = get_shades_nbr(fd, tab);
+	extract_texture_values(shades_nbr, fd, char_tab);
+	fill_bump_map(shades_nbr, char_tab, data, fd, i);
 	close(fd);
 }
