@@ -1,132 +1,15 @@
 #include "fill_struct_funcs_2_bonus.h"
 #include <stdlib.h>
-# include <fcntl.h>
+#include <fcntl.h>
 #include "get_next_line.h"
-# include <unistd.h>
+#include <unistd.h>
 #include "libft.h"
-int gray_to_hex_string(const char *gray_string, char *hex_output);
-int hex_to_int(const char *hex_string);
 
-char *get_bmpath(t_data *data, int index)
-{
-	char *bmpath;
-
-	bmpath = data->bump_map_paths[index];
-	return bmpath;
-}
-
-static void	free_tab(char **tab)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-void int_to_rgb(unsigned int hex_value, unsigned char *r, unsigned char *g, unsigned char *b)
-{
-	*r = (hex_value >> 16) & 0xFF;
-	*g = (hex_value >> 8) & 0xFF;
-	*b = hex_value & 0xFF;
-}
-
-unsigned char int_to_grayscale(unsigned int hex_value)
-{
-	unsigned char r, g, b;
-	int_to_rgb(hex_value, &r, &g, &b);
-	return (unsigned char)(0.299 * r + 0.587 * g + 0.114 * b);
-}
-
-void get_texture(t_data *data, int i)
-{
-	char *bump_map_path;
-	int **texture;
-	char *str;
-	char *str_tmp;
-	char **tab;
-	int	fd;
-	int	shades_nbr;
-	int	char_tab[100][2];
-	char hex_output[8];
-
-	bump_map_path = data->spheres[i].bump_map_path;
-	fd = open(bump_map_path, O_RDONLY);
-	str = "";
-	while (str)
-	{
-		str = get_next_line(fd);
-		if (str && str[0] == '"')
-		{
-			str_tmp = ft_substr(str, 1, ft_strlen(str) - 5);
-			free(str);
-			str = str_tmp;
-			tab = ft_split(str, ' ');
-			shades_nbr = ft_atoi(tab[2]);
-			free_tab(tab);
-			free(str);
-			break;
-		}
-		free(str);
-	}
-	int j = 0;
-	while (j < shades_nbr)
-	{
-		str = get_next_line(fd);
-		if (str && str[0] == '"')
-		{
-			str_tmp = ft_substr(str, 1, ft_strlen(str) - 4);
-			free (str);
-			str = str_tmp;
-			char_tab[j][0] = str[0];
-			if (gray_to_hex_string(&str[4], hex_output))
-				char_tab[j][1] = hex_to_int(hex_output);
-			else
-				char_tab[j][1] = hex_to_int(&str[4]);
-		}
-		free(str);
-		j++;
-	}
-	int k;
-	int	l;
-	l = 0;
-	while (str)
-	{
-		str = get_next_line(fd);
-		if (str && str[0] == '"')
-		{
-			str_tmp = ft_substr(str, 1, ft_strlen(str) - 3);
-			free (str);
-			str = str_tmp;
-			str_tmp = ft_strtrim(str_tmp, "\"");
-			free (str);
-			str = str_tmp;
-			j = 0;
-			while (str[j])
-			{
-				k = 0;
-				while (k < shades_nbr)
-				{
-					if (str [j] == char_tab[k][0])
-					{
-						data->bump_maps[i][l][j] = int_to_grayscale(char_tab[k][1]) / 255.0f;
-					}
-					k++;
-				}
-				j++;
-			}
-			l++;
-		}
-		free(str);
-		j++;
-	}
-	close(fd);
-}
+int		gray_to_hex_string(const char *gray_string, char *hex_output);
+int		hex_to_int(const char *hex_string);
+void	get_texture(t_data *data, int i);
+char	*get_bmpath(t_data *data, int index);
+void	handle_uv_modif_params(double nbr, t_data *data, int i);
 
 /**========================================================================
  *                           FILL_STRUCT_SP
@@ -146,15 +29,26 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[0] = tab[4];
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
-	if (tab[7] == -42)
+	handle_uv_modif_params(tab[7], data, i);
+	data->spheres[i].which_t = 0;
+	data->spheres[i].t1 = 0.0;
+	data->spheres[i].t2 = 0.0;
+	i++;
+}
+
+/**========================================================================
+ *                           HANDLE_UV_MODIF_PARAMS
+ *========================================================================**/
+void	handle_uv_modif_params(double nbr, t_data *data, int i)
+{
+	if ((int)nbr == -42)
 	{
 		data->spheres[i].checkerboard = 1;
 		data->spheres[i].bump_map_nbr = -1;
 	}
-	else if ((int)tab[7] != 1024)
+	else if ((int)nbr != 1024)
 	{
-		// printf("tab[7]: %i, i: %i\n", (int)tab[7], i);
-		data->spheres[i].bump_map_path = get_bmpath(data, (int)tab[7]);
+		data->spheres[i].bump_map_path = get_bmpath(data, (int)nbr);
 		data->spheres[i].bump_map_nbr = i;
 		data->spheres[i].checkerboard = 0;
 		get_texture(data, i);
@@ -164,10 +58,6 @@ void	fill_struct_sp(t_data *data, double tab[])
 		data->spheres[i].checkerboard = 0;
 		data->spheres[i].bump_map_nbr = -1;
 	}
-	data->spheres[i].which_t = 0;
-	data->spheres[i].t1 = 0.0;
-	data->spheres[i].t2 = 0.0;
-	i++;
 }
 
 /**========================================================================
@@ -222,7 +112,6 @@ void	fill_struct_pl(t_data *data, double tab[])
 	else if ((int)tab[9] != 1024)
 	{
 		data->planes[i].bump_map_path = get_bmpath(data, (int)tab[9]);
-		// printf("plane bump map path: %s\n", data->planes[i].bump_map_path);
 	}
 	else
 		data->planes[i].checkerboard = 0;
@@ -230,48 +119,12 @@ void	fill_struct_pl(t_data *data, double tab[])
 }
 
 /**========================================================================
- *                           FILL_STRUCT_L
+ *                           FILL_STRUCT_TR
  *========================================================================**/
-void	fill_struct_l(t_data *data, double tab[])
-{
-	static int	i = 0;
-
-	data->spotlights[i].origin_vect.axis[0] = tab[0];
-	data->spotlights[i].origin_vect.axis[1] = tab[1];
-	data->spotlights[i].origin_vect.axis[2] = tab[2];
-	data->spotlights[i].origin_vect.axis[3] = 1;
-	data->spotlights[i].intensity = tab[3];
-	data->spotlights[i].color.rgb[0] = tab[4];
-	data->spotlights[i].color.rgb[1] = tab[5];
-	data->spotlights[i].color.rgb[2] = tab[6];
-	data->spotlights[i].bulb.color = data->spotlights[i].color;
-	data->spotlights[i].bulb.diameter = 1;
-	data->spotlights[i].bulb.radius = data->spotlights[i].bulb.diameter * 0.5;
-	data->spotlights[i].bulb.square_radius = data->spotlights[i].bulb.radius
-		* data->spotlights[i].bulb.radius;
-	data->spotlights[i].bulb.origin_vect = data->spotlights[i].origin_vect;
-	i++;
-}
-
-void	print_triangle(t_triangle *triangle)
-{
-	printf("%f\n", triangle->point_a.axis[0]);
-	printf("%f\n", triangle->point_a.axis[1]);
-	printf("%f\n", triangle->point_a.axis[2]);
-	printf("%f\n", triangle->point_b.axis[0]);
-	printf("%f\n", triangle->point_b.axis[1]);
-	printf("%f\n", triangle->point_b.axis[2]);
-	printf("%f\n", triangle->point_c.axis[0]);
-	printf("%f\n", triangle->point_c.axis[1]);
-	printf("%f\n", triangle->point_c.axis[2]);
-	printf("%i\n", triangle->color.rgb[0]);
-	printf("%i\n", triangle->color.rgb[1] );
-	printf("%i\n", triangle->color.rgb[2] );
-}
-
 void	fill_struct_tr(t_data *data, double tab[])
 {
 	static int	i = 0;
+
 	data->triangles[i].point_a.axis[0] = tab[0];
 	data->triangles[i].point_a.axis[1] = tab[1];
 	data->triangles[i].point_a.axis[2] = tab[2];
@@ -286,4 +139,3 @@ void	fill_struct_tr(t_data *data, double tab[])
 	data->triangles[i].color.rgb[2] = tab[11];
 	i++;
 }
-
