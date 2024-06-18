@@ -77,7 +77,8 @@ SOURCES = \
 	$(SRC_DIR)/init_data/fill_struct_funcs_2_bonus.c \
 	$(SRC_DIR)/init_data/create_data_structs_bonus.c \
 	$(SRC_DIR)/init_data/xpm_bonus.c \
-	$(SRC_DIR)/init_data/get_texture.c \
+	$(SRC_DIR)/init_data/get_texture_bonus.c \
+	$(SRC_DIR)/init_data/get_texture_utils_bonus.c \
 	$(SRC_DIR)/parsing/check_funcs_bonus.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \

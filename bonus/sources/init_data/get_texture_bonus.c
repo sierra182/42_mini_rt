@@ -8,48 +8,8 @@
 int				gray_to_hex_string(const char *gray_string, char *hex_output);
 int				hex_to_int(const char *hex_string);
 void			get_texture(t_data *data, int i);
-static void		free_tab(char **tab);
 unsigned char	int_to_grayscale(unsigned int hex_value);
-
-char	*get_bmpath(t_data *data, int index)
-{
-	char	*bmpath;
-
-	bmpath = data->bump_map_paths[index];
-	return (bmpath);
-}
-
-void	int_to_rgb(unsigned int hex_value, unsigned char *r,
-	unsigned char *g, unsigned char *b)
-{
-	*r = (hex_value >> 16) & 0xFF;
-	*g = (hex_value >> 8) & 0xFF;
-	*b = hex_value & 0xFF;
-}
-
-unsigned char	int_to_grayscale(unsigned int hex_value)
-{
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-
-	int_to_rgb(hex_value, &r, &g, &b);
-	return ((unsigned char)(0.299 * r + 0.587 * g + 0.114 * b));
-}
-
-static void	free_tab(char **tab)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
+void	free_tab_bump(char **tab);
 
 int	get_shades_nbr(int fd, char **tab)
 {
@@ -68,7 +28,7 @@ int	get_shades_nbr(int fd, char **tab)
 			str = str_tmp;
 			tab = ft_split(str, ' ');
 			shades_nbr = ft_atoi(tab[2]);
-			free_tab(tab);
+			free_tab_bump(tab);
 			free(str);
 			break ;
 		}
@@ -102,7 +62,6 @@ void	extract_texture_values(int shades_nbr, int fd, int char_tab[][2])
 		free(str);
 		j++;
 	}
-
 }
 
 void	handle_line(t_data *data, char *str, int *j, int i,
@@ -156,7 +115,7 @@ void	fill_bump_map(int shades_nbr, int char_tab[][2],
 	}
 }
 
-void get_texture(t_data *data, int i)
+void	get_texture(t_data *data, int i)
 {
 	char	*str_tmp;
 	char	**tab;
