@@ -1,7 +1,8 @@
 #include "se_mini_struct_bonus.h"
 #include "x_linear_algebra_bonus.h"
-double get_bump_coef(double **bump_map, double u, double v);
 #include <stdio.h>
+
+double	get_bump_coef(double **bump_map, double u, double v);
 
 void	calculate_tangent(t_ray_vector *normal, t_ray_vector *T)
 {
@@ -19,38 +20,42 @@ void	calculate_bitangent(t_ray_vector *N, t_ray_vector *T, t_ray_vector *B)
 	self_normalize_vector(B->axis);
 }
 
-void calculate_bump_derivatives(double u, double v, double *du, double *dv, double **bump_map)
+void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p)
 {
-	double bump_coef;
-	double bump_coef_u;
-	double bump_coef_v;
+	double	bump_coef;
+	double	bump_coef_u;
+	double	bump_coef_v;
 
-	bump_coef = get_bump_coef(bump_map, u, v);
-	bump_coef_u = get_bump_coef(bump_map, u + (1.0 / 512.0), v);
-	bump_coef_v = get_bump_coef(bump_map, u, v + (1.0 / 512.0));
-	*du = (bump_coef_u - bump_coef) / (1.0 / 512.0);
-	*dv = (bump_coef_v - bump_coef) / (1.0 / 512.0);
-
+	bump_coef = get_bump_coef(p->bump_map, p->u, p->v);
+	bump_coef_u = get_bump_coef(p->bump_map, p->u + (1.0 / 512.0), p->v);
+	bump_coef_v = get_bump_coef(p->bump_map, p->u, p->v + (1.0 / 512.0));
+	*p->du = (bump_coef_u - bump_coef) / (1.0 / 512.0);
+	*p->dv = (bump_coef_v - bump_coef) / (1.0 / 512.0);
 }
 
 /**========================================================================
  *                           apply_bump_mapping
  * change scale value for texturization "intensity"
  *========================================================================**/
-void	apply_bump_mapping(t_ray_vector *normal, double u, double v, double **bump_map)
+void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
+	double **bump_map)
 {
-	t_ray_vector T;
-	t_ray_vector B;
-	double du;
-	double dv;
-	double scale = 0.001;
+	t_ray_vector	t;
+	t_ray_vector	b;
+	double			du;
+	double			dv;
+	double			scale;
 
-	calculate_tangent(normal, &T);
-	calculate_bitangent(normal, &T, &B);
-	calculate_bump_derivatives(u, v, &du, &dv, bump_map);
-	normal->axis[0] = normal->axis[0] + scale * (du * T.axis[0] + dv * B.axis[0]);
-	normal->axis[1] = normal->axis[1] + scale * (du * T.axis[1] + dv * B.axis[1]);
-	normal->axis[2] = normal->axis[2] + scale * (du * T.axis[2] + dv * B.axis[2]);
+	scale = 0.001;
+	calculate_tangent(normal, &t);
+	calculate_bitangent(normal, &t, &b);
+	calculate_bump_derivatives(&(t_calculate_bump_derivatives_params)
+	{u, v, &du, &dv, bump_map});
+	normal->axis[0] = normal->axis[0] + scale * (du * t.axis[0] + dv
+			* b.axis[0]);
+	normal->axis[1] = normal->axis[1] + scale * (du * t.axis[1] + dv
+			* b.axis[1]);
+	normal->axis[2] = normal->axis[2] + scale * (du * t.axis[2] + dv
+			* b.axis[2]);
 	self_normalize_vector(normal->axis);
-
 }

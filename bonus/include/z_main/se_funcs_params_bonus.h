@@ -55,4 +55,13 @@ typedef struct s_reset_tmps
 	t_spotlight	*spotlights_cpy;
 }	t_reset_tmps;
 
+typedef struct s_calculate_bump_derivatives_params
+{
+	double u;
+	double v;
+	double *du;
+	double *dv;
+	double **bump_map;
+}	t_calculate_bump_derivatives_params;
+
 #endif
