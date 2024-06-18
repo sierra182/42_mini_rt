@@ -43,8 +43,11 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 		get_closest_intersection_pl(data, &ray, &obj);
 		get_closest_intersection_tr(data, &ray, &obj);
 		get_pixel_color(data, &ray, &obj, &colors[i]);
+		// printf("%d, %d, %d\n", colors[i].rgb[0], colors[i].rgb[1], colors[i].rgb[2]);
 	}
 	get_average_colors(colors, alia, &average_color);
+	// printf("%d, %d, %d\n", average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]);
+
 	put_pxl(mlx, x, y, get_color(average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]));
 }
 
@@ -100,6 +103,31 @@ int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
 }
 
 /**========================================================================
+ *                           GET_BACKGROUND_COLOR
+ *========================================================================**/
+static int	get_background_color2(t_ray *ray, t_data *data, t_color *rcolor)
+{
+	int		color[2];
+	int		rgb[3];
+	double	dir;
+	t_color	*bg_color;
+	double	intensity;
+
+	intensity = data->ambiant_light.intensity;
+	bg_color = (t_color *)&data->ambiant_light.color;
+	dir = (ray->dir_vect.axis[1] + 1.0) * 0.5;
+	color[0] = get_color(intensity * 255, intensity * 255, intensity * 255);
+	color[1] = get_color(bg_color->rgb[0] * intensity, bg_color->rgb[1]
+			* intensity, bg_color->rgb[2] * intensity);
+	rgb[0] = (int)((1.0 - dir) * ((color[1] >> 16) & 0xFF) + dir
+			* ((color[0] >> 16) & 0xFF));
+	rgb[1] = (int)((1.0 - dir) * ((color[1] >> 8) & 0xFF) + dir
+			* ((color[0] >> 8) & 0xFF));
+	rgb[2] = (int)((1.0 - dir) * (color[1] & 0xFF) + dir * (color[0] & 0xFF));
+	*rcolor = (t_color){rgb[0], rgb[1], rgb[2]};
+	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+}
+/**========================================================================
  *                           GET_PIXEL_COLOR_2
  *========================================================================**/
 void	get_pixel_color_2(t_get_pixel_color_2_params *params, t_color *color)
@@ -128,7 +156,7 @@ void	get_pixel_color_2(t_get_pixel_color_2_params *params, t_color *color)
 		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
 	}
 	if (obj->ref == NULL && !*params->inter_bulb)
-		*rgb = get_background_color(params->ray, data);
+		*rgb = get_background_color2(params->ray, data, color);
 }
 
 // /**========================================================================
@@ -208,3 +236,4 @@ static void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
 		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
 	}
 }
+

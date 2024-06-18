@@ -50,7 +50,7 @@ void	get_average_colors(t_color colors[], int n_colors, t_color *average)
 		while (++j < AXIS)
 			average->rgb[j] += colors[i].rgb[j];		
 	}
-	inv_n_colors = 1 / n_colors;
+	inv_n_colors = 1.0f / n_colors;
 	j = -1;
 	while (++j < AXIS)
 		average->rgb[j] *= inv_n_colors;
