@@ -5,6 +5,7 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size);
 void calculate_uv(t_ray_vector point, double *u, double *v);
 void checker_color(double u, double v, int checker_size, t_color *color);
 void checker_color_grayscale(double u, double v, int checker_size, t_color *color, double bump_coef);
+void	apply_bump_mapping(t_ray_vector *normal);
 
 #include "libft.h"
 #define TEXTURE_WIDTH 512
@@ -43,22 +44,27 @@ void uv_to_texture_coordinates(double u, double v, int *x, int *y) {
 
 int gray_to_hex_string(const char *gray_string, char *hex_output)
 {
-	if (ft_strncmp(gray_string, "black", 4) == 0) {
+	if (ft_strncmp(gray_string, "black", 5) == 0) {
 		// printf("Input string is not in the correct format\n");
 		strcpy(hex_output, "#FFFFFF");
 		return 1;
 	}
-	if (ft_strncmp(gray_string, "white", 4) == 0) {
+	if (ft_strncmp(gray_string, "white", 5) == 0) {
 		// printf("Input string is not in the correct format\n");
 		strcpy(hex_output, "#000000");
 		return 1;
 	}
-	
+	if (ft_strncmp(gray_string, "DimGray", 7) == 0) {
+		strcpy(hex_output, "#696969");
+		return 0;
+	}
 	if (ft_strncmp(gray_string, "gray", 4) != 0) {
 		// printf("Input string is not in the correct format\n");
 		strcpy(hex_output, "Invalid");
 		return 0;
 	}
+	
+
 	int gray_value = ft_atoi(gray_string + 4);
 	if (gray_value < 0) gray_value = 0;
 	if (gray_value > 100) gray_value = 100;
@@ -71,7 +77,7 @@ int hex_to_int(const char *hex_string)
 {
 	if (hex_string[0] != '#')
 	{
-		printf("Invalid format\n");
+		printf("Invalid format >%s<\n", hex_string);
 		return -1;
 	}
 	int color_value = (int)strtol(hex_string + 1, NULL, 16);
@@ -122,7 +128,7 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 	// printf("modif_uv: sphere->bump_map_nbr: %i, x: %i, y: %i\n", sphere->bump_map_nbr, x, y);
 	checker_color_grayscale(u, v, size, params->color, bump_coef);
 	// *params->normal = apply_bump_map(*params->normal, (t_ray_vector){1,1,1}, (t_ray_vector){1,1,1}, bump_coef);
-	
+	apply_bump_mapping(params->normal);
 }
 
 void calculate_uv(t_ray_vector point, double *u, double *v) {

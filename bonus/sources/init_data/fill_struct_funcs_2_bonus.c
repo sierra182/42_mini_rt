@@ -107,7 +107,7 @@ void get_texture(t_data *data, int i)
 		free(str);
 		j++;
 	}
-	printf("shades_nbr: %i\n", shades_nbr);
+	// printf("shades_nbr: %i\n", shades_nbr);
 	int k;
 	int	l;
 	l = 0;
