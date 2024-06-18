@@ -18,22 +18,33 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 	add_vector(sum_vect.axis, scaled_forward.axis, ray->dir_vect.axis);
 }
 
+// /**========================================================================
+//  *                           NORMALIZE_PIXEL
+//  *========================================================================**/
+// static double	normalize_pixel(int screen_size, int pixel, int x_flag)
+// {
+// 	if (!screen_size)
+// 		return (0.0);
+// 	if (x_flag)
+// 		return (((pixel + 0.5) / screen_size) * 2 - 1);
+// 	return ((1 - 2 * (pixel + 0.5) / screen_size));
+// }
+
 /**========================================================================
  *                           NORMALIZE_PIXEL
  *========================================================================**/
-static double	normalize_pixel(int screen_size, int pixel, int x_flag)
+static double	normalize_pixel(int screen_size, double pixel, int x_flag)
 {
 	if (!screen_size)
 		return (0.0);
 	if (x_flag)
-		return (((pixel + 0.5) / screen_size) * 2 - 1);
-	return ((1 - 2 * (pixel + 0.5) / screen_size));
+		return (((pixel) / screen_size) * 2 - 1);
+	return ((1 - 2 * (pixel) / screen_size));
 }
-
 /**========================================================================
  *                           NEW_RAY
  *========================================================================**/
-void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
+void	new_ray(t_cam *cam, t_ray *ray, double x, double y)
 {
 	double	norm_scale_x;
 	double	norm_scale_y;

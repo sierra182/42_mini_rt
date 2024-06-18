@@ -18,23 +18,26 @@ void	get_average_colors(t_color colors[], int n_colors, t_color *average);
 // 	get_closest_intersection_tr(data, &ray, &obj);
 // 	put_pxl(mlx, x, y, get_pixel_color(data, &ray, &obj));
 // }
+// void		new_ray(t_cam *cam, t_ray *ray, int x, int y);
+void		new_ray(t_cam *cam, t_ray *ray, double x, double y);
 
 /**========================================================================
  *                         EXEC_LAUNCH_RAYS_ANTIA
  *========================================================================**/
 void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 {
-	const int alia = 4;
+	double alia = 16.0;
 	int		i;
 	t_ray	ray;
 	t_obj	obj;
-	t_color	colors[4];
+	t_color	colors[16];
 	t_color	average_color;
 
 	i = -1;
-	while (++i < 4)
+	while (++i < alia)
 	{
-		new_ray(&data->cam, &ray, x, y);
+		//  new_ray(&data->cam, &ray, x, y);
+		new_ray(&data->cam, &ray, x + (i + 1.0) / alia, y + (i + 1.0) / alia); //opti div
 		obj.t = BIG_VALUE;
 		obj.ref = NULL;
 		obj.type = 4;
