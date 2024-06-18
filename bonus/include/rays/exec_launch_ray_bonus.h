@@ -12,7 +12,7 @@ int			is_behind_cam(double t);
 void		get_sphere_color(t_get_color_params *params);
 void		get_plane_color(t_get_color_params *params);
 int			get_background_color(t_ray *ray, t_data *data);
-int			get_pixel_color(t_data *data, t_ray *ray, t_obj *obj);
+int			get_pixel_color(t_data *data, t_ray *ray, t_obj *obj, t_color *color);
 int			get_color(unsigned char r, unsigned char g, unsigned char b);
 void		get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
 void		get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
@@ -20,7 +20,7 @@ void		get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
 void		get_cylinder_color(t_data *data, t_ray *ray,
 				t_obj *obj, t_color	*color);
 void		new_ray(t_cam *cam, t_ray *ray, int x, int y);
-void		get_pixel_color_2(t_get_pixel_color_2_params *params);
+void		get_pixel_color_2(t_get_pixel_color_2_params *params,  t_color *color);
 static void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
 void		get_closest_intersection_tr(t_data *data, t_ray *ray, t_obj *obj);
 double		is_intersect_triangle(t_ray *ray, void *input_triangle,
