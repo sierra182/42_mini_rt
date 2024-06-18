@@ -1,4 +1,5 @@
 #include "init_data_bonus.h"
+
 void	fill_struct_tr(t_data *data, double tab[]);
 void	fill_struct_l_one(t_data *data, double tab[]);
 void	alloc_bump_maps(t_data *data);
@@ -65,30 +66,8 @@ int	init_data(char *map_path, t_data *data)
 		fill_struct_pl(data, tab);
 	while (get_element_data(data, map_path, tab, "tr") != NULL)
 		fill_struct_tr(data, tab);
-	init_vars(data);
-	return (1);
+	return (init_vars(data), 1);
 }
-
-void	alloc_bump_maps(t_data *data)
-{
-		int	i;
-		int j;
-
-		data->bump_maps = (double ***)malloc(sizeof (double **) * 10);
-		j = 0;
-		while (j < 10)
-		{
-			data->bump_maps[j] = (double **)malloc(sizeof (double *) * 512);
-			i = 0;
-			while (i < 512)
-			{
-				data->bump_maps[j][i] = (double *)malloc(sizeof (double) * 512);
-				i++;
-			}
-			j++;
-		}
-}
-
 
 /**========================================================================
  *                           INIT_VARS

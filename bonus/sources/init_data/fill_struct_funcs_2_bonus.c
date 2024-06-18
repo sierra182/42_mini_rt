@@ -56,24 +56,18 @@ void get_texture(t_data *data, int i)
 	char hex_output[8];
 
 	bump_map_path = data->spheres[i].bump_map_path;
-	// printf("bump map path:< %s\n", bump_map_path);
-	
 	fd = open(bump_map_path, O_RDONLY);
-	// printf("fd: %i\n", fd);
 	str = "";
 	while (str)
 	{
-		// printf("str: %s\n", str);
 		str = get_next_line(fd);
 		if (str && str[0] == '"')
 		{
 			str_tmp = ft_substr(str, 1, ft_strlen(str) - 5);
 			free(str);
 			str = str_tmp;
-			// printf(">%s<\n", str);
 			tab = ft_split(str, ' ');
 			shades_nbr = ft_atoi(tab[2]);
-			// printf("NUMBER: %i\n", shades_nbr);
 			free_tab(tab);
 			free(str);
 			break;
@@ -90,24 +84,14 @@ void get_texture(t_data *data, int i)
 			free (str);
 			str = str_tmp;
 			char_tab[j][0] = str[0];
-			// printf("VALUE: \"%i\", ", char_tab[j][0]);
 			if (gray_to_hex_string(&str[4], hex_output))
-			{
-				// data->bump_maps[j][1] = hex_to_int(hex_output);
 				char_tab[j][1] = hex_to_int(hex_output);
-				// printf("PAIR: \"%i\" \n", char_tab[j][1]);
-			}
 			else
-			{
-				// data->bump_maps[j][1] = hex_to_int(&str[4]);
 				char_tab[j][1] = hex_to_int(&str[4]);
-				// printf("PAIR: \"%i\" \n", char_tab[j][1]);
-			}
 		}
 		free(str);
 		j++;
 	}
-	// printf("shades_nbr: %i\n", shades_nbr);
 	int k;
 	int	l;
 	l = 0;
@@ -128,16 +112,9 @@ void get_texture(t_data *data, int i)
 				k = 0;
 				while (k < shades_nbr)
 				{
-
 					if (str [j] == char_tab[k][0])
 					{
 						data->bump_maps[i][l][j] = int_to_grayscale(char_tab[k][1]) / 255.0f;
-						// data->bump_maps[i][l][j] = (char_tab[k][1]);
-						// printf("get_texture: sphere->bump_map_nbr: %i, x: %i, y: %i\n", i, l, j);
-						// printf("%i => ", int_to_grayscale(char_tab[k][1]));
-						// printf("%i\n", data->bump_maps[i][l][j]);
-						// printf("map %i, line: %i char %i =>", i, l, j);
-						// printf("%i\n", data->bump_maps[i][l][j]);
 					}
 					k++;
 				}
