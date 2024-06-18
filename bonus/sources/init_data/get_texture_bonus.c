@@ -9,7 +9,7 @@ int				gray_to_hex_string(const char *gray_string, char *hex_output);
 int				hex_to_int(const char *hex_string);
 void			get_texture(t_data *data, int i);
 unsigned char	int_to_grayscale(unsigned int hex_value);
-void	free_tab_bump(char **tab);
+void			free_tab_bump(char **tab);
 
 int	get_shades_nbr(int fd, char **tab)
 {
@@ -64,30 +64,29 @@ void	extract_texture_values(int shades_nbr, int fd, int char_tab[][2])
 	}
 }
 
-void	handle_line(t_data *data, char *str, int *j, int i,
-	int shades_nbr, int *l, int char_tab[][2])
+void	handle_line(t_handle_line_params *p, int char_tab[][2])
 {
 	char	*str_tmp;
 	int		k;
 
-	str_tmp = ft_substr(str, 1, ft_strlen(str) - 3);
-	free (str);
-	str = str_tmp;
+	str_tmp = ft_substr(p->str, 1, ft_strlen(p->str) - 3);
+	free (p->str);
+	p->str = str_tmp;
 	str_tmp = ft_strtrim(str_tmp, "\"");
-	free (str);
-	str = str_tmp;
-	*j = 0;
-	while (str[*j])
+	free (p->str);
+	p->str = str_tmp;
+	*(p->j) = 0;
+	while (p->str[*(p->j)])
 	{
 		k = 0;
-		while (k < shades_nbr)
+		while (k < p->shades_nbr)
 		{
-			if (str [*j] == char_tab[k][0])
-				data->bump_maps[i][*l][*j]
+			if (p->str [*(p->j)] == char_tab[k][0])
+				p->data->bump_maps[p->i][*(p->l)][*(p->j)]
 					= int_to_grayscale(char_tab[k][1]) / 255.0f;
-			k++;
+			(k)++;
 		}
-		(*j)++;
+		(*(p->j))++;
 	}
 }
 
@@ -106,7 +105,8 @@ void	fill_bump_map(t_fill_bump_map *p, int char_tab[][2])
 		str = get_next_line(p->fd);
 		if (str && str[0] == '"')
 		{
-			handle_line(p->data, str, &j, p->i, p->shades_nbr, &l, char_tab);
+			handle_line(&(t_handle_line_params)
+			{p->data, str, &j, p->i, p->shades_nbr, &l}, char_tab);
 			l++;
 		}
 		free(str);

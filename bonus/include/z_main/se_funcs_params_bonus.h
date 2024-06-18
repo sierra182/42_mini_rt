@@ -72,4 +72,13 @@ typedef struct	s_fill_bump_map
 	int i;
 }	t_fill_bump_map;
 
+typedef struct s_handle_line_params
+{
+	t_data *data;
+	char *str;
+	int *j;
+	int i;
+	int shades_nbr;
+	int *l;
+}	t_handle_line_params;
 #endif
