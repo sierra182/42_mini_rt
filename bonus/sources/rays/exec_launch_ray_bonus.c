@@ -28,12 +28,12 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
  *========================================================================**/
 void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)//!
 {
-	double alia = 2.0;
+	double alia = 4.0;
 	int		i;
 	int		j;
 	t_ray	ray;
 	t_obj	obj;
-	t_color	colors[4];
+	t_color	colors[16];
 	t_color	average_color;
 
 	
@@ -68,7 +68,7 @@ void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)//!
 		}
 		ay += 1.0f / alia;	
 	}
-	get_average_colors(colors, 4, &average_color);
+	get_average_colors(colors, 16, &average_color);
 	//   printf("%d, %d, %d\n", average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]);
 
 	put_pxl(mlx, x, y, get_color(average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]));
