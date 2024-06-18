@@ -1,4 +1,6 @@
 #include "exec_launch_ray_bonus.h"
+
+
 void	get_average_colors(t_color colors[], int n_colors, t_color *average);
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS
@@ -7,7 +9,7 @@ void	get_average_colors(t_color colors[], int n_colors, t_color *average);
 // {
 // 	t_ray	ray;
 // 	t_obj	obj;
-
+// 		printf("%f\n",x);
 // 	new_ray(&data->cam, &ray, x, y);
 // 	obj.t = BIG_VALUE;
 // 	obj.ref = NULL;
@@ -24,36 +26,92 @@ void		new_ray(t_cam *cam, t_ray *ray, double x, double y);
 /**========================================================================
  *                         EXEC_LAUNCH_RAYS_ANTIA
  *========================================================================**/
-void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
+void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)//!
 {
-	double alia = 16.0;
+	double alia = 4.0;
 	int		i;
+	int		j;
 	t_ray	ray;
 	t_obj	obj;
 	t_color	colors[16];
 	t_color	average_color;
 
+	
+
+	double ax, ay;
+
+	ay = y;
+	ay += 0.5f / alia;
+	int k = 0;
 	i = -1;
 	while (++i < alia)
 	{
-		//  new_ray(&data->cam, &ray, x, y);
-		new_ray(&data->cam, &ray, x + (i + 1.0) / alia, y + (i + 1.0) / alia); //opti div
-		obj.t = BIG_VALUE;
-		obj.ref = NULL;
-		obj.type = 4;
-		get_closest_intersection_sp(data, &ray, &obj);
-		get_closest_intersection_cy(data, &ray, &obj);
-		get_closest_intersection_pl(data, &ray, &obj);
-		get_closest_intersection_tr(data, &ray, &obj);
-		get_pixel_color(data, &ray, &obj, &colors[i]);
-		// printf("%d, %d, %d\n", colors[i].rgb[0], colors[i].rgb[1], colors[i].rgb[2]);
+		j = -1;
+		ax = x;
+		ax += 0.5f / alia;
+		while (++j < alia)
+		{
+			new_ray(&data->cam, &ray, ax , ay); //opti div
+			obj.t = BIG_VALUE;
+			obj.ref = NULL;
+			obj.type = 4;
+			get_closest_intersection_sp(data, &ray, &obj);
+			get_closest_intersection_cy(data, &ray, &obj);
+			get_closest_intersection_pl(data, &ray, &obj);
+			get_closest_intersection_tr(data, &ray, &obj);
+			get_pixel_color(data, &ray, &obj, &colors[k]);//      [((i + 1) * (j + 1)) - 1]);
+			
+			ax += 1.0f / alia;
+				// printf("%d, %d, %d\n", colors[k].rgb[0], colors[k].rgb[1], colors[k].rgb[2]);
+			// if( ax > 800.0)
+		
+			k++;
+		}
+		ay += 1.0f / alia;	
 	}
-	get_average_colors(colors, alia, &average_color);
-	// printf("%d, %d, %d\n", average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]);
+	get_average_colors(colors, 16, &average_color);
+	//   printf("%d, %d, %d\n", average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]);
 
 	put_pxl(mlx, x, y, get_color(average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]));
 }
 
+// void	exec_launch_rays(t_mlx *mlx, t_data *data, double x, double y)//!
+// {
+// 	double alia = 4.0;
+// 	int		i;
+// 	int		j;
+// 	t_ray	ray;
+// 	t_obj	obj;
+// 	t_color	colors[16];
+// 	t_color	average_color;
+
+// 	i = -1;
+// 	x += 0.5 / alia;
+// 	y += 0.5 / alia;
+// 	while (++i < alia)
+// 	{
+// 		j -1;
+// 		while (++j < alia)
+// 		{
+// 			new_ray(&data->cam, &ray, x + (i + 1.0) / alia, y + (i + 1.0) / alia); //opti div
+// 			obj.t = BIG_VALUE;
+// 			obj.ref = NULL;
+// 			obj.type = 4;
+// 			get_closest_intersection_sp(data, &ray, &obj);
+// 			get_closest_intersection_cy(data, &ray, &obj);
+// 			get_closest_intersection_pl(data, &ray, &obj);
+// 			get_closest_intersection_tr(data, &ray, &obj);
+// 			get_pixel_color(data, &ray, &obj, &colors[i]);
+// 		}
+// 		//  new_ray(&data->cam, &ray, x, y);
+		
+// 		// printf("%d, %d, %d\n", colors[i].rgb[0], colors[i].rgb[1], colors[i].rgb[2]);
+// 	}
+// 	get_average_colors(colors, alia, &average_color);
+// 	// printf("%d, %d, %d\n", average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]);
+
+// 	put_pxl(mlx, x, y, get_color(average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]));
+// }
 /**========================================================================
  *                           	HAS_BULB
  *========================================================================**/
