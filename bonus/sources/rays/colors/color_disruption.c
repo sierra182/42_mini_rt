@@ -77,7 +77,7 @@ int hex_to_int(const char *hex_string)
 {
 	if (hex_string[0] != '#')
 	{
-		printf("Invalid format >%s<\n", hex_string);
+		// printf("Invalid format >%s<\n", hex_string);
 		return -1;
 	}
 	int color_value = (int)strtol(hex_string + 1, NULL, 16);
@@ -98,6 +98,17 @@ t_ray_vector apply_bump_map(t_ray_vector normal, t_ray_vector tangent, t_ray_vec
     return (perturbed_normal);
 }
 
+double get_bump_coef(double **bump_map, double u, double v)
+{
+	int x, y;
+	double bump_coef;
+
+	uv_to_texture_coordinates(u, v, &x, &y);
+	bump_coef = bump_map[x][y];
+
+	return bump_coef;
+}
+
 void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 {
 	double u;
@@ -115,19 +126,15 @@ void	modif_uv(t_get_color_params *params, t_ray_pack light_ray, int size)
 		checker_color(u, v, size, params->color);
 		return ;
 	}
-	int x, y;
-	uv_to_texture_coordinates(u, v, &x, &y);
-	double bump_coef;
-	bump_coef = params->data->bump_maps[sphere->bump_map_nbr][x][y];
-	if (sphere->bump_map_nbr == 1)
-	{
-		// printf("sphere->bump_map_path: %s, sphere->bump_map_nbr: %i\n", sphere->bump_map_path, sphere->bump_map_nbr);
-		// // printf("bump_coef: %f\n", bump_coef);
-		// printf("%i, %i: texture value: %i\n", x, y, bump_coef);
-	}
+	// int x, y;
+	// uv_to_texture_coordinates(u, v, &x, &y);
+	// double bump_coef;
+	// bump_coef = params->data->bump_maps[sphere->bump_map_nbr][x][y];
+	double **bump_map = params->data->bump_maps[sphere->bump_map_nbr];
+	double bump_coef = get_bump_coef(bump_map, u, v);
+	
 	// printf("modif_uv: sphere->bump_map_nbr: %i, x: %i, y: %i\n", sphere->bump_map_nbr, x, y);
 	checker_color_grayscale(u, v, size, params->color, bump_coef);
-	// *params->normal = apply_bump_map(*params->normal, (t_ray_vector){1,1,1}, (t_ray_vector){1,1,1}, bump_coef);
 	apply_bump_mapping(params->normal);
 }
 

@@ -1,5 +1,6 @@
 #include "se_mini_struct_bonus.h"
 #include "x_linear_algebra_bonus.h"
+double get_bump_coef(double **bump_map, double u, double v);
 
 void	calculate_tangent(t_ray_vector *normal, t_ray_vector *T)
 {
@@ -26,8 +27,8 @@ void	apply_bump_mapping(t_ray_vector *normal)
 
 	calculate_tangent(normal, &T);
 	calculate_bitangent(normal, &T, &B);
-	printf("scalar_product(normal, T): %f\n", scalar_product(normal->axis, T.axis));
-	printf("scalar_product(normal, B): %f\n", scalar_product(normal->axis, B.axis));
-	printf("scalar_product(B, T): %f\n", scalar_product(B.axis, T.axis));
+	// printf("scalar_product(normal, T): %f\n", scalar_product(normal->axis, T.axis));
+	// printf("scalar_product(normal, B): %f\n", scalar_product(normal->axis, B.axis));
+	// printf("scalar_product(B, T): %f\n", scalar_product(B.axis, T.axis));
 	
 }
