@@ -1,5 +1,6 @@
 #include "elements_data_are_valid_bonus.h"
 #include <stdio.h>
+
 int	file_exists(char *map_path);
 
 /**========================================================================
@@ -94,17 +95,13 @@ int	check_data(char *token, char *check)
  *========================================================================**/
 int	is_valid_xpm(char *str)
 {
-	// printf("str to check: '%s'\n", str);
 	if (!str || ft_strlen(str) < 5 || !file_exists(str))
 		return (0);
 	if (!ft_strcmp(&str[ft_strlen(str) - 4], ".xpm") && file_exists(str))
 	{
-		// printf("is_valid_xpm returns 1\n");
 		return (1);
 	}
-		
 	return (0);
-	
 }
 
 /**========================================================================
@@ -129,7 +126,8 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "ufl") && !chck_fl(token, UFL))
 			return (0);
-		if (num[*i] && !ft_strcmp(num[*i], "check") && token && (ft_strcmp(token, "checkerboard") && !is_valid_xpm(token)))
+		if (num[*i] && !ft_strcmp(num[*i], "check") && token
+			&& (ft_strcmp(token, "checkerboard") && !is_valid_xpm(token)))
 			return (0);
 		(*i)++;
 	}
