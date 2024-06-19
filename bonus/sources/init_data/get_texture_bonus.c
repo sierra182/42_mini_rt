@@ -10,7 +10,29 @@ int				hex_to_int(const char *hex_string);
 void			get_texture(t_data *data, int i);
 unsigned char	int_to_grayscale(unsigned int hex_value);
 void			free_tab_bump(char **tab);
+void	get_shades_nbr(int fd, int *shades_nbr);
+void	extract_texture_values(int shades_nbr, int fd, int char_tab[][2]);
+void	fill_bump_map(t_fill_bump_map *p, int char_tab[][2]);
 
+/**========================================================================
+ *                           GET_TEXTURE
+ *========================================================================**/
+void	get_texture(t_data *data, int i)
+{
+	int		fd;
+	int		shades_nbr;
+	int		char_tab[100][2];
+
+	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
+	get_shades_nbr(fd, &shades_nbr);
+	extract_texture_values(shades_nbr, fd, char_tab);
+	fill_bump_map(&(t_fill_bump_map){shades_nbr, data, fd, i}, char_tab);
+	close(fd);
+}
+
+/**========================================================================
+ *                           GET_SHADES_NBR
+ *========================================================================**/
 void	get_shades_nbr(int fd, int *shades_nbr)
 {
 	char	*str;
@@ -36,6 +58,9 @@ void	get_shades_nbr(int fd, int *shades_nbr)
 	}
 }
 
+/**========================================================================
+ *                           EXTRACT_TEXTURE_VALUES
+ *========================================================================**/
 void	extract_texture_values(int shades_nbr, int fd, int char_tab[][2])
 {
 	char	*str;
@@ -63,6 +88,9 @@ void	extract_texture_values(int shades_nbr, int fd, int char_tab[][2])
 	}
 }
 
+/**========================================================================
+ *                           HANDLE_LINE
+ *========================================================================**/
 void	handle_line(t_handle_line_params *p, int char_tab[][2])
 {
 	char	*str_tmp;
@@ -114,17 +142,4 @@ void	fill_bump_map(t_fill_bump_map *p, int char_tab[][2])
 			free(str);
 		j++;
 	}
-}
-
-void	get_texture(t_data *data, int i)
-{
-	int		fd;
-	int		shades_nbr;
-	int		char_tab[100][2];
-
-	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
-	get_shades_nbr(fd, &shades_nbr);
-	extract_texture_values(shades_nbr, fd, char_tab);
-	fill_bump_map(&(t_fill_bump_map){shades_nbr, data, fd, i}, char_tab);
-	close(fd);
 }
