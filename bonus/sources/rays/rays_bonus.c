@@ -21,19 +21,19 @@ static void	scale_and_add_vectors(t_cam *cam, t_ray *ray, double norm_scale_x,
 /**========================================================================
  *                           NORMALIZE_PIXEL
  *========================================================================**/
-static double	normalize_pixel(int screen_size, int pixel, int x_flag)
+static double	normalize_pixel(int screen_size, double pixel, int x_flag)
 {
 	if (!screen_size)
 		return (0.0);
 	if (x_flag)
-		return (((pixel + 0.5) / screen_size) * 2 - 1);
-	return ((1 - 2 * (pixel + 0.5) / screen_size));
+		return (((pixel) / screen_size) * 2 - 1);
+	return ((1 - 2 * (pixel) / screen_size));
 }
 
 /**========================================================================
  *                           NEW_RAY
  *========================================================================**/
-void	new_ray(t_cam *cam, t_ray *ray, int x, int y)
+void	new_ray(t_cam *cam, t_ray *ray, double x, double y)
 {
 	double	norm_scale_x;
 	double	norm_scale_y;
@@ -60,10 +60,29 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		x = -1;
 		while (++x < data->cam.resol[0])
 		{
-			exec_launch_rays(mlx, data, x, y);
+			if (data->event.antia)
+				exec_launch_rays_antia(mlx, data, x, y);
+			else
+				exec_launch_rays(mlx, data, x, y);
 			add_xpm_items(mlx, data, x, y);
 		}
 	}
 	if (data->is_test == 1)
 		make_bin_file(data, mlx);
+}
+
+/**========================================================================
+ *                           	PUT_PXL
+ *========================================================================**/
+
+void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
+{
+	const double	inverse_eight = 0.125;
+	int				pxl_pos;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
+		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
+	}
 }

@@ -7,6 +7,8 @@ void	key_code_funcs(int keycode, t_data *data, t_mlx *mlx)
 {
 	if (keycode == ESC)
 		mlx_loop_end(mlx->connect);
+	if (keycode == ANT)
+		data->event.antia = 1;
 	if (keycode == RST)
 		reset(data);
 	if (keycode == RST_CM)
@@ -72,7 +74,7 @@ void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
 	if (data->event.actual_mode == E_AMBL)
 		event_intensity(keycode, &data->ambiant_light.intensity);
 	meta_keycode(keycode, data, mlx);
-	if (data->event.actual_mode == E_SPOTL)
+	if (data->event.actual_mode == E_SPOTL && data->event.actual_light)
 		event_intensity(keycode, &data->event.actual_light->intensity);
 }
 

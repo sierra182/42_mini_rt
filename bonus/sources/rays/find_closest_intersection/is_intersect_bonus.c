@@ -87,6 +87,39 @@ double	solve_quadratic_equation(t_ray *ray, t_cylinder *cyl, double *discrim)
 }
 
 /**========================================================================
+ *                          IS_INTERSECT_TRIANGLE
+ *========================================================================**/
+double	is_intersect_triangle(t_ray *ray, void *input_triangle,
+	t_ray_vector *i)
+{
+	t_tri	tri;
+
+	tri.triangle = (t_triangle *) input_triangle;
+	subtract_vector(tri.triangle->point_b.axis, tri.triangle->point_a.axis,
+		tri.triangle->e1.axis);
+	subtract_vector(tri.triangle->point_c.axis, tri.triangle->point_a.axis,
+		tri.triangle->e2.axis);
+	cross_product(ray->dir_vect.axis, tri.triangle->e2.axis, tri.p.axis);
+	tri.det = scalar_product(tri.triangle->e1.axis, tri.p.axis);
+	if (fabs(tri.det) < TRI_E)
+		return (0.0);
+	tri.inv_det = 1.0 / tri.det;
+	subtract_vector(ray->origin_vect.axis, tri.triangle->point_a.axis,
+		tri.t_vect.axis);
+	tri.u = scalar_product(tri.t_vect.axis, tri.p.axis) * tri.inv_det;
+	if (tri.u < -TRI_E || tri.u > 1 + TRI_E)
+		return (0.0);
+	cross_product(tri.t_vect.axis, tri.triangle->e1.axis, tri.q.axis);
+	tri.v = scalar_product(ray->dir_vect.axis, tri.q.axis) * tri.inv_det;
+	if (tri.v < -TRI_E || tri.u + tri.v > 1 + TRI_E)
+		return (0.0);
+	tri.t = scalar_product(tri.triangle->e2.axis, tri.q.axis) * tri.inv_det;
+	if (tri.t > TRI_E)
+		return (tri.t);
+	return ((void) i, 0.0);
+}
+
+/**========================================================================
  *                           WHICH_T
  *========================================================================**/
 double	which_t(double eq_values[], int *which_t, double *tt[])

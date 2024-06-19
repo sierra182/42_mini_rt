@@ -30,8 +30,7 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh)
 		data->event.color_sav = *color;
 		i = -1;
 		while (++i < AXIS)
-			color->rgb[i] += 100;
-		clamp_255(color);
+			color->rgb[i] += 255 - color->rgb[i];
 	}
 	data->event.actual_mesh = *mesh;
 }
@@ -85,6 +84,6 @@ void	event_launch_rays(t_data *data, int x, int y)
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
-	if (obj.ref)
+	if (obj.ref && !is_behind_cam(obj.t))
 		actual_mesh_handle(data, &obj, NULL, NULL);
 }

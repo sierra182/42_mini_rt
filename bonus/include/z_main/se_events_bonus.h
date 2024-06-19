@@ -18,11 +18,13 @@ typedef struct s_event
 	t_spotlight		*actual_light;
 	t_color			color_sav;
 	t_color			bulb_color_sav;
+	int				antia;
 }	t_event;
 
 typedef enum e_event
 {
 	ESC = 65307,
+	ANT = 32,
 	RST = 114,
 	RST_CM = 65437,
 	UP = 65434,

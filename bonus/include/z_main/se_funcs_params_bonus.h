@@ -1,6 +1,8 @@
 #ifndef SE_FUNCS_PARAMS_BONUS_H
 # define SE_FUNCS_PARAMS_BONUS_H
 
+# define TRI_E 1e-6
+
 typedef struct s_intersection_params
 {
 	t_ray			ray;
@@ -12,16 +14,6 @@ typedef struct s_intersection_params
 	t_ray_vector	*i;
 }	t_intersection_params;
 
-typedef struct s_get_pixel_color_2_params
-{
-	t_data	*data;
-	t_ray	*ray;
-	t_obj	*obj;
-	int		*rgb;
-	double	*inter_bulb;
-	t_color	*color;
-}	t_get_pixel_color_2_params;
-
 typedef struct s_get_color_params
 {
 	t_data			*data;
@@ -29,7 +21,7 @@ typedef struct s_get_color_params
 	double			t;
 	t_obj			*mesh;
 	t_color			*color;
-	t_ray_vector	*normal;//!
+	t_ray_vector	*normal;
 }	t_get_color_params;
 
 typedef struct s_calc_spotlight_effect_params
@@ -81,4 +73,33 @@ typedef struct s_handle_line_params
 	int shades_nbr;
 	int *l;
 }	t_handle_line_params;
+typedef struct s_antia
+{
+	double	alia;
+	double	inv_alia;
+	double	ay;
+	double	ax;
+	double	ax_cpy;
+	int		i;
+	int		j;
+	int		k;
+	t_ray	ray;
+	t_obj	obj;
+	t_color	colors[16];
+	t_color	average_color;
+}	t_antia;
+
+typedef struct s_is_intersect_triangle
+{
+	t_triangle		*triangle;
+	t_ray_vector	p;
+	t_ray_vector	t_vect;
+	t_ray_vector	q;
+	double			det;
+	double			inv_det;
+	double			u;
+	double			v;
+	double			t;
+}	t_tri;
+
 #endif
