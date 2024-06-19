@@ -81,7 +81,6 @@ void	extract_texture_values(int shades_nbr, int fd, int char_tab[][2])
 			free (str);
 			str = str_tmp;
 			char_tab[j][0] = str[0];
-			printf("str[0]: %c\n", str[0]);
 			if (gray_to_hex_string(&str[4], hex_output))
 				char_tab[j][1] = hex_to_int(hex_output);
 			else
