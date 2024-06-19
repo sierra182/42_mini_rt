@@ -35,7 +35,7 @@ void	free_paths(t_data *data)
 	// 	return ;
 	while (i < 100)
 	{
-		// printf("free path: %s\n", data->bump_map_paths[i]);
+		printf("data->bump_map_paths[%i]: %s\n", i, data->bump_map_paths[i]);
 		free (data->bump_map_paths[i]);
 		i++;
 	}

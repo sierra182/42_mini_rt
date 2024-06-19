@@ -38,8 +38,9 @@ void	handle_uv_modifs_params(t_data *data, double *nbr, char *token, int *j)
 	if (is_valid_xpm(token))
 	{
 		data->bump_map_paths[*j] = ft_strdup(token);
+		printf("data->bump_map_paths[%i]: %s\n", *j, data->bump_map_paths[*j]);
 		*nbr = (*j)++;
-		data->bump_map_paths[*j] = NULL;
+		// data->bump_map_paths[*j] = NULL;
 	}
 }
 
