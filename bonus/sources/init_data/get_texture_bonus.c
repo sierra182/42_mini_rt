@@ -10,9 +10,10 @@ int				hex_to_int(const char *hex_string);
 void			get_texture(t_data *data, int i);
 unsigned char	int_to_grayscale(unsigned int hex_value);
 void			free_tab_bump(char **tab);
-void	get_shades_nbr(int fd, int *shades_nbr);
-void	extract_texture_values(int shades_nbr, int fd, int char_tab[][2]);
-void	fill_bump_map(t_fill_bump_map *p, int char_tab[][2]);
+void			get_shades_nbr(int fd, int *shades_nbr);
+void			extract_texture_values(int shades_nbr, int fd,
+					int char_tab[][2]);
+void			fill_bump_map(t_fill_bump_map *p, int char_tab[][2]);
 
 /**========================================================================
  *                           GET_TEXTURE

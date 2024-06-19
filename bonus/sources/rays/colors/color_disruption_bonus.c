@@ -35,7 +35,8 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 		checker_color(u, v, size, params->color);
 		return ;
 	}
-	apply_bump_mapping(normal, u, v, params->data->bump_maps[sphere->bump_map_nbr]);
+	apply_bump_mapping(normal, u, v,
+		params->data->bump_maps[sphere->bump_map_nbr]);
 }
 
 /**========================================================================
