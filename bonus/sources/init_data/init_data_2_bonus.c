@@ -30,6 +30,9 @@ double	*fill_tab(t_data *data, char *str, double tab[])
 	return (tab);
 }
 
+/**========================================================================
+ *                           HANDLE_UV_MODIFS_PARAMS
+ *========================================================================**/
 void	handle_uv_modifs_params(t_data *data, double *nbr, char *token, int *j)
 {
 	*nbr = ft_atof(token);
@@ -42,6 +45,9 @@ void	handle_uv_modifs_params(t_data *data, double *nbr, char *token, int *j)
 	}
 }
 
+/**========================================================================
+ *                           ALLOC_BUMP_MAPS
+ *========================================================================**/
 void	alloc_bump_maps(t_data *data)
 {
 	int	i;
