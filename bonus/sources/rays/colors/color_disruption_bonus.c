@@ -61,8 +61,6 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 {
 	double		u;
 	double		v;
-	double		**bump_map;
-	double		bump_coef;
 	t_sphere	*sphere;
 
 	sphere = (t_sphere *) params->mesh->ref;
@@ -74,9 +72,7 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 		checker_color(u, v, size, params->color);
 		return ;
 	}
-	bump_map = params->data->bump_maps[sphere->bump_map_nbr];
-	bump_coef = get_bump_coef(bump_map, u, v);
-	apply_bump_mapping(normal, u, v, bump_map);
+	apply_bump_mapping(normal, u, v, params->data->bump_maps[sphere->bump_map_nbr]);
 }
 
 void	checker_color(double u, double v, int checker_size, t_color *color)
