@@ -1,10 +1,9 @@
 #include "exec_launch_ray_bonus.h"
 
-void	get_average_colors(t_color colors[], int n_colors, t_color *average);
 /**========================================================================
  *                         GET_CLOSEST_INTERSECTION
  *========================================================================**/
-void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
+static void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
 {
 	obj->t = BIG_VALUE;
 	obj->ref = NULL;
@@ -30,37 +29,36 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 }
 
-
 /**========================================================================
  *                         EXEC_LAUNCH_RAYS_ANTIA
  *========================================================================**/
 void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)
 {
-	t_antia antia;
+	t_antia	antia;
 
 	antia.alia = 4.0;
 	antia.inv_alia = 0.25;
 	antia.ay = y + 0.5f * antia.inv_alia;
-	antia.ax = x + 0.5f * antia.inv_alia;	
+	antia.ax = x + 0.5f * antia.inv_alia;
 	antia.k = 0;
 	antia.i = -1;
 	while (++antia.i < antia.alia)
 	{
-		antia.ax_cpy = antia.ax;		
+		antia.ax_cpy = antia.ax;
 		antia.j = -1;
 		while (++antia.j < antia.alia)
 		{
-			new_ray(&data->cam, &antia.ray, antia.ax_cpy , antia.ay);
-			get_closest_intersection(data, &antia.ray, &antia.obj);		
+			new_ray(&data->cam, &antia.ray, antia.ax_cpy, antia.ay);
+			get_closest_intersection(data, &antia.ray, &antia.obj);
 			get_pixel_color(data, &antia.ray, &antia.obj,
-				&antia.colors[antia.k++]);			
-			antia.ax_cpy += antia.inv_alia;			
+				&antia.colors[antia.k++]);
+			antia.ax_cpy += antia.inv_alia;
 		}
-		antia.ay += antia.inv_alia;	
+		antia.ay += antia.inv_alia;
 	}
 	get_average_colors(antia.colors, 16, &antia.average_color);
 	put_pxl(mlx, x, y, get_color(antia.average_color.rgb[0],
-		antia.average_color.rgb[1], antia.average_color.rgb[2]));
+			antia.average_color.rgb[1], antia.average_color.rgb[2]));
 }
 
 /**========================================================================
@@ -86,43 +84,27 @@ static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
 
 /**========================================================================
  *                           GET_PIXEL_COLOR
- *========================================================================**/ 
-void	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
+ *========================================================================**/
+static void	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj,
+	t_color *color)
 {
 	double	inter_bulb;
 
 	inter_bulb = has_bulb(data, ray, color);
-	if (obj->t && obj->type == O_SP && obj->ref && !inter_bulb)	
+	if (obj->t && obj->type == O_SP && obj->ref && !inter_bulb)
 		get_sphere_color(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL});	
+		{data, ray, obj->t, obj, color, NULL});
 	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref
-		&& !inter_bulb)	
-		get_cylinder_color(data, ray, obj, color);	
+		&& !inter_bulb)
+		get_cylinder_color(data, ray, obj, color);
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref
-		&& !inter_bulb)	
+		&& !inter_bulb)
 		get_plane_color(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL});	
+		{data, ray, obj->t, obj, color, NULL});
 	if (obj->t && obj->type == O_TR && !is_behind_cam(obj->t) && obj->ref
-		&& !inter_bulb)	
+		&& !inter_bulb)
 		get_triangle_color(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL});		
+		{data, ray, obj->t, obj, color, NULL});
 	if (obj->ref == NULL && !inter_bulb)
 		get_background_color(ray, data, color);
 }
-
-/**========================================================================
- *                           	PUT_PXL
- *========================================================================**/
-
-static void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
-{
-	const double	inverse_eight = 0.125;
-	int				pxl_pos;
-
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-	{
-		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
-		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
-	}
-}
-

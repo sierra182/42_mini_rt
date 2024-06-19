@@ -70,3 +70,19 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	if (data->is_test == 1)
 		make_bin_file(data, mlx);
 }
+
+/**========================================================================
+ *                           	PUT_PXL
+ *========================================================================**/
+
+void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
+{
+	const double	inverse_eight = 0.125;
+	int				pxl_pos;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
+		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
+	}
+}

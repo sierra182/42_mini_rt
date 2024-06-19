@@ -48,9 +48,9 @@ typedef struct s_reset_tmps
 typedef struct s_antia
 {
 	double	alia;
-	double 	inv_alia;
+	double	inv_alia;
 	double	ay;
-	double	ax;	
+	double	ax;
 	double	ax_cpy;
 	int		i;
 	int		j;

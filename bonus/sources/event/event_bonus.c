@@ -59,7 +59,7 @@ void	actual_mesh_handle(t_data *data, t_obj *mesh,
 				->axis_vect, origin_vect, dir_vect);
 	}
 }
-void		new_ray(t_cam *cam, t_ray *ray, double x, double y);
+
 /**========================================================================
  *                           EVENT_LAUNCH_RAYS
  *========================================================================**/

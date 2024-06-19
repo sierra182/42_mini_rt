@@ -62,5 +62,5 @@ void	get_background_color(t_ray *ray, t_data *data,
 	back_color->rgb[1] = (int)((1.0 - dir) * ((color[1] >> 8) & 0xFF) + dir
 			* ((color[0] >> 8) & 0xFF));
 	back_color->rgb[2] = (int)((1.0 - dir) * (color[1] & 0xFF) + dir
-		* (color[0] & 0xFF));	
+			* (color[0] & 0xFF));
 }
