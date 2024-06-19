@@ -96,7 +96,6 @@ SOURCES = \
 	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_bonus.c \
 	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_cylinder_bonus.c \
 	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_utils_bonus.c \
-	$(SRC_DIR)/rays/find_closest_intersection/is_intersect_triangle_bonus.c \
 	$(SRC_DIR)/rays/exec_launch_ray_bonus.c \
 	$(SRC_DIR)/linear_algebra/clamping_bonus.c \
 	$(SRC_DIR)/linear_algebra/vector_bonus.c \
@@ -155,7 +154,6 @@ HEADERS = \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_cylinder_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_utils_bonus.h \
 	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_bonus.h \
-	$(HEADERS_DIR)/rays/find_closest_intersection/is_intersect_triangle_bonus.h \
 	$(HEADERS_DIR)/rays/shadows/shadows_exclusion_bonus.h \
 	$(HEADERS_DIR)/rays/shadows/shadows_bonus.h \
 	$(HEADERS_DIR)/rays/exec_launch_ray_bonus.h \
