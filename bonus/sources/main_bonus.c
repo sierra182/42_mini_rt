@@ -85,6 +85,7 @@ int	init_mlx(t_mlx *mlx)
 	init_img_item(mlx, &mlx->img_items.cam, "xpm/cam.xpm", 0xFF0000);
 	init_img_item(mlx, &mlx->img_items.amb, "xpm/amb.xpm", 0xFF0000);
 	init_img_item(mlx, &mlx->img_items.bulb, "xpm/bulb.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.antia, "xpm/antia.xpm", 0xFF0000);
 	add_exit_struct((void *) mlx, MLX);
 	return (0);
 }
@@ -132,6 +133,5 @@ int	frame(void *param)
 	data->refresh = 0;
 	launch_rays(mlx, data);
 	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
-	// data->event.antia = 0;
 	return (0);
 }
