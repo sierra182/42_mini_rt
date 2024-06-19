@@ -43,10 +43,10 @@ void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray)
 /**========================================================================
  *                           GET_BACKGROUND_COLOR
  *========================================================================**/
-int	get_background_color(t_ray *ray, t_data *data)
+void	get_background_color(t_ray *ray, t_data *data,
+	t_color *back_color)
 {
 	int		color[2];
-	int		rgb[3];
 	double	dir;
 	t_color	*bg_color;
 	double	intensity;
@@ -57,10 +57,10 @@ int	get_background_color(t_ray *ray, t_data *data)
 	color[0] = get_color(intensity * 255, intensity * 255, intensity * 255);
 	color[1] = get_color(bg_color->rgb[0] * intensity, bg_color->rgb[1]
 			* intensity, bg_color->rgb[2] * intensity);
-	rgb[0] = (int)((1.0 - dir) * ((color[1] >> 16) & 0xFF) + dir
+	back_color->rgb[0] = (int)((1.0 - dir) * ((color[1] >> 16) & 0xFF) + dir
 			* ((color[0] >> 16) & 0xFF));
-	rgb[1] = (int)((1.0 - dir) * ((color[1] >> 8) & 0xFF) + dir
+	back_color->rgb[1] = (int)((1.0 - dir) * ((color[1] >> 8) & 0xFF) + dir
 			* ((color[0] >> 8) & 0xFF));
-	rgb[2] = (int)((1.0 - dir) * (color[1] & 0xFF) + dir * (color[0] & 0xFF));
-	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+	back_color->rgb[2] = (int)((1.0 - dir) * (color[1] & 0xFF) + dir
+		* (color[0] & 0xFF));	
 }

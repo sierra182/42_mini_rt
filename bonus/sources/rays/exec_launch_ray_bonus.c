@@ -123,7 +123,7 @@ static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
 	while (++i < data->sl_nbr)
 	{
 		inter_bulb = is_intersect_sphere(ray, &data->spotlights[i].bulb, NULL);
-		if (inter_bulb)
+		if (inter_bulb && !is_behind_cam(inter_bulb))
 		{
 			*color = data->spotlights[i].bulb.color;
 			return (inter_bulb);
@@ -134,90 +134,56 @@ static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
 
 /**========================================================================
  *                           GET_PIXEL_COLOR
- *========================================================================**/ //! suppr return;
-int	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
+ *========================================================================**/ 
+void	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
 {
-	int		rgb;
 	double	inter_bulb;
-	// t_color	color;
 
-	rgb = 0;
 	inter_bulb = has_bulb(data, ray, color);
-	if (inter_bulb && !is_behind_cam(inter_bulb))
-		rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
-	if (obj->t && obj->type == O_SP && obj->ref && !inter_bulb)
-	{
+
+	if (obj->t && obj->type == O_SP && obj->ref && !inter_bulb)	
 		get_sphere_color(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL});
-		rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
-	}
+		{data, ray, obj->t, obj, color, NULL});	
 	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref
-		&& !inter_bulb)
-	{
-		get_cylinder_color(data, ray, obj, color);
-		rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
-	}
-	get_pixel_color_2(&(t_get_pixel_color_2_params){data, ray, obj, &rgb,
-		&inter_bulb, color}, color);
-	return (rgb);
-}
-
-/**========================================================================
- *                           GET_BACKGROUND_COLOR
- *========================================================================**/
-static int	get_background_color2(t_ray *ray, t_data *data, t_color *rcolor)
-{
-	int		color[2];
-	int		rgb[3];
-	double	dir;
-	t_color	*bg_color;
-	double	intensity;
-
-	intensity = data->ambiant_light.intensity;
-	bg_color = (t_color *)&data->ambiant_light.color;
-	dir = (ray->dir_vect.axis[1] + 1.0) * 0.5;
-	color[0] = get_color(intensity * 255, intensity * 255, intensity * 255);
-	color[1] = get_color(bg_color->rgb[0] * intensity, bg_color->rgb[1]
-			* intensity, bg_color->rgb[2] * intensity);
-	rgb[0] = (int)((1.0 - dir) * ((color[1] >> 16) & 0xFF) + dir
-			* ((color[0] >> 16) & 0xFF));
-	rgb[1] = (int)((1.0 - dir) * ((color[1] >> 8) & 0xFF) + dir
-			* ((color[0] >> 8) & 0xFF));
-	rgb[2] = (int)((1.0 - dir) * (color[1] & 0xFF) + dir * (color[0] & 0xFF));
-	*rcolor = (t_color){rgb[0], rgb[1], rgb[2]};
-	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
-}
-/**========================================================================
- *                           GET_PIXEL_COLOR_2
- *========================================================================**/
-void	get_pixel_color_2(t_get_pixel_color_2_params *params, t_color *color)
-{
-	t_obj	*obj;
-	t_data	*data;
-	// t_color	*color;
-	int		*rgb;
-
-	obj = params->obj;
-	data = params->data;
-	color = params->color;
-	rgb = params->rgb;
+		&& !inter_bulb)	
+		get_cylinder_color(data, ray, obj, color);	
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref
-		&& !*params->inter_bulb)
-	{
+		&& !inter_bulb)	
 		get_plane_color(&(t_get_color_params)
-		{data, params->ray, obj->t, obj, color, NULL});
-		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
-	}
+		{data, ray, obj->t, obj, color, NULL});	
 	if (obj->t && obj->type == O_TR && !is_behind_cam(obj->t) && obj->ref
-		&& !*params->inter_bulb)
-	{
+		&& !inter_bulb)	
 		get_triangle_color(&(t_get_color_params)
-		{data, params->ray, obj->t, obj, color, NULL});
-		*rgb = get_color(color->rgb[0], color->rgb[1], color->rgb[2]);
-	}
-	if (obj->ref == NULL && !*params->inter_bulb)
-		*rgb = get_background_color2(params->ray, data, color);
+		{data, ray, obj->t, obj, color, NULL});		
+	if (obj->ref == NULL && !inter_bulb)
+		get_background_color(ray, data, color);
 }
+
+
+
+// /**========================================================================
+//  *                           GET_PIXEL_COLOR_2
+//  *========================================================================**/
+// void	get_pixel_color_2(t_get_pixel_color_2_params *params, t_color *color)
+// {
+// 	t_obj	*obj;
+// 	t_data	*data;
+// 	int		*rgb;
+
+// 	obj = params->obj;
+// 	data = params->data;
+// 	color = params->color;
+// 	// if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref
+// 	// 	&& !*params->inter_bulb)	
+// 	// 	get_plane_color(&(t_get_color_params)
+// 	// 	{data, params->ray, obj->t, obj, color, NULL});	
+// 	// if (obj->t && obj->type == O_TR && !is_behind_cam(obj->t) && obj->ref
+// 	// 	&& !*params->inter_bulb)	
+// 	// 	get_triangle_color(&(t_get_color_params)
+// 	// 	{data, params->ray, obj->t, obj, color, NULL});		
+// 	// if (obj->ref == NULL && !*params->inter_bulb)
+// 	// 	get_background_color2(params->ray, data, color);
+// }
 
 // /**========================================================================
 //  *                           GET_PIXEL_COLOR
