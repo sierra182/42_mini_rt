@@ -100,6 +100,7 @@ void	fill_bump_map(t_fill_bump_map *p, int char_tab[][2])
 	char	*str;
 
 	l = 0;
+	str = "";
 	while (str)
 	{
 		str = get_next_line(p->fd);
