@@ -1,7 +1,20 @@
 #include "exec_launch_ray_bonus.h"
 
-
 void	get_average_colors(t_color colors[], int n_colors, t_color *average);
+/**========================================================================
+ *                         GET_CLOSEST_INTERSECTION
+ *========================================================================**/
+void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
+{
+	obj->t = BIG_VALUE;
+	obj->ref = NULL;
+	obj->type = 4;
+	get_closest_intersection_sp(data, ray, obj);
+	get_closest_intersection_cy(data, ray, obj);
+	get_closest_intersection_pl(data, ray, obj);
+	get_closest_intersection_tr(data, ray, obj);
+}
+
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS
  *========================================================================**/
@@ -12,62 +25,44 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	t_color	color;
 
 	new_ray(&data->cam, &ray, x + 0.5f, y + 0.5f);
-	obj.t = BIG_VALUE;
-	obj.ref = NULL;
-	obj.type = 5;
-	get_closest_intersection_sp(data, &ray, &obj);
-	get_closest_intersection_cy(data, &ray, &obj);
-	get_closest_intersection_pl(data, &ray, &obj);
-	get_closest_intersection_tr(data, &ray, &obj);
+	get_closest_intersection(data, &ray, &obj);
 	get_pixel_color(data, &ray, &obj, &color);
 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 }
+
 
 /**========================================================================
  *                         EXEC_LAUNCH_RAYS_ANTIA
  *========================================================================**/
 void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)
 {
-	double alia = 4.0;
-	int		i;
-	int		j;
-	t_ray	ray;
-	t_obj	obj;
-	t_color	colors[16];
-	t_color	average_color;
+	t_antia antia;
 
-	double ax, ay, xx;
-
-	ay = y + 0.5f / alia;
-	xx = x + 0.5f / alia;	
-	int k = 0;
-	i = -1;
-	while (++i < alia)
+	antia.alia = 4.0;
+	antia.inv_alia = 0.25;
+	antia.ay = y + 0.5f * antia.inv_alia;
+	antia.ax = x + 0.5f * antia.inv_alia;	
+	antia.k = 0;
+	antia.i = -1;
+	while (++antia.i < antia.alia)
 	{
-		j = -1;
-		ax = xx;		
-		while (++j < alia)
+		antia.ax_cpy = antia.ax;		
+		antia.j = -1;
+		while (++antia.j < antia.alia)
 		{
-			new_ray(&data->cam, &ray, ax , ay); //opti div
-			obj.t = BIG_VALUE;
-			obj.ref = NULL;
-			obj.type = 4;
-			get_closest_intersection_sp(data, &ray, &obj);
-			get_closest_intersection_cy(data, &ray, &obj);
-			get_closest_intersection_pl(data, &ray, &obj);
-			get_closest_intersection_tr(data, &ray, &obj);
-			get_pixel_color(data, &ray, &obj, &colors[k]);//      [((i + 1) * (j + 1)) - 1]);
-			
-			ax += 1.0f / alia;		
-			k++;
+			new_ray(&data->cam, &antia.ray, antia.ax_cpy , antia.ay);
+			get_closest_intersection(data, &antia.ray, &antia.obj);		
+			get_pixel_color(data, &antia.ray, &antia.obj,
+				&antia.colors[antia.k++]);			
+			antia.ax_cpy += antia.inv_alia;			
 		}
-		ay += 1.0f / alia;	
+		antia.ay += antia.inv_alia;	
 	}
-	get_average_colors(colors, 16, &average_color);
-	//   printf("%d, %d, %d\n", average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]);
-
-	put_pxl(mlx, x, y, get_color(average_color.rgb[0], average_color.rgb[1], average_color.rgb[2]));
+	get_average_colors(antia.colors, 16, &antia.average_color);
+	put_pxl(mlx, x, y, get_color(antia.average_color.rgb[0],
+		antia.average_color.rgb[1], antia.average_color.rgb[2]));
 }
+
 /**========================================================================
  *                           	HAS_BULB
  *========================================================================**/

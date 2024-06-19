@@ -45,4 +45,20 @@ typedef struct s_reset_tmps
 	t_spotlight	*spotlights_cpy;
 }	t_reset_tmps;
 
+typedef struct s_antia
+{
+	double	alia;
+	double 	inv_alia;
+	double	ay;
+	double	ax;	
+	double	ax_cpy;
+	int		i;
+	int		j;
+	int		k;
+	t_ray	ray;
+	t_obj	obj;
+	t_color	colors[16];
+	t_color	average_color;
+}	t_antia;
+
 #endif
