@@ -12,16 +12,6 @@ typedef struct s_intersection_params
 	t_ray_vector	*i;
 }	t_intersection_params;
 
-typedef struct s_get_pixel_color_2_params
-{
-	t_data	*data;
-	t_ray	*ray;
-	t_obj	*obj;
-	int		*rgb;
-	double	*inter_bulb;
-	t_color	*color;
-}	t_get_pixel_color_2_params;
-
 typedef struct s_get_color_params
 {
 	t_data			*data;
