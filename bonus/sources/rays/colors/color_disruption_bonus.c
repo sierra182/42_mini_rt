@@ -16,6 +16,31 @@ void	calculate_uv(t_ray_vector point, double *u, double *v);
 double	get_bump_coef(double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
 
+/**========================================================================
+ *                           MODIF_UV
+ *========================================================================**/
+void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
+	int size, t_ray_vector	*normal)
+{
+	double		u;
+	double		v;
+	t_sphere	*sphere;
+
+	sphere = (t_sphere *) params->mesh->ref;
+	if (sphere->checkerboard == 0 && sphere->bump_map_nbr == -1)
+		return ;
+	calculate_uv(*normal, &u, &v);
+	if (sphere->checkerboard == 1)
+	{
+		checker_color(u, v, size, params->color);
+		return ;
+	}
+	apply_bump_mapping(normal, u, v, params->data->bump_maps[sphere->bump_map_nbr]);
+}
+
+/**========================================================================
+ *                           UV_TO_TEXTURE_COORDINATES
+ *========================================================================**/
 void	uv_to_texture_coordinates(double u, double v, int *x, int *y)
 {
 	*x = (int)(u * XPM_size);
@@ -30,6 +55,9 @@ void	uv_to_texture_coordinates(double u, double v, int *x, int *y)
 		*y = XPM_size - 1;
 }
 
+/**========================================================================
+ *                           GRAY_TO_HEX_STRING
+ *========================================================================**/
 int	gray_to_hex_string(const char *gray_string, char *hex_output)
 {
 	int	gray_value;
@@ -54,27 +82,8 @@ int	gray_to_hex_string(const char *gray_string, char *hex_output)
 }
 
 /**========================================================================
- *                           MODIF_UV
+ *                           CHECKER_COLOR
  *========================================================================**/
-void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
-	int size, t_ray_vector	*normal)
-{
-	double		u;
-	double		v;
-	t_sphere	*sphere;
-
-	sphere = (t_sphere *) params->mesh->ref;
-	if (sphere->checkerboard == 0 && sphere->bump_map_nbr == -1)
-		return ;
-	calculate_uv(*normal, &u, &v);
-	if (sphere->checkerboard == 1)
-	{
-		checker_color(u, v, size, params->color);
-		return ;
-	}
-	apply_bump_mapping(normal, u, v, params->data->bump_maps[sphere->bump_map_nbr]);
-}
-
 void	checker_color(double u, double v, int checker_size, t_color *color)
 {
 	int	u_index;

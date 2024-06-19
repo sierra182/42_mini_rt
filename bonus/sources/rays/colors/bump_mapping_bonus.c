@@ -34,6 +34,9 @@ void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
 	self_normalize_vector(normal->axis);
 }
 
+/**========================================================================
+ *                           CALCULATE_TANGENT
+ *========================================================================**/
 void	calculate_tangent(t_ray_vector *normal, t_ray_vector *t)
 {
 	t->axis[0] = -normal->axis[2];
@@ -42,6 +45,9 @@ void	calculate_tangent(t_ray_vector *normal, t_ray_vector *t)
 	self_normalize_vector(t->axis);
 }
 
+/**========================================================================
+ *                           CALCULATE_BITANGENT
+ *========================================================================**/
 void	calculate_bitangent(t_ray_vector *n, t_ray_vector *t, t_ray_vector *b)
 {
 	b->axis[0] = n->axis[1] * t->axis[2] - n->axis[2] * t->axis[1];
@@ -50,6 +56,9 @@ void	calculate_bitangent(t_ray_vector *n, t_ray_vector *t, t_ray_vector *b)
 	self_normalize_vector(b->axis);
 }
 
+/**========================================================================
+ *                           CALCUATE_BUMP_DERIVATIVES
+ *========================================================================**/
 void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p)
 {
 	double	bump_coef;

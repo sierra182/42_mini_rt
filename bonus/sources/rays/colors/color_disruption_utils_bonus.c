@@ -17,6 +17,9 @@ double	get_bump_coef(double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
 void	uv_to_texture_coordinates(double u, double v, int *x, int *y);
 
+/**========================================================================
+ *                           HEX_TO_INT
+ *========================================================================**/
 int	hex_to_int(const char *hex_string)
 {
 	if (hex_string[0] != '#')
@@ -24,6 +27,9 @@ int	hex_to_int(const char *hex_string)
 	return ((int)strtol(hex_string + 1, NULL, 16));
 }
 
+/**========================================================================
+ *                           GET_BUMP_COEF
+ *========================================================================**/
 double	get_bump_coef(double **bump_map, double u, double v)
 {
 	int		x;
@@ -33,6 +39,9 @@ double	get_bump_coef(double **bump_map, double u, double v)
 	return (bump_map[x][y]);
 }
 
+/**========================================================================
+ *                           CALCULATE_UV
+ *========================================================================**/
 void	calculate_uv(t_ray_vector point, double *u, double *v)
 {
 	*u = 0.5 + atan2(point.axis[2], point.axis[0]) / (2 * M_PI);
