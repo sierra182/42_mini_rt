@@ -74,6 +74,6 @@ void	event_launch_rays(t_data *data, int x, int y)
 	get_closest_intersection_sp(data, &ray, &obj);
 	get_closest_intersection_cy(data, &ray, &obj);
 	get_closest_intersection_pl(data, &ray, &obj);
-	if (obj.ref && !is_behind_cam(obj.t)) //!modif mandat
+	if (obj.ref && !is_behind_cam(obj.t))
 		actual_mesh_handle(data, &obj, NULL, NULL);
 }

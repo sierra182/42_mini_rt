@@ -8,5 +8,6 @@ void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
 void	get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
 void	clamp_255(t_color *color);
+int		is_behind_cam(double t);
 
 #endif
