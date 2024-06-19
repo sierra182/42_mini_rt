@@ -62,3 +62,4 @@ new_scene.rt
 *.bin
 .myenv
 bonus/miniRT_bonus
+bonus/minirt_mesh_converter
