@@ -52,11 +52,11 @@ void	alloc_bump_maps(t_data *data)
 	j = 0;
 	while (j < 10)
 	{
-		data->bump_maps[j] = (double **)malloc(sizeof (double *) * 512);
+		data->bump_maps[j] = (double **)malloc(sizeof (double *) * XPM_size);
 		i = 0;
-		while (i < 512)
+		while (i < XPM_size)
 		{
-			data->bump_maps[j][i] = (double *)malloc(sizeof (double) * 512);
+			data->bump_maps[j][i] = (double *)malloc(sizeof (double) * XPM_size);
 			i++;
 		}
 		j++;

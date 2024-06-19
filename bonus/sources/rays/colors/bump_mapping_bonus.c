@@ -27,10 +27,10 @@ void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p)
 	double	bump_coef_v;
 
 	bump_coef = get_bump_coef(p->bump_map, p->u, p->v);
-	bump_coef_u = get_bump_coef(p->bump_map, p->u + (1.0 / 512.0), p->v);
-	bump_coef_v = get_bump_coef(p->bump_map, p->u, p->v + (1.0 / 512.0));
-	*p->du = (bump_coef_u - bump_coef) / (1.0 / 512.0);
-	*p->dv = (bump_coef_v - bump_coef) / (1.0 / 512.0);
+	bump_coef_u = get_bump_coef(p->bump_map, p->u + (1.0 / XPM_size), p->v);
+	bump_coef_v = get_bump_coef(p->bump_map, p->u, p->v + (1.0 / XPM_size));
+	*p->du = (bump_coef_u - bump_coef) / (1.0 / XPM_size);
+	*p->dv = (bump_coef_v - bump_coef) / (1.0 / XPM_size);
 }
 
 /**========================================================================

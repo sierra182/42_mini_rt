@@ -29,7 +29,7 @@ void	free_paths(t_data *data)
 	while (i < 10)
 	{
 		j = 0;
-		while (j < 512)
+		while (j < XPM_size)
 		{
 			free(data->bump_maps[i][j]);
 			j++;

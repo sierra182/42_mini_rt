@@ -16,20 +16,18 @@ void	calculate_uv(t_ray_vector point, double *u, double *v);
 double	get_bump_coef(double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
 
-#define TEXTURE_WIDTH 512
-
 void	uv_to_texture_coordinates(double u, double v, int *x, int *y)
 {
-	*x = (int)(u * TEXTURE_WIDTH);
-	*y = (int)(v * TEXTURE_WIDTH);
+	*x = (int)(u * XPM_size);
+	*y = (int)(v * XPM_size);
 	if (*x < 0)
 		*x = 0;
 	if (*y < 0)
 		*y = 0;
-	if (*x >= TEXTURE_WIDTH)
-		*x = TEXTURE_WIDTH - 1;
-	if (*y >= TEXTURE_WIDTH)
-		*y = TEXTURE_WIDTH - 1;
+	if (*x >= XPM_size)
+		*x = XPM_size - 1;
+	if (*y >= XPM_size)
+		*y = XPM_size - 1;
 }
 
 int	gray_to_hex_string(const char *gray_string, char *hex_output)
