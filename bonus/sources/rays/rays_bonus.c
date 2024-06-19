@@ -45,7 +45,7 @@ void	new_ray(t_cam *cam, t_ray *ray, double x, double y)
 	scale_and_add_vectors(cam, ray, norm_scale_x, norm_scale_y);
 	self_normalize_vector(ray->dir_vect.axis);
 }
-
+#include "libft.h"
 /**========================================================================
  *                           LAUNCH_RAYS
  *========================================================================**/
@@ -53,20 +53,43 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 {
 	int	x;
 	int	y;
-
+	static int test;
+	
 	y = -1;
 	while (++y < data->cam.resol[1])
 	{
 		x = -1;
 		while (++x < data->cam.resol[0])
 		{
-			if (data->event.antia)
-				exec_launch_rays_antia(mlx, data, x, y);
-			else
-				exec_launch_rays(mlx, data, x, y);
+			// if (!test)
+			// {
+				if (data->event.antia == 2)
+				{
+					exec_launch_rays_antia(mlx, data, x, y);
+					
+				}
+				else if (!data->event.antia)
+					exec_launch_rays(mlx, data, x, y);				
+			// }		
 			add_xpm_items(mlx, data, x, y);
 		}
 	}
+	if (data->event.antia == 1)
+	{
+		data->event.antia = 2;
+		data->refresh = 1;
+	}
+	else if (data->event.antia == 2)	
+		data->event.antia = 0;
+	// printf("len screen: %d\n", WIDTH * HEIGHT) ;
+	// printf("len: %lu\n", ft_strlen( mlx->img.img_data)) ;
+	// char img_cpy[WIDTH * HEIGHT * 4];
+	// int i = 0;
+	// while (i < WIDTH * HEIGHT * 4)
+	// 	img_cpy[i++] = 255;
+	// // ft_memcpy(img_cpy, mlx->img.img_data,  WIDTH * HEIGHT * 4);
+	// ft_memcpy(mlx->img.img_data, img_cpy,  WIDTH * HEIGHT * 4);
+	test = 1;
 	if (data->is_test == 1)
 		make_bin_file(data, mlx);
 }
