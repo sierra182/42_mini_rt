@@ -11,11 +11,11 @@ void			get_texture(t_data *data, int i);
 unsigned char	int_to_grayscale(unsigned int hex_value);
 void			free_tab_bump(char **tab);
 
-int	get_shades_nbr(int fd, char **tab)
+void	get_shades_nbr(int fd, int *shades_nbr)
 {
-	char	*str_tmp;
-	int		shades_nbr;
 	char	*str;
+	char	*str_tmp;
+	char	**tab;
 
 	str = "";
 	while (str)
@@ -27,22 +27,21 @@ int	get_shades_nbr(int fd, char **tab)
 			free(str);
 			str = str_tmp;
 			tab = ft_split(str, ' ');
-			shades_nbr = ft_atoi(tab[2]);
+			*shades_nbr = ft_atoi(tab[2]);
 			free_tab_bump(tab);
 			free(str);
 			break ;
 		}
 		free(str);
 	}
-	return (shades_nbr);
 }
 
 void	extract_texture_values(int shades_nbr, int fd, int char_tab[][2])
 {
+	char	*str;
+	char	*str_tmp;
 	char	hex_output[8];
 	int		j;
-	char	*str_tmp;
-	char	*str;
 
 	j = 0;
 	while (j < shades_nbr)
@@ -120,14 +119,12 @@ void	fill_bump_map(t_fill_bump_map *p, int char_tab[][2])
 
 void	get_texture(t_data *data, int i)
 {
-	char	*str_tmp;
-	char	**tab;
 	int		fd;
 	int		shades_nbr;
 	int		char_tab[100][2];
 
 	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
-	shades_nbr = get_shades_nbr(fd, tab);
+	get_shades_nbr(fd, &shades_nbr);
 	extract_texture_values(shades_nbr, fd, char_tab);
 	fill_bump_map(&(t_fill_bump_map){shades_nbr, data, fd, i}, char_tab);
 	close(fd);

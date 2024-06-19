@@ -3,10 +3,7 @@
 
 char	*get_bmpath(t_data *data, int index)
 {
-	char	*bmpath;
-
-	bmpath = data->bump_map_paths[index];
-	return (bmpath);
+	return (data->bump_map_paths[index]);
 }
 
 void	int_to_rgb(unsigned int hex_value, unsigned char *r,
