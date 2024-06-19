@@ -43,6 +43,7 @@ CFLAGS = \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-O3 \
+	-g \
 	# -Wall -Wextra -Werror
 
 SOURCES = \

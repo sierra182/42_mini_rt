@@ -88,6 +88,8 @@ void	handle_line(t_handle_line_params *p, int char_tab[][2])
 		}
 		(*(p->j))++;
 	}
+	free(p->str);
+
 }
 
 /**========================================================================
@@ -110,7 +112,8 @@ void	fill_bump_map(t_fill_bump_map *p, int char_tab[][2])
 			{p->data, str, &j, p->i, p->shades_nbr, &l}, char_tab);
 			l++;
 		}
-		free(str);
+		else
+			free(str);
 		j++;
 	}
 }

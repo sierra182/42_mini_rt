@@ -12,18 +12,10 @@ int	get_color(unsigned char r, unsigned char g, unsigned char b);
 
 void	free_paths(t_data *data)
 {
+
 	int	i;
 	int	j;
 
-	i = 0;
-	if (data->bump_map_paths[i] == NULL)
-		return ;
-	while (data->bump_map_paths[i])
-	{
-		// printf("free path: %s\n", data->bump_map_paths[i]);
-		free (data->bump_map_paths[i]);
-		i++;
-	}
 	i = 0;
 	int k;
 	while (i < 10)
@@ -38,6 +30,15 @@ void	free_paths(t_data *data)
 		i++;
 	}
 	free(data->bump_maps);
+	i = 0;
+	// if (data->bump_map_paths[i] == NULL)
+	// 	return ;
+	while (i < 100)
+	{
+		// printf("free path: %s\n", data->bump_map_paths[i]);
+		free (data->bump_map_paths[i]);
+		i++;
+	}
 }
 
 /**========================================================================
@@ -59,9 +60,9 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	if (generate_video_frames(&data, envp))
 		return (0);
-	if (init_mlx(&mlx))
-		return (4);
-	launch_mlx_loop(&mlx, &data);
+	// if (init_mlx(&mlx))
+	// 	return (4);
+	// launch_mlx_loop(&mlx, &data);
 	free_paths(&data);
 	flush_exit_struct();
 	return (0);
