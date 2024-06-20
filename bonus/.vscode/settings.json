@@ -15,7 +15,8 @@
 		"exit_bonus.h": "c",
 		"get_sphere_color_bonus.h": "c",
 		"get_plane_color_bonus.h": "c",
-		"se_mini_struct_bonus.h": "c"
+		"se_mini_struct_bonus.h": "c",
+		"stdlib.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

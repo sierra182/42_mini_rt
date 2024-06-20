@@ -10,10 +10,10 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray, int size,
 			t_ray_vector	*normal);
 void	calculate_uv(t_ray_vector point, double *u, double *v);
 void	checker_color(double u, double v, int checker_size, t_color *color);
-void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
+void	apply_bump_mapping(t_sphere *sphere, t_ray_vector *normal, double u, double v,
 			double **bump_map);
 void	calculate_uv(t_ray_vector point, double *u, double *v);
-double	get_bump_coef(double **bump_map, double u, double v);
+double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
 
 /**========================================================================
@@ -35,14 +35,14 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 		checker_color(u, v, size, params->color);
 		return ;
 	}
-	apply_bump_mapping(normal, u, v,
+	apply_bump_mapping(sphere, normal, u, v,
 		params->data->bump_maps[sphere->bump_map_nbr]);
 }
 
 /**========================================================================
  *                           UV_TO_TEXTURE_COORDINATES
  *========================================================================**/
-void	uv_to_texture_coordinates(double u, double v, int *x, int *y)
+void	uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int *y)
 {
 	*x = (int)(u * XPM_size);
 	*y = (int)(v * XPM_size);
@@ -50,6 +50,8 @@ void	uv_to_texture_coordinates(double u, double v, int *x, int *y)
 		*x = 0;
 	if (*y < 0)
 		*y = 0;
+	*x += sphere->rotation_angle;
+	*y += sphere->rotation_angle;
 	if (*x >= XPM_size)
 		*x = XPM_size - 1;
 	if (*y >= XPM_size)

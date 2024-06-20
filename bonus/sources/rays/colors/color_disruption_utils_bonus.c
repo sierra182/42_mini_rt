@@ -10,12 +10,12 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray, int size,
 			t_ray_vector	*normal);
 void	calculate_uv(t_ray_vector point, double *u, double *v);
 void	checker_color(double u, double v, int checker_size, t_color *color);
-void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
+void	apply_bump_mapping(t_sphere *sphere, t_ray_vector *normal, double u, double v,
 			double **bump_map);
 void	calculate_uv(t_ray_vector point, double *u, double *v);
-double	get_bump_coef(double **bump_map, double u, double v);
+double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
-void	uv_to_texture_coordinates(double u, double v, int *x, int *y);
+void	uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int *y);
 
 /**========================================================================
  *                           HEX_TO_INT
@@ -30,12 +30,12 @@ int	hex_to_int(const char *hex_string)
 /**========================================================================
  *                           GET_BUMP_COEF
  *========================================================================**/
-double	get_bump_coef(double **bump_map, double u, double v)
+double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v)
 {
 	int		x;
 	int		y;
 
-	uv_to_texture_coordinates(u, v, &x, &y);
+	uv_to_texture_coordinates(sphere, u, v, &x, &y);
 	return (bump_map[x][y]);
 }
 

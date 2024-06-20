@@ -2,16 +2,16 @@
 #include "x_linear_algebra_bonus.h"
 #include <stdio.h>
 
-double	get_bump_coef(double **bump_map, double u, double v);
+double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v);
 void	calculate_tangent(t_ray_vector *normal, t_ray_vector *t);
 void	calculate_bitangent(t_ray_vector *n, t_ray_vector *t, t_ray_vector *b);
-void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p);
+void	calculate_bump_derivatives(t_sphere *sphere, t_calculate_bump_derivatives_params *p);
 
 /**========================================================================
  *                           apply_bump_mapping
  * change scale value for texturization "intensity"
  *========================================================================**/
-void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
+void	apply_bump_mapping(t_sphere *sphere, t_ray_vector *normal, double u, double v,
 	double **bump_map)
 {
 	t_ray_vector	t;
@@ -23,7 +23,7 @@ void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
 	scale = 0.001;
 	calculate_tangent(normal, &t);
 	calculate_bitangent(normal, &t, &b);
-	calculate_bump_derivatives(&(t_calculate_bump_derivatives_params)
+	calculate_bump_derivatives(sphere, &(t_calculate_bump_derivatives_params)
 	{u, v, &du, &dv, bump_map});
 	normal->axis[0] = normal->axis[0] + scale * (du * t.axis[0] + dv
 			* b.axis[0]);
@@ -59,15 +59,15 @@ void	calculate_bitangent(t_ray_vector *n, t_ray_vector *t, t_ray_vector *b)
 /**========================================================================
  *                           CALCUATE_BUMP_DERIVATIVES
  *========================================================================**/
-void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p)
+void	calculate_bump_derivatives(t_sphere *sphere, t_calculate_bump_derivatives_params *p)
 {
 	double	bump_coef;
 	double	bump_coef_u;
 	double	bump_coef_v;
 
-	bump_coef = get_bump_coef(p->bump_map, p->u, p->v);
-	bump_coef_u = get_bump_coef(p->bump_map, p->u + (1.0 / XPM_size), p->v);
-	bump_coef_v = get_bump_coef(p->bump_map, p->u, p->v + (1.0 / XPM_size));
+	bump_coef = get_bump_coef(sphere, p->bump_map, p->u, p->v);
+	bump_coef_u = get_bump_coef(sphere, p->bump_map, p->u + (1.0 / XPM_size), p->v);
+	bump_coef_v = get_bump_coef(sphere, p->bump_map, p->u, p->v + (1.0 / XPM_size));
 	*p->du = (bump_coef_u - bump_coef) / (1.0 / XPM_size);
 	*p->dv = (bump_coef_v - bump_coef) / (1.0 / XPM_size);
 }
