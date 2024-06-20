@@ -6,7 +6,7 @@
 # define AXIS 3
 # define MTX 4 
 # define BIG_VALUE 100000000
-# define XPM_size 1024
+# define XPM_SIZE 1024
 
 # include <stdio.h>
 # include "se_color_image_bonus.h"

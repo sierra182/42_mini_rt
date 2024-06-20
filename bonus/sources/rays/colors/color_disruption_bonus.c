@@ -8,11 +8,12 @@
 void	clamp_rgb_0(t_color *color);
 void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray, int size,
 			t_ray_vector	*normal);
-void	calculate_uv(t_sphere *sphere, t_ray_vector point, double *u, double *v);
+void	calculate_uv(t_sphere *sphere, t_ray_vector point, double *u,
+			double *v);
 void	checker_color(double u, double v, int checker_size, t_color *color);
-void	apply_bump_mapping(t_sphere *sphere, t_ray_vector *normal, double u, double v,
+void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
 			double **bump_map);
-double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v);
+double	get_bump_coef(double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
 
 /**========================================================================
@@ -36,27 +37,25 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 	}
 	if (sphere->checkerboard == 0 && sphere->bump_map_nbr == -1)
 		return ;
-	apply_bump_mapping(sphere, normal, u, v,
+	apply_bump_mapping(normal, u, v,
 		params->data->bump_maps[sphere->bump_map_nbr]);
 }
 
 /**========================================================================
  *                           UV_TO_TEXTURE_COORDINATES
  *========================================================================**/
-void	uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int *y)
+void	uv_to_texture_coordinates(double u, double v, int *x, int *y)
 {
-	// printf("u: %f, v: %f\n", u, v);
-
-	*x = (int)(u * XPM_size);
-	*y = (int)(v * XPM_size);
+	*x = (int)(u * XPM_SIZE);
+	*y = (int)(v * XPM_SIZE);
 	if (*x < 0)
-		*x = XPM_size + 1 - *x;
+		*x = XPM_SIZE + 1 - *x;
 	if (*y < 0)
-		*y = XPM_size + 1 - *y;
-	if (*x > XPM_size - 1)
-		*x = *x - XPM_size ;
-	if (*y > XPM_size - 1)
-		*y > XPM_size;
+		*y = XPM_SIZE + 1 - *y;
+	if (*x > XPM_SIZE - 1)
+		*x = *x - XPM_SIZE ;
+	if (*y > XPM_SIZE - 1)
+		*y > XPM_SIZE;
 }
 
 /**========================================================================
