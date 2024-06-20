@@ -35,7 +35,8 @@ double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v)
 	int		y;
 
 	uv_to_texture_coordinates(sphere, u, v, &x, &y);
-	return (bump_map[x][y]);
+	if (bump_map && bump_map[x] && bump_map[x][y])
+		return (bump_map[x][y]);
 }
 
 /**========================================================================
@@ -47,4 +48,9 @@ void	calculate_uv(t_sphere *sphere, t_ray_vector point, double *u, double *v)
 	*v = 0.5 - asin(point.axis[1]) / M_PI;
 	*u += sphere->rotation_angle_x / XPM_size;
 	*v += sphere->rotation_angle_y / XPM_size;
+	if (sphere->rotation_angle_x < 0)
+		sphere->rotation_angle_x = XPM_size;
+	if (sphere->rotation_angle_y < 0)
+		sphere->rotation_angle_x = XPM_size;
+	// printf("u: %f, v: %f\n", *u, *v);
 }

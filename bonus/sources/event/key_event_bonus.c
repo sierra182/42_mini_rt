@@ -1,5 +1,7 @@
 #include "key_event_bonus.h"
 
+void	event_rotate_sphere(t_data *data, int keycode, t_matrix_vector *vector);
+
 /**========================================================================
  *                           KEY_CODE_FUNCS
  *========================================================================**/
@@ -65,8 +67,10 @@ void	data_event_funcs_2(t_data *data, int keycode, t_mlx *mlx)
 		actual_mesh_handle(data, NULL, &transl_vect, &rotate_vect);
 		if (transl_vect)
 			event_translate(keycode, trsl_about_cam, &data->cam, transl_vect);
-		// if (rotate_vect)
-		event_rotate(data, keycode, rotate_vect);
+		if (rotate_vect)
+			event_rotate(data, keycode, rotate_vect);
+		if (data->event.actual_mesh.type == O_SP)
+			event_rotate_sphere(data, keycode, rotate_vect);
 	}
 	if (data->event.actual_mode == E_MESH && (keycode == PLUS
 			|| keycode == MINUS))

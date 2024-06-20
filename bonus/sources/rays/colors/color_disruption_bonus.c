@@ -34,9 +34,8 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 		checker_color(u, v, size, params->color);
 		return ;
 	}
-	if (sphere->checkerboard == 0)
+	if (sphere->checkerboard == 0 && sphere->bump_map_nbr == -1)
 		return ;
-	printf("modif_uv, sphere->checkerboard: %i\n", sphere->checkerboard);
 	apply_bump_mapping(sphere, normal, u, v,
 		params->data->bump_maps[sphere->bump_map_nbr]);
 }
@@ -48,12 +47,12 @@ void	uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int
 {
 	*x = (int)(u * XPM_size);
 	*y = (int)(v * XPM_size);
+	// *x += sphere->rotation_angle_x;
+	// *y += sphere->rotation_angle_y;
 	if (*x < 0)
-		*x = 0;
+		*x = XPM_size;
 	if (*y < 0)
-		*y = 0;
-	*x += sphere->rotation_angle_x;
-	*y += sphere->rotation_angle_y;
+		*y = XPM_size;
 	if (*x >= XPM_size)
 		*x = XPM_size - 1;
 	if (*y >= XPM_size)
@@ -97,6 +96,7 @@ void	checker_color(double u, double v, int checker_size, t_color *color)
 
 	u_index = (int)(u * checker_size);
 	v_index = (int)(v * checker_size);
+	// printf("u_index: %d, v_index: %d\n", u_index, v_index);
 	is_checker = (u_index % 2 == v_index % 2);
 	if (is_checker)
 	{
