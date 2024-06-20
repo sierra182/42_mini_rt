@@ -54,9 +54,6 @@ void	calculate_uv(t_sphere *sphere, t_ray_vector point, double *u, double *v)
 		sphere->rotation_angle_x = 0;
 	if (sphere->checkerboard && sphere->rotation_angle_y > XPM_size)
 		sphere->rotation_angle_y = 0;
-	if (sphere->checkerboard)
-		printf("nanana\n");
 	*u += sphere->rotation_angle_x / XPM_size;
 	*v += sphere->rotation_angle_y / XPM_size;
-	// printf("u: %f, v: %f\n", *u, *v);
 }
