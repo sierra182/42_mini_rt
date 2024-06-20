@@ -50,9 +50,9 @@ void	uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int
 	*x = (int)(u * XPM_size);
 	*y = (int)(v * XPM_size);
 	if (*x < 0)
-		*x = XPM_size - *x;
+		*x = XPM_size + 1 - *x;
 	if (*y < 0)
-		*y = XPM_size - *y;
+		*y = XPM_size + 1 - *y;
 	if (*x > XPM_size - 1)
 		*x = *x - XPM_size ;
 	if (*y > XPM_size - 1)
