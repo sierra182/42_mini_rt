@@ -29,6 +29,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[0] = tab[4];
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
+	data->spheres[i].checkerboard = 0;
 	handle_uv_modif_params(tab[7], data, i);
 	data->spheres[i].which_t = 0;
 	data->spheres[i].t1 = 0.0;
@@ -113,6 +114,7 @@ void	fill_struct_pl(t_data *data, double tab[])
 	}
 	else if ((int)tab[9] != 1024)
 	{
+		data->planes[i].checkerboard = 0;
 		data->planes[i].bump_map_path = get_bmpath(data, (int)tab[9]);
 	}
 	else

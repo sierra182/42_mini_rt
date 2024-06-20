@@ -8,11 +8,10 @@
 void	clamp_rgb_0(t_color *color);
 void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray, int size,
 			t_ray_vector	*normal);
-void	calculate_uv(t_ray_vector point, double *u, double *v);
+void	calculate_uv(t_sphere *sphere, t_ray_vector point, double *u, double *v);
 void	checker_color(double u, double v, int checker_size, t_color *color);
 void	apply_bump_mapping(t_sphere *sphere, t_ray_vector *normal, double u, double v,
 			double **bump_map);
-void	calculate_uv(t_ray_vector point, double *u, double *v);
 double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
 
@@ -29,12 +28,15 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 	sphere = (t_sphere *) params->mesh->ref;
 	if (sphere->checkerboard == 0 && sphere->bump_map_nbr == -1)
 		return ;
-	calculate_uv(*normal, &u, &v);
+	calculate_uv(sphere, *normal, &u, &v);
 	if (sphere->checkerboard == 1)
 	{
 		checker_color(u, v, size, params->color);
 		return ;
 	}
+	if (sphere->checkerboard == 0)
+		return ;
+	printf("modif_uv, sphere->checkerboard: %i\n", sphere->checkerboard);
 	apply_bump_mapping(sphere, normal, u, v,
 		params->data->bump_maps[sphere->bump_map_nbr]);
 }
