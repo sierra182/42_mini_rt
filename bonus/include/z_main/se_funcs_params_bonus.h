@@ -49,30 +49,31 @@ typedef struct s_reset_tmps
 
 typedef struct s_calculate_bump_derivatives_params
 {
-	double u;
-	double v;
-	double *du;
-	double *dv;
-	double **bump_map;
+	double	u;
+	double	v;
+	double	*du;
+	double	*dv;
+	double	**bump_map;
 }	t_calculate_bump_derivatives_params;
 
-typedef struct	s_fill_bump_map
+typedef struct s_fill_bump_map
 {
-	int shades_nbr;
-	t_data *data;
-	int fd;
-	int i;
+	int		shades_nbr;
+	t_data	*data;
+	int		fd;
+	int		i;
 }	t_fill_bump_map;
 
 typedef struct s_handle_line_params
 {
-	t_data *data;
-	char *str;
-	int *j;
-	int i;
-	int shades_nbr;
-	int *l;
+	t_data	*data;
+	char	*str;
+	int		*j;
+	int		i;
+	int		shades_nbr;
+	int		*l;
 }	t_handle_line_params;
+
 typedef struct s_antia
 {
 	double	alia;

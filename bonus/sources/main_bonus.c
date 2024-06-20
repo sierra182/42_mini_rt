@@ -8,36 +8,6 @@
  *! 2 lines commented in parsing to be taken out!  
  *========================================================================**/
 
-int	get_color(unsigned char r, unsigned char g, unsigned char b);
-
-void	free_paths(t_data *data)
-{
-
-	int	i;
-	int	j;
-
-	i = 0;
-	int k;
-	while (i < 10)
-	{
-		j = 0;
-		while (j < XPM_size)
-		{
-			free(data->bump_maps[i][j]);
-			j++;
-		}
-		free(data->bump_maps[i]);
-		i++;
-	}
-	free(data->bump_maps);
-	i = 0;
-	while (i < 100)
-	{
-		free (data->bump_map_paths[i]);
-		i++;
-	}
-}
-
 /**========================================================================
  *                           MAIN
  *========================================================================**/

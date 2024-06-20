@@ -24,7 +24,7 @@ void	store_and_free_mlx(t_exit *exit, void *mlx)
 		mlx_destroy_image(exit->mlx->connect,
 			exit->mlx->img_items.antia.img_ptr);
 		mlx_destroy_image(exit->mlx->connect,
-			exit->mlx->img.img_ptr);	
+			exit->mlx->img.img_ptr);
 		mlx_destroy_window(exit->mlx->connect, exit->mlx->window);
 		mlx_destroy_display(exit->mlx->connect);
 		free(exit->mlx->connect);
@@ -51,5 +51,35 @@ void	store_and_free_data_copy(t_exit *exit, void *data_cpy)
 		exit->data_cpy->spotlights = NULL;
 		free(exit->data_cpy);
 		exit->data_cpy = NULL;
+	}
+}
+
+/**========================================================================
+ *                           FREE_PATHS
+ *========================================================================**/
+void	free_paths(t_data *data)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	while (i < 10)
+	{
+		j = 0;
+		while (j < XPM_size)
+		{
+			free(data->bump_maps[i][j]);
+			j++;
+		}
+		free(data->bump_maps[i]);
+		i++;
+	}
+	free(data->bump_maps);
+	i = 0;
+	while (i < 100)
+	{
+		free (data->bump_map_paths[i]);
+		i++;
 	}
 }
