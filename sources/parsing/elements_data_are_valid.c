@@ -48,13 +48,13 @@ int	data_str_is_valid(char *str)
 	else if (!ft_strcmp(token, "L"))
 		data_str = "7,fl,fl,fl,ltr,byt,byt,byt";
 	else if (!ft_strcmp(token, "sp"))
-		data_str = "7,fl,fl,fl,fl,byt,byt,byt";
+		data_str = "7,fl,fl,fl,ufl,byt,byt,byt";
 	else if (!ft_strcmp(token, "pl"))
 		data_str = "9,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt";
 	else if (!ft_strcmp(token, "cy"))
-		data_str = "11,fl,fl,fl,vecr,vecr,vecr,fl,fl,byt,byt,byt";
+		data_str = "11,fl,fl,fl,vecr,vecr,vecr,ufl,ufl,byt,byt,byt";
 	else if (!ft_strncmp(token, "#", 1))
-		return (1);
+		return (1); 
 	else
 		return (0);
 	if (check_data(token, data_str) == 0)
@@ -103,6 +103,8 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 		if (num[*i] && !ft_strcmp(num[*i], "fov") && !chck_bt(token, FOV))
 			return (0);
 		if (num[*i] && !ft_strcmp(num[*i], "fl") && !chck_fl(token, FL))
+			return (0);
+		if (num[*i] && !ft_strcmp(num[*i], "ufl") && !chck_fl(token, UFL))
 			return (0);
 		(*i)++;
 	}

@@ -18,6 +18,11 @@ int	typ_check_fl(char *str, t_num_type num)
 		if (tmp < -1.0 || tmp > 1.0)
 			return (0);
 	}
+	else if (num == UFL) // Modifs to be made on mandatory!!!
+	{
+		if (tmp < 0.0)
+			return (0);
+	}
 	return (1);
 }
 
@@ -54,7 +59,7 @@ int	chck_fl(char *str, t_num_type num)
 
 	if (str == NULL)
 		return (1);
-	if (ft_strlen(str) > 10)
+	if (ft_strlen(str) > 100)
 		return (0);
 	if (!str[0] || (str[0] != '-' && str[0] != '+' && !ft_isdigit(str[0])))
 		return (0);

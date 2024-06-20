@@ -129,7 +129,7 @@ int	check_data_nbrs(char *token, char	**num, int *i)
 		if (num[*i] && !ft_strcmp(num[*i], "check") && token
 			&& (ft_strcmp(token, "checkerboard") && !is_valid_xpm(token)))
 			return (0);
-		(*i)++;
+		(*i)++; 
 	}
 	return (1);
 }
