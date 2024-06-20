@@ -61,5 +61,5 @@ void	key_up_event(int keycode, void *param)
 
 	data = (t_data *)((void **) param)[1];
 	if (keycode == CTRL || keycode == CTRL_2)
-		data->event.ctrl_ispressed = 0;	
+		data->event.ctrl_ispressed = 0;
 }

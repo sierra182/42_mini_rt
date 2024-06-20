@@ -8,36 +8,6 @@
  *! 2 lines commented in parsing to be taken out!  
  *========================================================================**/
 
-int	get_color(unsigned char r, unsigned char g, unsigned char b);
-
-void	free_paths(t_data *data)
-{
-
-	int	i;
-	int	j;
-
-	i = 0;
-	int k;
-	while (i < 10)
-	{
-		j = 0;
-		while (j < XPM_size)
-		{
-			free(data->bump_maps[i][j]);
-			j++;
-		}
-		free(data->bump_maps[i]);
-		i++;
-	}
-	free(data->bump_maps);
-	i = 0;
-	while (i < 100)
-	{
-		free (data->bump_map_paths[i]);
-		i++;
-	}
-}
-
 /**========================================================================
  *                           MAIN
  *========================================================================**/
@@ -85,6 +55,7 @@ int	init_mlx(t_mlx *mlx)
 	init_img_item(mlx, &mlx->img_items.cam, "xpm/cam.xpm", 0xFF0000);
 	init_img_item(mlx, &mlx->img_items.amb, "xpm/amb.xpm", 0xFF0000);
 	init_img_item(mlx, &mlx->img_items.bulb, "xpm/bulb.xpm", 0xFF0000);
+	init_img_item(mlx, &mlx->img_items.antia, "xpm/antia.xpm", 0xFF0000);
 	add_exit_struct((void *) mlx, MLX);
 	return (0);
 }
@@ -132,6 +103,5 @@ int	frame(void *param)
 	data->refresh = 0;
 	launch_rays(mlx, data);
 	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
-	data->event.antia = 0;
 	return (0);
 }

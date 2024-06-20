@@ -60,13 +60,20 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		x = -1;
 		while (++x < data->cam.resol[0])
 		{
-			if (data->event.antia)
+			if (data->event.antia == 2)
 				exec_launch_rays_antia(mlx, data, x, y);
-			else
+			else if (!data->event.antia)
 				exec_launch_rays(mlx, data, x, y);
 			add_xpm_items(mlx, data, x, y);
 		}
 	}
+	if (data->event.antia == 1)
+	{
+		data->event.antia = 2;
+		data->refresh = 1;
+	}
+	else if (data->event.antia == 2)
+		data->event.antia = 0;
 	if (data->is_test == 1)
 		make_bin_file(data, mlx);
 }

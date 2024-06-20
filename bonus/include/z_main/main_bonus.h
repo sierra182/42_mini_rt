@@ -20,5 +20,6 @@ int		init_mlx(t_mlx *mlx);
 void	launch_mlx_loop(t_mlx *mlx, t_data *data);
 void	init_img_item(t_mlx *mlx, t_img *img, char *str, int color);
 int		frame(void *param);
+void	free_paths(t_data *data);
 
 #endif

@@ -22,7 +22,8 @@ typedef struct s_img_items
 	t_img	sph;
 	t_img	cam;
 	t_img	bulb;
-	t_img	amb;	
+	t_img	amb;
+	t_img	antia;
 }	t_img_items;
 
 #endif

@@ -28,7 +28,7 @@ static void	add_xpm_item(t_mlx *mlx, int pixels[], t_img *img, int offsets[])
  *========================================================================**/
 void	add_xpm_items(t_mlx *mlx, t_data *data, int x, int y)
 {
-	if (x >= 0 && x <= 100 && y >= 0 && y < 100)
+	if (x >= 0 && x < 100 && y >= 0 && y < 100)
 		add_xpm_item(mlx, (int []){x, y}, &mlx->img_items.logo,
 			(int []){0, 0});
 	if (x >= WIDTH - 100 && y >= 0 && y < 100)
