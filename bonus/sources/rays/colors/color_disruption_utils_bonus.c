@@ -46,11 +46,17 @@ void	calculate_uv(t_sphere *sphere, t_ray_vector point, double *u, double *v)
 {
 	*u = 0.5 + atan2(point.axis[2], point.axis[0]) / (2 * M_PI);
 	*v = 0.5 - asin(point.axis[1]) / M_PI;
+	if (sphere->checkerboard && sphere->rotation_angle_x < 0)
+		sphere->rotation_angle_x = XPM_size - 1;
+	if (sphere->checkerboard && sphere->rotation_angle_y < 0)
+		sphere->rotation_angle_y = XPM_size - 1;
+	if (sphere->checkerboard && sphere->rotation_angle_x > XPM_size)
+		sphere->rotation_angle_x = 0;
+	if (sphere->checkerboard && sphere->rotation_angle_y > XPM_size)
+		sphere->rotation_angle_y = 0;
+	if (sphere->checkerboard)
+		printf("nanana\n");
 	*u += sphere->rotation_angle_x / XPM_size;
 	*v += sphere->rotation_angle_y / XPM_size;
-	if (sphere->rotation_angle_x < 0)
-		sphere->rotation_angle_x = XPM_size;
-	if (sphere->rotation_angle_y < 0)
-		sphere->rotation_angle_x = XPM_size;
 	// printf("u: %f, v: %f\n", *u, *v);
 }
