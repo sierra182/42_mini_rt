@@ -25,19 +25,35 @@ void	cam_event_rotate(int keycode, t_cam *cam)
 /**========================================================================
  *                           EVENT_ROTATE
  *========================================================================**/
-void	event_rotate(int keycode, t_matrix_vector *vector)
+void	event_rotate(t_data *data, int keycode, t_matrix_vector *vector)
 {
 	double	r;
 
 	r = 1.0;
 	if (keycode == R_LFT)
+	{
+		if ((t_sphere *)data->event.actual_mesh.type == O_SP)
+			((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_x += 1;
 		rotate_mesh(vector, r, (int []){1, 0, 0});
+	}
 	else if (keycode == R_RGHT)
+	{
+		if ((t_sphere *)data->event.actual_mesh.type == O_SP)
+			((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_x -= 1;
 		rotate_mesh(vector, -r, (int []){1, 0, 0});
+	}
 	else if (keycode == R_UP)
+	{
+		if ((t_sphere *)data->event.actual_mesh.type == O_SP)
+			((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_y += 1;
 		rotate_mesh(vector, r, (int []){0, 1, 0});
+	}
 	else if (keycode == R_DWN)
+	{
+		if ((t_sphere *)data->event.actual_mesh.type == O_SP)
+			((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_y -= 1;
 		rotate_mesh(vector, -r, (int []){0, 1, 0});
+	}
 	else if (keycode == S_LFT)
 		rotate_mesh(vector, r, (int []){0, 0, 1});
 	else if (keycode == S_RGHT)

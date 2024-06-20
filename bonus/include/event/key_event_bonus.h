@@ -13,7 +13,7 @@ void	trsl_about_cam(t_cam *cam, t_matrix_vector *vect, double values[]);
 void	chang_mesh_size(t_data *data, int keycode);
 void	event_intensity(int keycode, double *intensity);
 void	cam_event_rotate(int keycode, t_cam *cam);
-void	event_rotate(int keycode, t_matrix_vector *vector);
+void	event_rotate(t_data *data, int keycode, t_matrix_vector *vector);
 void	event_translate(int keycode,
 			void (*trsl_mesh)(t_cam *cam, t_matrix_vector *vect,
 				double values[]), t_cam *cam, t_matrix_vector *vect);

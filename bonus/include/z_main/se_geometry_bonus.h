@@ -20,7 +20,9 @@ typedef struct s_sphere
 	int				which_t;
 	double			t1;
 	double			t2;
-	double			rotation_angle;
+	double			rotation_angle_x;
+	double			rotation_angle_y;
+	t_matrix_vector *vector;
 }	t_sphere;
 
 typedef struct s_cylinder

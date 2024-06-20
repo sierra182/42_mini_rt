@@ -48,7 +48,8 @@ void	actual_mesh_handle(t_data *data, t_obj *mesh,
 	{
 		if (data->event.actual_mesh.type == O_SP)
 			assign_vector(&((t_sphere *) data->event.actual_mesh.ref)
-				->origin_vect, NULL, origin_vect, dir_vect);
+				->origin_vect, (t_matrix_vector *) &((t_sphere *) data->event.actual_mesh.ref)
+				->vector, origin_vect, dir_vect);
 		else if (data->event.actual_mesh.type == O_PL)
 			assign_vector(&((t_plane *) data->event.actual_mesh.ref)
 				->origin_vect, &((t_plane *) data->event.actual_mesh.ref)

@@ -50,8 +50,8 @@ void	uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int
 		*x = 0;
 	if (*y < 0)
 		*y = 0;
-	*x += sphere->rotation_angle;
-	*y += sphere->rotation_angle;
+	*x += sphere->rotation_angle_x;
+	*y += sphere->rotation_angle_y;
 	if (*x >= XPM_size)
 		*x = XPM_size - 1;
 	if (*y >= XPM_size)
