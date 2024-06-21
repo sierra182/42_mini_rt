@@ -14,6 +14,7 @@ void			get_shades_nbr(int fd, int *shades_nbr, int *char_pp);
 void			extract_texture_values(int shades_nbr, int char_pp, int fd,
 					int int_tab[][2]);
 void			fill_bump_map(t_fill_bump_map *p, int int_tab[][2]);
+void			handle_line(t_handle_line_params *p, int int_tab[][2]);
 
 /**========================================================================
  *                           GET_TEXTURE
@@ -62,6 +63,9 @@ void	get_shades_nbr(int fd, int *shades_nbr, int *char_pp)
 	}
 }
 
+/**========================================================================
+ *                           GET_CHAR_PP_VALUE
+ *========================================================================**/
 int get_char_pp_value(const char *str, int char_pp) {
     int i;
     int char_pp_value = 0;
@@ -110,9 +114,35 @@ void	extract_texture_values(int shades_nbr, int char_pp,  int fd, int int_tab[][
 				int_tab[j][1] = hex_to_int(hex_output);
 			else
 				int_tab[j][1] = hex_to_int(&str[3 + char_pp]);
-			printf(">%i<: >%i<, %s\n", int_tab[j][0], int_tab[j][1], &str[3 + char_pp]);
+			printf(">%i<: >%i<\n", int_tab[j][0], int_tab[j][1]);
 		}
 		free(str);
+		j++;
+	}
+}
+
+/**========================================================================
+ *                           FILL_BUMP_MAP
+ *========================================================================**/
+void	fill_bump_map(t_fill_bump_map *p, int int_tab[][2])
+{
+	int		j;
+	int		l;
+	char	*str;
+
+	l = 0;
+	str = "";
+	while (str)
+	{
+		str = get_next_line(p->fd);
+		if (str && str[0] == '"')
+		{
+			handle_line(&(t_handle_line_params)
+			{p->data, str, &j, p->i, p->shades_nbr, &l}, int_tab);
+			l++;
+		}
+		else
+			free(str);
 		j++;
 	}
 }
@@ -146,30 +176,4 @@ void	handle_line(t_handle_line_params *p, int int_tab[][2])
 		(*(p->j))++;
 	}
 	free(p->str);
-}
-
-/**========================================================================
- *                           FILL_BUMP_MAP
- *========================================================================**/
-void	fill_bump_map(t_fill_bump_map *p, int int_tab[][2])
-{
-	int		j;
-	int		l;
-	char	*str;
-
-	l = 0;
-	str = "";
-	while (str)
-	{
-		str = get_next_line(p->fd);
-		if (str && str[0] == '"')
-		{
-			handle_line(&(t_handle_line_params)
-			{p->data, str, &j, p->i, p->shades_nbr, &l}, int_tab);
-			l++;
-		}
-		else
-			free(str);
-		j++;
-	}
 }
