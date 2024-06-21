@@ -64,7 +64,7 @@ static void	get_cylinder_color_cyl(t_get_color_params *params)
 	add_cyl_spotlights_effect(params, params->normal, &spotlighties_color,
 		&light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	apply_aces_tonemap(params->color);
+	// apply_aces_tonemap(params->color);
 }
 
 /**========================================================================

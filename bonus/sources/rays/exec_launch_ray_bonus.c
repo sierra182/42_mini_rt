@@ -28,10 +28,11 @@ static void	calculate_ray_reflexion(t_ray *ray,
 	 symmetrize_vector(reflex_ray->dir_vect.axis);
 }
 void		get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
-
+void	apply_aces_tonemap(t_color *color);
 void	launch_recursive_reflexion(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
 {
-	t_ray reflex_ray;
+	t_ray 	reflex_ray;
+	t_color	reflex_color;
 
 	get_closest_intersection(data, ray, obj);
 	get_pixel_color(data, ray, obj, color);
@@ -41,8 +42,10 @@ void	launch_recursive_reflexion(t_data *data, t_ray *ray, t_obj *obj, t_color *c
 		get_intersect_point(ray, obj->t, &reflex_ray.origin_vect);
 		calculate_ray_reflexion(ray, &((t_plane *) obj->ref)->norm_vect, &reflex_ray);
 		get_closest_intersection(data, &reflex_ray, obj);
-		get_pixel_color(data, &reflex_ray, obj, color);
+		get_pixel_color(data, &reflex_ray, obj, &reflex_color);
+		add_color(color, &reflex_color, color);
 	}
+		apply_aces_tonemap(color);
 }
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS

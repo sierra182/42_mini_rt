@@ -61,5 +61,5 @@ void	get_plane_color(t_get_color_params *params)
 	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
 	add_pl_spotlights_effect(params, &normal, &spotlighties_color, &light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	apply_aces_tonemap(params->color);
+	// apply_aces_tonemap(params->color);
 }
