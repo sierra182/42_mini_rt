@@ -10,8 +10,8 @@ int				hex_to_int(const char *hex_string);
 void			get_texture(t_data *data, int i);
 unsigned char	int_to_grayscale(unsigned int hex_value);
 void			free_tab_bump(char **tab);
-void			get_shades_nbr(int fd, int *shades_nbr);
-void			extract_texture_values(int shades_nbr, int fd,
+void			get_shades_nbr(int fd, int *shades_nbr, int *char_pp);
+void			extract_texture_values(int shades_nbr, int char_pp, int fd,
 					int int_tab[][2]);
 void			fill_bump_map(t_fill_bump_map *p, int int_tab[][2]);
 
@@ -26,8 +26,9 @@ void	get_texture(t_data *data, int i)
 	int	int_tab[100][2];
 
 	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
-	get_shades_nbr(fd, &shades_nbr);
-	extract_texture_values(shades_nbr, fd, int_tab);
+	get_shades_nbr(fd, &shades_nbr, &char_pp);
+	printf("char_pp: %i\n", char_pp);
+	extract_texture_values(shades_nbr, char_pp, fd, int_tab);
 	fill_bump_map(&(t_fill_bump_map){shades_nbr, data, fd, i}, int_tab);
 	close(fd);
 }
@@ -35,7 +36,7 @@ void	get_texture(t_data *data, int i)
 /**========================================================================
  *                           GET_SHADES_NBR
  *========================================================================**/
-void	get_shades_nbr(int fd, int *shades_nbr)
+void	get_shades_nbr(int fd, int *shades_nbr, int *char_pp)
 {
 	char	*str;
 	char	*str_tmp;
@@ -52,6 +53,7 @@ void	get_shades_nbr(int fd, int *shades_nbr)
 			str = str_tmp;
 			tab = ft_split(str, ' ');
 			*shades_nbr = ft_atoi(tab[2]);
+			*char_pp = ft_atoi(tab[3]);
 			free_tab_bump(tab);
 			free(str);
 			break ;
@@ -60,12 +62,30 @@ void	get_shades_nbr(int fd, int *shades_nbr)
 	}
 }
 
+int get_char_pp_value(char *str)
+{
+	int i;
+	int char_pp_value = 0;
+	int factor = 1;
+	
+	if (str == NULL)
+		return -1;
+	i = 0;
+	while (str[i] && str[i] != ' ')
+	{
+		char_pp_value += str[i] * factor;
+		factor *= 10;
+		i++;
+	}
+	return (char_pp_value);
+}
+
 /**========================================================================
  *                           EXTRACT_TEXTURE_VALUES
  *? the logic should be modified HERE to handle the cases where their are
  *? more than 1 char to define a color... 
  *========================================================================**/
-void	extract_texture_values(int shades_nbr, int fd, int int_tab[][2])
+void	extract_texture_values(int shades_nbr, int char_pp,  int fd, int int_tab[][2])
 {
 	char	*str;
 	char	*str_tmp;
@@ -81,7 +101,7 @@ void	extract_texture_values(int shades_nbr, int fd, int int_tab[][2])
 			str_tmp = ft_substr(str, 1, ft_strlen(str) - 4);
 			free (str);
 			str = str_tmp;
-			int_tab[j][0] = str[0];
+			int_tab[j][0] = get_char_pp_value(str);
 			if (gray_to_hex_string(&str[4], hex_output))
 				int_tab[j][1] = hex_to_int(hex_output);
 			else
