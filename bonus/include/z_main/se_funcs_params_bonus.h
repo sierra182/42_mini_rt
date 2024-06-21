@@ -59,6 +59,7 @@ typedef struct s_calculate_bump_derivatives_params
 typedef struct s_fill_bump_map
 {
 	int		shades_nbr;
+	int		char_pp;
 	t_data	*data;
 	int		fd;
 	int		i;
@@ -71,6 +72,7 @@ typedef struct s_handle_line_params
 	int		*j;
 	int		i;
 	int		shades_nbr;
+	int		char_pp;
 	int		*l;
 }	t_handle_line_params;
 

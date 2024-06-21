@@ -30,7 +30,7 @@ void	get_texture(t_data *data, int i)
 	get_shades_nbr(fd, &shades_nbr, &char_pp);
 	// printf("char_pp: %i\n", char_pp);
 	extract_texture_values(shades_nbr, char_pp, fd, int_tab);
-	fill_bump_map(&(t_fill_bump_map){shades_nbr, data, fd, i}, int_tab);
+	fill_bump_map(&(t_fill_bump_map){shades_nbr, char_pp, data, fd, i}, int_tab);
 	close(fd);
 }
 
@@ -138,7 +138,7 @@ void	fill_bump_map(t_fill_bump_map *p, int int_tab[][2])
 		if (str && str[0] == '"')
 		{
 			handle_line(&(t_handle_line_params)
-			{p->data, str, &j, p->i, p->shades_nbr, &l}, int_tab);
+			{p->data, str, &j, p->i, p->shades_nbr, p->char_pp, &l}, int_tab);
 			l++;
 		}
 		else
@@ -171,13 +171,13 @@ void	handle_line(t_handle_line_params *p, int int_tab[][2])
 			if (get_char_pp_value(&p->str [*(p->j)], 2) == int_tab[k][0])
 			{
 				// printf("int_tab[k][0]: %i\n", int_tab[k][0]);
-				p->data->bump_maps[p->i][*(p->l)][*(p->j)]
+				p->data->bump_maps[p->i][*(p->l)][*(p->j) / p->char_pp]
 					= int_to_grayscale(int_tab[k][1]) / 255.0f;
-				printf(">%i<: >%f<\n", int_tab[k][0], p->data->bump_maps[p->i][*(p->l)][*(p->j)]);
+				printf(">%i<: >%f<\n", int_tab[k][0], p->data->bump_maps[p->i][*(p->l)][*(p->j) /p->char_pp]);
 			}
 			(k)++;
 		}
-		(*(p->j)) += 2;
+		(*(p->j)) += p->char_pp;
 	}
 	free(p->str);
 }
