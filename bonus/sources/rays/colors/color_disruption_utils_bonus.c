@@ -12,7 +12,7 @@ void	calculate_uv(t_sphere *sphere, t_ray_vector point, double *u,
 			double *v);
 void	checker_color(double u, double v, int checker_size, t_color *color);
 void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
-			double **bump_map);
+			t_get_color_params *params);
 double	get_bump_coef(double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
 void	uv_to_texture_coordinates(double u, double v, int *x, int *y);

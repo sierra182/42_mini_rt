@@ -9,7 +9,3 @@ cy 15.00,163.00,380.00  0.71,0.00,0.71  12.00  12.00  0,0,255
 sp -20.00,40.00,500.00  12.00  0,0,255
 sp -20.00,40.00,500.00  12.00  0,0,255
 pl 0.00,0.00,0.00  0.00,1.00,0.00  90,60,120
-
-
-
-  adding_triangles  changing_XPM_SIZE  developping_bump_mapping  developping_color_disruption  fix_parsing  fix_png_is_valid  main  modify_parsing  parsing_handle_multiple_spotlights  rerefactoring_bump_mapping_related_files  wip_on_parsing

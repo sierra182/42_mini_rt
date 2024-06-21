@@ -22,6 +22,8 @@ typedef struct s_sphere
 	double			t2;
 	double			rotation_angle_x;
 	double			rotation_angle_y;
+	int				xpm_size_x;
+	int				xpm_size_y;
 	t_matrix_vector	*vector;
 }	t_sphere;
 
