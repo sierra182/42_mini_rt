@@ -168,12 +168,16 @@ void	handle_line(t_handle_line_params *p, int int_tab[][2])
 		k = 0;
 		while (k < p->shades_nbr)
 		{
-			if (p->str [*(p->j)] == int_tab[k][0])
+			if (get_char_pp_value(&p->str [*(p->j)], 2) == int_tab[k][0])
+			{
+				// printf("int_tab[k][0]: %i\n", int_tab[k][0]);
 				p->data->bump_maps[p->i][*(p->l)][*(p->j)]
 					= int_to_grayscale(int_tab[k][1]) / 255.0f;
+				printf(">%i<: >%f<\n", int_tab[k][0], p->data->bump_maps[p->i][*(p->l)][*(p->j)]);
+			}
 			(k)++;
 		}
-		(*(p->j))++;
+		(*(p->j)) += 2;
 	}
 	free(p->str);
 }
