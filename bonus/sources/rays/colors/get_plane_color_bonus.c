@@ -57,7 +57,7 @@ void	get_plane_color(t_get_color_params *params)
 	t_plane			*plane;
 
 	plane = (t_plane *) params->mesh->ref;
-	compute_pl_normal(params, &normal, &light_ray);
+	// compute_pl_normal(params, &normal, &light_ray);
 	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
 	add_pl_spotlights_effect(params, &normal, &spotlighties_color, &light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
