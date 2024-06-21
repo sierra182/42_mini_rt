@@ -22,6 +22,7 @@ void	uv_to_texture_coordinates(double u, double v, int *x, int *y);
  *========================================================================**/
 int	hex_to_int(const char *hex_string)
 {
+	// printf("hex_string: >%s<\n", hex_string);
 	if (hex_string[0] != '#')
 		return (-1);
 	return ((int)strtol(hex_string + 1, NULL, 16));

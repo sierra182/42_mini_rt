@@ -23,11 +23,11 @@ void	get_texture(t_data *data, int i)
 	int	fd;
 	int	shades_nbr;
 	int	char_pp;
-	int	int_tab[100][2];
+	int	int_tab[500][2];
 
 	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
 	get_shades_nbr(fd, &shades_nbr, &char_pp);
-	printf("char_pp: %i\n", char_pp);
+	// printf("char_pp: %i\n", char_pp);
 	extract_texture_values(shades_nbr, char_pp, fd, int_tab);
 	fill_bump_map(&(t_fill_bump_map){shades_nbr, data, fd, i}, int_tab);
 	close(fd);
@@ -62,22 +62,23 @@ void	get_shades_nbr(int fd, int *shades_nbr, int *char_pp)
 	}
 }
 
-int get_char_pp_value(char *str)
-{
-	int i;
-	int char_pp_value = 0;
-	int factor = 1;
-	
-	if (str == NULL)
-		return -1;
-	i = 0;
-	while (str[i] && str[i] != ' ')
-	{
-		char_pp_value += str[i] * factor;
-		factor *= 10;
-		i++;
-	}
-	return (char_pp_value);
+int get_char_pp_value(const char *str, int char_pp) {
+    int i;
+    int char_pp_value = 0;
+    int factor = 1;
+    
+    if (str == NULL) {
+        return -1;  // Error code for NULL input
+    }
+
+    i = 0;
+    while (i < char_pp && str[i] != '\0') {
+        char_pp_value += str[i] * factor;
+        factor *= 10;
+        i++;
+    }
+
+    return char_pp_value;
 }
 
 /**========================================================================
@@ -99,13 +100,17 @@ void	extract_texture_values(int shades_nbr, int char_pp,  int fd, int int_tab[][
 		if (str && str[0] == '"')
 		{
 			str_tmp = ft_substr(str, 1, ft_strlen(str) - 4);
+			// printf("str_tmp: %s, ", str_tmp);
 			free (str);
 			str = str_tmp;
-			int_tab[j][0] = get_char_pp_value(str);
-			if (gray_to_hex_string(&str[4], hex_output))
+			// printf("str: %s, ", str);
+			int_tab[j][0] = get_char_pp_value(str, char_pp);
+			// printf("%i: ", int_tab[j][0]);
+			if (gray_to_hex_string(&str[3 + char_pp], hex_output))
 				int_tab[j][1] = hex_to_int(hex_output);
 			else
-				int_tab[j][1] = hex_to_int(&str[4]);
+				int_tab[j][1] = hex_to_int(&str[3 + char_pp]);
+			printf(">%i<: >%i<\n", int_tab[j][0], int_tab[j][1]);
 		}
 		free(str);
 		j++;
@@ -123,6 +128,7 @@ void	handle_line(t_handle_line_params *p, int int_tab[][2])
 	str_tmp = ft_substr(p->str, 1, ft_strlen(p->str) - 3);
 	free (p->str);
 	p->str = str_tmp;
+	// printf("p->str: %s\n", p->str);
 	str_tmp = ft_strtrim(str_tmp, "\"");
 	free (p->str);
 	p->str = str_tmp;

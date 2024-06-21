@@ -66,6 +66,7 @@ int	gray_to_hex_string(const char *gray_string, char *hex_output)
 	int	gray_value;
 	int	intensity;
 
+	// printf("gray_string: >%s<\n", gray_string);
 	if (ft_strncmp(gray_string, "black", 5) == 0)
 		return (strcpy(hex_output, "#FFFFFF"), 1);
 	if (ft_strncmp(gray_string, "white", 5) == 0)
