@@ -22,7 +22,7 @@ void		get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
 void		get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
 void		get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
 void		get_cylinder_color(t_data *data, t_ray *ray,
-				t_obj *obj, t_color	*color);
+				t_obj *obj, t_color	*color, t_ray_vector *normal, t_ray_pack *light_ray);
 void		put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
 void		get_closest_intersection_tr(t_data *data, t_ray *ray, t_obj *obj);
 double		is_intersect_triangle(t_ray *ray, void *input_triangle,

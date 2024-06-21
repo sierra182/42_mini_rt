@@ -30,7 +30,7 @@ void	add_disc_spotlights_effect(t_get_color_params *params,
 /**========================================================================
  *                           GET_CYLINDER_COLOR_DISCS
  *========================================================================**/
-void	get_cylinder_color_discs(t_get_color_params *params)
+void	get_cylinder_color_discs(t_get_color_params *params, t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	t_ray_pack	light_ray;
 	t_color		ambiantly_color;

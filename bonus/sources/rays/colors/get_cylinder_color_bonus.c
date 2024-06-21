@@ -4,21 +4,20 @@
  *                           GET_CYLINDER_COLOR
  *========================================================================**/
 void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj,
-		t_color *color)
+		t_color *color, t_ray_vector *normal, t_ray_pack *light_ray)
 {
-	t_ray_vector	normal;
 	t_cylinder		*cyl;
 
 	cyl = (t_cylinder *)obj->ref;
 	if (cyl->cyl_or_discs == cylinder)
 	{
 		get_cylinder_color_cyl(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, &normal});
+		{data, ray, obj->t, obj, color}, normal, light_ray);
 	}
 	if (cyl->cyl_or_discs == discs)
 	{
 		get_cylinder_color_discs(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, &normal});
+		{data, ray, obj->t, obj, color, normal}, normal, light_ray);
 	}
 }
 
@@ -50,9 +49,9 @@ static void	add_cyl_spotlights_effect(t_get_color_params *params,
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
  *========================================================================**/
-static void	get_cylinder_color_cyl(t_get_color_params *params)
+static void	get_cylinder_color_cyl(t_get_color_params *params, t_ray_vector *normal, t_ray_pack *light_ray)
 {
-	t_ray_pack		light_ray;
+	// t_ray_pack		light_ray;
 	t_color			ambiantly_color;
 	t_color			spotlighties_color;
 	t_cylinder		*cyl;	

@@ -149,7 +149,7 @@ static void	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj,
 		{data, ray, obj->t, obj, color, normal, light_ray});
 	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref
 		&& !inter_bulb)
-		get_cylinder_color(data, ray, obj, color);
+		get_cylinder_color(data, ray, obj, color, normal, light_ray);
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref
 		&& !inter_bulb)
 		get_plane_color(&(t_get_color_params)
