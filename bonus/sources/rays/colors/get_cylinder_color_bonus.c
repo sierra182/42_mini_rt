@@ -12,12 +12,12 @@ void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj,
 	if (cyl->cyl_or_discs == cylinder)
 	{
 		get_cylinder_color_cyl(&(t_get_color_params)
-		{data, ray, obj->t, obj, color}, normal, light_ray);
+		{data, ray, obj->t, obj, color, normal, light_ray});
 	}
 	if (cyl->cyl_or_discs == discs)
 	{
 		get_cylinder_color_discs(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, normal}, normal, light_ray);
+		{data, ray, obj->t, obj, color, normal, light_ray});
 	}
 }
 
@@ -49,7 +49,7 @@ static void	add_cyl_spotlights_effect(t_get_color_params *params,
 /**========================================================================
  *                           GET_CYLINDER_COLOR_CYL
  *========================================================================**/
-static void	get_cylinder_color_cyl(t_get_color_params *params, t_ray_vector *normal, t_ray_pack *light_ray)
+static void	get_cylinder_color_cyl(t_get_color_params *params)
 {
 	// t_ray_pack		light_ray;
 	t_color			ambiantly_color;
@@ -57,11 +57,11 @@ static void	get_cylinder_color_cyl(t_get_color_params *params, t_ray_vector *nor
 	t_cylinder		*cyl;	
 
 	cyl = (t_cylinder *)params->mesh->ref;
-	handle_projection(params, params->normal, &light_ray.ray);
+	handle_projection(params, params->normal, &params->light_ray->ray);
 	calculate_ambiant_effect(params, &cyl->color, params->normal,
 		&ambiantly_color);
 	add_cyl_spotlights_effect(params, params->normal, &spotlighties_color,
-		&light_ray);
+		params->light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
 	// apply_aces_tonemap(params->color);
 }
