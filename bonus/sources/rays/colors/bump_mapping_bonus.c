@@ -19,13 +19,16 @@ void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
 	double			du;
 	double			dv;
 	double			scale;
+	t_sphere	*sphere;
 
-	double **bump_map = params->data->bump_maps[((t_sphere *)params->mesh->ref)->bump_map_nbr];
+	sphere = (t_sphere *) params->mesh->ref;
+
+	double **bump_map = params->data->bump_maps[sphere->bump_map_nbr];
 	scale = 0.001;
 	calculate_tangent(normal, &t);
 	calculate_bitangent(normal, &t, &b);
 	calculate_bump_derivatives(&(t_calculate_bump_derivatives_params)
-	{u, v, &du, &dv, bump_map});
+	{u, v, &du, &dv, bump_map, sphere});
 	normal->axis[0] = normal->axis[0] + scale * (du * t.axis[0] + dv
 			* b.axis[0]);
 	normal->axis[1] = normal->axis[1] + scale * (du * t.axis[1] + dv
@@ -65,10 +68,14 @@ void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p)
 	double	bump_coef;
 	double	bump_coef_u;
 	double	bump_coef_v;
+	int		xpm_size_x;
+	int		xpm_size_y;
 
+	xpm_size_x = p->sphere->xpm_size_x;
+	xpm_size_y = p->sphere->xpm_size_y;
 	bump_coef = get_bump_coef(p->bump_map, p->u, p->v);
-	bump_coef_u = get_bump_coef(p->bump_map, p->u + (1.0 / XPM_SIZE), p->v);
-	bump_coef_v = get_bump_coef(p->bump_map, p->u, p->v + (1.0 / XPM_SIZE));
-	*p->du = (bump_coef_u - bump_coef) / (1.0 / XPM_SIZE);
-	*p->dv = (bump_coef_v - bump_coef) / (1.0 / XPM_SIZE);
+	bump_coef_u = get_bump_coef(p->bump_map, p->u + (1.0 / xpm_size_x), p->v);
+	bump_coef_v = get_bump_coef(p->bump_map, p->u, p->v + (1.0 / xpm_size_y));
+	*p->du = (bump_coef_u - bump_coef) / (1.0 / xpm_size_x);
+	*p->dv = (bump_coef_v - bump_coef) / (1.0 / xpm_size_y);
 }

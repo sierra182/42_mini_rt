@@ -54,6 +54,7 @@ typedef struct s_calculate_bump_derivatives_params
 	double	*du;
 	double	*dv;
 	double	**bump_map;
+	t_sphere	*sphere;
 }	t_calculate_bump_derivatives_params;
 
 typedef struct s_fill_bump_map

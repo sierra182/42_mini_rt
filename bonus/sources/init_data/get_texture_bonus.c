@@ -10,7 +10,7 @@ int				hex_to_int(const char *hex_string);
 void			get_texture(t_data *data, int i);
 unsigned char	int_to_grayscale(unsigned int hex_value);
 void			free_tab_bump(char **tab);
-void			get_shades_nbr(int fd, int *shades_nbr, int *char_pp);
+void			get_shades_nbr(t_sphere *sphere, int fd, int *shades_nbr, int *char_pp);
 void			extract_texture_values(int shades_nbr, int char_pp, int fd,
 					int int_tab[][2]);
 void			fill_bump_map(t_fill_bump_map *p, int int_tab[][2]);
@@ -27,7 +27,7 @@ void	get_texture(t_data *data, int i)
 	int	int_tab[500][2];
 
 	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
-	get_shades_nbr(fd, &shades_nbr, &char_pp);
+	get_shades_nbr(&data->spheres[i], fd, &shades_nbr, &char_pp);
 	// printf("char_pp: %i\n", char_pp);
 	extract_texture_values(shades_nbr, char_pp, fd, int_tab);
 	fill_bump_map(&(t_fill_bump_map){shades_nbr, char_pp, data, fd, i}, int_tab);
@@ -37,7 +37,7 @@ void	get_texture(t_data *data, int i)
 /**========================================================================
  *                           GET_SHADES_NBR
  *========================================================================**/
-void	get_shades_nbr(int fd, int *shades_nbr, int *char_pp)
+void	get_shades_nbr(t_sphere *sphere, int fd, int *shades_nbr, int *char_pp)
 {
 	char	*str;
 	char	*str_tmp;
@@ -55,6 +55,8 @@ void	get_shades_nbr(int fd, int *shades_nbr, int *char_pp)
 			tab = ft_split(str, ' ');
 			*shades_nbr = ft_atoi(tab[2]);
 			*char_pp = ft_atoi(tab[3]);
+			sphere->xpm_size_x = ft_atoi(tab[0]);
+			sphere->xpm_size_y = ft_atoi(tab[1]);
 			free_tab_bump(tab);
 			free(str);
 			break ;
