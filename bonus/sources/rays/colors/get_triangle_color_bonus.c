@@ -56,7 +56,7 @@ void	get_triangle_color(t_get_color_params *params)
 	t_triangle		*triangle;
 
 	triangle = (t_triangle *) params->mesh->ref;
-	// compute_tr_normal(params, &normal, &light_ray);
+	compute_tr_normal(params, params->normal, params->light_ray);
 	calculate_ambiant_effect(params, &triangle->color, params->normal,
 		&ambiantly_color);
 	add_tr_spotlights_effect(params, params->normal, &spotlighties_color,

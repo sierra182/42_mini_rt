@@ -43,17 +43,17 @@ void	launch_recursive_reflexion(t_data *data, t_ray *ray, t_obj *obj, t_color *c
 	t_ray_pack		light_ray;
 
 	get_closest_intersection(data, ray, obj);
-	if (obj->type == O_PL)
-		compute_pl_normal(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
-	if (obj->type == O_TR)
-		compute_tr_normal(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
-	if (obj->type == O_SP)
-		compute_sph_normal(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
+	// if (obj->type == O_PL)
+	// 	compute_pl_normal(&(t_get_color_params)
+	// 	{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
+	// if (obj->type == O_TR)
+	// 	compute_tr_normal(&(t_get_color_params)
+	// 	{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
+	// if (obj->type == O_SP)
+	// 	compute_sph_normal(&(t_get_color_params)
+	// 	{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
 	get_pixel_color(data, ray, obj, color, &normal, &light_ray);
-	if (obj->type == O_PL || obj->type == O_TR || obj->type == O_SP)
+	if (obj->ref)
 	{
 		reflex_ray.origin_vect = light_ray.ray.origin_vect;
 		// get_intersect_point(ray, obj->t, &reflex_ray.origin_vect);//!
