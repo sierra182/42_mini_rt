@@ -14,6 +14,36 @@ static void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
 	get_closest_intersection_tr(data, ray, obj);
 }
 
+#include "x_linear_algebra_bonus.h"
+static void	calculate_ray_reflexion(t_ray *ray,
+	t_matrix_vector *normal, t_ray *reflex_ray)
+{
+	t_ray_vector	scaled_norm;	
+	double			scalar_nr;
+
+	scalar_nr = 2 * scalar_product(normal->axis, ray->dir_vect.axis);
+	scale_vector(normal->axis, scalar_nr, scaled_norm.axis);
+	subtract_vector(scaled_norm.axis, ray->dir_vect.axis, reflex_ray->dir_vect.axis);
+	self_normalize_vector(reflex_ray->dir_vect.axis);
+	 symmetrize_vector(reflex_ray->dir_vect.axis);
+}
+void		get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
+
+void	launch_recursive_reflexion(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
+{
+	t_ray reflex_ray;
+
+	get_closest_intersection(data, ray, obj);
+	get_pixel_color(data, ray, obj, color);
+	if (obj->type == O_PL)
+	{
+		// printf("here\n");
+		get_intersect_point(ray, obj->t, &reflex_ray.origin_vect);
+		calculate_ray_reflexion(ray, &((t_plane *) obj->ref)->norm_vect, &reflex_ray);
+		get_closest_intersection(data, &reflex_ray, obj);
+		get_pixel_color(data, &reflex_ray, obj, color);
+	}
+}
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS
  *========================================================================**/
@@ -24,8 +54,9 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	t_color	color;
 
 	new_ray(&data->cam, &ray, x + 0.5f, y + 0.5f);
-	get_closest_intersection(data, &ray, &obj);
-	get_pixel_color(data, &ray, &obj, &color);
+	launch_recursive_reflexion(data, &ray, &obj, &color);
+	// get_closest_intersection(data, &ray, &obj);
+	// get_pixel_color(data, &ray, &obj, &color);
 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 }
 
