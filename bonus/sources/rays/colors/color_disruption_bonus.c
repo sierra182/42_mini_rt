@@ -55,7 +55,7 @@ void	uv_to_texture_coordinates(double u, double v, int *x, int *y)
 	if (*x > XPM_SIZE - 1)
 		*x = *x - XPM_SIZE ;
 	if (*y > XPM_SIZE - 1)
-		*y > XPM_SIZE;
+		*y = *y - XPM_SIZE;
 }
 
 /**========================================================================

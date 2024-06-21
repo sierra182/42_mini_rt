@@ -36,8 +36,7 @@ double	get_bump_coef(double **bump_map, double u, double v)
 	int		y;
 
 	uv_to_texture_coordinates(u, v, &x, &y);
-	if (bump_map && bump_map[x] && bump_map[x][y])
-		return (bump_map[x][y]);
+	return (bump_map[x][y]);
 }
 
 /**========================================================================
