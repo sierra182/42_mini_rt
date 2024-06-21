@@ -13,7 +13,7 @@ void	calculate_uv(t_sphere *sphere, t_ray_vector point, double *u,
 void	checker_color(double u, double v, int checker_size, t_color *color);
 void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
 			t_get_color_params *params);
-double	get_bump_coef(double **bump_map, double u, double v);
+double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
 
 /**========================================================================
@@ -44,18 +44,21 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 /**========================================================================
  *                           UV_TO_TEXTURE_COORDINATES
  *========================================================================**/
-void	uv_to_texture_coordinates(double u, double v, int *x, int *y)
+void	uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int *y)
 {
-	*x = (int)(u * XPM_SIZE);
-	*y = (int)(v * XPM_SIZE);
+	int		xpm_size_x = sphere->xpm_size_x;
+	int		xpm_size_y = sphere->xpm_size_y;
+
+	*x = (int)(u * xpm_size_x);
+	*y = (int)(v * xpm_size_y);
 	if (*x < 0)
-		*x = XPM_SIZE + 1 - *x;
+		*x = xpm_size_x + 1 - *x;
 	if (*y < 0)
-		*y = XPM_SIZE + 1 - *y;
-	if (*x > XPM_SIZE - 1)
-		*x = *x - XPM_SIZE ;
-	if (*y > XPM_SIZE - 1)
-		*y = *y - XPM_SIZE;
+		*y = xpm_size_y + 1 - *y;
+	if (*x > xpm_size_x - 1)
+		*x = *x - xpm_size_x ;
+	if (*y > xpm_size_y - 1)
+		*y = *y - xpm_size_y;
 }
 
 /**========================================================================

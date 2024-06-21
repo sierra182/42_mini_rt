@@ -2,7 +2,7 @@
 #include "x_linear_algebra_bonus.h"
 #include <stdio.h>
 
-double	get_bump_coef(double **bump_map, double u, double v);
+double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v);
 void	calculate_tangent(t_ray_vector *normal, t_ray_vector *t);
 void	calculate_bitangent(t_ray_vector *n, t_ray_vector *t, t_ray_vector *b);
 void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p);
@@ -70,12 +70,15 @@ void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p)
 	double	bump_coef_v;
 	int		xpm_size_x;
 	int		xpm_size_y;
+	t_sphere	*sphere;
+
+	sphere = (t_sphere *) p->sphere;
 
 	xpm_size_x = p->sphere->xpm_size_x;
 	xpm_size_y = p->sphere->xpm_size_y;
-	bump_coef = get_bump_coef(p->bump_map, p->u, p->v);
-	bump_coef_u = get_bump_coef(p->bump_map, p->u + (1.0 / xpm_size_x), p->v);
-	bump_coef_v = get_bump_coef(p->bump_map, p->u, p->v + (1.0 / xpm_size_y));
+	bump_coef = get_bump_coef(sphere, p->bump_map, p->u, p->v);
+	bump_coef_u = get_bump_coef(sphere, p->bump_map, p->u + (1.0 / xpm_size_x), p->v);
+	bump_coef_v = get_bump_coef(sphere, p->bump_map, p->u, p->v + (1.0 / xpm_size_y));
 	*p->du = (bump_coef_u - bump_coef) / (1.0 / xpm_size_x);
 	*p->dv = (bump_coef_v - bump_coef) / (1.0 / xpm_size_y);
 }
