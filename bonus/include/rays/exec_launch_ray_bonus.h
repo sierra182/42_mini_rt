@@ -16,7 +16,7 @@ void		get_plane_color(t_get_color_params *params);
 void		get_background_color(t_ray *ray, t_data *data,
 				t_color *back_color);
 static void	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj,
-				t_color *color);
+				t_color *color, t_ray_vector *normal);
 int			get_color(unsigned char r, unsigned char g, unsigned char b);
 void		get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
 void		get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);

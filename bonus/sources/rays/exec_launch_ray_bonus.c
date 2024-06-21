@@ -25,28 +25,32 @@ static void	calculate_ray_reflexion(t_ray *ray,
 	scale_vector(normal->axis, scalar_nr, scaled_norm.axis);
 	subtract_vector(scaled_norm.axis, ray->dir_vect.axis, reflex_ray->dir_vect.axis);
 	self_normalize_vector(reflex_ray->dir_vect.axis);
-	 symmetrize_vector(reflex_ray->dir_vect.axis);
+	 symmetrize_vector(reflex_ray->dir_vect.axis);//opti
 }
 void		get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	apply_aces_tonemap(t_color *color);
+void	compute_pl_normal(t_get_color_params *params,
+	t_ray_vector *normal);
 void	launch_recursive_reflexion(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
 {
-	t_ray 	reflex_ray;
-	t_color	reflex_color;
+	t_ray 			reflex_ray;
+	t_color			reflex_color;
+	t_ray_vector	normal;
 
 	get_closest_intersection(data, ray, obj);
-	get_pixel_color(data, ray, obj, color);
+	if (obj->type == O_PL)
+		compute_pl_normal(&(t_get_color_params)
+		{data, ray, obj->t, obj, color, NULL}, &normal);//opt
+	get_pixel_color(data, ray, obj, color, &normal);
 	if (obj->type == O_PL)
 	{		
-		compute_pl_normal(params, &normal, &light_ray);
 		get_intersect_point(ray, obj->t, &reflex_ray.origin_vect);
 		calculate_ray_reflexion(ray, &((t_plane *) obj->ref)->norm_vect, &reflex_ray);
 		get_closest_intersection(data, &reflex_ray, obj);
-		get_pixel_color(data, &reflex_ray, obj, &reflex_color);
+		get_pixel_color(data, &reflex_ray, obj, &reflex_color, &normal);
 		add_color(color, &reflex_color, color);
 	}
-		apply_aces_tonemap(color);
-
+	apply_aces_tonemap(color);
 }
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS
@@ -87,7 +91,7 @@ void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)
 			launch_recursive_reflexion(data, &antia.ray, &antia.obj, &antia.colors[antia.k++]);
 			// get_closest_intersection(data, &antia.ray, &antia.obj);
 			// get_pixel_color(data, &antia.ray, &antia.obj,
-			// 	&antia.colors[antia.k++]);
+			// &antia.colors[antia.k++]);
 			antia.ax_cpy += antia.inv_alia;
 		}
 		antia.ay += antia.inv_alia;
@@ -122,7 +126,7 @@ static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
  *                           GET_PIXEL_COLOR
  *========================================================================**/
 static void	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj,
-	t_color *color)
+	t_color *color, t_ray_vector *normal)
 {
 	double	inter_bulb;
 
@@ -136,7 +140,7 @@ static void	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj,
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref
 		&& !inter_bulb)
 		get_plane_color(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL});
+		{data, ray, obj->t, obj, color, normal});
 	if (obj->t && obj->type == O_TR && !is_behind_cam(obj->t) && obj->ref
 		&& !inter_bulb)
 		get_triangle_color(&(t_get_color_params)
