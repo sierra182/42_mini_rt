@@ -16,7 +16,7 @@ static void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
 
 #include "x_linear_algebra_bonus.h"
 static void	calculate_ray_reflexion(t_ray *ray,
-	t_matrix_vector *normal, t_ray *reflex_ray)
+	t_ray_vector *normal, t_ray *reflex_ray)
 {
 	t_ray_vector	scaled_norm;	
 	double			scalar_nr;
@@ -30,28 +30,41 @@ static void	calculate_ray_reflexion(t_ray *ray,
 void		get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	apply_aces_tonemap(t_color *color);
 void	compute_pl_normal(t_get_color_params *params,
-	t_ray_vector *normal);
+	t_ray_vector *normal, t_ray_pack *light_ray);
+	void	compute_tr_normal(t_get_color_params *params,
+	t_ray_vector *normal, t_ray_pack *light_ray);
+void	compute_sph_normal(t_get_color_params *params, t_ray_vector *normal,
+t_ray_pack *light_ray);
 void	launch_recursive_reflexion(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
 {
 	t_ray 			reflex_ray;
 	t_color			reflex_color;
 	t_ray_vector	normal;
+	t_ray_pack		light_ray;
 
 	get_closest_intersection(data, ray, obj);
 	if (obj->type == O_PL)
 		compute_pl_normal(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL}, &normal);//opt
-	get_pixel_color(data, ray, obj, color, &normal);
-	if (obj->type == O_PL)
-	{		
-		get_intersect_point(ray, obj->t, &reflex_ray.origin_vect);
-		calculate_ray_reflexion(ray, &((t_plane *) obj->ref)->norm_vect, &reflex_ray);
+		{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
+	if (obj->type == O_TR)
+		compute_tr_normal(&(t_get_color_params)
+		{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
+	if (obj->type == O_SP)
+		compute_sph_normal(&(t_get_color_params)
+		{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
+	get_pixel_color(data, ray, obj, color, &normal, &light_ray);
+	if (obj->type == O_PL || obj->type == O_TR || obj->type == O_SP)
+	{
+		reflex_ray.origin_vect = light_ray.ray.origin_vect;
+		// get_intersect_point(ray, obj->t, &reflex_ray.origin_vect);//!
+		calculate_ray_reflexion(ray, &normal, &reflex_ray);
 		get_closest_intersection(data, &reflex_ray, obj);
-		get_pixel_color(data, &reflex_ray, obj, &reflex_color, &normal);
+		get_pixel_color(data, &reflex_ray, obj, &reflex_color, &normal, &light_ray);
 		add_color(color, &reflex_color, color);
 	}
 	apply_aces_tonemap(color);
 }
+
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS
  *========================================================================**/
@@ -126,25 +139,25 @@ static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
  *                           GET_PIXEL_COLOR
  *========================================================================**/
 static void	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj,
-	t_color *color, t_ray_vector *normal)
+	t_color *color, t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	double	inter_bulb;
 
 	inter_bulb = has_bulb(data, ray, color);
 	if (obj->t && obj->type == O_SP && obj->ref && !inter_bulb)
 		get_sphere_color(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL});
+		{data, ray, obj->t, obj, color, normal, light_ray});
 	if (obj->t && obj->type == O_CY && !is_behind_cam(obj->t) && obj->ref
 		&& !inter_bulb)
 		get_cylinder_color(data, ray, obj, color);
 	if (obj->t && obj->type == O_PL && !is_behind_cam(obj->t) && obj->ref
 		&& !inter_bulb)
 		get_plane_color(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, normal});
+		{data, ray, obj->t, obj, color, normal, light_ray});
 	if (obj->t && obj->type == O_TR && !is_behind_cam(obj->t) && obj->ref
 		&& !inter_bulb)
 		get_triangle_color(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, NULL});
+		{data, ray, obj->t, obj, color, normal, light_ray});
 	if (obj->ref == NULL && !inter_bulb)
 		get_background_color(ray, data, color);
 }
