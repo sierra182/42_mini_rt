@@ -35,34 +35,34 @@ void	compute_pl_normal(t_get_color_params *params,
 	t_ray_vector *normal, t_ray_pack *light_ray);
 void	compute_sph_normal(t_get_color_params *params, t_ray_vector *normal,
 t_ray_pack *light_ray);
-void	launch_recursive_reflexion(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
+int	launch_recursive_reflexion(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
 {
 	t_ray 			reflex_ray;
 	t_color			reflex_color;
 	t_ray_vector	normal;
 	t_ray_pack		light_ray;
-
+	static int		deep;
+	// printf("je dois me monter trois fois\n");
 	get_closest_intersection(data, ray, obj);
-	// if (obj->type == O_PL)
-	// 	compute_pl_normal(&(t_get_color_params)
-	// 	{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
-	// if (obj->type == O_TR)
-	// 	compute_tr_normal(&(t_get_color_params)
-	// 	{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
-	// if (obj->type == O_SP)
-	// 	compute_sph_normal(&(t_get_color_params)
-	// 	{data, ray, obj->t, obj, color, NULL}, &normal, &light_ray);//opt
 	get_pixel_color(data, ray, obj, color, &normal, &light_ray);
+	if (deep++ >= 3)
+		return (deep = 0, 1);
 	if (obj->ref)
 	{
 		reflex_ray.origin_vect = light_ray.ray.origin_vect;
 		// get_intersect_point(ray, obj->t, &reflex_ray.origin_vect);//!
 		calculate_ray_reflexion(ray, &normal, &reflex_ray);
-		get_closest_intersection(data, &reflex_ray, obj);
-		get_pixel_color(data, &reflex_ray, obj, &reflex_color, &normal, &light_ray);
-		add_color(color, &reflex_color, color);
+		if(launch_recursive_reflexion(data, &reflex_ray, obj, color))
+		{
+			add_color(color, &reflex_color, color);
+				// apply_aces_tonemap(color);
+		}
+
+		// get_closest_intersection(data, &reflex_ray, obj);
+		// get_pixel_color(data, &reflex_ray, obj, &reflex_color, &normal, &light_ray);
 	}
-	apply_aces_tonemap(color);
+	return (0);
+	// apply_aces_tonemap(color);
 }
 
 /**========================================================================
@@ -73,9 +73,13 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	t_ray	ray;
 	t_obj	obj;
 	t_color	color;
-
+	// color.rgb[0] = 0;
+	// color.rgb[1] = 0;
+	// color.rgb[2] = 0;
+	
 	new_ray(&data->cam, &ray, x + 0.5f, y + 0.5f);
 	launch_recursive_reflexion(data, &ray, &obj, &color);
+	 apply_aces_tonemap(&color);
 	// get_closest_intersection(data, &ray, &obj);
 	// get_pixel_color(data, &ray, &obj, &color);
 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
@@ -101,7 +105,8 @@ void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)
 		while (++antia.j < antia.alia)
 		{
 			new_ray(&data->cam, &antia.ray, antia.ax_cpy, antia.ay);
-			launch_recursive_reflexion(data, &antia.ray, &antia.obj, &antia.colors[antia.k++]);
+			launch_recursive_reflexion(data, &antia.ray, &antia.obj, &antia.colors[antia.k]);
+			apply_aces_tonemap(&antia.colors[antia.k++]);
 			// get_closest_intersection(data, &antia.ray, &antia.obj);
 			// get_pixel_color(data, &antia.ray, &antia.obj,
 			// &antia.colors[antia.k++]);
