@@ -76,6 +76,7 @@ void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p)
 
 	xpm_size_x = p->sphere->xpm_size_x;
 	xpm_size_y = p->sphere->xpm_size_y;
+	
 	bump_coef = get_bump_coef(sphere, p->bump_map, p->u, p->v);
 	bump_coef_u = get_bump_coef(sphere, p->bump_map, p->u + (1.0 / xpm_size_x), p->v);
 	bump_coef_v = get_bump_coef(sphere, p->bump_map, p->u, p->v + (1.0 / xpm_size_y));

@@ -106,12 +106,9 @@ void	extract_texture_values(int shades_nbr, int char_pp,  int fd, int int_tab[][
 		if (str && str[0] == '"')
 		{
 			str_tmp = ft_substr(str, 1, ft_strlen(str) - 4);
-			// printf("str_tmp: %s, ", str_tmp);
 			free (str);
 			str = str_tmp;
-			// printf("str: %s, ", str);
 			int_tab[j][0] = get_char_pp_value(str, char_pp);
-			// printf("%i: ", int_tab[j][0]);
 			if (gray_to_hex_string(&str[3 + char_pp], hex_output))
 				int_tab[j][1] = hex_to_int(hex_output);
 			else
@@ -171,7 +168,7 @@ void	handle_line(t_handle_line_params *p, int int_tab[][2])
 			if (get_char_pp_value(&p->str [*(p->j)], p->char_pp) == int_tab[k][0])
 			{
 				p->data->bump_maps[p->i][*(p->l)][*(p->j) / p->char_pp]
-					= int_to_grayscale(int_tab[k][1]) / 255.0f;
+					= int_tab[k][1];
 			}
 			(k)++;
 		}

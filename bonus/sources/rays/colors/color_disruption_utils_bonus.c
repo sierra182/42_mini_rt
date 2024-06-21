@@ -16,6 +16,7 @@ void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
 double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v);
 int		hex_to_int(const char *hex_string);
 void	uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int *y);
+unsigned char	int_to_grayscale(unsigned int hex_value);
 
 /**========================================================================
  *                           HEX_TO_INT
@@ -37,7 +38,8 @@ double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v)
 	int		y;
 
 	uv_to_texture_coordinates(sphere, u, v, &x, &y);
-	return (bump_map[x][y]);
+	printf("%f\n", bump_map[x][y]);
+	return (int_to_grayscale(bump_map[x][y]) / 255.0f);
 }
 
 /**========================================================================
