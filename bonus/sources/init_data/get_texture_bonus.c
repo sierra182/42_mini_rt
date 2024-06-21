@@ -110,7 +110,7 @@ void	extract_texture_values(int shades_nbr, int char_pp,  int fd, int int_tab[][
 				int_tab[j][1] = hex_to_int(hex_output);
 			else
 				int_tab[j][1] = hex_to_int(&str[3 + char_pp]);
-			printf(">%i<: >%i<\n", int_tab[j][0], int_tab[j][1]);
+			printf(">%i<: >%i<, %s\n", int_tab[j][0], int_tab[j][1], &str[3 + char_pp]);
 		}
 		free(str);
 		j++;
