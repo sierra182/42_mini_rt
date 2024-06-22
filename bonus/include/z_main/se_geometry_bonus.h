@@ -27,6 +27,7 @@ typedef struct s_sphere
 	t_matrix_vector	*vector;
 	double			reflexion_coef;
 	double			color_coef;
+	int				bump_flag;
 }	t_sphere;
 
 typedef struct s_cylinder

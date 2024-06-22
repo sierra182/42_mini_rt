@@ -42,8 +42,11 @@ int	mouse_release(int button, int x, int y, void *param)
 	{
 		data->refresh = 1;
 		if (data->event.actual_mesh.type == O_SP)
+		{
 			((t_sphere *) data->event.actual_mesh.ref)->color
 				= data->event.color_sav;
+			((t_sphere *) data->event.actual_mesh.ref)->bump_flag = 0;
+		}
 		else if (data->event.actual_mesh.type == O_PL)
 			((t_plane *) data->event.actual_mesh.ref)->color
 				= data->event.color_sav;

@@ -21,7 +21,11 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh)
 
 	color = NULL;
 	if (mesh->type == O_SP)
+	{
 		color = &((t_sphere *) mesh->ref)->color;
+		if (color)
+			((t_sphere *) mesh->ref)->bump_flag = 1;
+	}
 	else if (mesh->type == O_CY)
 		color = &((t_cylinder *) mesh->ref)->color;
 	else if (mesh->type == O_PL)

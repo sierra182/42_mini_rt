@@ -38,6 +38,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].t2 = 0.0;
 	data->spheres[i].rotation_angle_x = 0.0;
 	data->spheres[i].rotation_angle_y = 0.0;
+	data->spheres[i].bump_flag = 0;
 	i++;
 }
 

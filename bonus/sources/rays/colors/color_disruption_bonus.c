@@ -60,30 +60,6 @@ void uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int
 		*x = *x % xpm_size_x ;
 	if (*y > xpm_size_y - 1)
 		*y = *y % xpm_size_y;
-    // int xpm_size_x;
-    // int xpm_size_y;
-	// int	xpm_size;
-
-	// xpm_size = sphere->xpm_size_y;
-	// if (sphere->xpm_size_x < sphere->xpm_size_y)
-	// 	xpm_size = sphere->xpm_size_x;
-	
-
-
-    // *x = (int)(u * xpm_size);
-    // *y = (int)(v * xpm_size);
-
-    // Handle negative coordinates
-    // if (*x < 0)
-    //     *x = (xpm_size + *x % xpm_size) % xpm_size;
-    // if (*y < 0)
-    //     *y = (xpm_size + *y % xpm_size) % xpm_size;
-
-    // Handle overflow coordinates
-    // if (*x > xpm_size)
-    //     *x = *x % xpm_size;
-    // if (*y > xpm_size)
-    //     *y = *y % xpm_size;
 }
 
 /**========================================================================

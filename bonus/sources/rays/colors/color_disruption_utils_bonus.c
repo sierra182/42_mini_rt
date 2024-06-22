@@ -29,21 +29,20 @@ int	hex_to_int(const char *hex_string)
 	return ((int)strtol(hex_string + 1, NULL, 16));
 }
 
-void assign_rgb(t_color *color, double value) {
-    // Convert the double to an integer
-    int rgb_value = (int)value;
+void assign_rgb(t_sphere *sphere, t_color *color, double value)
+{
+	int rgb_value = (int)value;
 
-    // Extract the RGB components
-    int red = (rgb_value >> 16) & 0xFF;
-    int green = (rgb_value >> 8) & 0xFF;
-    int blue = rgb_value & 0xFF;
-
-    // Assign the values to the structure
-    color->rgb[0] = red;
-    color->rgb[1] = green;
-    color->rgb[2] = blue;
+	color->rgb[0] = (rgb_value >> 16) & 0xFF;
+	color->rgb[1] = (rgb_value >> 8) & 0xFF;
+	color->rgb[2] = rgb_value & 0xFF;
+	if (sphere->bump_flag == 1)
+	{
+		color->rgb[0] = 255 - color->rgb[0];
+		color->rgb[1] = 255 - color->rgb[1];
+		color->rgb[2] = 255 - color->rgb[2];
+	}
 }
-
 /**========================================================================
  *                           GET_BUMP_COEF
  *========================================================================**/
@@ -53,8 +52,7 @@ double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v)
 	int		y;
 
 	uv_to_texture_coordinates(sphere, u, v, &x, &y);
-	// printf("%f\n", bump_map[x][y]);
-	assign_rgb(&sphere->color, bump_map[x][y]);
+	assign_rgb(sphere, &sphere->color, bump_map[x][y]);
 	return (int_to_grayscale(bump_map[x][y]) / 255.0f);
 }
 
