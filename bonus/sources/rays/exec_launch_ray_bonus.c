@@ -45,18 +45,42 @@ static void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj,
 	get_pixel_color(&(t_get_color_params)
 	{data, ray, obj, color, &normal, &light_ray});
 	deep = -1;
-	while (++deep < 4 && obj->ref)
+	double jacqueline = 0;
+	double micheline = 0;
+	if (obj->type == O_SP)
+	{
+		jacqueline = ((t_sphere *)obj->ref)->reflexion_coef;
+		micheline = ((t_sphere *)obj->ref)->color_coef;		
+		// printf("sphere: %f  %f\n", jacqueline, micheline);
+	}
+	else if (obj->type == O_CY)
+	{
+		jacqueline = ((t_cylinder *)obj->ref)->reflexion_coef;
+		micheline = ((t_cylinder *)obj->ref)->color_coef;		
+	}
+	else if (obj->type == O_PL)
+	{
+		jacqueline = ((t_plane *)obj->ref)->reflexion_coef;
+		micheline = ((t_plane *)obj->ref)->color_coef;		
+		// printf("plane: %f  %f\n", jacqueline, micheline);
+	}
+	else if (obj->type == O_TR)
+	{
+		jacqueline = ((t_triangle *)obj->ref)->reflexion_coef;
+		micheline = ((t_triangle *)obj->ref)->color_coef;		
+	}
+	while (++deep < 4 && obj->ref && jacqueline && micheline )
 	{
 		reflex_ray.origin_vect = light_ray.ray.origin_vect;
 		calculate_ray_reflexion(ray, &normal, &reflex_ray);
 		get_closest_intersection(data, &reflex_ray, obj);
 		get_pixel_color(&(t_get_color_params)
 		{data, &reflex_ray, obj, &reflex_color, &normal, &light_ray});
-		scale_color(&reflex_color, 1, &reflex_color);
+		scale_color(&reflex_color, jacqueline, &reflex_color);
 		if (!obj->ref)
 			scale_color(&reflex_color, 0.1, &reflex_color);
 		else
-			scale_color(color, 1, color);
+			scale_color(color, micheline, color);
 		add_color(color, &reflex_color, color);
 		ray = &reflex_ray;
 	}
