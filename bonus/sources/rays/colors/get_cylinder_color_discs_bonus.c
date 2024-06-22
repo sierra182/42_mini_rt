@@ -32,7 +32,6 @@ void	add_disc_spotlights_effect(t_get_color_params *params,
  *========================================================================**/
 void	get_cylinder_color_discs(t_get_color_params *params)
 {
-	// t_ray_pack	light_ray;
 	t_color		ambiantly_color;
 	t_color		spotlighties_color;
 	double		view_dot_normal;
@@ -41,7 +40,8 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	cyl = ((t_cylinder *) params->mesh->ref);
 	cast_vector_mat_ray(&cyl->axis_vect, params->normal);
 	self_normalize_vector(params->normal->axis);
-	get_intersect_point(params->ray, params->t,  &params->light_ray->ray.origin_vect);
+	get_intersect_point(params->ray, params->mesh->t,
+		&params->light_ray->ray.origin_vect);
 	view_dot_normal = scalar_product(params->normal->axis,
 			params->ray->dir_vect.axis);
 	if (view_dot_normal > 0.0)
@@ -51,7 +51,6 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 	add_disc_spotlights_effect(params, params->normal, &spotlighties_color,
 		params->light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	// apply_aces_tonemap(params->color);
 }
 
 /**========================================================================

@@ -3,22 +3,15 @@
 /**========================================================================
  *                           GET_CYLINDER_COLOR
  *========================================================================**/
-void	get_cylinder_color(t_data *data, t_ray *ray, t_obj *obj,
-		t_color *color, t_ray_vector *normal, t_ray_pack *light_ray)
+void	get_cylinder_color(t_get_color_params *params)
 {
 	t_cylinder		*cyl;
 
-	cyl = (t_cylinder *)obj->ref;
-	if (cyl->cyl_or_discs == cylinder)
-	{
-		get_cylinder_color_cyl(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, normal, light_ray});
-	}
-	if (cyl->cyl_or_discs == discs)
-	{
-		get_cylinder_color_discs(&(t_get_color_params)
-		{data, ray, obj->t, obj, color, normal, light_ray});
-	}
+	cyl = (t_cylinder *)params->mesh->ref;
+	if (cyl->cyl_or_discs == cylinder)	
+		get_cylinder_color_cyl(params);	
+	if (cyl->cyl_or_discs == discs)	
+		get_cylinder_color_discs(params);
 }
 
 /**========================================================================
@@ -51,7 +44,6 @@ static void	add_cyl_spotlights_effect(t_get_color_params *params,
  *========================================================================**/
 static void	get_cylinder_color_cyl(t_get_color_params *params)
 {
-	// t_ray_pack		light_ray;
 	t_color			ambiantly_color;
 	t_color			spotlighties_color;
 	t_cylinder		*cyl;	
@@ -63,7 +55,6 @@ static void	get_cylinder_color_cyl(t_get_color_params *params)
 	add_cyl_spotlights_effect(params, params->normal, &spotlighties_color,
 		params->light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	// apply_aces_tonemap(params->color);
 }
 
 /**========================================================================
@@ -79,7 +70,7 @@ static void	handle_projection(t_get_color_params *params, t_ray_vector *normal,
 	t_cylinder		*cyl;
 
 	cyl = (t_cylinder *)params->mesh->ref;
-	get_intersect_point(params->ray, params->t, &intersect_point);
+	get_intersect_point(params->ray, params->mesh->t, &intersect_point);
 	subtract_vector(intersect_point.axis, cyl->origin_vect.axis,
 		cyl_to_intersect.axis);
 	proj = scalar_product(cyl_to_intersect.axis, cyl->axis_vect.axis);

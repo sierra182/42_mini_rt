@@ -15,14 +15,12 @@ void		get_sphere_color(t_get_color_params *params);
 void		get_plane_color(t_get_color_params *params);
 void		get_background_color(t_ray *ray, t_data *data,
 				t_color *back_color);
-static void	get_pixel_color(t_data *data, t_ray *ray, t_obj *obj,
-				t_color *color, t_ray_vector *normal, t_ray_pack *light_ray);
+static void	get_pixel_color(t_get_color_params *params);
 int			get_color(unsigned char r, unsigned char g, unsigned char b);
 void		get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);
 void		get_closest_intersection_cy(t_data *data, t_ray *ray, t_obj *obj);
 void		get_closest_intersection_pl(t_data *data, t_ray *ray, t_obj *obj);
-void		get_cylinder_color(t_data *data, t_ray *ray,
-				t_obj *obj, t_color	*color, t_ray_vector *normal, t_ray_pack *light_ray);
+void		get_cylinder_color(t_get_color_params *params);
 void		put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
 void		get_closest_intersection_tr(t_data *data, t_ray *ray, t_obj *obj);
 double		is_intersect_triangle(t_ray *ray, void *input_triangle,
@@ -31,5 +29,6 @@ void		get_triangle_color(t_get_color_params *params);
 void		new_ray(t_cam *cam, t_ray *ray, double x, double y);
 void		get_average_colors(t_color colors[], int n_colors,
 				t_color *average);
+void		apply_aces_tonemap(t_color *color);
 
 #endif

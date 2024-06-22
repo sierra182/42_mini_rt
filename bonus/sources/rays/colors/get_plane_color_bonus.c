@@ -10,7 +10,7 @@ void	compute_pl_normal(t_get_color_params *params,
 	double	scalar_nr;
 
 	plane = (t_plane *) params->mesh->ref;
-	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
+	get_intersect_point(params->ray, params->mesh->t, &light_ray->ray.origin_vect);
 	cast_vector_mat_ray(&plane->norm_vect, normal);
 	self_normalize_vector(normal->axis);
 	scalar_nr = scalar_product(normal->axis, params->ray->dir_vect.axis);
