@@ -25,6 +25,8 @@ typedef struct s_sphere
 	int				xpm_size_x;
 	int				xpm_size_y;
 	t_matrix_vector	*vector;
+	double			reflexion_coef;
+	double			color_coef;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -44,6 +46,8 @@ typedef struct s_cylinder
 	t_ray_vector	origin_proj;
 	double			t1;
 	double			t2;
+	double			reflexion_coef;
+	double			color_coef;
 }	t_cylinder;
 
 typedef struct s_plane
@@ -54,7 +58,8 @@ typedef struct s_plane
 	t_matrix_vector	origin_vect;
 	t_matrix_vector	norm_vect;
 	t_color			color;
-
+	double			reflexion_coef;
+	double			color_coef;
 }	t_plane;
 
 typedef struct s_triangle
@@ -65,6 +70,8 @@ typedef struct s_triangle
 	t_color			color;
 	t_ray_vector	e1;
 	t_ray_vector	e2;
+	double			reflexion_coef;
+	double			color_coef;
 }	t_triangle;
 
 #endif

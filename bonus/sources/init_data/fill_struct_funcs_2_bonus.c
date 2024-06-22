@@ -16,7 +16,7 @@ void	handle_uv_modif_params(double nbr, t_data *data, int i);
  *========================================================================**/
 void	fill_struct_sp(t_data *data, double tab[])
 {
-	static int	i = 0;
+	static int	i = 0; 
 
 	data->spheres[i].origin_vect.axis[0] = tab[0];
 	data->spheres[i].origin_vect.axis[1] = tab[1];
