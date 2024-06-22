@@ -43,8 +43,9 @@ CFLAGS = \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-O3 \
-	-Wall -Wextra -Werror
-
+	-Wall -Wextra -Werror \
+	# -g
+	
 SOURCES = \
 	$(SRC_DIR)/.meta/create_video_image.c \
 	$(SRC_DIR)/.meta/scening.c \

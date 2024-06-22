@@ -1,7 +1,5 @@
 #include "key_event_bonus.h"
 
-void	event_rotate_sphere(t_data *data, int keycode, t_matrix_vector *vector);
-
 /**========================================================================
  *                           KEY_CODE_FUNCS
  *========================================================================**/
