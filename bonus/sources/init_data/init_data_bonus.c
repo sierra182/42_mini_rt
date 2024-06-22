@@ -80,7 +80,7 @@ void	init_vars(t_data *data)
 	data->event.legend = 0;
 	data->event.actual_mode = 0;
 	data->event.actual_mesh.ref = NULL;
-	data->event.actual_light = NULL;
+	data->event.actual_light = &data->spotlights[0];
 	data->event.antia = 0;
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
