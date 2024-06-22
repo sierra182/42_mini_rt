@@ -3,14 +3,15 @@
 /**========================================================================
  *                           COMPUTE_TR_NORMAL
  *========================================================================**/
-void	compute_tr_normal(t_get_color_params *params,
+static void	compute_tr_normal(t_get_color_params *params,
 	t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	t_triangle	*triangle;
 	double		scalar_nr;
 
 	triangle = (t_triangle *) params->mesh->ref;
-	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
+	get_intersect_point(params->ray, params->mesh->t,
+		&light_ray->ray.origin_vect);
 	cross_product(triangle->e1.axis, triangle->e2.axis, normal->axis);
 	self_normalize_vector(normal->axis);
 	scalar_nr = scalar_product(normal->axis, params->ray->dir_vect.axis);
@@ -49,8 +50,7 @@ static void	add_tr_spotlights_effect(t_get_color_params *params,
  *                           GET_TRIANGLE_COLOR
  *========================================================================**/
 void	get_triangle_color(t_get_color_params *params)
-{	
-	// t_ray_pack		light_ray;
+{
 	t_color			ambiantly_color;
 	t_color			spotlighties_color;
 	t_triangle		*triangle;
@@ -62,5 +62,4 @@ void	get_triangle_color(t_get_color_params *params)
 	add_tr_spotlights_effect(params, params->normal, &spotlighties_color,
 		params->light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	// apply_aces_tonemap(params->color);
 }

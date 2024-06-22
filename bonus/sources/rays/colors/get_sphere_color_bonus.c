@@ -1,18 +1,16 @@
 #include "get_sphere_color_bonus.h"
 
-void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
-			int size, t_ray_vector	*normal);
-
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL
  *========================================================================**/
-void	compute_sph_normal(t_get_color_params *params, t_ray_vector *normal,
+static void	compute_sph_normal(t_get_color_params *params, t_ray_vector *normal,
 t_ray_pack *light_ray)
 {
 	t_sphere		*sphere;
 
 	sphere = (t_sphere *) params->mesh->ref;
-	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
+	get_intersect_point(params->ray, params->mesh->t,
+		&light_ray->ray.origin_vect);
 	subtract_vector(light_ray->ray.origin_vect.axis,
 		sphere->origin_vect.axis, normal->axis);
 	self_normalize_vector(normal->axis);
@@ -59,7 +57,6 @@ void	get_sphere_color(t_get_color_params *params)
 	t_sphere		*sphere;
 
 	sphere = (t_sphere *) params->mesh->ref;
-
 	compute_sph_normal(params, params->normal, params->light_ray);
 	*params->color = sphere->color;
 	modif_uv(params, params->light_ray, 10, params->normal);
@@ -68,5 +65,4 @@ void	get_sphere_color(t_get_color_params *params)
 	add_sph_spotlights_effect(params, params->normal, &spotlighties_color,
 		params->light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	// apply_aces_tonemap(params->color);
 }

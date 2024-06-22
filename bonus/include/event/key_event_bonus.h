@@ -20,5 +20,6 @@ void	event_translate(int keycode,
 void	meta_keycode(int keycode, t_data *data, t_mlx *mlx);
 void	actual_light_handle(t_data *data, int store_color,
 			t_matrix_vector **origin_vect);
-
+void	event_rotate_sphere(t_data *data, int keycode,
+			t_matrix_vector *vector);
 #endif

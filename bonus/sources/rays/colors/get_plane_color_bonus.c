@@ -3,14 +3,15 @@
 /**========================================================================
  *                           COMPUTE_PL_NORMAL
  *========================================================================**/
-void	compute_pl_normal(t_get_color_params *params,
+static void	compute_pl_normal(t_get_color_params *params,
 	t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	t_plane	*plane;
 	double	scalar_nr;
 
 	plane = (t_plane *) params->mesh->ref;
-	get_intersect_point(params->ray, params->t, &light_ray->ray.origin_vect);
+	get_intersect_point(params->ray, params->mesh->t,
+		&light_ray->ray.origin_vect);
 	cast_vector_mat_ray(&plane->norm_vect, normal);
 	self_normalize_vector(normal->axis);
 	scalar_nr = scalar_product(normal->axis, params->ray->dir_vect.axis);
@@ -50,17 +51,15 @@ static void	add_pl_spotlights_effect(t_get_color_params *params,
  *========================================================================**/
 void	get_plane_color(t_get_color_params *params)
 {
-	// t_ray_vector	normal;
-	// t_ray_pack		light_ray;
 	t_color			ambiantly_color;	
 	t_color			spotlighties_color;
 	t_plane			*plane;
 
 	plane = (t_plane *) params->mesh->ref;
-
 	compute_pl_normal(params, params->normal, params->light_ray);
-	calculate_ambiant_effect(params, &plane->color, params->normal, &ambiantly_color);
-	add_pl_spotlights_effect(params, params->normal, &spotlighties_color, params->light_ray);
+	calculate_ambiant_effect(params, &plane->color, params->normal,
+		&ambiantly_color);
+	add_pl_spotlights_effect(params, params->normal, &spotlighties_color,
+		params->light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	// apply_aces_tonemap(params->color);
 }

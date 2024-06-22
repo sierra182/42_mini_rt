@@ -60,11 +60,14 @@ int	init_data(char *map_path, t_data *data)
  *========================================================================**/
 void	init_vars(t_data *data)
 {
+	data->is_test = 0;
 	data->refresh = 1;
 	data->event.ctrl_ispressed = 0;
 	data->event.legend = 0;
 	data->event.actual_mode = 0;
 	data->event.actual_mesh.ref = NULL;
+	data->event.actual_mesh.type = -1;
+	data->event.actual_mesh.t = 0;
 	post_init_cam(&data->cam);
 	update_cam(&data->cam);
 	save_data(data);

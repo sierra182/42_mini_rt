@@ -85,8 +85,10 @@ SOURCES = \
 	$(GNL_DIR)/get_next_line_utils.c \
 	$(SRC_DIR)/rays/rays_bonus.c \
 	$(SRC_DIR)/rays/ray_utils_bonus.c \
+	$(SRC_DIR)/rays/compute_rays_bonus.c \
 	$(SRC_DIR)/rays/colors/mesh_color_effects_bonus.c \
 	$(SRC_DIR)/rays/colors/color_effects_bonus.c \
+	$(SRC_DIR)/rays/colors/color_effects_utils_bonus.c \
 	$(SRC_DIR)/rays/colors/get_sphere_color_bonus.c \
 	$(SRC_DIR)/rays/colors/get_plane_color_bonus.c \
 	$(SRC_DIR)/rays/colors/get_cylinder_color_bonus.c \
@@ -149,6 +151,7 @@ HEADERS = \
 	$(HEADERS_DIR)/parsing/parse_bonus.h \
 	$(HEADERS_DIR)/parsing/parsing_utils_bonus.h \
 	$(HEADERS_DIR)/rays/colors/color_effects_bonus.h \
+	$(HEADERS_DIR)/rays/colors/color_effects_utils_bonus.h \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_discs_bonus.h \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_utils_bonus.h \
 	$(HEADERS_DIR)/rays/colors/get_cylinder_color_bonus.h \
@@ -163,6 +166,7 @@ HEADERS = \
 	$(HEADERS_DIR)/rays/shadows/shadows_exclusion_bonus.h \
 	$(HEADERS_DIR)/rays/shadows/shadows_bonus.h \
 	$(HEADERS_DIR)/rays/exec_launch_ray_bonus.h \
+	$(HEADERS_DIR)/rays/compute_rays_bonus.h \
 	$(HEADERS_DIR)/rays/ray_utils_bonus.h \
 	$(HEADERS_DIR)/rays/rays_bonus.h \
 	$(HEADERS_DIR)/z_main/main_bonus.h \
