@@ -80,7 +80,8 @@ void	init_vars(t_data *data)
 	data->event.legend = 0;
 	data->event.actual_mode = 0;
 	data->event.actual_mesh.ref = NULL;
-	data->event.actual_mesh.type = 0;
+	data->event.actual_mesh.type = 10;
+	data->event.actual_mesh.t = 0;
 	data->event.actual_light = &data->spotlights[0];
 	data->event.bulb_color_sav = data->spotlights[0].color;
 	data->event.antia = 0;
