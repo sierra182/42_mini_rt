@@ -22,6 +22,7 @@ typedef struct s_get_color_params
 	t_obj			*mesh;
 	t_color			*color;
 	t_ray_vector	*normal;
+	t_ray_pack		*light_ray;
 }	t_get_color_params;
 
 typedef struct s_calc_spotlight_effect_params

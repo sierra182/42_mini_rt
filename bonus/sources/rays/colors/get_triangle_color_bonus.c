@@ -3,7 +3,7 @@
 /**========================================================================
  *                           COMPUTE_TR_NORMAL
  *========================================================================**/
-static void	compute_tr_normal(t_get_color_params *params,
+void	compute_tr_normal(t_get_color_params *params,
 	t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	t_triangle	*triangle;
@@ -49,19 +49,18 @@ static void	add_tr_spotlights_effect(t_get_color_params *params,
  *                           GET_TRIANGLE_COLOR
  *========================================================================**/
 void	get_triangle_color(t_get_color_params *params)
-{
-	t_ray_vector	normal;
-	t_ray_pack		light_ray;
+{	
+	// t_ray_pack		light_ray;
 	t_color			ambiantly_color;
 	t_color			spotlighties_color;
 	t_triangle		*triangle;
 
 	triangle = (t_triangle *) params->mesh->ref;
-	compute_tr_normal(params, &normal, &light_ray);
-	calculate_ambiant_effect(params, &triangle->color, &normal,
+	compute_tr_normal(params, params->normal, params->light_ray);
+	calculate_ambiant_effect(params, &triangle->color, params->normal,
 		&ambiantly_color);
-	add_tr_spotlights_effect(params, &normal, &spotlighties_color,
-		&light_ray);
+	add_tr_spotlights_effect(params, params->normal, &spotlighties_color,
+		params->light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	apply_aces_tonemap(params->color);
+	// apply_aces_tonemap(params->color);
 }

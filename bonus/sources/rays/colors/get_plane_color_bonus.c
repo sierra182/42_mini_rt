@@ -3,7 +3,7 @@
 /**========================================================================
  *                           COMPUTE_PL_NORMAL
  *========================================================================**/
-static void	compute_pl_normal(t_get_color_params *params,
+void	compute_pl_normal(t_get_color_params *params,
 	t_ray_vector *normal, t_ray_pack *light_ray)
 {
 	t_plane	*plane;
@@ -50,16 +50,17 @@ static void	add_pl_spotlights_effect(t_get_color_params *params,
  *========================================================================**/
 void	get_plane_color(t_get_color_params *params)
 {
-	t_ray_vector	normal;
-	t_ray_pack		light_ray;
+	// t_ray_vector	normal;
+	// t_ray_pack		light_ray;
 	t_color			ambiantly_color;	
 	t_color			spotlighties_color;
 	t_plane			*plane;
 
 	plane = (t_plane *) params->mesh->ref;
-	compute_pl_normal(params, &normal, &light_ray);
-	calculate_ambiant_effect(params, &plane->color, &normal, &ambiantly_color);
-	add_pl_spotlights_effect(params, &normal, &spotlighties_color, &light_ray);
+
+	compute_pl_normal(params, params->normal, params->light_ray);
+	calculate_ambiant_effect(params, &plane->color, params->normal, &ambiantly_color);
+	add_pl_spotlights_effect(params, params->normal, &spotlighties_color, params->light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	apply_aces_tonemap(params->color);
+	// apply_aces_tonemap(params->color);
 }

@@ -6,7 +6,7 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL
  *========================================================================**/
-static void	compute_sph_normal(t_get_color_params *params, t_ray_vector *normal,
+void	compute_sph_normal(t_get_color_params *params, t_ray_vector *normal,
 t_ray_pack *light_ray)
 {
 	t_sphere		*sphere;
@@ -54,20 +54,19 @@ static void	add_sph_spotlights_effect(t_get_color_params *params,
  *========================================================================**/
 void	get_sphere_color(t_get_color_params *params)
 {
-	t_ray_vector	normal;
-	t_ray_pack		light_ray;
-	t_color			ambiantly_color;
+	t_color			ambiantly_color;	
 	t_color			spotlighties_color;
 	t_sphere		*sphere;
 
 	sphere = (t_sphere *) params->mesh->ref;
-	compute_sph_normal(params, &normal, &light_ray);
+
+	compute_sph_normal(params, params->normal, params->light_ray);
 	*params->color = sphere->color;
-	modif_uv(params, &light_ray, 10, &normal);
-	calculate_ambiant_effect(params, params->color, &normal,
+	modif_uv(params, params->light_ray, 10, params->normal);
+	calculate_ambiant_effect(params, params->color, params->normal,
 		&ambiantly_color);
-	add_sph_spotlights_effect(params, &normal, &spotlighties_color,
-		&light_ray);
+	add_sph_spotlights_effect(params, params->normal, &spotlighties_color,
+		params->light_ray);
 	add_color(&spotlighties_color, &ambiantly_color, params->color);
-	apply_aces_tonemap(params->color);
+	// apply_aces_tonemap(params->color);
 }
