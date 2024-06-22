@@ -3,7 +3,7 @@
 /**========================================================================
  *                           GET_BACKGROUND_COLOR
  *========================================================================**/
-void	get_background_color(t_ray *ray, t_data *data,
+static void	get_background_color(t_ray *ray, t_data *data,
 	t_color *back_color)
 {
 	int		color[2];
@@ -62,10 +62,10 @@ void	get_pixel_color(t_get_color_params *params)
 		get_cylinder_color(params);
 	if (params->mesh->t && params->mesh->type == O_PL
 		&& !is_behind_cam(params->mesh->t) && params->mesh->ref && !inter_bulb)
-		get_plane_color(params);	
+		get_plane_color(params);
 	if (params->mesh->t && params->mesh->type == O_TR
 		&& !is_behind_cam(params->mesh->t) && params->mesh->ref && !inter_bulb)
-		get_triangle_color(params);		
+		get_triangle_color(params);
 	if (params->mesh->ref == NULL && !inter_bulb)
 		get_background_color(params->ray, params->data, params->color);
 }

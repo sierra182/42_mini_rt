@@ -1,6 +1,20 @@
 #include "exec_launch_ray_bonus.h"
-void	calculate_ray_reflexion(t_ray *ray,
-	t_ray_vector *normal, t_ray *reflex_ray);
+
+/**========================================================================
+ *                           	PUT_PXL
+ *========================================================================**/
+static void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color)
+{
+	const double	inverse_eight = 0.125;
+	int				pxl_pos;
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		pxl_pos = x * mlx->img.bpp * inverse_eight + y * mlx->img.line_len;
+		*(unsigned int *)(mlx->img.img_data + pxl_pos) = color;
+	}
+}
+
 /**========================================================================
  *                         GET_CLOSEST_INTERSECTION
  *========================================================================**/
@@ -18,31 +32,33 @@ static void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
 /**========================================================================
  *                           LAUNCH_REFLEXIONS
  *========================================================================**/
-void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
+static void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj,
+	t_color *color)
 {
-	t_ray 			reflex_ray;
+	t_ray			reflex_ray;
 	t_color			reflex_color;
 	t_ray_vector	normal;
 	t_ray_pack		light_ray;
-	int 			deep = -1;
-
+	int				deep;
+	
 	get_closest_intersection(data, ray, obj);
 	get_pixel_color(&(t_get_color_params)
-		{data, ray, obj, color, &normal, &light_ray});
+	{data, ray, obj, color, &normal, &light_ray});
+	deep = -1;
 	while (++deep < 4 && obj->ref)
 	{
 		reflex_ray.origin_vect = light_ray.ray.origin_vect;
 		calculate_ray_reflexion(ray, &normal, &reflex_ray);
 		get_closest_intersection(data, &reflex_ray, obj);
 		get_pixel_color(&(t_get_color_params)
-		{data, &reflex_ray, obj, &reflex_color, &normal, &light_ray});	
+		{data, &reflex_ray, obj, &reflex_color, &normal, &light_ray});
 		scale_color(&reflex_color, 1, &reflex_color);
 		if (!obj->ref)
 			scale_color(&reflex_color, 0.1, &reflex_color);
 		else
 			scale_color(color, 1, color);
-		add_color(color, &reflex_color, color);	
-		ray = &reflex_ray;	
+		add_color(color, &reflex_color, color);
+		ray = &reflex_ray;
 	}
 	apply_aces_tonemap(color);
 }
@@ -55,7 +71,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	t_ray	ray;
 	t_obj	obj;
 	t_color	color;
-	
+
 	new_ray(&data->cam, &ray, x + 0.5f, y + 0.5f);
 	launch_reflexions(data, &ray, &obj, &color);
 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
@@ -82,7 +98,7 @@ void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)
 		{
 			new_ray(&data->cam, &antia.ray, antia.ax_cpy, antia.ay);
 			launch_reflexions(data, &antia.ray, &antia.obj,
-				&antia.colors[antia.k++]);	
+				&antia.colors[antia.k++]);
 			antia.ax_cpy += antia.inv_alia;
 		}
 		antia.ay += antia.inv_alia;

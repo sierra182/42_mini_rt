@@ -8,9 +8,9 @@ void	get_cylinder_color(t_get_color_params *params)
 	t_cylinder		*cyl;
 
 	cyl = (t_cylinder *)params->mesh->ref;
-	if (cyl->cyl_or_discs == cylinder)	
-		get_cylinder_color_cyl(params);	
-	if (cyl->cyl_or_discs == discs)	
+	if (cyl->cyl_or_discs == cylinder)
+		get_cylinder_color_cyl(params);
+	if (cyl->cyl_or_discs == discs)
 		get_cylinder_color_discs(params);
 }
 
@@ -21,7 +21,7 @@ static void	add_cyl_spotlights_effect(t_get_color_params *params,
 	t_ray_vector *normal, t_color *spotlighties_color, t_ray_pack *light_ray)
 {
 	t_color		spotlighty_color;
-	t_cylinder	*cyl;	
+	t_cylinder	*cyl;
 	int			i;
 
 	cyl = (t_cylinder *)params->mesh->ref;

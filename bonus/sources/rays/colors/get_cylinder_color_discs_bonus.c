@@ -1,6 +1,6 @@
 #include "get_cylinder_color_discs_bonus.h"
 
-void	add_disc_spotlights_effect(t_get_color_params *params,
+static void	add_disc_spotlights_effect(t_get_color_params *params,
 	t_ray_vector *normal, t_color *spotlighties_color, t_ray_pack *light_ray)
 {
 	t_color		spotlighty_color;
@@ -56,7 +56,8 @@ void	get_cylinder_color_discs(t_get_color_params *params)
 /**========================================================================
  *                           HANDLE_NORMAL_SYMMETRIZATION
  *========================================================================**/
-void	handle_normal_symmetrization(t_get_color_params *params, t_ray_vector
+static void	handle_normal_symmetrization(t_get_color_params *params,
+	t_ray_vector
 *normal, t_ray *light_ray)
 {
 	double		light_dot_normal;

@@ -1,5 +1,5 @@
-#ifndef COLOR_UTILS_EFFECTS_BONUS_H
-# define COLOR_UTILS_EFFECTS_BONUS_H
+#ifndef COLOR_EFFECTS_UTILS_BONUS_H
+# define COLOR_EFFECTS_UTILS_BONUS_H
 
 # include "se_mini_struct_bonus.h"
 # include "x_linear_algebra_bonus.h"

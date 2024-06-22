@@ -1,12 +1,9 @@
 #include "get_sphere_color_bonus.h"
 
-void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
-			int size, t_ray_vector	*normal);
-
 /**========================================================================
  *                           COMPUTE_SPHERE_NORMAL
  *========================================================================**/
-void	compute_sph_normal(t_get_color_params *params, t_ray_vector *normal,
+static void	compute_sph_normal(t_get_color_params *params, t_ray_vector *normal,
 t_ray_pack *light_ray)
 {
 	t_sphere		*sphere;

@@ -49,11 +49,11 @@ typedef struct s_reset_tmps
 
 typedef struct s_calculate_bump_derivatives_params
 {
-	double	u;
-	double	v;
-	double	*du;
-	double	*dv;
-	double	**bump_map;
+	double		u;
+	double		v;
+	double		*du;
+	double		*dv;
+	double		**bump_map;
 	t_sphere	*sphere;
 }	t_calculate_bump_derivatives_params;
 
