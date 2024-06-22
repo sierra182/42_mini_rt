@@ -1,5 +1,6 @@
 #include "exec_launch_ray_bonus.h"
-
+void	calculate_ray_reflexion(t_ray *ray,
+	t_ray_vector *normal, t_ray *reflex_ray);
 /**========================================================================
  *                         GET_CLOSEST_INTERSECTION
  *========================================================================**/
@@ -12,23 +13,6 @@ static void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
 	get_closest_intersection_cy(data, ray, obj);
 	get_closest_intersection_pl(data, ray, obj);
 	get_closest_intersection_tr(data, ray, obj);
-}
-
-#include "x_linear_algebra_bonus.h"
-/**========================================================================
- *                         CALCULATE_RAY_REFLEXION
- *========================================================================**/
-static void	calculate_ray_reflexion(t_ray *ray,
-	t_ray_vector *normal, t_ray *reflex_ray)
-{
-	t_ray_vector	scaled_norm;	
-	double			scalar_nr;
-
-	scalar_nr = 2 * scalar_product(normal->axis, ray->dir_vect.axis);
-	scale_vector(normal->axis, scalar_nr, scaled_norm.axis);
-	subtract_vector(ray->dir_vect.axis, scaled_norm.axis,
-		reflex_ray->dir_vect.axis);
-	self_normalize_vector(reflex_ray->dir_vect.axis);
 }
 
 /**========================================================================
@@ -106,49 +90,4 @@ void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)
 	get_average_colors(antia.colors, 16, &antia.average_color);
 	put_pxl(mlx, x, y, get_color(antia.average_color.rgb[0],
 			antia.average_color.rgb[1], antia.average_color.rgb[2]));
-}
-
-/**========================================================================
- *                           	HAS_BULB
- *========================================================================**/
-static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
-{
-	double	inter_bulb;
-	int		i;
-
-	i = -1;
-	while (++i < data->sl_nbr)
-	{
-		inter_bulb = is_intersect_sphere(ray, &data->spotlights[i].bulb, NULL);
-		if (inter_bulb && !is_behind_cam(inter_bulb))
-		{
-			*color = data->spotlights[i].bulb.color;
-			return (inter_bulb);
-		}
-	}
-	return (0.0);
-}
-
-/**========================================================================
- *                           GET_PIXEL_COLOR
- *========================================================================**/
-static void	get_pixel_color(t_get_color_params *params)
-{
-	double	inter_bulb;
-
-	inter_bulb = has_bulb(params->data, params->ray, params->color);
-	if (params->mesh->t && params->mesh->type == O_SP
-		&& params->mesh->ref && !inter_bulb)
-		get_sphere_color(params);
-	if (params->mesh->t && params->mesh->type == O_CY
-		&& !is_behind_cam(params->mesh->t) && params->mesh->ref && !inter_bulb)
-		get_cylinder_color(params);
-	if (params->mesh->t && params->mesh->type == O_PL
-		&& !is_behind_cam(params->mesh->t) && params->mesh->ref && !inter_bulb)
-		get_plane_color(params);	
-	if (params->mesh->t && params->mesh->type == O_TR
-		&& !is_behind_cam(params->mesh->t) && params->mesh->ref && !inter_bulb)
-		get_triangle_color(params);		
-	if (params->mesh->ref == NULL && !inter_bulb)
-		get_background_color(params->ray, params->data, params->color);
 }
