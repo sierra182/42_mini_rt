@@ -7,6 +7,8 @@ void	calculate_tangent(t_ray_vector *normal, t_ray_vector *t);
 void	calculate_bitangent(t_ray_vector *n, t_ray_vector *t, t_ray_vector *b);
 void	calculate_bump_derivatives(t_calculate_bump_derivatives_params *p);
 
+
+
 /**========================================================================
  *                           apply_bump_mapping
  * change scale value for texturization "intensity"
@@ -22,7 +24,9 @@ void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
 	t_sphere	*sphere;
 
 	sphere = (t_sphere *) params->mesh->ref;
-
+	sphere->color.rgb[0] = 0;
+	sphere->color.rgb[1] = 0;
+	sphere->color.rgb[2] = 0;
 	double **bump_map = params->data->bump_maps[sphere->bump_map_nbr];
 	scale = 0.001;
 	calculate_tangent(normal, &t);
