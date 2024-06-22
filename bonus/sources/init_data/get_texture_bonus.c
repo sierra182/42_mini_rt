@@ -28,7 +28,6 @@ void	get_texture(t_data *data, int i)
 
 	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
 	get_shades_nbr(&data->spheres[i], fd, &shades_nbr, &char_pp);
-	// printf("char_pp: %i\n", char_pp);
 	extract_texture_values(shades_nbr, char_pp, fd, int_tab);
 	fill_bump_map(&(t_fill_bump_map){shades_nbr, char_pp, data, fd, i}, int_tab);
 	close(fd);
@@ -68,30 +67,29 @@ void	get_shades_nbr(t_sphere *sphere, int fd, int *shades_nbr, int *char_pp)
 /**========================================================================
  *                           GET_CHAR_PP_VALUE
  *========================================================================**/
-int get_char_pp_value(const char *str, int char_pp) {
-    int i;
-    int char_pp_value = 0;
-    int factor = 1;
-    
-    if (str == NULL) {
-        return -1;  // Error code for NULL input
-    }
+int get_char_pp_value(const char *str, int char_pp)
+{
+	int i;
+	int char_pp_value = 0;
+	int factor = 1;
 
-    i = 0;
-    while (i < char_pp && str[i] != '\0') {
-        char_pp_value += str[i] * factor;
-        factor *= 10;
-        i++;
-    }
-
-    return char_pp_value;
+	if (str == NULL)
+		return -1;
+	i = 0;
+	while (i < char_pp && str[i] != '\0')
+	{
+		char_pp_value += str[i] * factor;
+		factor *= 10;
+		i++;
+	}
+	return (char_pp_value);
 }
 
 /**========================================================================
  *                           EXTRACT_TEXTURE_VALUES
  *? the logic should be modified HERE to handle the cases where their are
- *? more than 1 char to define a color... 
- *========================================================================**/
+*? more than 1 char to define a color... 
+*========================================================================**/
 void	extract_texture_values(int shades_nbr, int char_pp,  int fd, int int_tab[][2])
 {
 	char	*str;
