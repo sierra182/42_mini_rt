@@ -23,9 +23,9 @@ static void	calculate_ray_reflexion(t_ray *ray,
 
 	scalar_nr = 2 * scalar_product(normal->axis, ray->dir_vect.axis);
 	scale_vector(normal->axis, scalar_nr, scaled_norm.axis);
-	subtract_vector(scaled_norm.axis, ray->dir_vect.axis, reflex_ray->dir_vect.axis);
+	subtract_vector(ray->dir_vect.axis, scaled_norm.axis,
+		reflex_ray->dir_vect.axis);
 	self_normalize_vector(reflex_ray->dir_vect.axis);
-	 symmetrize_vector(reflex_ray->dir_vect.axis);//opti
 }
 void		get_intersect_point(t_ray *ray, double t, t_ray_vector *inter_pt);
 void	apply_aces_tonemap(t_color *color);
@@ -116,55 +116,33 @@ t_ray_pack *light_ray);
 // 	apply_aces_tonemap(color);
 // }
 
-void	launch_recursive_reflexion(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
+void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj, t_color *color)
 {
 	t_ray 			reflex_ray;
 	t_color			reflex_color;
-	t_ray 			reflex_ray2;
-	t_color			reflex_color2;
 	t_ray_vector	normal;
 	t_ray_pack		light_ray;
-	t_ray_pack		light_ray2;
-	t_ray_pack		light_ray3;
-	int deep = -1;
+	int 			deep = -1;
 
 	get_closest_intersection(data, ray, obj);
-
 	get_pixel_color(data, ray, obj, color, &normal, &light_ray);
-	while (obj->ref && ++deep < 30)
+	while (++deep < 4 && obj->ref)
 	{
 		reflex_ray.origin_vect = light_ray.ray.origin_vect;
 		calculate_ray_reflexion(ray, &normal, &reflex_ray);
 		get_closest_intersection(data, &reflex_ray, obj);
 		get_pixel_color(data, &reflex_ray, obj, &reflex_color, &normal, &light_ray);
-		//  scale_color(&reflex_color, 0.5, &reflex_color);
-		 if (obj->ref)
-		add_color(color, &reflex_color, color);
-			// *color = reflex_color;
-		*ray = reflex_ray;
-	
+		scale_color(&reflex_color, 1, &reflex_color);
+		if (!obj->ref)
+			scale_color(&reflex_color, 0.1, &reflex_color);
+		else
+			scale_color(color, 1, color);
+		add_color(color, &reflex_color, color);	
+		ray = &reflex_ray;	
 	}
-			
-	// if (obj->ref)
-	// {
-	// 	reflex_ray.origin_vect = light_ray.ray.origin_vect;
-	// 	calculate_ray_reflexion(ray, &normal, &reflex_ray);
-	// 	get_closest_intersection(data, &reflex_ray, obj);
-	// 	get_pixel_color(data, &reflex_ray, obj, &reflex_color, &normal, &light_ray2);
-	// 	scale_color(&reflex_color, 0.5, &reflex_color);
-	// 	add_color(color, &reflex_color, color);	
-	// 	if (obj->ref)
-	// 	{
-	// 		reflex_ray2.origin_vect = light_ray2.ray.origin_vect;
-	// 		calculate_ray_reflexion(&reflex_ray, &normal, &reflex_ray2);
-	// 		get_closest_intersection(data,  &reflex_ray2, obj);
-	// 		get_pixel_color(data, &reflex_ray2, obj, &reflex_color2, &normal, &light_ray3);
-	// 		scale_color(&reflex_color2, 0.5, &reflex_color2);
-	// 		add_color(color, &reflex_color2 , color);					
-	// 	}	
-	// }
 	apply_aces_tonemap(color);
 }
+
 /**========================================================================
  *                           EXEC_LAUNCH_RAYS
  *========================================================================**/
@@ -178,10 +156,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	color.rgb[2] = 0;
 	
 	new_ray(&data->cam, &ray, x + 0.5f, y + 0.5f);
-	launch_recursive_reflexion(data, &ray, &obj, &color);
-	//  apply_aces_tonemap(&color);
-	// get_closest_intersection(data, &ray, &obj);
-	// get_pixel_color(data, &ray, &obj, &color);
+	launch_reflexions(data, &ray, &obj, &color);
 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
 }
 
@@ -205,11 +180,8 @@ void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)
 		while (++antia.j < antia.alia)
 		{
 			new_ray(&data->cam, &antia.ray, antia.ax_cpy, antia.ay);
-			launch_recursive_reflexion(data, &antia.ray, &antia.obj, &antia.colors[antia.k++]);
-			// apply_aces_tonemap(&antia.colors[antia.k++]);
-			// get_closest_intersection(data, &antia.ray, &antia.obj);
-			// get_pixel_color(data, &antia.ray, &antia.obj,
-			// &antia.colors[antia.k++]);
+			launch_reflexions(data, &antia.ray, &antia.obj,
+				&antia.colors[antia.k++]);	
 			antia.ax_cpy += antia.inv_alia;
 		}
 		antia.ay += antia.inv_alia;
