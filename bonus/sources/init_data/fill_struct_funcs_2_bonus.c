@@ -30,7 +30,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
 	data->spheres[i].checkerboard = 0;
-	handle_uv_modif_params(tab[7], data, i);
+	handle_uv_modif_params(tab[9], data, i);
 	data->spheres[i].which_t = 0;
 	data->spheres[i].t1 = 0.0;
 	data->spheres[i].t2 = 0.0;
