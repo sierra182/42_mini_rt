@@ -63,9 +63,11 @@ double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v)
  *========================================================================**/
 void	calculate_uv(t_sphere *sphere, t_ray_vector point, double *u, double *v)
 {
-	int		xpm_size_x = sphere->xpm_size_x;
-	int		xpm_size_y = sphere->xpm_size_y;
+	int		xpm_size_x;
+	int		xpm_size_y;
 
+	xpm_size_x = 360;
+	xpm_size_y = 360;
 	*u = 0.5 + atan2(point.axis[2], point.axis[0]) / (2 * M_PI);
 	*v = 0.5 - asin(point.axis[1]) / M_PI;
 	if (sphere->checkerboard && sphere->rotation_angle_x < 0)
