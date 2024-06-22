@@ -30,6 +30,8 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
 	data->spheres[i].checkerboard = 0;
+	data->spheres[i].reflexion_coef = tab[7];
+	data->spheres[i].color_coef = tab[8];
 	handle_uv_modif_params(tab[9], data, i);
 	data->spheres[i].which_t = 0;
 	data->spheres[i].t1 = 0.0;
@@ -86,6 +88,8 @@ void	fill_struct_cy(t_data *data, double tab[])
 	data->cylinders[i].color.rgb[0] = tab[8];
 	data->cylinders[i].color.rgb[1] = tab[9];
 	data->cylinders[i].color.rgb[2] = tab[10];
+	data->cylinders[i].reflexion_coef = tab[11];
+	data->cylinders[i].color_coef = tab[12];
 	data->cylinders[i].which_t = 0;
 	data->cylinders[i].t1 = 0.0;
 	data->cylinders[i].t2 = 0.0;
@@ -110,6 +114,8 @@ void	fill_struct_pl(t_data *data, double tab[])
 	data->planes[i].color.rgb[0] = tab[6];
 	data->planes[i].color.rgb[1] = tab[7];
 	data->planes[i].color.rgb[2] = tab[8];
+	data->planes[i].reflexion_coef = tab[9];
+	data->planes[i].color_coef = tab[10];
 	if (tab[9] == -42)
 	{
 		data->planes[i].checkerboard = 1;
@@ -146,5 +152,7 @@ void	fill_struct_tr(t_data *data, double tab[])
 	data->triangles[i].color.rgb[0] = tab[9];
 	data->triangles[i].color.rgb[1] = tab[10];
 	data->triangles[i].color.rgb[2] = tab[11];
+	data->triangles[i].reflexion_coef = tab[12];
+	data->triangles[i].color_coef = tab[13];
 	i++;
 }
