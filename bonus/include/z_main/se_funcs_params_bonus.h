@@ -122,8 +122,8 @@ typedef struct s_reflexion
 	t_ray_vector	normal;
 	t_ray_pack		light_ray;
 	int				deep;
-	double 			reflex_coef;
-	double 			color_coef;
+	double			reflex_coef;
+	double			color_coef;
 }	t_reflexion;
 
 #endif

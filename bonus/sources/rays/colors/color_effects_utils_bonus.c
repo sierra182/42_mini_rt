@@ -52,7 +52,10 @@ static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
 void	get_pixel_color(t_get_color_params *params)
 {
 	double	inter_bulb;
-
+	 	
+	params->color->rgb[0] = 0;
+	params->color->rgb[1] = 0;
+	params->color->rgb[2] = 0;
 	inter_bulb = has_bulb(params->data, params->ray, params->color);
 	if (params->mesh->t && params->mesh->type == O_SP
 		&& params->mesh->ref && !inter_bulb)

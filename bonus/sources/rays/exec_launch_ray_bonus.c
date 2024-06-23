@@ -17,7 +17,8 @@ static void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
 /**========================================================================
  *                         GET_REFLEXION_COEFS
  *========================================================================**/
-void	get_reflexion_coefs(t_obj *mesh, double *reflex_coef, double *color_coef)
+void	get_reflexion_coefs(t_obj *mesh, double *reflex_coef,
+	double *color_coef)
 {
 	if (mesh->ref)
 	{
@@ -29,17 +30,17 @@ void	get_reflexion_coefs(t_obj *mesh, double *reflex_coef, double *color_coef)
 		else if (mesh->type == O_CY)
 		{
 			*reflex_coef = ((t_cylinder *)mesh->ref)->reflexion_coef;
-			*color_coef = ((t_cylinder *)mesh->ref)->color_coef;		
+			*color_coef = ((t_cylinder *)mesh->ref)->color_coef;
 		}
 		else if (mesh->type == O_PL)
 		{
 			*reflex_coef = ((t_plane *)mesh->ref)->reflexion_coef;
-			*color_coef = ((t_plane *)mesh->ref)->color_coef;		
+			*color_coef = ((t_plane *)mesh->ref)->color_coef;
 		}
 		else if (mesh->type == O_TR)
 		{
 			*reflex_coef = ((t_triangle *)mesh->ref)->reflexion_coef;
-			*color_coef = ((t_triangle *)mesh->ref)->color_coef;		
+			*color_coef = ((t_triangle *)mesh->ref)->color_coef;
 		}
 	}
 }
@@ -56,7 +57,7 @@ static void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj,
 	get_pixel_color(&(t_get_color_params)
 	{data, ray, obj, color, &rflx.normal, &rflx.light_ray});
 	get_reflexion_coefs(obj, &rflx.reflex_coef, &rflx.color_coef);
-	rflx.deep = -1;	
+	rflx.deep = -1;
 	while (++rflx.deep < 4 && obj->ref
 		&& (rflx.reflex_coef || rflx.color_coef))
 	{
@@ -85,10 +86,7 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	t_ray	ray;
 	t_obj	obj;
 	t_color	color;
- 	
-	color.rgb[0] = 0;
-	color.rgb[1] = 0;
-	color.rgb[2] = 0;
+
 	new_ray(&data->cam, &ray, x + 0.5f, y + 0.5f);
 	launch_reflexions(data, &ray, &obj, &color);
 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
