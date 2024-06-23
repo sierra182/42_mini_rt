@@ -26,7 +26,7 @@ void	fill_struct_sp(t_data *data, double tab[])
 	data->spheres[i].radius = data->spheres[i].diameter * 0.5;
 	data->spheres[i].square_radius = data->spheres[i].radius
 		* data->spheres[i].radius;
-	data->spheres[i].color.rgb[0] = tab[4];
+	data->spheres[i].color.rgb[0] = tab[4]; 
 	data->spheres[i].color.rgb[1] = tab[5];
 	data->spheres[i].color.rgb[2] = tab[6];
 	data->spheres[i].checkerboard = 0;
