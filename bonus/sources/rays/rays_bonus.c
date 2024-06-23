@@ -45,37 +45,93 @@ void	new_ray(t_cam *cam, t_ray *ray, double x, double y)
 	scale_and_add_vectors(cam, ray, norm_scale_x, norm_scale_y);
 	self_normalize_vector(ray->dir_vect.axis);
 }
+#include <pthread.h>
+typedef struct s_multy_threads
+{
+	t_mlx	mlx;
+	t_data	data;
+	int		x_stt;
+	int		x_end;
+	int		y_stt;
+	int		y_end;
+}	t_multy_threads;
+void	*launch_rays2(void *multy_input)
+{
+	int	x;
+	int	y;
 
+	t_multy_threads *multy = multy_input;
+
+	y = multy->y_stt;
+	// printf("x: %d, x_end: %d, y: %d, y_end: %d\n", multy->x_stt, multy->x_end, multy->y_stt, multy->y_end);
+	while (++y < multy->y_end)
+	{
+		x = multy->x_stt;
+		while (++x < multy->x_end)
+		{
+			// if (data->event.antia == 2)
+			// 	exec_launch_rays_antia(mlx, data, x, y);
+			if (!multy->data.event.antia)
+				exec_launch_rays(&multy->mlx, &multy->data, x, y);
+			add_xpm_items(&multy->mlx, &multy->data, x, y);
+		}
+	}
+	return (NULL);
+}
+#define THR 4 
 /**========================================================================
  *                           LAUNCH_RAYS
  *========================================================================**/
 void	launch_rays(t_mlx *mlx, t_data *data)
 {
-	int	x;
-	int	y;
+	pthread_t	tids[THR];
+	int			i;
+	int			j;
+	int			x_stt;
+	int			x_end;
+	int			y_stt;
+	int			y_end;
+	static const int half_threads = THR * 0.5;
+	// x_stt = 0;
+	// y_stt = 0;
+	// x_end = WIDTH / THR;
+	// y_end = HEIGHT / THR;
+	t_multy_threads multy[THR];
+	// i = -1;
+	// while (++i < THR)
 
-	y = -1;
-	while (++y < data->cam.resol[1])
+	int k;
+
+	k = 0;
+	i = -1;
+	while (++i < half_threads)
 	{
-		x = -1;
-		while (++x < data->cam.resol[0])
+		j = -1;
+		while (++j < half_threads)
 		{
-			if (data->event.antia == 2)
-				exec_launch_rays_antia(mlx, data, x, y);
-			else if (!data->event.antia)
-				exec_launch_rays(mlx, data, x, y);
-			add_xpm_items(mlx, data, x, y);
+			x_stt = (WIDTH / half_threads * j) - 1;
+			y_stt = (HEIGHT / half_threads * i) - 1;
+			x_end = (x_stt + WIDTH / half_threads) + 1;
+			y_end = (y_stt + HEIGHT / half_threads) + 1;
+			// printf("x: %d, x_end: %d, y: %d, y_end: %d\n", x_stt, x_end, y_stt, y_end);
+			multy[k] = (t_multy_threads){*mlx, *data, x_stt, x_end, y_stt, y_end};
+			pthread_create(&tids[k], NULL, launch_rays2, &multy[k]);
+			k++;			
 		}
 	}
-	if (data->event.antia == 1)
-	{
-		data->event.antia = 2;
-		data->refresh = 1;
-	}
-	else if (data->event.antia == 2)
-		data->event.antia = 0;
-	if (data->is_test == 1)
-		make_bin_file(data, mlx);
+		
+	i = -1;
+	while (++i < THR)	
+		pthread_join(tids[i], NULL);	
+	// if (data->event.antia == 1)
+	// {
+	// 	data->event.antia = 2;
+	// 	data->refresh = 1;
+	// }
+	// else if (data->event.antia == 2)
+	// 	data->event.antia = 0;
+	// if (data->is_test == 1)
+	// 	make_bin_file(data, mlx);
 }
 
 /**========================================================================
