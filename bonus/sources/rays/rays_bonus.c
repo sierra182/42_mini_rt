@@ -69,8 +69,8 @@ void	*launch_rays2(void *multy_input)
 		x = multy->x_stt;
 		while (++x < multy->x_end)
 		{
-			// if (data->event.antia == 2)
-			// 	exec_launch_rays_antia(mlx, data, x, y);
+			if (multy->data.event.antia == 2)
+				exec_launch_rays_antia(&multy->mlx, &multy->data, x, y);
 			if (!multy->data.event.antia)
 				exec_launch_rays(&multy->mlx, &multy->data, x, y);
 			add_xpm_items(&multy->mlx, &multy->data, x, y);
@@ -111,27 +111,27 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 		{
 			x_stt = (WIDTH / half_threads * j) - 1;
 			y_stt = (HEIGHT / half_threads * i) - 1;
-			x_end = (x_stt + WIDTH / half_threads) + 1;
-			y_end = (y_stt + HEIGHT / half_threads) + 1;
-			// printf("x: %d, x_end: %d, y: %d, y_end: %d\n", x_stt, x_end, y_stt, y_end);
+			x_end = ((x_stt + 1) + WIDTH / half_threads);
+			y_end = ((y_stt + 1) + HEIGHT / half_threads);
+			//  printf("x: %d, x_end: %d, y: %d, y_end: %d\n", x_stt, x_end, y_stt, y_end);
 			multy[k] = (t_multy_threads){*mlx, *data, x_stt, x_end, y_stt, y_end};
 			pthread_create(&tids[k], NULL, launch_rays2, &multy[k]);
 			k++;			
 		}
 	}
-		
+		// printf("k:%d\n, ")
 	i = -1;
 	while (++i < THR)	
 		pthread_join(tids[i], NULL);	
-	// if (data->event.antia == 1)
-	// {
-	// 	data->event.antia = 2;
-	// 	data->refresh = 1;
-	// }
-	// else if (data->event.antia == 2)
-	// 	data->event.antia = 0;
-	// if (data->is_test == 1)
-	// 	make_bin_file(data, mlx);
+	if (data->event.antia == 1)
+	{
+		data->event.antia = 2;
+		data->refresh = 1;
+	}
+	else if (data->event.antia == 2)
+		data->event.antia = 0;
+	if (data->is_test == 1)
+		make_bin_file(data, mlx);
 }
 
 /**========================================================================
