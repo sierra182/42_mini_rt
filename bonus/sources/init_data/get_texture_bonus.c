@@ -10,10 +10,12 @@ int				hex_to_int(const char *hex_string);
 void			get_texture(t_data *data, int i);
 unsigned char	int_to_grayscale(unsigned int hex_value);
 void			free_tab_bump(char **tab);
-void			get_shades_nbr(t_sphere *sphere, int fd, int *shades_nbr, int *char_pp);
+void			get_shades_nbr(t_sphere *sphere, int fd, int *shades_nbr,
+					int *char_pp);
 void			extract_texture_values(int shades_nbr, int char_pp, int fd,
 					int int_tab[][2]);
 void			fill_bump_map(t_fill_bump_map *p, int int_tab[][2]);
+void			handle_line(t_handle_line_params *p, int int_tab[][2]);
 void			handle_line(t_handle_line_params *p, int int_tab[][2]);
 
 /**========================================================================
@@ -29,7 +31,8 @@ void	get_texture(t_data *data, int i)
 	fd = open(data->spheres[i].bump_map_path, O_RDONLY);
 	get_shades_nbr(&data->spheres[i], fd, &shades_nbr, &char_pp);
 	extract_texture_values(shades_nbr, char_pp, fd, int_tab);
-	fill_bump_map(&(t_fill_bump_map){shades_nbr, char_pp, data, fd, i}, int_tab);
+	fill_bump_map(&(t_fill_bump_map)
+	{shades_nbr, char_pp, data, fd, i}, int_tab);
 	close(fd);
 }
 
@@ -67,14 +70,16 @@ void	get_shades_nbr(t_sphere *sphere, int fd, int *shades_nbr, int *char_pp)
 /**========================================================================
  *                           GET_CHAR_PP_VALUE
  *========================================================================**/
-int get_char_pp_value(const char *str, int char_pp)
+int	get_char_pp_value(const char *str, int char_pp)
 {
-	int i;
-	int char_pp_value = 0;
-	int factor = 1;
+	int	i;
+	int	char_pp_value;
+	int	factor;
 
+	char_pp_value = 0;
+	factor = 1;
 	if (str == NULL)
-		return -1;
+		return (-1);
 	i = 0;
 	while (i < char_pp && str[i] != '\0')
 	{
@@ -90,7 +95,8 @@ int get_char_pp_value(const char *str, int char_pp)
  *? the logic should be modified HERE to handle the cases where their are
 *? more than 1 char to define a color... 
 *========================================================================**/
-void	extract_texture_values(int shades_nbr, int char_pp,  int fd, int int_tab[][2])
+void	extract_texture_values(int shades_nbr, int char_pp, int fd,
+	int int_tab[][2])
 {
 	char	*str;
 	char	*str_tmp;
@@ -141,36 +147,4 @@ void	fill_bump_map(t_fill_bump_map *p, int int_tab[][2])
 			free(str);
 		j++;
 	}
-}
-
-/**========================================================================
- *                           HANDLE_LINE
- *========================================================================**/
-void	handle_line(t_handle_line_params *p, int int_tab[][2])
-{
-	char	*str_tmp;
-	int		k;
-
-	str_tmp = ft_substr(p->str, 1, ft_strlen(p->str) - 3);
-	free (p->str);
-	p->str = str_tmp;
-	str_tmp = ft_strtrim(str_tmp, "\"");
-	free (p->str);
-	p->str = str_tmp;
-	*(p->j) = 0;
-	while (p->str[*(p->j)])
-	{
-		k = 0;
-		while (k < p->shades_nbr)
-		{
-			if (get_char_pp_value(&p->str [*(p->j)], p->char_pp) == int_tab[k][0])
-			{
-				p->data->bump_maps[p->i][*(p->l)][*(p->j) / p->char_pp]
-					= int_tab[k][1];
-			}
-			(k)++;
-		}
-		(*(p->j)) += p->char_pp;
-	}
-	free(p->str);
 }

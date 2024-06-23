@@ -1,5 +1,8 @@
 #include "se_mini_struct_bonus.h"
 #include <stdlib.h>
+#include "libft.h"
+
+int	get_char_pp_value(const char *str, int char_pp);
 
 /**========================================================================
  *                           GET_BMPATH
@@ -48,4 +51,35 @@ void	free_tab_bump(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+/**========================================================================
+ *                           HANDLE_LINE
+ *========================================================================**/
+void	handle_line(t_handle_line_params *p, int int_tab[][2])
+{
+	char	*str_tmp;
+	int		k;
+
+	str_tmp = ft_substr(p->str, 1, ft_strlen(p->str) - 3);
+	free (p->str);
+	p->str = str_tmp;
+	str_tmp = ft_strtrim(str_tmp, "\"");
+	free (p->str);
+	p->str = str_tmp;
+	*(p->j) = 0;
+	while (p->str[*(p->j)])
+	{
+		k = 0;
+		while (k < p->shades_nbr)
+		{
+			if (get_char_pp_value(&p->str [*(p->j)], p->char_pp)
+				== int_tab[k][0])
+				p->data->bump_maps[p->i][*(p->l)][*(p->j) / p->char_pp]
+					= int_tab[k][1];
+			(k)++;
+		}
+		(*(p->j)) += p->char_pp;
+	}
+	free(p->str);
 }
