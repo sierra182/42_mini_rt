@@ -115,11 +115,12 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			y_end = ((y_stt + 1) + HEIGHT / half_threads);
 			//  printf("x: %d, x_end: %d, y: %d, y_end: %d\n", x_stt, x_end, y_stt, y_end);
 			multy[k] = (t_multy_threads){*mlx, *data, x_stt, x_end, y_stt, y_end};
+			// launch_rays2(&multy[k]);
 			pthread_create(&tids[k], NULL, launch_rays2, &multy[k]);
 			k++;			
 		}
 	}
-		 printf("k:%d\n",k );
+	
 	i = -1;
 	while (++i < THR)	
 		pthread_join(tids[i], NULL);	

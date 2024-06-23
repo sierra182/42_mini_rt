@@ -1,7 +1,7 @@
 #ifndef SE_MINI_STRUCT_BONUS_H
 # define SE_MINI_STRUCT_BONUS_H
 
-# define WIDTH 800
+# define WIDTH 1800
 # define HEIGHT 800
 # define AXIS 3
 # define MTX 4 
