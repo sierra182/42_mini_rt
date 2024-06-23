@@ -106,4 +106,12 @@ typedef struct s_is_intersect_triangle
 	double			t;
 }	t_tri;
 
+typedef struct s_uv_to_texture_coordinates_params
+{
+	t_sphere	*sphere;
+	double		u;
+	double		v;
+	int			*x;
+	int			*y;
+}	t_uv_to_texture_coordinates_params;
 #endif

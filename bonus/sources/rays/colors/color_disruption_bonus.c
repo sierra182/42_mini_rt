@@ -44,22 +44,23 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 /**========================================================================
  *                           UV_TO_TEXTURE_COORDINATES
  *========================================================================**/
-void uv_to_texture_coordinates(t_sphere *sphere, double u, double v, int *x, int *y)
+void	uv_to_texture_coordinates(t_uv_to_texture_coordinates_params *p)
 {
+	int	xpm_size_x;
+	int	xpm_size_y;
 
-	int		xpm_size_x = sphere->xpm_size_x;
-	int		xpm_size_y = sphere->xpm_size_y;
-
-	*x = (int)(u * xpm_size_x);
-	*y = (int)(v * xpm_size_y);
-	if (*x < 0)
-		*x = (xpm_size_x + *x % xpm_size_x) % xpm_size_x;
-	if (*y < 0)
-		*y = (xpm_size_y + *y % xpm_size_y) % xpm_size_y;
-	if (*x > xpm_size_x - 1)
-		*x = *x % xpm_size_x ;
-	if (*y > xpm_size_y - 1)
-		*y = *y % xpm_size_y;
+	xpm_size_x = p->sphere->xpm_size_x;
+	xpm_size_y = p->sphere->xpm_size_y;
+	*(p->x) = (int)(p->u * xpm_size_x);
+	*(p->y) = (int)(p->v * xpm_size_y);
+	if (*(p->x) < 0)
+		*(p->x) = (xpm_size_x + *(p->x) % xpm_size_x) % xpm_size_x;
+	if (*(p->y) < 0)
+		*(p->y) = (xpm_size_y + *(p->y) % xpm_size_y) % xpm_size_y;
+	if (*(p->x) > xpm_size_x - 1)
+		*(p->x) = *(p->x) % xpm_size_x ;
+	if (*(p->y) > xpm_size_y - 1)
+		*(p->y) = *(p->y) % xpm_size_y;
 }
 
 /**========================================================================
@@ -70,7 +71,6 @@ int	gray_to_hex_string(const char *gray_string, char *hex_output)
 	int	gray_value;
 	int	intensity;
 
-	// printf("gray_string: >%s<\n", gray_string);
 	if (ft_strncmp(gray_string, "black", 5) == 0)
 		return (strcpy(hex_output, "#FFFFFF"), 1);
 	if (ft_strncmp(gray_string, "white", 5) == 0)
