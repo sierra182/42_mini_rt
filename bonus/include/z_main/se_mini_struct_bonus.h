@@ -7,6 +7,7 @@
 # define MTX 4 
 # define BIG_VALUE 100000000
 # define XPM_SIZE 7000
+# define BUMP_SCALE 0.001
 
 # include <stdio.h>
 # include "se_color_image_bonus.h"
