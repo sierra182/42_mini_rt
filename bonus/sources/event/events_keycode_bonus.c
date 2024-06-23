@@ -27,11 +27,12 @@ void	event_rotate_sphere(t_data *data, int keycode, t_matrix_vector *vector)
 	if (keycode == R_LFT)
 		((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_x += 1;
 	else if (keycode == R_RGHT)
-		((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_x -= 1;
+		((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_x -= 261;
 	else if (keycode == R_UP)
 		((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_y += 1;
 	else if (keycode == R_DWN)
 		((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_y -= 1;
+	printf("rotation_angle_x: %f,rotation_angle_y: %f\n", ((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_x,((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_y);
 }
 
 /**========================================================================
@@ -65,7 +66,7 @@ void	event_translate(int keycode,
 {
 	double	t;
 
-	t = 1;
+	t = 0.1;
 	if (keycode == UP)
 		trsl_mesh(cam, vect, (double []){0.0, t, 0.0});
 	else if (keycode == DWN)

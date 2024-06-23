@@ -1,8 +1,8 @@
 #ifndef SE_MINI_STRUCT_BONUS_H
 # define SE_MINI_STRUCT_BONUS_H
 
-# define WIDTH 400
-# define HEIGHT 300
+# define WIDTH 800
+# define HEIGHT 600
 # define AXIS 3
 # define MTX 4 
 # define BIG_VALUE 100000000
