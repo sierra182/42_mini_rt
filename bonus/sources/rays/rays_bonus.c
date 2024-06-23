@@ -49,7 +49,7 @@ void	new_ray(t_cam *cam, t_ray *ray, double x, double y)
 typedef struct s_multy_threads
 {
 	t_mlx	mlx;
-	t_data	data;
+	t_data	*data;
 	int		x_stt;
 	int		x_end;
 	int		y_stt;
@@ -78,6 +78,38 @@ void	*launch_rays2(void *multy_input)
 	}
 	return (NULL);
 }
+#include "libft.h"
+void	copy_data(t_data *data, t_data **data_cpy)
+{
+	data_cpy = (t_data *) ft_calloc(1, sizeof(t_data));
+	*data_cpy = *data;
+	// *data->data_cpy = *data;
+
+	data_cpy->spheres = (t_sphere *) ft_calloc(data->sp_nbr,
+			sizeof(t_sphere));
+	ft_memcpy(data_cpy->spheres, data->spheres, data->sp_nbr
+		* sizeof(t_sphere));
+		
+	data_cpy->cylinders = (t_cylinder *) ft_calloc(data->cy_nbr,
+			sizeof(t_cylinder));
+	ft_memcpy(data_cpy->cylinders, data->cylinders, data->cy_nbr
+		* sizeof(t_cylinder));
+
+	data_cpy->planes = (t_plane *) ft_calloc(data->pl_nbr,
+			sizeof(t_plane));
+	ft_memcpy(data_cpy->planes, data->planes, data->pl_nbr
+		* sizeof(t_plane));
+
+	data_cpy->triangles = (t_triangle *) ft_calloc(data->tr_nbr,
+			sizeof(t_triangle));		
+	ft_memcpy(data_cpy->triangles, data->triangles, data->tr_nbr
+		* sizeof(t_triangle));
+
+	data_cpy->spotlights = (t_spotlight *) ft_calloc(data->sl_nbr,
+			sizeof(t_spotlight));
+	ft_memcpy(data_cpy->spotlights, data->spotlights, data->sl_nbr
+		* sizeof(t_spotlight));
+}
 #define THR 16	 
 /**========================================================================
  *                           LAUNCH_RAYS
@@ -99,7 +131,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	t_multy_threads multy[THR];
 	// i = -1;
 	// while (++i < THR)
-
+	t_data *data_copies;//[THR];
 	int k;
 
 	k = 0;
@@ -113,9 +145,11 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			y_stt = (HEIGHT / half_threads * i) - 1;
 			x_end = ((x_stt + 1) + WIDTH / half_threads);
 			y_end = ((y_stt + 1) + HEIGHT / half_threads);
+			// data_copies[k] = *data;
+			copy_data(data, &data_copies[k]);
 			//  printf("x: %d, x_end: %d, y: %d, y_end: %d\n", x_stt, x_end, y_stt, y_end);
-			multy[k] = (t_multy_threads){*mlx, *data, x_stt, x_end, y_stt, y_end};
-			// launch_rays2(&multy[k]);
+			multy[k] = (t_multy_threads){*mlx, data_copies[k], x_stt, x_end, y_stt, y_end};
+			//  launch_rays2(&multy[k]);
 			pthread_create(&tids[k], NULL, launch_rays2, &multy[k]);
 			k++;			
 		}
