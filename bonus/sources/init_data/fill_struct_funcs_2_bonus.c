@@ -16,7 +16,7 @@ void	handle_uv_modif_params(double nbr, t_data *data, int i);
  *========================================================================**/
 void	fill_struct_sp(t_data *data, double tab[])
 {
-	static int	i = 0; 
+	static int	i = 0;
 
 	data->spheres[i].origin_vect.axis[0] = tab[0];
 	data->spheres[i].origin_vect.axis[1] = tab[1];
@@ -118,9 +118,7 @@ void	fill_struct_pl(t_data *data, double tab[])
 	data->planes[i].reflexion_coef = tab[9];
 	data->planes[i].color_coef = tab[10];
 	if (tab[9] == -42)
-	{
 		data->planes[i].checkerboard = 1;
-	}
 	else if ((int)tab[9] != 1024)
 	{
 		data->planes[i].checkerboard = 0;
