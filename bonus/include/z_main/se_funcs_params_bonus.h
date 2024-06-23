@@ -114,4 +114,16 @@ typedef struct s_uv_to_texture_coordinates_params
 	int			*x;
 	int			*y;
 }	t_uv_to_texture_params;
+
+typedef struct s_reflexion
+{
+	t_ray			reflex_ray;
+	t_color			reflex_color;
+	t_ray_vector	normal;
+	t_ray_pack		light_ray;
+	int				deep;
+	double 			reflex_coef;
+	double 			color_coef;
+}	t_reflexion;
+
 #endif

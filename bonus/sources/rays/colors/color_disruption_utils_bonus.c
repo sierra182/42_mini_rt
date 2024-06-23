@@ -19,7 +19,6 @@ double			get_bump_coef(t_sphere *sphere, double **bump_map,
 int				hex_to_int(const char *hex_string);
 void			uv_to_texture_coordinates(t_uv_to_texture_params *p);
 unsigned char	int_to_grayscale(unsigned int hex_value);
-
 /**========================================================================
  *                           HEX_TO_INT
  *========================================================================**/

@@ -15,4 +15,6 @@ void	get_average_colors(t_color colors[], int n_colors,
 void	apply_aces_tonemap(t_color *color);
 void	calculate_ray_reflexion(t_ray *ray,	t_ray_vector *normal,
 			t_ray *reflex_ray);
+void	put_pxl(t_mlx *mlx, int x, int y, unsigned int color);
+
 #endif
