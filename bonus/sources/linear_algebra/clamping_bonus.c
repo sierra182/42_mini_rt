@@ -6,7 +6,7 @@
 void	clamp_255(t_color *color)
 {
 	int	i;
- 
+
 	i = -1;
 	while (++i < AXIS)
 		if (color->rgb[i] > 255)
