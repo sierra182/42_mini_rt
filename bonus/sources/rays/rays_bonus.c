@@ -78,7 +78,7 @@ void	*launch_rays2(void *multy_input)
 	}
 	return (NULL);
 }
-#define THR 4 
+#define THR 16	 
 /**========================================================================
  *                           LAUNCH_RAYS
  *========================================================================**/
@@ -91,7 +91,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	int			x_end;
 	int			y_stt;
 	int			y_end;
-	static const int half_threads = THR * 0.5;
+	static const int half_threads = 4; 
 	// x_stt = 0;
 	// y_stt = 0;
 	// x_end = WIDTH / THR;
@@ -119,7 +119,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			k++;			
 		}
 	}
-		// printf("k:%d\n, ")
+		 printf("k:%d\n",k );
 	i = -1;
 	while (++i < THR)	
 		pthread_join(tids[i], NULL);	
