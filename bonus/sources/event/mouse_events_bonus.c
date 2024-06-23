@@ -34,9 +34,6 @@ int	mouse_release(int button, int x, int y, void *param)
 {
 	t_data	*data;
 
-	(void) button;
-	(void) x;
-	(void) y;
 	data = (t_data *) param;
 	if (data->event.actual_mesh.ref)
 	{
