@@ -44,7 +44,7 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 /**========================================================================
  *                           UV_TO_TEXTURE_COORDINATES
  *========================================================================**/
-void	uv_to_texture_coordinates(t_uv_to_texture_coordinates_params *p)
+void	uv_to_texture_coordinates(t_uv_to_texture_params *p)
 {
 	int	xpm_size_x;
 	int	xpm_size_y;

@@ -113,5 +113,5 @@ typedef struct s_uv_to_texture_coordinates_params
 	double		v;
 	int			*x;
 	int			*y;
-}	t_uv_to_texture_coordinates_params;
+}	t_uv_to_texture_params;
 #endif
