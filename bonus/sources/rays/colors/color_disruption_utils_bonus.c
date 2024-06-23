@@ -52,8 +52,8 @@ double	get_bump_coef(t_sphere *sphere, double **bump_map, double u, double v)
 	int		y;
 
 	uv_to_texture_coordinates(sphere, u, v, &x, &y);
-	assign_rgb(sphere, &sphere->color, bump_map[x][y]);
-	return (int_to_grayscale(bump_map[x][y]) / 255.0f);
+	assign_rgb(sphere, &sphere->color, bump_map[y][x]);
+	return (int_to_grayscale(bump_map[y][x]) / 255.0f);
 }
 
 /**========================================================================
