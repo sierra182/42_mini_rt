@@ -22,7 +22,7 @@ NAME = miniRT_bonus
 CC = cc
 
 OBJECTS = $(SOURCES:.c=.o)
-LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
+LDFLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz -pthread
 
 CFLAGS = \
 	-I$(HEADERS_DIR) \
@@ -43,6 +43,7 @@ CFLAGS = \
 	-I$(FT_PRINTF_DIR) \
 	-I$(MLX_DIR) \
 	-O3 \
+	-pthread \
 	-g \
 	# -Wall -Wextra -Werror
 
