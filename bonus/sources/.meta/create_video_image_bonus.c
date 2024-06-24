@@ -40,7 +40,7 @@ void	video_rotate_spheres(t_sphere *sphere, int obj_num, int sp_nbr)
 	static int j = -1;
 	if (sphere->color.rgb[0] == 0)
 	{
-		return	 ;
+		return	 ; 
 	}
 	if (i % 60 * sp_nbr == 0)
 	{

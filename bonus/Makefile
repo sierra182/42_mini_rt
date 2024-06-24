@@ -54,6 +54,7 @@ SOURCES = \
 	$(SRC_DIR)/.meta/meta_keycode_bonus.c \
 	$(SRC_DIR)/.meta/transform_video_scene_bonus.c \
 	$(SRC_DIR)/.meta/meta_utils_bonus.c \
+	$(SRC_DIR)/.meta/newton.c \
 	$(SRC_DIR)/main_bonus.c \
 	$(SRC_DIR)/mesh/cam_bonus.c \
 	$(SRC_DIR)/mesh/cam_trsf_bonus.c \

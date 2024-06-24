@@ -11,6 +11,7 @@ void	video_rotate_cogs(t_cylinder *cyl, int	i, int cyl_nbr);
 void	rotate_pendulum(t_sphere *sphere, int i);
 void	video_move_cam(t_cam *cam);
 void	video_move_light(t_spotlight *light);
+void	newton_move_spheres(t_data *data);
 
 
 /**========================================================================
@@ -28,19 +29,10 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 		// data->event.antia = 2;
 		make_bin_file(data, mlx);
 	}
-	// if (keycode == VIDEO_NEXT_FRAME)
-	// {
-	// 	i = 0;
-	// 	while (i < data->cy_nbr)
-	// 	{
-	// 		video_rotate_cogs(&data->cylinders[i], i, data->cy_nbr);
-	// 		i++;
-	// 	}
-	// 	rotate_pendulum(&data->spheres[0] , j);
-	// 	video_move_cam(&data->cam);
-	// 	video_move_light(&data->spotlight);
-	// 	j++;
-	// }
+	if (keycode == VIDEO_NEXT_FRAME)
+	{
+		newton_move_spheres(data);
+	}
 
 	
 	// *** VIDEO ALL_SHAPES ***
@@ -49,7 +41,7 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 	// 	i = 0;
 	// 	while (i < data->sp_nbr)
 	// 	{
-	// 		video_rotate_spheres(&data->spheres[i], i, data->sp_nbr);
+			// video_rotate_spheres(&data->spheres[i], i, data->sp_nbr);
 	// 		i++;
 	// 	}
 	// 	i = 0;
