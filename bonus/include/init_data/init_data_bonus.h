@@ -23,5 +23,8 @@ int		update_cam(t_cam *cam);
 void	post_init_cam(t_cam *cam);
 void	init_vars(t_data *data);
 void	save_data(t_data *data);
+void	fill_struct_tr(t_data *data, double tab[]);
+void	fill_struct_l_one(t_data *data, double tab[]);
+void	alloc_bump_maps(t_data *data);
 
 #endif

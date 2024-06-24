@@ -17,7 +17,10 @@
 		"get_plane_color_bonus.h": "c",
 		"se_mini_struct_bonus.h": "c",
 		"stdlib.h": "c",
-		"x_linear_algebra_bonus.h": "c"
+		"x_linear_algebra_bonus.h": "c",
+		"fill_struct_funcs_2_bonus.h": "c",
+		"get_texture_utils_bonus.h": "c",
+		"get_next_line.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

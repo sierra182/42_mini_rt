@@ -1,9 +1,5 @@
 #include "init_data_bonus.h"
 
-void	fill_struct_tr(t_data *data, double tab[]);
-void	fill_struct_l_one(t_data *data, double tab[]);
-void	alloc_bump_maps(t_data *data);
-
 /**========================================================================
  *                             INIT_DATA
  * tab cells are initialized at 1024.

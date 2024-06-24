@@ -1,8 +1,4 @@
-#include "se_mini_struct_bonus.h"
-#include <stdlib.h>
-#include "libft.h"
-
-int	get_char_pp_value(const char *str, int char_pp);
+#include "get_texture_utils_bonus.h"
 
 /**========================================================================
  *                           GET_BMPATH
