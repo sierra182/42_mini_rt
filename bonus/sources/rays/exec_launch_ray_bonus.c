@@ -60,7 +60,7 @@ static void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj,
 	get_pixel_color(&(t_get_color_params)
 	{data, ray, obj, color, &rflx.normal, &rflx.light_ray});
 	rflx.deep = -1;
-	while (++rflx.deep < 4 && rflx.reflex_coef)
+	while (++rflx.deep < 40 && obj->ref && rflx.reflex_coef)
 	{
 			// if(obj->ref && obj->type == O_PL)
 			// 	printf("reflex: %f, color: %f\n", rflx.reflex_coef, rflx.color_coef);
@@ -72,10 +72,10 @@ static void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj,
 		if (obj->ref)
 		{
 			scale_color(&rflx.reflex_color, rflx.reflex_coef, &rflx.reflex_color);
-			scale_color(color, rflx.color_coef, color);
+			// scale_color(color, rflx.color_coef, color);
 		}
 		else
-			scale_color(&rflx.reflex_color, 1, &rflx.reflex_color);			
+			scale_color(&rflx.reflex_color, 0.1, &rflx.reflex_color);			
 		add_color(color, &rflx.reflex_color, color);
 		get_reflexion_coefs(obj, &rflx.reflex_coef, &rflx.color_coef);
 		ray = &rflx.reflex_ray;
