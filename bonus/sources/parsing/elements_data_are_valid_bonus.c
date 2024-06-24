@@ -51,13 +51,13 @@ int	data_str_is_valid(char *str)
 	else if (!ft_strcmp(token, "L"))
 		data_str = "7,fl,fl,fl,ltr,byt,byt,byt";
 	else if (!ft_strcmp(token, "sp"))
-		data_str = "10,fl,fl,fl,ufl,byt,byt,byt,ltr,ltr,check";
+		data_str = "9,fl,fl,fl,ufl,byt,byt,byt,ltr,check";
 	else if (!ft_strcmp(token, "pl"))
-		data_str = "12,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt,ltr,ltr";
+		data_str = "11,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt,ltr";
 	else if (!ft_strcmp(token, "cy"))
-		data_str = "14,fl,fl,fl,vecr,vecr,vecr,ufl,ufl,byt,byt,byt,ltr,ltr";
+		data_str = "13,fl,fl,fl,vecr,vecr,vecr,ufl,ufl,byt,byt,byt,ltr";
 	else if (!ft_strcmp(token, "tr"))
-		data_str = "14,fl,fl,fl,fl,fl,fl,fl,fl,fl,byt,byt,byt,ltr,ltr";
+		data_str = "13,fl,fl,fl,fl,fl,fl,fl,fl,fl,byt,byt,byt,ltr";
 	else if (!ft_strncmp(token, "#", 1))
 		return (1);
 	else
