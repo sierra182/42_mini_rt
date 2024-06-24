@@ -26,7 +26,7 @@ void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 		make_rt_file(data);
 	if (keycode == MAKE_BIN_FILE)
 	{
-		// data->event.antia = 2;
+		data->event.antia = 2;
 		make_bin_file(data, mlx);
 	}
 	if (keycode == VIDEO_NEXT_FRAME)
