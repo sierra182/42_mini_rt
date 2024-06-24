@@ -26,5 +26,6 @@ void	free_tab(char **num);
 void	free_tab(char **num);
 int		is_empty_str(char *str);
 int		check_data_nbrs(char *token, char	**num, int *i);
+int		file_exists(char *map_path);
 
 #endif

@@ -1,5 +1,8 @@
 #include "get_cylinder_color_discs_bonus.h"
 
+/**========================================================================
+ *                           ADD_DISC_SPOTLIGHTS_EFFECT
+ *========================================================================**/
 static void	add_disc_spotlights_effect(t_get_color_params *params,
 	t_ray_vector *normal, t_color *spotlighties_color, t_ray_pack *light_ray)
 {

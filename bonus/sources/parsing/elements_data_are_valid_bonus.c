@@ -1,7 +1,4 @@
 #include "elements_data_are_valid_bonus.h"
-#include <stdio.h>
-
-int	file_exists(char *map_path);
 
 /**========================================================================
  *                           ELEMENTS_DATA_ARE_VALID
