@@ -1,7 +1,6 @@
 #ifndef RAYS_BONUS_H
 # define RAYS_BONUS_H
 
-# include <pthread.h>
 # include "se_mini_struct_bonus.h"
 # include "x_linear_algebra_bonus.h"
 

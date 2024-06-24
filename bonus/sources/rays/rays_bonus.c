@@ -46,7 +46,6 @@ void	new_ray(t_cam *cam, t_ray *ray, double x, double y)
 	self_normalize_vector(ray->dir_vect.axis);
 }
 
-
 void	*launch_rays2(void *multy_input)
 {
 	t_multy_threads	*multy;
