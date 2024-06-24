@@ -86,7 +86,9 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	t_ray	ray;
 	t_obj	obj;
 	t_color	color;
-
+color.rgb[0] = 0;
+	color.rgb[1] = 0;
+	color.rgb[2] = 0;
 	new_ray(&data->cam, &ray, x + 0.5f, y + 0.5f);
 	launch_reflexions(data, &ray, &obj, &color);
 	put_pxl(mlx, x, y, get_color(color.rgb[0], color.rgb[1], color.rgb[2]));
@@ -98,7 +100,13 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)
 {
 	t_antia	antia;
-
+	int w = -1;
+	while (++w < 16)
+	{
+		antia.colors[w].rgb[0] = 0;
+		antia.colors[w].rgb[1] = 0;
+		antia.colors[w].rgb[2] = 0;
+	}
 	antia.alia = 4.0;
 	antia.inv_alia = 0.25;
 	antia.ay = y + 0.5f * antia.inv_alia;

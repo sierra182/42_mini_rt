@@ -85,6 +85,7 @@ void	copy_data(t_data *data, t_data *data_cpy)
 	// *data_cpy = *data;
 	 *data_cpy = *data;
 // *data_copies = *data;
+
 	data_cpy->spheres = (t_sphere *) ft_calloc(data->sp_nbr,
 			sizeof(t_sphere));
 	ft_memcpy(data_cpy->spheres, data->spheres, data->sp_nbr
@@ -110,6 +111,27 @@ void	copy_data(t_data *data, t_data *data_cpy)
 	ft_memcpy(data_cpy->spotlights, data->spotlights, data->sl_nbr
 		* sizeof(t_spotlight));
 }
+#include <stdlib.h>
+void	free_data_copy(t_data *data_cpy)
+{
+	// if (data_cpy)
+	// 	data_cpy = (t_data *) data_cpy;
+	// else if (exit && exit->data_cpy)
+	// {
+		free(data_cpy->spheres);
+		data_cpy->spheres = NULL;
+		free(data_cpy->cylinders);
+		data_cpy->cylinders = NULL;
+		free(data_cpy->planes);
+		data_cpy->planes = NULL;
+		free(data_cpy->triangles);
+		data_cpy->triangles = NULL;
+		free(data_cpy->spotlights);
+		data_cpy->spotlights = NULL;
+		// free(data_cpy);
+		// data_cpy = NULL;
+	// }
+}
 #define THR 16	 
 /**========================================================================
  *                           LAUNCH_RAYS
@@ -131,13 +153,18 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	t_multy_threads multy[THR];
 	// i = -1;
 	// while (++i < THR)
-	t_data *data_copies;//[THR];
-	data_copies = (t_data *) ft_calloc(1, sizeof(t_data) * THR);
-	
 
-	i = -1;
-	while (++i < THR)	
-		copy_data(data, &data_copies[i]);
+	// t_data *data_copies;//[THR];
+	// data_copies = (t_data *) ft_calloc(1, sizeof(t_data) * THR);
+	
+	t_data data_copies[THR];
+	// data_copies = (t_data *) ft_calloc(1, sizeof(t_data) * THR);
+
+	// i = -1;
+	// while (++i < THR)
+	// 	copy_data(data, &data_copies[i]);
+
+		// data_copies[i] = *data;
 
 	int k;
 	k = 0;
@@ -152,18 +179,28 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 			x_end = ((x_stt + 1) + WIDTH / half_threads);
 			y_end = ((y_stt + 1) + HEIGHT / half_threads);
 			// data_copies[k] = *data;
-			// copy_data(data, &data_copies[k]);
+			copy_data(data, &data_copies[k]);
 			//  printf("x: %d, x_end: %d, y: %d, y_end: %d\n", x_stt, x_end, y_stt, y_end);
 			multy[k] = (t_multy_threads){*mlx, &data_copies[k], x_stt, x_end, y_stt, y_end};
-			//  launch_rays2(&multy[k]);
+			//   launch_rays2(&multy[k]);
 			pthread_create(&tids[k], NULL, launch_rays2, &multy[k]);
 			k++;			
 		}
 	}
 	
 	i = -1;
-	while (++i < THR)	
-		pthread_join(tids[i], NULL);	
+	while (++i < THR)
+	{
+		pthread_join(tids[i], NULL);
+		free_data_copy(&data_copies[i]);
+	}
+	// i = -1;
+	// while (++i < THR)
+	// {
+		
+	// 	free_data_copy(&data_copies[i]);
+	// }
+	
 	if (data->event.antia == 1)
 	{
 		data->event.antia = 2;
