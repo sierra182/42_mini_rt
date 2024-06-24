@@ -17,7 +17,7 @@ void	find_closest_intersection(t_intersection_params params)
 		{
 			params.obj->t = t;
 			params.obj->type = params.obj_type;
-			params.obj->ref = ((t_sphere **)params.objects)[i];
+			params.obj->ref = ((void **)params.objects)[i];
 		}
 		i++;
 	}

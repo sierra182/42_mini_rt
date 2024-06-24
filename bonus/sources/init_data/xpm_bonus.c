@@ -49,8 +49,8 @@ void	add_xpm_items(t_mlx *mlx, t_data *data, int x, int y)
 	if (data->event.legend && x >= WIDTH - 792 && y >= HEIGHT - 200)
 		add_xpm_item(mlx, (int []){x, y}, &mlx->img_items.legend,
 			(int []){WIDTH - 792, HEIGHT - 200});
-	if (data->event.antia == 1 && x >= WIDTH * 0.25 && x < WIDTH * 0.25 + 400
-		&& y < 99)
+	if (data->event.antia == 1 && x >= WIDTH * 0.5 - 200
+		&& x < WIDTH * 0.5 - 200 + 400 && y < 99)
 		add_xpm_item(mlx, (int []){x, y}, &mlx->img_items.antia,
-			(int []){WIDTH * 0.25, 0});
+			(int []){WIDTH * 0.5 - 200, 0});
 }
