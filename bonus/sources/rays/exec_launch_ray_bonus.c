@@ -7,7 +7,7 @@ static void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
 {
 	obj->t = BIG_VALUE;
 	obj->ref = NULL;
-	obj->type = 4;
+	obj->type = 5;
 	get_closest_intersection_sp(data, ray, obj);
 	get_closest_intersection_cy(data, ray, obj);
 	get_closest_intersection_pl(data, ray, obj);
@@ -20,6 +20,8 @@ static void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
 void	get_reflexion_coefs(t_obj *mesh, double *reflex_coef,
 	double *color_coef)
 {
+	*reflex_coef = 1;
+	*color_coef = 1;
 	if (mesh->ref)
 	{
 		if (mesh->type == O_SP)
@@ -54,26 +56,29 @@ static void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj,
 	t_reflexion	rflx;
 
 	get_closest_intersection(data, ray, obj);
+	get_reflexion_coefs(obj, &rflx.reflex_coef, &rflx.color_coef);
 	get_pixel_color(&(t_get_color_params)
 	{data, ray, obj, color, &rflx.normal, &rflx.light_ray});
-	get_reflexion_coefs(obj, &rflx.reflex_coef, &rflx.color_coef);
 	rflx.deep = -1;
-	while (++rflx.deep < 4 && obj->ref
-		&& (rflx.reflex_coef || rflx.color_coef))
+	while (++rflx.deep < 4 && rflx.reflex_coef)
 	{
+			// if(obj->ref && obj->type == O_PL)
+			// 	printf("reflex: %f, color: %f\n", rflx.reflex_coef, rflx.color_coef);
 		rflx.reflex_ray.origin_vect = rflx.light_ray.ray.origin_vect;
 		calculate_ray_reflexion(ray, &rflx.normal, &rflx.reflex_ray);
 		get_closest_intersection(data, &rflx.reflex_ray, obj);
 		get_pixel_color(&(t_get_color_params){data, &rflx.reflex_ray, obj,
 			&rflx.reflex_color, &rflx.normal, &rflx.light_ray});
-		scale_color(&rflx.reflex_color, rflx.reflex_coef, &rflx.reflex_color);
-		if (!obj->ref)
-			scale_color(&rflx.reflex_color, 0.1, &rflx.reflex_color);
-		else
+		if (obj->ref)
+		{
+			scale_color(&rflx.reflex_color, rflx.reflex_coef, &rflx.reflex_color);
 			scale_color(color, rflx.color_coef, color);
+		}
+		else
+			scale_color(&rflx.reflex_color, 1, &rflx.reflex_color);			
 		add_color(color, &rflx.reflex_color, color);
-		ray = &rflx.reflex_ray;
 		get_reflexion_coefs(obj, &rflx.reflex_coef, &rflx.color_coef);
+		ray = &rflx.reflex_ray;
 	}
 	apply_aces_tonemap(color);
 }

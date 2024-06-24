@@ -145,7 +145,7 @@ void	launch_rays(t_mlx *mlx, t_data *data)
 	int			x_end;
 	int			y_stt;
 	int			y_end;
-	static const int half_threads = 4; 
+	const int half_threads = 4; 
 	// x_stt = 0;
 	// y_stt = 0;
 	// x_end = WIDTH / THR;

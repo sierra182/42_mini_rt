@@ -33,6 +33,7 @@ static double	has_bulb(t_data *data, t_ray *ray, t_color *color)
 	double	inter_bulb;
 	int		i;
 
+	inter_bulb = 0.0;
 	i = -1;
 	while (++i < data->sl_nbr)
 	{
