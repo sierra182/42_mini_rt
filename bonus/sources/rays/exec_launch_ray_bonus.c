@@ -17,7 +17,7 @@ static void	get_closest_intersection(t_data *data, t_ray *ray, t_obj *obj)
 /**========================================================================
  *                         GET_REFLEXION_COEFS
  *========================================================================**/
-void	get_reflexion_coefs(t_obj *mesh, double *reflex_coef,
+static void	get_reflexion_coefs(t_obj *mesh, double *reflex_coef,
 	double *color_coef)
 {
 	*reflex_coef = 1;
@@ -46,7 +46,7 @@ void	get_reflexion_coefs(t_obj *mesh, double *reflex_coef,
 		}
 	}
 }
-#include "libft.h"
+
 /**========================================================================
  *                           LAUNCH_REFLEXIONS
  *========================================================================**/
@@ -54,6 +54,7 @@ static void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj,
 	t_color *color)
 {
 	t_reflexion	rflx;
+
 	ft_bzero(&rflx, sizeof(t_reflexion));
 	get_closest_intersection(data, ray, obj);
 	get_reflexion_coefs(obj, &rflx.reflex_coef, &rflx.color_coef);
@@ -62,20 +63,16 @@ static void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj,
 	rflx.deep = -1;
 	while (++rflx.deep < 4 && obj->ref && rflx.reflex_coef)
 	{
-			// if(obj->ref && obj->type == O_PL)
-			// 	printf("reflex: %f, color: %f\n", rflx.reflex_coef, rflx.color_coef);
 		rflx.reflex_ray.origin_vect = rflx.light_ray.ray.origin_vect;
 		calculate_ray_reflexion(ray, &rflx.normal, &rflx.reflex_ray);
 		get_closest_intersection(data, &rflx.reflex_ray, obj);
 		get_pixel_color(&(t_get_color_params){data, &rflx.reflex_ray, obj,
 			&rflx.reflex_color, &rflx.normal, &rflx.light_ray});
 		if (obj->ref)
-		{
-			scale_color(&rflx.reflex_color, rflx.reflex_coef, &rflx.reflex_color);
-			// scale_color(color, rflx.color_coef, color);
-		}
+			scale_color(&rflx.reflex_color, rflx.reflex_coef,
+				&rflx.reflex_color);
 		else
-			scale_color(&rflx.reflex_color, 0.1, &rflx.reflex_color);			
+			scale_color(&rflx.reflex_color, 0.1, &rflx.reflex_color);
 		add_color(color, &rflx.reflex_color, color);
 		get_reflexion_coefs(obj, &rflx.reflex_coef, &rflx.color_coef);
 		ray = &rflx.reflex_ray;
@@ -91,7 +88,8 @@ void	exec_launch_rays(t_mlx *mlx, t_data *data, int x, int y)
 	t_ray	ray;
 	t_obj	obj;
 	t_color	color;
-color.rgb[0] = 0;
+
+	color.rgb[0] = 0;
 	color.rgb[1] = 0;
 	color.rgb[2] = 0;
 	new_ray(&data->cam, &ray, x + 0.5f, y + 0.5f);
@@ -105,13 +103,8 @@ color.rgb[0] = 0;
 void	exec_launch_rays_antia(t_mlx *mlx, t_data *data, int x, int y)
 {
 	t_antia	antia;
-	int w = -1;
-	while (++w < 16)
-	{
-		antia.colors[w].rgb[0] = 0;
-		antia.colors[w].rgb[1] = 0;
-		antia.colors[w].rgb[2] = 0;
-	}
+
+	ft_bzero(&antia, sizeof(t_antia));
 	antia.alia = 4.0;
 	antia.inv_alia = 0.25;
 	antia.ay = y + 0.5f * antia.inv_alia;
