@@ -5,8 +5,8 @@ import numpy as np
 # Paramètres d'entrée
 input_directory = 'videos/bin_files'  # Remplacez par le chemin de votre dossier
 output_directory = 'videos/jpg_files'  # Remplacez par le chemin de votre dossier de sortie
-width = 800  # largeur de l'image
-height = 600  # hauteur de l'image
+width = 1600  # largeur de l'image
+height = 1200  # hauteur de l'image
 
 # Vérifiez si le dossier de sortie existe, sinon créez-le
 if not os.path.exists(output_directory):
