@@ -46,7 +46,7 @@ void	get_reflexion_coefs(t_obj *mesh, double *reflex_coef,
 		}
 	}
 }
-
+#include "libft.h"
 /**========================================================================
  *                           LAUNCH_REFLEXIONS
  *========================================================================**/
@@ -54,7 +54,7 @@ static void	launch_reflexions(t_data *data, t_ray *ray, t_obj *obj,
 	t_color *color)
 {
 	t_reflexion	rflx;
-
+	ft_bzero(&rflx, sizeof(t_reflexion));
 	get_closest_intersection(data, ray, obj);
 	get_reflexion_coefs(obj, &rflx.reflex_coef, &rflx.color_coef);
 	get_pixel_color(&(t_get_color_params)
