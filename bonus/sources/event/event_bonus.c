@@ -22,9 +22,8 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh)
 	color = NULL;
 	if (mesh->type == O_SP)
 	{
-		color = &((t_sphere *) mesh->ref)->color;
-		if (color)
-			((t_sphere *) mesh->ref)->bump_flag = 1;
+		color = &((t_sphere *) mesh->ref)->color;		
+		((t_sphere *) mesh->ref)->bump_flag = 1;
 	}
 	else if (mesh->type == O_CY)
 		color = &((t_cylinder *) mesh->ref)->color;
@@ -35,7 +34,11 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh)
 		data->event.color_sav = *color;
 		i = -1;
 		while (++i < AXIS)
+		{
+			if (color->rgb[i] >= 120 && color->rgb[i] <= 130)
+				color->rgb[i] -= 100;
 			color->rgb[i] = 255 - color->rgb[i];
+		}			
 	}
 	data->event.actual_mesh = *mesh;
 }
