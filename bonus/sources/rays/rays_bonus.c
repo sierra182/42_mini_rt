@@ -46,6 +46,36 @@ void	new_ray(t_cam *cam, t_ray *ray, double x, double y)
 	self_normalize_vector(ray->dir_vect.axis);
 }
 
+# define THR 16
+# define THR_SQRT 4
+# define THR_INV_SQRT 0.25
+
+# include <pthread.h>
+
+typedef struct s_multy_threads
+{
+	t_mlx	mlx;
+	t_data	*data;
+	int		x_stt;
+	int		x_end;
+	int		y_stt;
+	int		y_end;
+}	t_multy_threads;
+
+typedef struct s_launch_rays
+{
+	int				i;
+	int				j;
+	int				k;
+	int				x_stt;
+	int				x_end;
+	int				y_stt;
+	int				y_end;
+	pthread_t		tids[THR];
+	t_multy_threads	multy[THR];
+	t_data			data_copies[THR];
+}	t_launch_rays;
+
 void	*launch_rays2(void *multy_input)
 {
 	t_multy_threads	*multy;
@@ -68,6 +98,7 @@ void	*launch_rays2(void *multy_input)
 	}
 	return (NULL);
 }
+
 
 #include "libft.h"
 void	copy_data(t_data *data, t_data *data_cpy)
@@ -127,35 +158,6 @@ void	close_launch_rays(t_mlx *mlx, t_data *data, t_launch_rays *lr)
 	if (data->is_test == 1)
 		make_bin_file(data, mlx);
 }
-# define THR 16
-# define THR_SQRT 4
-# define THR_INV_SQRT 0.25
-
-# include <pthread.h>
-
-typedef struct s_multy_threads
-{
-	t_mlx	mlx;
-	t_data	*data;
-	int		x_stt;
-	int		x_end;
-	int		y_stt;
-	int		y_end;
-}	t_multy_threads;
-
-typedef struct s_launch_rays
-{
-	int				i;
-	int				j;
-	int				k;
-	int				x_stt;
-	int				x_end;
-	int				y_stt;
-	int				y_end;
-	pthread_t		tids[THR];
-	t_multy_threads	multy[THR];
-	t_data			data_copies[THR];
-}	t_launch_rays;
 /**========================================================================
  *                           LAUNCH_RAYS
  *========================================================================**/
