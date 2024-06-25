@@ -82,10 +82,10 @@ void	multy_thrd_launch_rays(t_mlx *mlx, t_data *data)
 		lr.j = -1;
 		while (++lr.j < THR_SQRT)
 		{
-			lr.x_stt = (WIDTH * THR_INV_SQRT * lr.j) - 1;
-			lr.y_stt = (HEIGHT * THR_INV_SQRT * lr.i) - 1;
-			lr.x_end = ((lr.x_stt + 1) + WIDTH * THR_INV_SQRT);
-			lr.y_end = ((lr.y_stt + 1) + HEIGHT * THR_INV_SQRT);
+			lr.x_stt = WIDTH * THR_INV_SQRT * lr.j - 1;
+			lr.y_stt = HEIGHT * THR_INV_SQRT * lr.i - 1;
+			lr.x_end = WIDTH * THR_INV_SQRT + lr.x_stt + 1;
+			lr.y_end = HEIGHT * THR_INV_SQRT + lr.y_stt + 1;
 			copy_data(data, &lr.data_copies[lr.k]);
 			lr.multy[lr.k] = (t_multy_threads)
 			{
