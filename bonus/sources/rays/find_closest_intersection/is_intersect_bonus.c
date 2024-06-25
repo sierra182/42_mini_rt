@@ -49,7 +49,7 @@ double	is_intersect_plane(t_ray *ray, void *input_plane, t_ray_vector *i)
 	if (fabs(den) > EPSILON)
 	{
 		t = num / den;
-		if (t >= 1e-4)
+		if (t >= 1e-6)
 		{
 			if (i)
 			{
@@ -128,9 +128,9 @@ double	which_t(double eq_values[], int *which_t, double *tt[])
 		return (*which_t = 0, 0.0);
 	*tt[0] = (-eq_values[2] - sqrt(eq_values[0])) / (2 * eq_values[1]);
 	*tt[1] = (-eq_values[2] + sqrt(eq_values[0])) / (2 * eq_values[1]);
-	if (*tt[0] > 1e-3)
+	if (*tt[0] > 1e-6)
 		return (*which_t = 1, *tt[0]);
-	else if (*tt[1] > 1e-3)
+	else if (*tt[1] > 1e-6)
 		return (*which_t = 2, *tt[1]);
 	else
 		return (*which_t = 0, 0.0);
