@@ -59,8 +59,7 @@ void	write_color(int fd, t_color *color)
 {
 	dprintf(fd, "%i,", (color->rgb[0]));
 	dprintf(fd, "%i,", (color->rgb[1]));
-	dprintf(fd, "%i", (color->rgb[2]));
-	write_fd(fd, "\n");
+	dprintf(fd, "%i		", (color->rgb[2]));
 }
 
 void	make_rt_file(t_data *data)
@@ -77,6 +76,7 @@ void	make_rt_file(t_data *data)
 	dprintf(fd, "A ");
 	dprintf(fd, "%.*f  ", 2, data->ambiant_light.intensity);
 	write_color(fd, &data->ambiant_light.color);
+	write_fd(fd, "\n");
 
 	dprintf(fd, "C ");
 	write_vector(fd, &data->cam.origin_vect);
@@ -91,6 +91,7 @@ void	make_rt_file(t_data *data)
 		write_vector(fd, &data->spotlights[i].origin_vect);
 		dprintf(fd, "%f  ", data->spotlights[i].intensity);
 		write_color(fd, &data->spotlights[i].bulb.color);
+		write_fd(fd, "\n");
 		i++;
 	}
 
@@ -104,6 +105,8 @@ void	make_rt_file(t_data *data)
 		dprintf(fd, "%.*f  ", 2, data->cylinders[i].diameter);
 		dprintf(fd, "%.*f  ", 2, data->cylinders[i].height);
 		write_color(fd, &data->cylinders[i].color);
+		dprintf(fd, "%.*f", 2, (data->cylinders[i].reflexion_coef));
+		write_fd(fd, "\n");
 		i++;
 	}
 	i = 0;
@@ -113,6 +116,8 @@ void	make_rt_file(t_data *data)
 		write_vector(fd, &data->spheres[i].origin_vect);
 		dprintf(fd, "%.*f  ", 2, data->spheres[i].diameter);
 		write_color(fd, &data->spheres[i].color);
+		dprintf(fd, "%.*f", 2, (data->spheres[i].reflexion_coef));
+		write_fd(fd, "\n");
 		i++;
 	}
 	i = 0;
@@ -122,7 +127,23 @@ void	make_rt_file(t_data *data)
 		write_vector(fd, &data->planes[i].origin_vect);
 		write_vector(fd, &data->planes[i].norm_vect);
 		write_color(fd, &data->planes[i].color);
+		dprintf(fd, "%.*f", 2, (data->triangles[i].reflexion_coef));
+		write_fd(fd, "\n");
 		i++;
 	}
+	i = 0;
+	while (i < data->tr_nbr)
+	{
+		dprintf(fd, "tr ");
+		write_vector(fd, &data->triangles[i].point_a);
+		write_vector(fd, &data->triangles[i].point_b);
+		write_vector(fd, &data->triangles[i].point_c);
+		write_color(fd, &data->triangles[i].color);
+		dprintf(fd, "%.*f", 2, (data->triangles[i].reflexion_coef));
+		write_fd(fd, "\n");
+
+		i++;
+	}
+	
 	close(fd);
 }
