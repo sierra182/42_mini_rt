@@ -101,7 +101,7 @@ int	frame(void *param)
 	if (!data->refresh)
 		return (0);
 	data->refresh = 0;
-	launch_rays(mlx, data);
+	multy_thrd_launch_rays(mlx, data);
 	mlx_put_image_to_window(mlx->connect, mlx->window, mlx->img.img_ptr, 0, 0);
 	return (0);
 }
