@@ -13,7 +13,7 @@ void	find_closest_intersection(t_intersection_params params)
 	{
 		t = params.intersect_func(&params.ray,
 				((char **)params.objects)[i], params.i);
-		if (t && t < params.obj->t - 1e-3)
+		if (t && t < params.obj->t - 1e-6)
 		{
 			params.obj->t = t;
 			params.obj->type = params.obj_type;
