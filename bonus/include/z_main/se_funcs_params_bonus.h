@@ -2,9 +2,9 @@
 # define SE_FUNCS_PARAMS_BONUS_H
 
 # define TRI_E 1e-6
-# define THR 16
-# define THR_SQRT 4
-# define THR_INV_SQRT 0.25
+# define THR 4
+# define THR_SQRT 2
+# define THR_INV_SQRT 0.5
 
 typedef struct s_intersection_params
 {
