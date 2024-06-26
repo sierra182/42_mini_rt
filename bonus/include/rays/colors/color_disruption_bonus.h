@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color_disruption_bonus.h                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 13:32:36 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 13:32:49 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COLOR_DISRUPTION_BONUS_H
 # define COLOR_DISRUPTION_BONUS_H
 
-# include "se_mini_struct_bonus.h"
-# include "x_linear_algebra_bonus.h"
-# include "libft.h"
+# include <math.h>
 # include <string.h>
 # include <stdlib.h>
-# include <math.h>
+# include "libft.h"
+# include "se_mini_struct_bonus.h"
+# include "x_linear_algebra_bonus.h"
 
 void	clamp_rgb_0(t_color *color);
 void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray, int size,

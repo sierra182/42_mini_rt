@@ -6,15 +6,15 @@
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:48:16 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 12:48:17 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:45:56 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_EVENT_H
 # define KEY_EVENT_H
 
-# include "se_mini_struct.h"
 # include "mlx.h"
+# include "se_mini_struct.h"
 
 void	reset(t_data *data);
 void	reset_cam(t_data *data);
