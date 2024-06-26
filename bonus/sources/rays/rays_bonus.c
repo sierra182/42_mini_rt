@@ -53,10 +53,10 @@ void	*launch_rays(void *multy_input)
 	int				y;
 
 	multy = (t_multy_threads *) multy_input;
-	y = multy->y_stt;
+	y = multy->y_stt - 1;
 	while (++y < multy->y_end)
 	{
-		x = multy->x_stt;
+		x = multy->x_stt - 1;
 		while (++x < multy->x_end)
 		{
 			if (multy->data->event.antia == 2)

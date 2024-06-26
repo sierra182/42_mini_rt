@@ -21,7 +21,8 @@
 		"fill_struct_funcs_2_bonus.h": "c",
 		"get_texture_utils_bonus.h": "c",
 		"get_next_line.h": "c",
-		"elements_data_are_valid_bonus.h": "c"
+		"elements_data_are_valid_bonus.h": "c",
+		"color_disruption_utils_bonus.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

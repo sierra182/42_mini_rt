@@ -74,7 +74,11 @@ static void	copy_data(t_data *data, t_data *data_cpy)
 void	multy_thrd_launch_rays(t_mlx *mlx, t_data *data)
 {
 	t_launch_rays	lr;
+	double				x;
 
+	x = THR_INV_SQRT;
+	if (data->bump_map_paths[0] != NULL)
+		x = 1;
 	lr.k = 0;
 	lr.i = -1;
 	while (++lr.i < THR_SQRT)
@@ -82,10 +86,10 @@ void	multy_thrd_launch_rays(t_mlx *mlx, t_data *data)
 		lr.j = -1;
 		while (++lr.j < THR_SQRT)
 		{
-			lr.x_stt = WIDTH * THR_INV_SQRT * lr.j - 1;
-			lr.y_stt = HEIGHT * THR_INV_SQRT * lr.i - 1;
-			lr.x_end = WIDTH * THR_INV_SQRT + lr.x_stt + 1;
-			lr.y_end = HEIGHT * THR_INV_SQRT + lr.y_stt + 1;
+			lr.x_stt = WIDTH * x * lr.j - 1;
+			lr.y_stt = HEIGHT * x * lr.i - 1;
+			lr.x_end = (WIDTH * x + lr.x_stt) + 1;
+			lr.y_end = (HEIGHT * x + lr.y_stt) + 1;
 			copy_data(data, &lr.data_copies[lr.k]);
 			lr.multy[lr.k] = (t_multy_threads)
 			{
