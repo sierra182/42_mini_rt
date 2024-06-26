@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   elements_data_are_valid.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 14:01:48 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 14:07:50 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "elements_data_are_valid.h"
 
 /**========================================================================
@@ -54,7 +66,7 @@ int	data_str_is_valid(char *str)
 	else if (!ft_strcmp(token, "cy"))
 		data_str = "11,fl,fl,fl,vecr,vecr,vecr,ufl,ufl,byt,byt,byt";
 	else if (!ft_strncmp(token, "#", 1))
-		return (1); 
+		return (1);
 	else
 		return (0);
 	if (check_data(token, data_str) == 0)
