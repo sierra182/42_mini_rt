@@ -3,6 +3,7 @@
 
 # include "se_mini_struct_bonus.h"
 # include "x_linear_algebra_bonus.h"
+# include "libft.h"
 
 void	get_pixel_color(t_get_color_params *params);
 void	get_closest_intersection_sp(t_data *data, t_ray *ray, t_obj *obj);

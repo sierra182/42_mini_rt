@@ -30,7 +30,11 @@ void	handle_mesh_color_update(t_data *data, t_obj *mesh)
 		data->event.color_sav = *color;
 		i = -1;
 		while (++i < AXIS)
-			color->rgb[i] += 255 - color->rgb[i];
+		{
+			if (color->rgb[i] >= 120 && color->rgb[i] <= 130)
+				color->rgb[i] -= 100;
+			color->rgb[i] = 255 - color->rgb[i];
+		}
 	}
 	data->event.actual_mesh = *mesh;
 }

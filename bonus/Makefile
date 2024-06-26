@@ -85,6 +85,7 @@ SOURCES = \
 	$(SRC_DIR)/parsing/check_funcs_bonus.c \
 	$(GNL_DIR)/get_next_line.c \
 	$(GNL_DIR)/get_next_line_utils.c \
+	$(SRC_DIR)/rays/multy_thrd_bonus.c \
 	$(SRC_DIR)/rays/rays_bonus.c \
 	$(SRC_DIR)/rays/ray_utils_bonus.c \
 	$(SRC_DIR)/rays/compute_rays_bonus.c \
@@ -170,6 +171,7 @@ HEADERS = \
 	$(HEADERS_DIR)/rays/exec_launch_ray_bonus.h \
 	$(HEADERS_DIR)/rays/compute_rays_bonus.h \
 	$(HEADERS_DIR)/rays/ray_utils_bonus.h \
+	$(HEADERS_DIR)/rays/multy_thrd_bonus.h \
 	$(HEADERS_DIR)/rays/rays_bonus.h \
 	$(HEADERS_DIR)/z_main/main_bonus.h \
 	$(HEADERS_DIR)/z_main/se_camera_bonus.h \

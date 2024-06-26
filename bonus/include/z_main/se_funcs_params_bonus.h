@@ -2,6 +2,9 @@
 # define SE_FUNCS_PARAMS_BONUS_H
 
 # define TRI_E 1e-6
+# define THR 16
+# define THR_SQRT 4
+# define THR_INV_SQRT 0.25
 
 typedef struct s_intersection_params
 {
@@ -123,7 +126,17 @@ typedef struct s_reflexion
 	t_ray_pack		light_ray;
 	int				deep;
 	double			reflex_coef;
-	double			color_coef;
+	double			color_coef;	
 }	t_reflexion;
+
+typedef struct s_multy_threads
+{
+	t_mlx	mlx;
+	t_data	*data;
+	int		x_stt;
+	int		x_end;
+	int		y_stt;
+	int		y_end;
+}	t_multy_threads;
 
 #endif

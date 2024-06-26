@@ -21,7 +21,7 @@ static int	has_sphere_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 			{
 				get_local_intersect_point(&light_ray->ray_norm, t, &inter_pt);
 				mesh_mag = get_vector_magnitude(inter_pt.axis);
-				if (mesh_mag - 1e-5 < light_ray->magnitude)
+				if (mesh_mag - 1e-6 < light_ray->magnitude)
 					return (1);
 			}
 		}
@@ -51,7 +51,7 @@ static int	has_cylinder_shadow(t_data *data, t_obj *mesh,
 			{
 				get_local_intersect_point(&light_ray->ray_norm, t, &inter_pt);
 				mesh_mag = get_vector_magnitude(inter_pt.axis);
-				if (mesh_mag - 1e-5 < light_ray->magnitude)
+				if (mesh_mag - 1e-6 < light_ray->magnitude)
 					return (1);
 			}
 		}
@@ -80,7 +80,7 @@ static int	has_plane_shadow(t_data *data, t_obj *mesh, t_ray_pack *light_ray)
 			{
 				get_local_intersect_point(&light_ray->ray_norm, t, &inter_pt);
 				mesh_mag = get_vector_magnitude(inter_pt.axis);
-				if (mesh_mag - 1e-5 < light_ray->magnitude)
+				if (mesh_mag - 1e-6 < light_ray->magnitude)
 					return (1);
 			}
 		}
@@ -110,7 +110,7 @@ static int	has_triangle_shadow(t_data *data, t_obj *mesh,
 			{
 				get_local_intersect_point(&light_ray->ray_norm, t, &inter_pt);
 				mesh_mag = get_vector_magnitude(inter_pt.axis);
-				if (mesh_mag - 1e-5 < light_ray->magnitude)
+				if (mesh_mag - 1e-6 < light_ray->magnitude)
 					return (1);
 			}
 		}
