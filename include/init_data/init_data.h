@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_data.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 12:49:14 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 13:00:15 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef INIT_DATA_H
 # define INIT_DATA_H
 
-# include "se_mini_struct.h"
-# include "get_next_line.h"
-# include "libft.h"
 # include <fcntl.h>
 # include <unistd.h>
+# include "libft.h"
+# include "get_next_line.h"
+# include "se_mini_struct.h"
 
 void	fill_struct_a(t_data *data, double tab[]);
 void	fill_struct_c(t_data *data, double tab[]);
