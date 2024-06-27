@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_sphere_color_bonus.h                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 13:35:32 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 13:35:33 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_SPHERE_COLOR_BONUS_H
 # define GET_SPHERE_COLOR_BONUS_H
 
@@ -14,5 +26,6 @@ void	apply_aces_tonemap(t_color *color);
 void	calculate_spotlight_effect(t_calc_spotlight_effect_params *params);
 void	compute_light_ray(t_spotlight *spotlight, t_ray_pack *light_ray);
 void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
-			int size, t_ray_vector	*normal);			
+			int size, t_ray_vector	*normal);
+
 #endif

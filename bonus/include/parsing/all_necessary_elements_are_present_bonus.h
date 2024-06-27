@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   all_necessary_elements_are_present_bonus.h         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 13:28:33 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 13:29:00 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ALL_NECESSARY_ELEMENTS_ARE_PRESENT_BONUS_H
 # define ALL_NECESSARY_ELEMENTS_ARE_PRESENT_BONUS_H
+
 # define FILE_SIZE 1024
 
-# include "libft.h"
-# include "se_mini_struct_bonus.h"
-# include <fcntl.h>
 # include <unistd.h>
-# include <get_next_line.h>
+# include <fcntl.h>
+# include "libft.h"
+# include "get_next_line.h"
+# include "se_mini_struct_bonus.h"
 
 int	element_is_present(char file_content[], char *el);
 

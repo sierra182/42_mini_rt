@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_event_bonus.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 13:06:48 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 13:45:16 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef KEY_EVENT_BONUS_H
 # define KEY_EVENT_BONUS_H
 
-# include "se_mini_struct_bonus.h"
 # include "mlx.h"
+# include "se_mini_struct_bonus.h"
 
 void	reset(t_data *data);
 void	reset_cam(t_data *data);
@@ -22,4 +34,5 @@ void	actual_light_handle(t_data *data, int store_color,
 			t_matrix_vector **origin_vect);
 void	event_rotate_sphere(t_data *data, int keycode,
 			t_matrix_vector *vector);
+
 #endif

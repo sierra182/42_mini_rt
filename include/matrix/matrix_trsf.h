@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix_trsf.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 12:50:06 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 12:59:46 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MATRIX_TRSF_H
 # define MATRIX_TRSF_H
 
-# include "se_mini_struct.h"
 # include <math.h>
+# include "se_mini_struct.h"
 
 #endif
