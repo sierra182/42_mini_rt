@@ -6,7 +6,7 @@
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:48:53 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:48:54 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/27 14:22:49 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static double	normalize_pixel(int screen_size, double pixel, int x_flag)
 }
 
 /**========================================================================
- *                           NEW_RAY
+ *                               NEW_RAY
  *========================================================================**/
 void	new_ray(t_cam *cam, t_ray *ray, double x, double y)
 {
@@ -58,6 +58,9 @@ void	new_ray(t_cam *cam, t_ray *ray, double x, double y)
 	self_normalize_vector(ray->dir_vect.axis);
 }
 
+/**========================================================================
+ *                              LAUNCH_RAYS
+ *========================================================================**/
 void	*launch_rays(void *multy_input)
 {
 	t_multy_threads	*multy;
@@ -65,11 +68,11 @@ void	*launch_rays(void *multy_input)
 	int				y;
 
 	multy = (t_multy_threads *) multy_input;
-	y = multy->y_stt - 1;
-	while (++y < multy->y_end)
+	y = multy->y_stt;
+	while (++y < multy->y_end && y < HEIGHT)
 	{
-		x = multy->x_stt - 1;
-		while (++x < multy->x_end)
+		x = multy->x_stt;
+		while (++x < multy->x_end && x < WIDTH)
 		{
 			if (multy->data->event.antia == 2)
 				exec_launch_rays_antia(&multy->mlx, multy->data, x, y);

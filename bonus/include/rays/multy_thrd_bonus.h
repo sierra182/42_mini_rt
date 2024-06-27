@@ -6,7 +6,7 @@
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 13:38:05 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 13:38:06 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/27 14:35:51 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ typedef struct s_launch_rays
 {
 	int				i;
 	int				j;
-	int				k;
 	int				x_stt;
 	int				x_end;
 	int				y_stt;
 	int				y_end;
+	int				new_height;
 	pthread_t		tids[THR];
 	t_multy_threads	multy[THR];
 	t_data			data_copies[THR];
