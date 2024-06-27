@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multy_thrd_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:48:41 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:48:42 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/27 06:27:09 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,25 @@ static void	copy_data(t_data *data, t_data *data_cpy)
 	data_cpy->spotlights = (t_spotlight *) ft_calloc(data->sl_nbr,
 			sizeof(t_spotlight));
 	ft_memcpy(data_cpy->spotlights, data->spotlights, data->sl_nbr
-		* sizeof(t_spotlight));
+		* sizeof(t_spotlight)); 
 }
-
+int transformerEnMultipleDeQuatre(int nombre) {
+    // Vérifie si le nombre est déjà un multiple de 4
+    if (nombre % 4 == 0) {
+        return nombre; // Retourne le nombre tel quel s'il est déjà un multiple de 4
+    } else {
+        // Calcul du prochain multiple de 4 supérieur ou égal au nombre donné
+        return nombre + (4 - (nombre % 4));
+    }
+}
 /**========================================================================
  *                          MULTY_THRD_LAUNCH_RAYS
  *========================================================================**/
 void	multy_thrd_launch_rays(t_mlx *mlx, t_data *data)
 {
-	t_launch_rays	lr;
-
+	t_launch_rays	lr = {};
+	int new_width =  transformerEnMultipleDeQuatre(WIDTH);
+	int new_height =  transformerEnMultipleDeQuatre(HEIGHT);
 	lr.k = 0;
 	lr.i = -1;
 	while (++lr.i < THR_SQRT)
@@ -94,10 +103,10 @@ void	multy_thrd_launch_rays(t_mlx *mlx, t_data *data)
 		lr.j = -1;
 		while (++lr.j < THR_SQRT)
 		{
-			lr.x_stt = WIDTH * THR_INV_SQRT * lr.j - 1;
-			lr.y_stt = HEIGHT * THR_INV_SQRT * lr.i - 1;
-			lr.x_end = WIDTH * THR_INV_SQRT + lr.x_stt + 1;
-			lr.y_end = HEIGHT * THR_INV_SQRT + lr.y_stt + 1;
+			lr.x_stt = new_width * THR_INV_SQRT * lr.j - 1;
+			lr.y_stt = new_height * THR_INV_SQRT * lr.i - 1;
+			lr.x_end = new_width * THR_INV_SQRT + lr.x_stt + 1;
+			lr.y_end = new_height * THR_INV_SQRT + lr.y_stt + 1;
 			copy_data(data, &lr.data_copies[lr.k]);
 			lr.multy[lr.k] = (t_multy_threads)
 			{
