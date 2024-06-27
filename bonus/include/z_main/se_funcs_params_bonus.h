@@ -6,7 +6,7 @@
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 13:39:46 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/27 13:59:40 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/27 14:44:35 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # define TRI_E 1e-6
 # define THR 16
 # define INV_THR 0.0625 
-// # define THR_SQRT 4
-// # define THR_INV_SQRT 0.25
 
 typedef struct s_intersection_params
 {
