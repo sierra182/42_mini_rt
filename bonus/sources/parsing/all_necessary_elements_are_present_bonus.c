@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   all_necessary_elements_are_present_bonus.c         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:44:37 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:44:38 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/27 14:47:58 by dansylvain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	all_necessary_elements_are_present(char *map_path)
 		return (0);
 	if (element_is_present(map_path, "C") != 1)
 		return (0);
-	if (element_is_present(map_path, "L") != 1)
+	if (element_is_present(map_path, "L") < 1)
 		return (0);
 	return (1);
 }
