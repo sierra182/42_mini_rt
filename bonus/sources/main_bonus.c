@@ -28,6 +28,8 @@ int	main(int argc, char **argv, char **envp)
 	t_mlx	mlx;
 	t_data	data;
 
+	if (WIDTH < 300 || WIDTH > 1900 || HEIGHT < 300 || HEIGHT > 1900)
+		return (display_error("resolution not valid\n"), 1);
 	if (argc != 2)
 		return (display_error("arg number not valid\n"), 1);
 	if (parse(argv[1]) == 0)
