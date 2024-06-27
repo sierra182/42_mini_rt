@@ -41,7 +41,7 @@ void	fill_struct_l(t_data *data, double tab[])
 	data->spotlights[i].color.rgb[1] = tab[5];
 	data->spotlights[i].color.rgb[2] = tab[6];
 	data->spotlights[i].bulb.color = data->spotlights[i].color;
-	data->spotlights[i].bulb.diameter = 0;
+	data->spotlights[i].bulb.diameter = 1;
 	data->spotlights[i].bulb.radius = data->spotlights[i].bulb.diameter * 0.5;
 	data->spotlights[i].bulb.square_radius = data->spotlights[i].bulb.radius
 		* data->spotlights[i].bulb.radius;
