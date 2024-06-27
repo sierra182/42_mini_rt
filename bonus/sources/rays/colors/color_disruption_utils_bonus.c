@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_disruption_utils_bonus.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:46:26 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:46:27 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/27 07:41:47 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	hex_to_int(const char *hex_string)
 	return ((int)strtol(hex_string + 1, NULL, 16));
 }
 
+/**========================================================================
+ *                            ASSIGN_RGB
+ *========================================================================**/
 void	assign_rgb(t_sphere *sphere, t_color *color, double value)
 {
 	int	rgb_value;
