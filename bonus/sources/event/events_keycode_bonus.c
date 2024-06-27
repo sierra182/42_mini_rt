@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   events_keycode_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 15:32:02 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 15:33:02 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "events_keycode_bonus.h"
 
 /**========================================================================
@@ -22,6 +34,9 @@ void	cam_event_rotate(int keycode, t_cam *cam)
 		rotate_cam(cam, -r, (int []){0, 0, 1});
 }
 
+/**========================================================================
+ *                           EVENT_ROTATE_SPHERE
+ *========================================================================**/
 void	event_rotate_sphere(t_data *data, int keycode, t_matrix_vector *vector)
 {
 	if (keycode == R_LFT)
@@ -35,7 +50,7 @@ void	event_rotate_sphere(t_data *data, int keycode, t_matrix_vector *vector)
 }
 
 /**========================================================================
- *                           EVENT_ROTATE
+ *                             EVENT_ROTATE
  *========================================================================**/
 void	event_rotate(t_data *data, int keycode, t_matrix_vector *vector)
 {

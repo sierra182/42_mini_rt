@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   x_linear_algebra.h                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 12:56:28 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 12:56:29 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef X_LINEAR_ALGEBRA_H
 # define X_LINEAR_ALGEBRA_H
+
 # include "se_mini_struct.h"
 
 void	self_normalize_vector(double vector[]);

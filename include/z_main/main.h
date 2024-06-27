@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 12:54:53 by svidot            #+#    #+#             */
+/*   Updated: 2024/06/26 13:49:05 by svidot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MAIN_H
 # define MAIN_H
 
 # include <stdlib.h>
-# include "libft.h"
 # include "mlx.h"
+# include "libft.h"
 # include "se_mini_struct.h"
 
 int		init_data(char *map_path, t_data *data);
