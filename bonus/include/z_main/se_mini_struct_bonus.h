@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   se_mini_struct_bonus.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 13:40:22 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/27 06:59:56 by seblin           ###   ########.fr       */
+/*   Updated: 2024/06/27 14:22:02 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SE_MINI_STRUCT_BONUS_H
 # define SE_MINI_STRUCT_BONUS_H
 
-# define WIDTH 819
-# define HEIGHT 611
+# define WIDTH 811
+# define HEIGHT 619
 # define AXIS 3
 # define MTX 4
 # define BIG_VALUE 100000000

@@ -6,7 +6,7 @@
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:46:55 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:46:56 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/27 14:34:18 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void	get_cylinder_color_discs(t_get_color_params *params)
  *                           HANDLE_NORMAL_SYMMETRIZATION
  *========================================================================**/
 static void	handle_normal_symmetrization(t_get_color_params *params,
-	t_ray_vector
-*normal, t_ray *light_ray)
+	t_ray_vector *normal, t_ray *light_ray)
 {
 	double		light_dot_normal;
 	t_cylinder	*cyl;
