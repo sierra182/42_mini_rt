@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:44:57 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/28 10:19:32 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/06/28 10:26:16 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,11 @@ int	check_data(char *token, char *check)
 	len_max = ft_atoi(num[0]);
 	i = 1;
 	if (check_data_nbrs(token, num, &i) == 0)
-	{
-		printf("check_data_nbrs\n");
 		return (free_tab(num), 0);
-	}
 	if (len_max != 10 && i != len_max + 1)
-	{
-		printf("i: %i, len_max + 2: %i\n", i, len_max + 2);
 		return (free_tab(num), 0);
-	}
-	if (len_max == 10 && i != len_max + 1 && i != len_max)
-	{
-		printf("2eme i: %i, len_max + 2: %i\n", i, len_max + 2);
+	if (len_max == 10 && i != len_max + 1 && i != len_max )
 		return (free_tab(num), 0);
-	}
 	free_tab(num);
 	return (1);
 }
