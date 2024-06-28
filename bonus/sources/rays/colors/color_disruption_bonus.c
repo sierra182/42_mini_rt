@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:45:37 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/28 07:30:32 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:12:52 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	modif_uv(t_get_color_params *params, t_ray_pack *light_ray,
 		return ;
 	apply_bump_mapping(normal, u, v,
 		params);
+	(void)light_ray;
 }
 
 /**========================================================================

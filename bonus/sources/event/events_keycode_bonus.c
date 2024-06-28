@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_keycode_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:32:02 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:33:02 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 15:13:43 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	event_rotate_sphere(t_data *data, int keycode, t_matrix_vector *vector)
 		((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_y += 1;
 	else if (keycode == R_DWN)
 		((t_sphere *)data->event.actual_mesh.ref)->rotation_angle_y -= 1;
+	(void)vector;
 }
 
 /**========================================================================
@@ -69,6 +70,7 @@ void	event_rotate(t_data *data, int keycode, t_matrix_vector *vector)
 		rotate_mesh(vector, r, (int []){0, 0, 1});
 	else if (keycode == S_RGHT)
 		rotate_mesh(vector, -r, (int []){0, 0, 1});
+	(void)data;
 }
 
 /**========================================================================

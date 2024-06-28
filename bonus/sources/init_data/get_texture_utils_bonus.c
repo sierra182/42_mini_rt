@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:37:59 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/28 07:20:04 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:12:27 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ unsigned char	int_to_grayscale(unsigned int hex_value)
 void	free_tab_bump(char **tab)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (tab[i])

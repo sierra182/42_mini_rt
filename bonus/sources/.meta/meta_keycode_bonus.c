@@ -19,8 +19,8 @@ void	newton_move_spheres(t_data *data);
  *========================================================================**/
 void	meta_keycode(int keycode, t_data *data, t_mlx *mlx)
 {
-	int	i;
-	static int	j = 0;
+	// int	i;
+	// static int	j = 0;
 
 	if (keycode == MAKE_RT_FILE)
 		make_rt_file(data);

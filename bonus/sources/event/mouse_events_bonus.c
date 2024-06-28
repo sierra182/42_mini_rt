@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_events_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:33:27 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:33:28 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 15:14:15 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	mouse_event(int button, int x, int y, void *param)
 /**========================================================================
  *                           MOUSE_RELEASE
  *========================================================================**/
-int	mouse_release(int button, int x, int y, void *param)
+int	mouse_release(void *param)
 {
 	t_data	*data;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_store_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:33:36 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:33:37 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 15:11:58 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	free_paths(t_data *data)
 {
 	int	i;
 	int	j;
-	int	k;
 
 	i = 0;
 	while (i < 10)

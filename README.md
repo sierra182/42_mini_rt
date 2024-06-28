@@ -60,7 +60,7 @@ C -50,0,20 0,0,0 70
 - **C** specifies a camera.
 - The first three numbers are the position (x,y,z).
 - The next three numbers are the orientation (normalized vector).
-- The last number is the field of view in degrees.
+- The last number is the field of view in degrees (0 - 180).
 
 **Light:**
 ```bash
@@ -104,17 +104,18 @@ cy 50,0,20 0,0,1 14 50 255,255,0
 
 **Triangle** (bonus part):
 ```bash
-tr -40,50,0 10,30,20 60,30,80 255,255,255
+tr -40,50,0 10,30,20 60,30,80 255,255,255 0.5
 ```
 - **tr** specifies a triangle.
 - The first three groups of three numbers are the vertices (x,y,z) of the triangle.
 - The last three numbers are the RGB color.
+- The last numbre is the reflexion (range 0.0 to 1.0).
 
 > [!WARNING]
-> For bonus section, ensure to include a value between 0 and 1 for the reflection coefficient. Here is an example of the correct formatting:
+> For bonus section, ensure to include a value between 0 and 1 for the reflection coefficient. Here is an example of the correct formatting!
 
 > [!NOTE]
-> You can add the keyword "checkerboard" OR the path to a texture file at the end of the sphere definition for bonus special effects. To create a valid .rt file for miniRT, follow this format: `path_to_texture.xpm`, the path should point to a valid .xpm file.
+> You can add the keyword `checkerboard` OR the path to a texture file at the end of the sphere definition for bonus special effects. To create a valid .rt file for miniRT, follow this format: `path_to_texture.xpm`, the path should point to a valid .xpm file.
 
 
 ## Adjustable Settings

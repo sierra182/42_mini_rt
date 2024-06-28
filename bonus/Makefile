@@ -45,7 +45,7 @@ CFLAGS = \
 	-O3 \
 	-pthread \
 	-g \
-	# -Wall -Wextra -Werror
+	-Wall -Wextra -Werror
 
 SOURCES = \
 	$(SRC_DIR)/.meta/create_video_image_bonus.c \
