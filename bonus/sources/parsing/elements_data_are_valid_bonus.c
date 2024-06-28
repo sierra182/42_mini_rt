@@ -6,12 +6,12 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:44:57 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/28 10:26:16 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/06/28 10:32:53 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "elements_data_are_valid_bonus.h"
-	#include <stdio.h>
+
 /**========================================================================
  *                           ELEMENTS_DATA_ARE_VALID
  *========================================================================**/
@@ -94,7 +94,7 @@ int	check_data(char *token, char *check)
 		return (free_tab(num), 0);
 	if (len_max != 10 && i != len_max + 1)
 		return (free_tab(num), 0);
-	if (len_max == 10 && i != len_max + 1 && i != len_max )
+	if (len_max == 10 && i != len_max + 1 && i != len_max)
 		return (free_tab(num), 0);
 	free_tab(num);
 	return (1);
