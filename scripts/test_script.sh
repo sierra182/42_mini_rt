@@ -10,7 +10,7 @@ fi
 
 for ((i=0; i<total_files; i++)); do
     rt_file="tests/rt_files/file_$i.rt"
-    ref_bin_file="tests/bin_files/file_$i.bin"
+    ref_bin_file="../../goinfre/miniRT_test_files/mandatory/file_$i.bin"
     ./miniRT "$rt_file" &
     sleep 0.5
     while [ ! -f "file_0.bin" ]; do
@@ -26,4 +26,4 @@ for ((i=0; i<total_files; i++)); do
 	sleep 0.5
     pkill miniRT
 done
-exit $exit_code
+exit $exit_code 
