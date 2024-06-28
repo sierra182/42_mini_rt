@@ -3,7 +3,7 @@ from PIL import Image
 import numpy as np
 
 # Paramètres d'entrée
-input_directory = 'videos/bin_files'  # Remplacez par le chemin de votre dossier
+input_directory = '../../../goinfre/bonus'  # Remplacez par le chemin de votre dossier
 output_directory = 'videos/jpg_files'  # Remplacez par le chemin de votre dossier de sortie
 width = 1600  # largeur de l'image
 height = 1200  # hauteur de l'image
