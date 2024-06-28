@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:44:45 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/28 07:23:53 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/06/28 07:37:55 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	typ_check_bt(char *str, t_num_type num)
 
 /**========================================================================
  *                           CHCK_FL
- * validity of floats check based on strlen: must be < 10
- *? Should I use overflow? 
  *========================================================================**/
 int	chck_fl(char *str, t_num_type num)
 {
