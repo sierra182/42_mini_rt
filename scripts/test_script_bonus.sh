@@ -1,17 +1,17 @@
 #!/bin/bash
 
 export AUTOMATED_TEST=true
-total_files=$(ls tests/rt_files_bonus/*.rt 2>/dev/null | wc -l)
+total_files=$(ls sebonustest/*.rt 2>/dev/null | wc -l)
 if [ "$total_files" -eq 0 ]; then
-    echo "Aucun fichier .rt trouvé dans le répertoire tests/rt_files."
+    echo "Aucun fichier .rt trouvé dans le répertoire sebonustest."
     exit_code=0
 	exit 1
 fi
 
 for ((i=0; i<total_files; i++)); do
-    rt_file="tests/rt_files_bonus/file_$i.rt"
-    ref_bin_file="tests/bin_files/file_$i.bin"
-    ./bonus/miniRT_bonus "$rt_file" &
+    rt_file="sebonustest/file_$i.rt"
+    ref_bin_file="../../../goinfre/miniRT_test_files/bonus/file_$i.bin"
+    ./miniRT_bonus "$rt_file" &
     sleep 0.5
     while [ ! -f "file_0.bin" ]; do
         sleep 0.5
@@ -24,6 +24,6 @@ for ((i=0; i<total_files; i++)); do
     fi
     rm "file_0.bin"
 	sleep 0.5
-    pkill miniRT
+    pkill miniRT_bonus
 done
 exit $exit_code
