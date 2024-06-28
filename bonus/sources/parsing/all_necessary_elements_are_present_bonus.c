@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   all_necessary_elements_are_present_bonus.c         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:44:37 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/27 14:47:58 by dansylvain       ###   ########.fr       */
+/*   Updated: 2024/06/28 07:23:49 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

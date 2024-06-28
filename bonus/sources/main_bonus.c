@@ -13,14 +13,6 @@
 #include "main_bonus.h"
 
 /**========================================================================
- *                             COMMENTS
- *! taille maximal input file = 1024 chars. peut etre modifie...
- *! element count commented out (see parsing)
- *! parsing error : element not taken into account when line starts with ' '  
- *! 2 lines commented in parsing to be taken out!  
- *========================================================================**/
-
-/**========================================================================
  *                           MAIN
  *========================================================================**/
 int	main(int argc, char **argv, char **envp)
