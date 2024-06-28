@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_events_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:33:27 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/28 15:14:15 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:54:35 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	mouse_event(int button, int x, int y, void *param)
 /**========================================================================
  *                           MOUSE_RELEASE
  *========================================================================**/
-int	mouse_release(void *param)
+int	mouse_release(int button, int x, int y, void *param)
 {
 	t_data	*data;
 
@@ -68,7 +68,7 @@ int	mouse_release(void *param)
 		data->refresh = 1;
 		data->event.actual_light->bulb.color = data->event.bulb_color_sav;
 	}
-	return (0);
+	return ((void) button, (void) x, (void) y, 0);
 }
 
 /**========================================================================
