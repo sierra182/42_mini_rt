@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_sphere_color_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:47:15 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:47:16 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 20:39:49 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ static void	add_sph_spotlights_effect(t_get_color_params *params,
 	t_ray_vector *normal, t_color *spotlighties_color, t_ray_pack *light_ray)
 {
 	t_color		spotlighty_color;
-	t_sphere	*sphere;
 	int			i;
 
-	sphere = (t_sphere *) params->mesh->ref;
 	*spotlighties_color = (t_color){.rgb[0] = 0, .rgb[1] = 0, .rgb[2] = 0};
 	i = -1;
 	while (++i < params->data->sl_nbr)
