@@ -130,8 +130,8 @@ These settings allow for fine-tuning of the rendering and effects in miniRT. Ens
 **Object Mode:** Select and move objects, modify their dimensions (use arrows and + / - key).
 **Light Mode:** Move light sources and adjust their intensity (use arrows and + / - key).
 **Camera Mode:** Adjust the camera position and view.
-**Current Mode Indicator:** Displayed in the top right corner to show the active mode.
 
+**Current Mode Indicator:** Displayed in the top right corner to show the active mode.
  ## Examples
 Here are some example images rendered using miniRT:
 
