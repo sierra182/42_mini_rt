@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bump_mapping_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:45:30 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:45:31 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:26:48 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /**========================================================================
  *                           apply_bump_mapping
- * change scale value for texturization "intensity"
  *========================================================================**/
 void	apply_bump_mapping(t_ray_vector *normal, double u, double v,
 	t_get_color_params *params)

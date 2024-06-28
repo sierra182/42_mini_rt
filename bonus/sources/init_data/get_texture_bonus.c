@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_texture_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:36:18 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:36:19 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:17:51 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,7 @@ int	get_char_pp_value(const char *str, int char_pp)
 }
 
 /**========================================================================
- *                           EXTRACT_TEXTURE_VALUES
- *? the logic should be modified HERE to handle the cases where their are
-*? more than 1 char to define a color... 
+ *                           EXTRACT_TEXTURE_VALUES 
 *========================================================================**/
 void	extract_texture_values(int shades_nbr, int char_pp, int fd,
 	int int_tab[][2])

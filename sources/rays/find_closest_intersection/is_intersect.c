@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   is_intersect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 14:04:48 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 14:04:49 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:41:32 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "is_intersect.h"
 
-/**========================================================================
- *                             IS_INTERSECT
- *  How to solve the cylinder/discs display order problem?
- *  => refactor and treat discs just as another type of objects, just as
- *  spheres, planes and cylinders, so that they are treated independantly.
- *========================================================================**/
 /**========================================================================
  *                           IS_INTERSECT_SPHERE
  *========================================================================**/

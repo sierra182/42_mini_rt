@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_content_is_correct_bonus.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:45:09 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:45:10 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:24:41 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /**========================================================================
  *                           FILE_CONTENT_IS_CORRECT
- *! uncomment to activate element count 
  *========================================================================**/
 int	file_content_is_correct(char *map_path)
 {

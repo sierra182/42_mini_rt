@@ -3,23 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   se_mini_struct_bonus.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 13:40:22 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/27 14:22:02 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:30:05 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/**========================================================================
+ *                             SETTINGS
+ * change BUMP_SCALE value for texturization "intensity"
+ * modify WIDTH and/or Height resolution
+ * other values should better be let untouched...
+ *========================================================================**/
 #ifndef SE_MINI_STRUCT_BONUS_H
 # define SE_MINI_STRUCT_BONUS_H
 
-# define WIDTH 811
-# define HEIGHT 619
+# define BUMP_SCALE 0.001
+# define WIDTH 800
+# define HEIGHT 600
 # define AXIS 3
 # define MTX 4
 # define BIG_VALUE 100000000
 # define XPM_SIZE 7000
-# define BUMP_SCALE 0.001
 
 # include <stdio.h>
 # include "se_color_image_bonus.h"

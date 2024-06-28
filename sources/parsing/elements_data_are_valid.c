@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements_data_are_valid.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 14:01:48 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 14:07:50 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:40:13 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int	data_str_is_valid(char *str)
 
 /**========================================================================
  *                           CHECK_DATA
- *? added 	if (i > len_max + 2) return (0); to check arument nbr
- *? len_max => number of nbrs(double, int) in the string
  *========================================================================**/
 int	check_data(char *token, char *check)
 {

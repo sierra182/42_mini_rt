@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   all_necessary_elements_are_present.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 14:00:49 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 14:00:50 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:39:50 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements_data_are_valid_utils_bonus.c              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:45:02 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:45:03 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:24:33 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

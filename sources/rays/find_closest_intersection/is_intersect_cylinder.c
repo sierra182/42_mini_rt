@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_intersect_cylinder.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 14:04:32 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 14:04:33 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:41:17 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 /**========================================================================
  *                           IS_INTERSECT_CYLINDER
- * vars t & proj where declared as arrays of size 2 for norminette compliance
- * 
  *========================================================================**/
 double	is_intersect_cylinder(t_ray *ray, void *input_cyl, t_ray_vector *tt)
 {

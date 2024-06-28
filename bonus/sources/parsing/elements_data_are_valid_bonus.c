@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements_data_are_valid_bonus.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:44:57 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:44:58 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/28 07:24:18 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int	data_str_is_valid(char *str)
 
 /**========================================================================
  *                           CHECK_DATA
- *? added 	if (i > len_max + 2) return (0); to check arument nbr
- *? len_max => number of nbrs(double, int) in the string
  *========================================================================**/
 int	check_data(char *token, char *check)
 {
@@ -100,7 +98,6 @@ int	check_data(char *token, char *check)
 
 /**========================================================================
  *                           IS_VALID_XPM
- * ! file verification to be added with "open"
  *========================================================================**/
 int	is_valid_xpm(char *str)
 {
