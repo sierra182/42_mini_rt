@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_light_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: seblin <seblin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:31:52 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 15:31:53 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/29 19:02:37 by seblin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ void	actual_light_handle(t_data *data, int store_color,
 		data->event.bulb_color_sav = *color ;
 		i = -1;
 		while (++i < AXIS)
+		{
+			if (color->rgb[i] >= 120 && color->rgb[i] <= 130)
+				color->rgb[i] -= 100;
 			color->rgb[i] = 255 - color->rgb[i];
+		}
 	}
 	else if (data->event.actual_light)
 		*origin_vect = &data->event.actual_light->origin_vect;
