@@ -12,12 +12,13 @@ miniRT is a simple ray tracer written in C. It supports basic geometric primitiv
 - Support for various materials (diffuse, specular, reflective).
 - Implement basic lighting effects (ambient, point lights).
 - Simple user interface for interacting with the scene.
-- **Bonus Features:**
-  - Advanced scene manipulation with object selection and movement.
-  - Adjustable object dimensions.
-  - Movable light sources with intensity adjustments (spot lights and ambient light).
-  - A legend accessible by clicking on the "miniRT" symbol in the top left corner.
-  - Current mode indicator (object mode / light mode / camera mode) in the top right corner.
+
+**Bonus Features:**
+- Advanced scene manipulation with object selection and movement.
+- Adjustable object dimensions.
+- Movable light sources with intensity adjustments (spot lights and ambient light).
+- A legend accessible by clicking on the "miniRT" symbol in the top left corner.
+- Current mode indicator (object mode / light mode / camera mode) in the top right corner.
 
 
 ## How to Use
@@ -25,22 +26,30 @@ miniRT is a simple ray tracer written in C. It supports basic geometric primitiv
 To compile and run miniRT, follow these steps:
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/miniRT.git
-   ```
+```bash
+git clone https://github.com/your-username/miniRT.git
+```
 2. Navigate to the project directory:
 ```bash
 cd miniRT
 ```
-3. Compile the program:
+3. Compile the standard version:
 ```bash
 make
 ```
-4. Run the program with a scene file:
+4. Run the standard version with a scene file:
 ```bash
-./miniRT scene.rt
+./miniRT scenes/mandatory/scene.rt
 ```
-5. Explore the rendered scene!
+5. Compile the bonus version:
+```bash
+./make bonus
+```
+6. Run the bonus version with a scene file from the bonus directory:
+```bash
+./minirt_bonus scenes/bonus/scene.rt
+```
+7. Explore the rendered scene!
 
 ## Scene File Format (.rt)
 To create a valid .rt file for miniRT, follow this format:
@@ -133,7 +142,7 @@ These settings allow for fine-tuning of the rendering and effects in miniRT. Ens
 **Camera Mode:** Adjust the camera position and view.
 
 **Current Mode Indicator:** Displayed in the top right corner to show the active mode.
- ## Examples
+## Examples
 Here are some example images rendered using miniRT:
 
 <p align="center">
