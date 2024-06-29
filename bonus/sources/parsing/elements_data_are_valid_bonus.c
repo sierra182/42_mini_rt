@@ -53,21 +53,21 @@ int	data_str_is_valid(char *str)
 	char	*data_str;
 
 	token = ft_strtok(str, ", \t");
-	if (!ft_strcmp(token, "A"))
+	if (token && !ft_strcmp(token, "A"))
 		data_str = "5,ltr,byt,byt,byt";
-	else if (!ft_strcmp(token, "C"))
+	else if (token && !ft_strcmp(token, "C"))
 		data_str = "8,fl,fl,fl,vecr,vecr,vecr,fov";
-	else if (!ft_strcmp(token, "L"))
+	else if (token && !ft_strcmp(token, "L"))
 		data_str = "8,fl,fl,fl,ltr,byt,byt,byt";
-	else if (!ft_strcmp(token, "sp"))
+	else if (token && !ft_strcmp(token, "sp"))
 		data_str = "10,fl,fl,fl,ufl,byt,byt,byt,ltr,check";
-	else if (!ft_strcmp(token, "pl"))
+	else if (token && !ft_strcmp(token, "pl"))
 		data_str = "11,fl,fl,fl,vecr,vecr,vecr,byt,byt,byt,ltr";
-	else if (!ft_strcmp(token, "cy"))
+	else if (token && !ft_strcmp(token, "cy"))
 		data_str = "13,fl,fl,fl,vecr,vecr,vecr,ufl,ufl,byt,byt,byt,ltr";
-	else if (!ft_strcmp(token, "tr"))
+	else if (token && !ft_strcmp(token, "tr"))
 		data_str = "14,fl,fl,fl,fl,fl,fl,fl,fl,fl,byt,byt,byt,ltr";
-	else if (!ft_strncmp(token, "#", 1))
+	else if (token && !ft_strncmp(token, "#", 1))
 		return (1);
 	else
 		return (0);
