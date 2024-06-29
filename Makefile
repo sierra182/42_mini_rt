@@ -191,9 +191,9 @@ $(NAME) : $(OBJECTS)
 	@echo -n "\033[?25l"
 	@$(MAKE) -s backline
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b compiled            ✅\033[0m"	
-	@sleep 1
+	@sleep .2
 	@echo "\033[0;36m linking...          🚀 "
-	@sleep 1
+	@sleep .2
 	@$(MAKE) -s backline
 	@$(CC) $(OBJECTS) $(LDFLAGS) $(LIBFTPRINTF) -o $@
 	@echo "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b linked              ☑️\n\033[0m"
@@ -232,23 +232,23 @@ backline:
 intro:
 	@echo -e "\033[?25l"
 	clear
-	@sleep 1
+	@sleep .1
 	@echo -n " Wake"
-	@sleep .4
+	@sleep .1
 	@echo " up...\n"
 	@sleep .1
 	@echo -n " "
 	@letters="The Makefile has you..."; \
 	echo "\033[1;92m$$letters\033[0m" | awk '{split($$0, chars, ""); \
 	for (i = 1; i <= length($$0); i++) \
-	{printf "%s", chars[i]; system("sleep 0.2");}} \
-	system("sleep 1");'
+	{printf "%s", chars[i]; system("sleep 0.1");}} \
+	system("sleep .1");'
 	@echo "\n"
 	@words="\n\n\tFollow \n\t\tthe \t\b\b\033[0;96mColored! \
 	\n\n\t\t\b\b\b\b\b\b\033[1;95mUnicorne!\033[0m...🦄\n\n"; \
 	for j in $${words}; do \
 		echo -n "$$j"; \
-		sleep .4; \
+		sleep .5; \
 	done
 	@$(MAKE) -s backline	
 
