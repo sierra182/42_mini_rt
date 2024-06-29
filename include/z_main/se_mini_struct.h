@@ -6,15 +6,15 @@
 /*   By: svidot <svidot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 12:56:04 by svidot            #+#    #+#             */
-/*   Updated: 2024/06/26 12:56:05 by svidot           ###   ########.fr       */
+/*   Updated: 2024/06/29 16:31:21 by svidot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SE_MINI_STRUCT_H
 # define SE_MINI_STRUCT_H
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1200
+# define HEIGHT 900
 # define AXIS 3
 # define MTX 4 
 # define BIG_VALUE 100000000
